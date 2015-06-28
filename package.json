@@ -1,0 +1,33 @@
+{
+  "name": "nicest",
+  "version": "0.0.1",
+  "description": "nicely integrating complex education software together",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint .",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristianMurphy/nicest.git"
+  },
+  "keywords": [
+    "education"
+  ],
+  "author": "Christian Murphy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChristianMurphy/nicest/issues"
+  },
+  "homepage": "https://github.com/ChristianMurphy/nicest#readme",
+  "dependencies": {
+    "boom": "2.8.0",
+    "hapi": "8.6.1",
+    "joi": "6.5.0",
+    "lout": "6.2.2",
+    "yargs": "3.13.0"
+  },
+  "devDependencies": {
+    "eslint": "0.24.0"
+  }
+}
