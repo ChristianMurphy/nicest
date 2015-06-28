@@ -25,6 +25,7 @@
     "hapi": "8.6.1",
     "joi": "6.5.0",
     "lout": "6.2.2",
+    "mongoose": "4.0.6",
     "yargs": "3.13.0"
   },
   "devDependencies": {
