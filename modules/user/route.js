@@ -15,11 +15,11 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/user/{userid}',
+        path: '/user',
         handler: handler.create,
         config: {
             description: 'Create a new user',
-            notes: 'Will respond with HTTP 201 for success',
+            notes: 'Will respond with HTTP 201 for success and return the new user object',
             tags: ['create']
         }
     },

@@ -2,21 +2,21 @@
 
 const boom = require('boom');
 const mongoose = require('mongoose');
+const _ = require('lodash');
 const schema = require('./schema');
 
 // create user model from schema
 const User = mongoose.model('User', schema);
 
-mongoose.connect('mongodb://localhost/nicest');
-
 module.exports = {
     create: function (request, reply) {
-        const newUser = new User(JSON.parse(request.payload));
+        const newUser = new User(request.payload);
+
         newUser.save(function (err) {
             if (err) {
                 reply(boom.badRequest('invalid user'));
             } else {
-                reply('created').code(201);
+                reply(newUser).code(201);
             }
         });
     },
@@ -41,11 +41,11 @@ module.exports = {
             request.payload,
             function (err, updateUser) {
                 if (err) {
-                    reply(boom.notFound('not found'));
+                    reply(boom.badRequest('user does not exist'));
                 } else {
                     reply(updateUser);
                 }
-            })
+            });
     },
     delete: function (request, reply) {
         User
@@ -54,10 +54,9 @@ module.exports = {
             },
             function (err) {
                 if (err) {
-                    reply(boom.notFound('not found'));
-                } else {
-                    reply().code(204);
+                    return reply().code(204);
                 }
+                reply().code(204);
             });
     },
     list: function (request, reply) {
@@ -68,7 +67,7 @@ module.exports = {
                 if (err) {
                     reply(boom.notFound('not found'));
                 } else {
-                    reply(userids);
+                    reply(_.pluck(userids, '_id'));
                 }
             });
     }

@@ -2,10 +2,14 @@
   "name": "nicest",
   "version": "0.0.1",
   "description": "nicely integrating complex education software together",
-  "main": "index.js",
+  "main": "lib/server.js",
+  "bin": {
+    "nicest": "bin/cli.js"
+  },
   "scripts": {
-    "test": "eslint .",
-    "start": "node app"
+    "pretest": "eslint .",
+    "test": "mocha",
+    "start": "node bin/cli"
   },
   "repository": {
     "type": "git",
@@ -24,11 +28,14 @@
     "boom": "2.8.0",
     "hapi": "8.6.1",
     "joi": "6.5.0",
+    "lodash": "3.9.3",
     "lout": "6.2.2",
     "mongoose": "4.0.6",
     "yargs": "3.13.0"
   },
   "devDependencies": {
-    "eslint": "0.24.0"
+    "chai": "3.0.0",
+    "eslint": "0.24.0",
+    "mocha": "2.2.5"
   }
 }
