@@ -1,7 +1,14 @@
-/* eslint-env mocha */
 /* eslint max-nested-callbacks: 0 */
 'use strict';
-const expect = require('chai').expect;
+const Code = require('code');
+const Lab = require('lab');
+const lab = exports.lab = Lab.script();
+
+const describe = lab.describe;
+const it = lab.it;
+const before = lab.before;
+const expect = Code.expect;
+
 const mongoose = require('mongoose');
 const server = require('../../lib/server')('test');
 
@@ -9,7 +16,7 @@ describe('User', function () {
     /**
      * Clear all users before running each test
      */
-    beforeEach(function (done) {
+    before(function (done) {
         const User = mongoose.models.User;
 
         User.remove({}, function (err) {
@@ -30,7 +37,7 @@ describe('User', function () {
 
             server.inject(request, function (response) {
                 expect(response.statusCode).to.equal(200);
-                expect(response.result).to.be.an.instanceof(Array);
+                expect(response.result).to.be.an.array();
                 expect(response.result).to.have.length(0);
                 done();
             });
@@ -52,11 +59,8 @@ describe('User', function () {
 
             server.inject(request, function (response) {
                 expect(response.statusCode).to.equal(201);
-                expect(response.result).to.be.an.instanceof(Object);
-                expect(response.result).to.have.property('username');
-                expect(response.result.username).to.be.a('string');
-                expect(response.result).to.have.property('modules');
-                expect(response.result.modules).to.be.a('object');
+                expect(response.result.username).to.be.string();
+                expect(response.result.modules).to.be.an.object();
                 done();
             });
         });
