@@ -8,7 +8,3 @@ nicely integrating complex education software together
 
 ## Start app
 1. Run `nicest`
-
-## API Documentation
-1. Start app
-2. Follow `Documentation` link printed on app startup
