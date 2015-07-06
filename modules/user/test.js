@@ -7,16 +7,18 @@ const lab = exports.lab = Lab.script();
 const describe = lab.describe;
 const it = lab.it;
 const before = lab.before;
+const after = lab.after;
 const expect = Code.expect;
 
 const mongoose = require('mongoose');
-const server = require('../../lib/server')('test');
+let server;
 
 describe('User', function () {
     /**
-     * Clear all users before running each test
+     * Clear all users before running tests
      */
     before(function (done) {
+        server = require('../../lib/server')('test');
         const User = mongoose.models.User;
 
         User.remove({}, function (err) {
@@ -24,6 +26,15 @@ describe('User', function () {
                 console.log(err);
                 return done(err);
             }
+            return done();
+        });
+    });
+
+    /**
+     * Disconnect from database after tests
+     */
+    after(function (done) {
+        mongoose.disconnect(function () {
             return done();
         });
     });
@@ -50,7 +61,7 @@ describe('User', function () {
                 method: 'POST',
                 url: '/user',
                 payload: {
-                    username: 'test user',
+                    name: 'test user',
                     modules: {
                         testModule: 'testing123'
                     }
@@ -59,14 +70,14 @@ describe('User', function () {
 
             server.inject(request, function (response) {
                 expect(response.statusCode).to.equal(201);
-                expect(response.result.username).to.be.string();
+                expect(response.result.name).to.be.string();
                 expect(response.result.modules).to.be.an.object();
                 done();
             });
         });
     });
 
-    describe('#get(request, reply)', function () {
+    describe('#read(request, reply)', function () {
         it('should error when user does not exist', function (done) {
             const request = {
                 method: 'GET',
@@ -80,7 +91,7 @@ describe('User', function () {
         });
     });
 
-    describe('#put(request, reply)', function () {
+    describe('#update(request, reply)', function () {
         it('should error when user does not exist', function (done) {
             const request = {
                 method: 'PUT',
