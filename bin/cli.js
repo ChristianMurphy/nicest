@@ -16,11 +16,11 @@ const argv = require('yargs')
     })
     .help('help')
     .alias('h', 'help')
-    .version(require('./package.json').version)
+    .version(require('../package.json').version)
     .alias('v', 'version')
     .argv;
 
-const server = require('./server')(argv);
+const server = require('../lib/server')(argv);
 
 server.start(function () {
     console.log('Server running at:', server.info.uri);

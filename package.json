@@ -26,16 +26,16 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "boom": "2.8.0",
-    "hapi": "8.6.1",
+    "hapi": "8.8.0",
     "joi": "6.5.0",
-    "lodash": "3.9.3",
-    "lout": "6.2.2",
+    "lodash": "3.10.0",
+    "lout": "6.2.3",
     "mongoose": "4.0.6",
-    "yargs": "3.14.0"
+    "yargs": "3.15.0"
   },
   "devDependencies": {
     "code": "1.4.1",
     "eslint": "0.24.0",
-    "lab": "5.11.1"
+    "lab": "5.13.0"
   }
 }
