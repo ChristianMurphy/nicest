@@ -1,7 +1,6 @@
 # nicest
 
 [![Build Status](https://travis-ci.org/ChristianMurphy/nicest.svg)](https://travis-ci.org/ChristianMurphy/nicest)
-[![Code Climate](https://codeclimate.com/github/ChristianMurphy/nicest/badges/gpa.svg)](https://codeclimate.com/github/ChristianMurphy/nicest)
 [![Dependency Status](https://david-dm.org/ChristianMurphy/nicest.svg)](https://david-dm.org/ChristianMurphy/nicest)
 [![devDependency Status](https://david-dm.org/ChristianMurphy/nicest/dev-status.svg)](https://david-dm.org/ChristianMurphy/nicest#info=devDependencies)
 
