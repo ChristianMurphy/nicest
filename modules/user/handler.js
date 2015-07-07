@@ -23,7 +23,7 @@ module.exports = {
     read: function (request, reply) {
         User
             .findOne({
-                _id: request.params.userid
+                _id: request.params.id
             })
             .exec(function (err, user) {
                 if (err) {
@@ -36,7 +36,7 @@ module.exports = {
     update: function (request, reply) {
         User
             .findOneAndUpdate({
-                _id: request.params.userid
+                _id: request.params.id
             },
             request.payload,
             function (err, updateUser) {
@@ -50,7 +50,7 @@ module.exports = {
     delete: function (request, reply) {
         User
             .remove({
-                _id: request.params.userid
+                _id: request.params.id
             },
             function (err) {
                 if (err) {

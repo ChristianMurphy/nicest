@@ -3,7 +3,7 @@
 
 // Get options from terminal
 const argv = require('yargs')
-    .usage('node app [options]')
+    .usage('nicest [options]')
     .option('p', {
         alias: 'port',
         default: 3000,
