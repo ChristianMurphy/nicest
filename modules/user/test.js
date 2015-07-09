@@ -81,7 +81,7 @@ describe('User', function () {
         it('should error when user does not exist', function (done) {
             const request = {
                 method: 'GET',
-                url: '/user/42'
+                url: '/user/000000000000000000000000'
             };
 
             server.inject(request, function (response) {
@@ -95,7 +95,7 @@ describe('User', function () {
         it('should error when user does not exist', function (done) {
             const request = {
                 method: 'PUT',
-                url: '/user/42'
+                url: '/user/000000000000000000000000'
             };
 
             server.inject(request, function (response) {
@@ -109,7 +109,7 @@ describe('User', function () {
         it('should be okay when user does not exist', function (done) {
             const request = {
                 method: 'DELETE',
-                url: '/user/42'
+                url: '/user/000000000000000000000000'
             };
 
             server.inject(request, function (response) {

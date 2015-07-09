@@ -26,7 +26,7 @@ module.exports = {
                 _id: request.params.id
             })
             .exec(function (err, user) {
-                if (err) {
+                if (err || !user) {
                     reply(boom.notFound('not found'));
                 } else {
                     reply(user);
@@ -39,11 +39,11 @@ module.exports = {
                 _id: request.params.id
             },
             request.payload,
-            function (err, updateUser) {
-                if (err) {
+            function (err, updatedUser) {
+                if (err || !updatedUser) {
                     reply(boom.badRequest('user does not exist'));
                 } else {
-                    reply(updateUser);
+                    reply(updatedUser);
                 }
             });
     },

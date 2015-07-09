@@ -34,7 +34,7 @@ module.exports = [
             tags: ['read'],
             validate: {
                 params: {
-                    id: Joi.number().integer().positive()
+                    id: Joi.string().hex()
                 }
             }
         }
@@ -49,7 +49,7 @@ module.exports = [
             tags: ['update'],
             validate: {
                 params: {
-                    id: Joi.number().integer().positive()
+                    id: Joi.string().hex()
                 }
             }
         }
@@ -64,7 +64,7 @@ module.exports = [
             tags: ['delete'],
             validate: {
                 params: {
-                    id: Joi.number().integer().positive()
+                    id: Joi.string().hex()
                 }
             }
         }
