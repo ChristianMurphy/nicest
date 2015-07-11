@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "code": "1.4.1",
-    "eslint": "0.24.0",
+    "eslint": "0.24.1",
     "lab": "5.13.0"
   },
   "engines": {
