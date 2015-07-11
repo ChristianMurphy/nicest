@@ -20,24 +20,7 @@
 ### Test the Application
 1. Run `npm test`
 
-### API Documentation
-1. Start app
-2. Follow `Documentation` link printed on app startup
-
 ## Architecture
 ### Core
-Core is a Hapi application, that uses Mongoose to manage storage.
-It hosts the modules and recipes.
-
-### Core Modules
-The User, Project, Course and Team modules are the building block for other modules.
-Each of these offer a special `module` field in their Mongoose schema.
-Any module can write to its own property in the `module` field to store custom information.
-
-### Modules
-Modules server as connectors and abstractions to external services.
-Each module exposes a restful API, that recipes can interact with.
-
-### Recipes
-Recipes use the API's provided by modules to connect services together.
-For example a `generate random teams` recipe could read all the `User`s from a `Course` to create arbitrarily sized `Team`s.
+Core is a Hapi application.
+Hapi hosts the API's, recipes, assessments and documentation.

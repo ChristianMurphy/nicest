@@ -24,5 +24,4 @@ const server = require('../lib/server')(argv);
 
 server.start(function () {
     console.log('Server running at:', server.info.uri);
-    console.log('Documentation:', server.info.uri + '/docs');
 });

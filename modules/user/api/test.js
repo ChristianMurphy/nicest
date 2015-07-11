@@ -14,23 +14,27 @@ const mongoose = require('mongoose');
 let server;
 
 describe('User', function () {
-    /**
+    /*
      * Clear all users before running tests
      */
     before(function (done) {
-        server = require('../../lib/server')('test');
-        const User = mongoose.models.User;
+        server = require('../../../lib/server')('test');
 
-        User.remove({}, function (err) {
-            if (err) {
-                console.log(err);
-                return done(err);
-            }
-            return done();
-        });
+        mongoose.models.User
+            .find({})
+            .remove()
+            .exec()
+            .then(
+                function () {
+                    done();
+                },
+                function (error) {
+                    done(error);
+                }
+            );
     });
 
-    /**
+    /*
      * Disconnect from database after tests
      */
     after(function (done) {
@@ -43,7 +47,7 @@ describe('User', function () {
         it('should have an empty list of user ids', function (done) {
             const request = {
                 method: 'GET',
-                url: '/users'
+                url: '/api/users'
             };
 
             server.inject(request, function (response) {
@@ -59,7 +63,7 @@ describe('User', function () {
         it('should create a new user', function (done) {
             const request = {
                 method: 'POST',
-                url: '/user',
+                url: '/api/user',
                 payload: {
                     name: 'test user',
                     modules: {
@@ -81,7 +85,7 @@ describe('User', function () {
         it('should error when user does not exist', function (done) {
             const request = {
                 method: 'GET',
-                url: '/user/000000000000000000000000'
+                url: '/api/user/000000000000000000000000'
             };
 
             server.inject(request, function (response) {
@@ -95,11 +99,11 @@ describe('User', function () {
         it('should error when user does not exist', function (done) {
             const request = {
                 method: 'PUT',
-                url: '/user/000000000000000000000000'
+                url: '/api/user/000000000000000000000000'
             };
 
             server.inject(request, function (response) {
-                expect(response.statusCode).to.equal(400);
+                expect(response.statusCode).to.equal(404);
                 done();
             });
         });
@@ -109,7 +113,7 @@ describe('User', function () {
         it('should be okay when user does not exist', function (done) {
             const request = {
                 method: 'DELETE',
-                url: '/user/000000000000000000000000'
+                url: '/api/user/000000000000000000000000'
             };
 
             server.inject(request, function (response) {

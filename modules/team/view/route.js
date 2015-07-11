@@ -5,12 +5,12 @@ const handler = require('./handler');
 module.exports = [
     {
         method: 'GET',
-        path: '/teams',
+        path: '/recipe/manage-teams',
         handler: handler.list,
         config: {
-            description: 'Lists all teams',
-            notes: 'Returns {Array} of {String} with Team ids',
-            tags: ['list']
+            plugins: {
+                lout: false
+            }
         }
     }
 ];

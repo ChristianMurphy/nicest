@@ -4,6 +4,7 @@ env:
 
 rules:
     no-extra-parens: 2
+    valid-jsdoc: [2, {prefer: {return: "returns", method: "function", func: "function", arg: "param", argument: "param", prop: "property"}}]
     no-unexpected-multiline: 2
     complexity: [1, 10]
     dot-location: [2, "property"]

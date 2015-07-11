@@ -6,31 +6,31 @@ const Joi = require('joi');
 module.exports = [
     {
         method: 'GET',
-        path: '/users',
+        path: '/api/teams',
         handler: handler.list,
         config: {
-            description: 'List of all users',
-            notes: 'Returns {Array} of {String} with User\'s first and last name',
+            description: 'List of all teams',
+            notes: 'Returns {Array} of {String} with Team ids',
             tags: ['list']
         }
     },
     {
         method: 'POST',
-        path: '/user',
+        path: '/api/team',
         handler: handler.create,
         config: {
-            description: 'Create a new user',
-            notes: 'Will respond with HTTP 201 for success and return the new user object',
+            description: 'Create a new team',
+            notes: 'Will respond with HTTP 201 for success and return the new team object',
             tags: ['create']
         }
     },
     {
         method: 'GET',
-        path: '/user/{id}',
+        path: '/api/team/{id}',
         handler: handler.read,
         config: {
-            description: 'Get a single User\'s information',
-            notes: 'Returns {Object} with all user information',
+            description: 'Get a single Team\'s information',
+            notes: 'Returns {Object} with all team information',
             tags: ['read'],
             validate: {
                 params: {
@@ -41,11 +41,11 @@ module.exports = [
     },
     {
         method: 'PUT',
-        path: '/user/{id}',
+        path: '/api/team/{id}',
         handler: handler.update,
         config: {
-            description: 'Update a single User\'s information',
-            notes: 'Returns {Object} with all the updated user information',
+            description: 'Update a single Team\'s information',
+            notes: 'Returns {Object} with all the updated team information',
             tags: ['update'],
             validate: {
                 params: {
@@ -56,10 +56,10 @@ module.exports = [
     },
     {
         method: 'DELETE',
-        path: '/user/{id}',
+        path: '/api/team/{id}',
         handler: handler.delete,
         config: {
-            description: 'Delete a user',
+            description: 'Delete a team',
             notes: 'Return HTTP 204 for success',
             tags: ['delete'],
             validate: {

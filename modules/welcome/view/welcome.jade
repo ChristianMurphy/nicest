@@ -1,0 +1,54 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Welcome to Nicest
+
+block head
+    script(src='http://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.0.3/components/shape.min.js')
+
+block body
+    .ui.inverted.vertical.masthead.center.aligned.segment
+        br
+        br
+        h1.ui.inverted.header
+            .ui.shape
+                .sides
+                    .side Nicely
+                    .side Neatly
+                    .side Novelly
+                    .side Niftily
+                    .side Naturally
+            |  integrating complex education software together
+        br
+        br
+    .ui.equal.width.stackable.internally.celled.grid
+        .column
+            h3 Make Educational Software a Breeze
+            p
+                | Nicest leverages existing Learning Platforms.
+                br
+                | Don't reinvent the wheel.
+                br
+                | Make the wheel do what it was designed to do.
+        .column
+            h3.ui.header Recipes
+            p
+                | Recipes give a quick way to connect Learning Tools together.
+                ol
+                    li pick a recipe
+                    li set the options
+                    li click go 
+        .column
+            h3.ui.header Assessments
+            p
+                | Assessments can leverage data from across Learning Platforms.
+                br
+                | Giving students feedback on their progress.
+    script.
+        $('.shape').shape();
+        $('.shape').shape('flip up');
+        
+        setInterval(function () {
+            $('.shape').shape('flip up');
+        }, 10000);
