@@ -14,6 +14,10 @@ const argv = require('yargs')
         default: 'mongodb://localhost/nicest',
         describe: 'mongo database connection'
     })
+    .option('host', {
+        default: require('os').hostname,
+        describe: 'server hostname'
+    })
     .help('help')
     .alias('h', 'help')
     .version(require('../package.json').version)
