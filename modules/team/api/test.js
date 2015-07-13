@@ -39,7 +39,7 @@ describe('Team', function () {
      */
     after(function (done) {
         mongoose.disconnect(function () {
-            return done();
+            done();
         });
     });
 
