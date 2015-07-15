@@ -1,7 +1,16 @@
+/**
+ * @module User
+ */
 'use strict';
 
 const mongoose = require('mongoose');
 
+/**
+ * a User is a person.
+ * @typedef {Object} User
+ * @property {String} name - user's name.
+ * @property {Object} modules - area where external modules can register attributes.
+ */
 const schema = new mongoose.Schema({
     name: String,
     modules: mongoose.Schema.Types.Mixed
@@ -9,15 +18,12 @@ const schema = new mongoose.Schema({
 
 const User = mongoose.model('User', schema);
 
-/**
- * @module user/model
- */
 module.exports = {
     /**
      * Creates a new User
      * @function create
-     * @param {Object} user {name: string, modules: object}
-     * @returns {Promise} resolves to User object
+     * @param {User} user - new user
+     * @returns {Promise} resolves to {User}
      */
     create: function (user) {
         return User.create(user);
@@ -25,8 +31,8 @@ module.exports = {
     /**
      * Reads an existing user
      * @function read
-     * @param {String} id hex Mongoose id
-     * @returns {Promise} resolves to User object
+     * @param {String} id - hex Mongoose id
+     * @returns {Promise} resolves to {User}
      */
     read: function (id) {
         return User
@@ -37,10 +43,10 @@ module.exports = {
     },
     /**
      * Updates an existing user
-     * @param {String} id hex Mongoose id
      * @function update
-     * @param {Object} properties new or different properties to be set
-     * @returns {Promise} resolves to updated User object
+     * @param {String} id - hex Mongoose id
+     * @param {User} properties - new or different properties to be set
+     * @returns {Promise} resolves to updated {User}
      */
     update: function (id, properties) {
         return User
@@ -55,8 +61,8 @@ module.exports = {
     /**
      * Deletes an existing user
      * @function delete
-     * @param {String} id hex Mongoose id
-     * @returns {Promise} resolves with deleted User information
+     * @param {String} id - hex Mongoose id
+     * @returns {Promise} resolves with deleted {User}
      */
     delete: function (id) {
         return User

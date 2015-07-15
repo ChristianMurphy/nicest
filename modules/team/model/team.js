@@ -1,7 +1,17 @@
+/**
+ * @module Team
+ */
 'use strict';
 
 const mongoose = require('mongoose');
 
+/**
+ * A Team is a group of Users.
+ * @typedef {Object} Team
+ * @property {String} name - team's name.
+ * @property {Array} members - list of user ids.
+ * @property {Object} modules - area where external modules can register attributes.
+ */
 const schema = new mongoose.Schema({
     name: String,
     members: [String],
@@ -10,15 +20,12 @@ const schema = new mongoose.Schema({
 
 const Team = mongoose.model('Team', schema);
 
-/**
- * @module team/model
- */
 module.exports = {
     /**
      * Creates a new Team
      * @function create
-     * @param {Object} team {name: string, members: [string] modules: object}
-     * @returns {Promise} resolves to Team object
+     * @param {Team} team - new team
+     * @returns {Promise} resolves to {Team}
      */
     create: function (team) {
         return Team.create(team);
@@ -26,8 +33,8 @@ module.exports = {
     /**
      * Reads an existing Team
      * @function read
-     * @param {String} id hex Mongoose id
-     * @returns {Promise} resolves to Team object
+     * @param {String} id - hex Mongoose id
+     * @returns {Promise} resolves to {Team}
      */
     read: function (id) {
         return Team
@@ -38,10 +45,10 @@ module.exports = {
     },
     /**
      * Updates an existing Team
-     * @param {String} id hex Mongoose id
      * @function update
-     * @param {Object} properties new or different properties to be set
-     * @returns {Promise} resolves to updated Team object
+     * @param {String} id - hex Mongoose id
+     * @param {Team} properties - new or different properties to be set
+     * @returns {Promise} resolves to updated {Team}
      */
     update: function (id, properties) {
         return Team
@@ -56,8 +63,8 @@ module.exports = {
     /**
      * Deletes an existing Team
      * @function delete
-     * @param {String} id hex Mongoose id
-     * @returns {Promise} resolves with deleted Team information
+     * @param {String} id - hex Mongoose id
+     * @returns {Promise} resolves with deleted {Team}
      */
     delete: function (id) {
         return Team

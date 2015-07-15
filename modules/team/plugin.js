@@ -3,6 +3,7 @@
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
     const recipe = server.select('recipe');
+    const team = require('./model/team');
 
     api.route(
         require('./api/route')
@@ -11,6 +12,12 @@ module.exports.register = function (server, options, next) {
     recipe.route(
         require('./view/route')
     );
+
+    server.method('Team.create', team.create);
+    server.method('Team.read', team.read);
+    server.method('Team.update', team.update);
+    server.method('Team.delete', team.delete);
+    server.method('Team.list', team.list);
 
     next();
 };
