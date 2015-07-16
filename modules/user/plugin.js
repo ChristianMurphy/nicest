@@ -2,22 +2,18 @@
 
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
-    const recipe = server.select('recipe');
+    const view = server.select('view');
     const user = require('./model/user');
 
     api.route(
         require('./api/route')
     );
 
-    recipe.route(
+    view.route(
         require('./view/route')
     );
 
-    server.method('User.create', user.create);
-    server.method('User.read', user.read);
-    server.method('User.update', user.update);
-    server.method('User.delete', user.delete);
-    server.method('User.list', user.list);
+    server.expose(user);
 
     next();
 };

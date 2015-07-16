@@ -1,0 +1,19 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Recipes
+
+block body
+    .ui.container
+        h1.ui.center.aligned.header Recipes
+        table.ui.celled.table
+            thead
+                tr
+                    th description
+                    th path
+            tbody
+                each recipe in recipes
+                    tr
+                        td= recipe.settings.description
+                        td
+                            a(href=recipe.path)= recipe.path

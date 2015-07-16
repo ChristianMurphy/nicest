@@ -8,6 +8,7 @@ module.exports = [
         path: '/recipe/manage-teams',
         handler: handler.redirect,
         config: {
+            description: 'Team Management',
             plugins: {
                 lout: false
             }

@@ -8,6 +8,7 @@ module.exports = [
         path: '/recipe/manage-users',
         handler: handler.redirect,
         config: {
+            description: 'User Management',
             plugins: {
                 lout: false
             }

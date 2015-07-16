@@ -22,7 +22,7 @@
 1. Run `npm test`
 
 ## Creating a Plugin
-Plugins are based off the [Hapi JS plugin system](http://hapijs.com/tutorials/plugins).
+Plug-ins are based off the [Hapi JS plug-in system](http://hapijs.com/tutorials/plugins).
 Each view can define any of these things
 * **model** - data storage or api abstraction shared across plugins.
 * **api** - a restful endpoint for plugin
@@ -30,8 +30,8 @@ Each view can define any of these things
 * **recipe** - a view specific to setting up learning tools
 * **assessment** - a view specific to gauging student progress
 
-A plugin can define any or all of these categories.
-The plugin is served through a `plugin.js` file.
+A plug-in can define any or all of these categories.
+The plug-in is served through a `plugin.js` file.
 The `plugin.js` file attaches the routes to their appropriate endpoints.
 
 For example this plugin defines an api and a recipe.
@@ -40,18 +40,18 @@ For example this plugin defines an api and a recipe.
 
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
-    const recipe = server.select('recipe');
+    const view = server.select('view');
     const model = require(...);
 
     api.route(
         ...
     );
 
-    recipe.route(
+    view.route(
         ...
     );
 
-    server.method('ModelName.functionName', model.functionName);
+    server.expose(model);
 
     next();
 };
@@ -63,19 +63,22 @@ module.exports.register.attributes = {
     }
 };
 ```
-**api**, **view**, **recipe** and **assessment** each have their own server module and should be registered to their specific module using `server.select()`.
 
 routes should be defined in a separate file, be exported, and required from the plugin.
 The export should either be a valid [Hapi JS route object](http://hapijs.com/tutorials/routing) or an array of route objects.
 
 Plugins use [lout](https://github.com/hapijs/lout) and [JSdoc](https://github.com/jsdoc3/jsdoc) to produce documentation from comments and configuration in the source code.
 
-**Models** should allows wrap async behavior in [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) and annotate code with valid JSDoc. Each public function that the Model exposes should be registered as a server method so that other Modules can access them.
+**Models** should allows wrap async behavior in [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) and annotate code with valid JSDoc. Models should be exposed using [Hapi JS's plugin expose method](http://hapijs.com/api#serverexposeobj) .
 
-E.G. a `User` model wanting to expose an `add` function would register `server.method('User.add', user.add);`, other modules would then be able to access the function by calling `server.method.User.add()`.
+E.G. a `User` model `let user = {add: function (newUser) {...}}` would register using `server.expose(user);`, other modules would then be able to access the function by calling `server.plugin.user.add()`.
 
- **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately.
+ **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately. Apis live in a separate sub-server `let api = server.select('api')`, attach the routes to subserver `api.route(...)`.
 
- **Views**, **Recipes** and **Assessments** should use [Jade](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended.
+ **Views**, **Recipes** and **Assessments** should use [Jade](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended. Views, recipes and assessments all live in a separate sub-server `let view = server.select('view')`, attach the routes to sub-server `view.route(...)`.
 
- Plugins can be loaded by registering the plugin in `lib/server.js`.
+ **Recipes** should define an entry point using the HTTP `GET` verb and the `/recipe/{name}` replacing {name} with the actual name of the recipe. Recipes should have all lowercase names, and separate multiple words with a dash. E.G. `/recipe/user-management`. The entry point should add a `config` attribute with a `description` sub-attribute that should give a short description of the plug-in, this will be shown on the recipe listing. E.G. `config: {description: 'User Management'}`.
+
+ **Assessments** should define an entry point using the HTTP `GET` verb and the `/assessment/{name}` replacing {name} with the actual name of the assessment. Assessments should have all lowercase names, and separate multiple words with a dash. E.G. `/assessment/issue-tracking`. The entry point should add a `config` attribute with a `description` sub-attribute that should give a short description of the plug-in, this will be shown on the recipe listing. E.G. `config: {description: 'Assesses Issue Tracker Usage'}`.
+
+ Plug-ins can be loaded by registering the plug-in in `lib/server.js`.

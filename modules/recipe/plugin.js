@@ -3,7 +3,9 @@
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
     const view = server.select('view');
-    const team = require('./model/team');
+    const recipes = require('./model/recipe');
+
+    recipes.setServer(server);
 
     api.route(
         require('./api/route')
@@ -13,14 +15,14 @@ module.exports.register = function (server, options, next) {
         require('./view/route')
     );
 
-    server.expose('Team.create', team);
+    server.expose(recipes);
 
     next();
 };
 
 module.exports.register.attributes = {
     pkg: {
-        name: 'team',
+        name: 'recipe',
         version: '0.1.0'
     }
 };
