@@ -24,8 +24,10 @@ const argv = require('yargs')
     .alias('v', 'version')
     .argv;
 
-const database = require('../lib/database')(argv.database);
+const database = require('../lib/database');
 const server = require('../lib/server')(argv);
+
+database(argv.database);
 
 server.start(function () {
     console.log('Server running at:', server.info.uri);
