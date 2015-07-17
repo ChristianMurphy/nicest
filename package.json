@@ -7,8 +7,8 @@
     "nicest": "bin/cli.js"
   },
   "scripts": {
-    "postinstall": "jsdoc modules/*/*/*.js -d docs",
-    "prestart": "jsdoc modules/*/*/*.js -d docs",
+    "postinstall": "jsdoc modules --recurse -d docs",
+    "prestart": "jsdoc modules --recurse -d docs",
     "pretest": "eslint .",
     "start": "node bin/cli",
     "test": "lab modules/*/*/test.js"
