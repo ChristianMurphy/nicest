@@ -7,19 +7,27 @@ const lab = exports.lab = Lab.script();
 const describe = lab.describe;
 const it = lab.it;
 const before = lab.before;
+const beforeEach = lab.beforeEach;
 const after = lab.after;
 const expect = Code.expect;
 
 const mongoose = require('mongoose');
-let server;
+const server = require('../../../lib/server')('test');
 
 describe('User', function () {
     /*
-     * Clear all users before running tests
+     * Connect to database when starting tests
      */
     before(function (done) {
-        server = require('../../../lib/server')('test');
+        mongoose.connect('mongodb://localhost/test', function () {
+            done();
+        });
+    });
 
+    /*
+     * Clear all users before running tests
+     */
+    beforeEach(function (done) {
         mongoose.models.User
             .find({})
             .remove()

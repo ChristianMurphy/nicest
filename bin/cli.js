@@ -24,6 +24,7 @@ const argv = require('yargs')
     .alias('v', 'version')
     .argv;
 
+const database = require('../lib/database')(argv.database);
 const server = require('../lib/server')(argv);
 
 server.start(function () {
