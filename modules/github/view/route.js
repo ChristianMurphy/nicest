@@ -1,6 +1,7 @@
 'use strict';
 
 const handler = require('./handler');
+const Joi = require('Joi');
 
 module.exports = [
     {
@@ -21,6 +22,21 @@ module.exports = [
         config: {
             plugins: {
                 lout: false
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/github/list/{name}',
+        handler: handler.list,
+        config: {
+            plugins: {
+                lout: false
+            },
+            validate: {
+                params: {
+                    name: Joi.string().alphanum()
+                }
             }
         }
     }
