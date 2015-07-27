@@ -1,0 +1,20 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Choose User or Organization
+
+block body
+    .ui.container
+        h1.ui.center.aligned.header User Management
+        table.ui.celled.table
+            thead
+                tr
+                    th id
+                    th actions
+            tbody
+                each userId in userIds
+                    tr
+                        td= userId._id
+                        td
+                            button.ui.primary.button Edit
+                            button.ui.negative.button Delete

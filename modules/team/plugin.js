@@ -1,9 +1,10 @@
 'use strict';
 
+const team = require('./model/team');
+
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
     const view = server.select('view');
-    const team = require('./model/team');
 
     api.route(
         require('./api/route')
@@ -13,7 +14,7 @@ module.exports.register = function (server, options, next) {
         require('./view/route')
     );
 
-    server.expose('Team.create', team);
+    server.expose('Team', team);
 
     next();
 };
