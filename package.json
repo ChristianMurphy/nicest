@@ -40,7 +40,7 @@
   "devDependencies": {
     "code": "1.4.1",
     "eslint": "1.0.0-rc-3",
-    "lab": "5.13.0"
+    "lab": "5.14.0"
   },
   "engines": {
     "node": ">=2.0.0"
