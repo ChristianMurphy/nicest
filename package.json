@@ -28,7 +28,7 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "boom": "2.8.0",
-    "hapi": "8.8.0",
+    "hapi": "8.8.1",
     "jade": "1.11.0",
     "joi": "6.6.1",
     "jsdoc": "3.3.2",
