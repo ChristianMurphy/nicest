@@ -1,9 +1,10 @@
 'use strict';
 
+const user = require('./model/user');
+
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
     const view = server.select('view');
-    const user = require('./model/user');
 
     api.route(
         require('./api/route')

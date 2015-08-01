@@ -1,0 +1,18 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Login to Github
+
+block body
+    .ui.container
+        form.ui.large.form(action='/recipe/github/login', method='POST')
+            .ui.stacked.segment
+                .field
+                    .ui.left.icon.input
+                        i.user.icon
+                        input(type='text', name='username', placeholder='username')
+                .field
+                    .ui.left.icon.input
+                        i.lock.icon
+                        input(type='password', name='password', placeholder='password')
+                input.ui.fluid.large.teal.submit.button(type='submit', value='submit')
