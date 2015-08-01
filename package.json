@@ -36,6 +36,7 @@
     "lout": "6.2.3",
     "mongoose": "4.1.0",
     "octokat": "0.4.11",
+    "yar": "3.0.3",
     "yargs": "3.16.1"
   },
   "devDependencies": {
