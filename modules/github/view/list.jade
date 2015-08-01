@@ -5,4 +5,12 @@ block title
 
 block body
     .ui.container
-        h1.ui.center.aligned.header Repository
+        h1.ui.center.aligned.header Repositories
+        table.ui.celled.table
+            thead
+                tr
+                    th name
+            tbody
+                each repo in repos
+                    tr
+                        td= repo.name

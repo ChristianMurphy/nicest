@@ -18,7 +18,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/github/login',
-        handler: handler.login,
+        handler: handler.loginView,
         config: {
             plugins: {
                 lout: false
@@ -26,17 +26,28 @@ module.exports = [
         }
     },
     {
-        method: 'GET',
-        path: '/recipe/github/list/{name}',
-        handler: handler.list,
+        method: 'POST',
+        path: '/recipe/github/login',
+        handler: handler.loginAction,
         config: {
             plugins: {
                 lout: false
             },
             validate: {
-                params: {
-                    name: Joi.string().alphanum()
+                payload: {
+                    username: Joi.string().alphanum(),
+                    password: Joi.string()
                 }
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/github/list',
+        handler: handler.list,
+        config: {
+            plugins: {
+                lout: false
             }
         }
     }

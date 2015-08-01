@@ -1,19 +1,32 @@
 'use strict';
 
 const Octokat = require('octokat');
-const Github = new Octokat();
 
 module.exports = {
     redirect: function (request, reply) {
         reply().redirect('/recipe/github/login');
     },
-    login: function (request, reply) {
+    loginView: function (request, reply) {
         reply.view('modules/github/view/login');
     },
+    loginAction: function (request, reply) {
+        request.session.set({
+            'github-username': request.payload.username,
+            'github-password': request.payload.password
+        });
+
+        reply().redirect('/recipe/github/list');
+    },
     list: function (request, reply) {
-        Github.users('ChristianMurphy').repos.fetch().then(function (repo) {
-            console.log(repo);
-            reply.view('modules/github/view/list');
+        console.log(request.session.get('github-username'), request.session.get('github-password'));
+
+        const Github = new Octokat({
+            username: request.session.get('github-username'),
+            password: request.session.get('github-password')
+        });
+
+        Github.me.repos.fetch().then(function (repos) {
+            reply.view('modules/github/view/list', {repos: repos});
         });
     }
 };
