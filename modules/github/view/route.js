@@ -1,7 +1,7 @@
 'use strict';
 
 const handler = require('./handler');
-const Joi = require('Joi');
+const Joi = require('joi');
 
 module.exports = [
     {
