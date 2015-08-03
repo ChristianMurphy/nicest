@@ -23,11 +23,11 @@ module.exports = {
     /**
      * Stores a reference to the Hapi Server
      * @function setServer
-     * @param {Object} s - Hapi JS server object
+     * @param {Object} serve - Hapi JS server object
      * @returns {Undefined} undefined
      */
-    setServer: function (s) {
-        server = s;
+    setServer: function (serve) {
+        server = serve;
     },
     /**
      * Finds all of the Recipe routes

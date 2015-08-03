@@ -93,6 +93,10 @@ rules:
     computed-property-spacing: 2
     consistent-this: 2
     eol-last: 2
+    id-length:
+        - 2
+        - exceptions:
+            - _
     indent:
         - 2
         - 4
