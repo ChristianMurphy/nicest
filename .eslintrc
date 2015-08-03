@@ -97,6 +97,9 @@ rules:
         - 2
         - exceptions:
             - _
+    id-match:
+        - 2
+        - ^([a-zA-Z]+|_)$
     indent:
         - 2
         - 4
