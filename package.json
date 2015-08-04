@@ -32,17 +32,17 @@
     "jade": "1.11.0",
     "joi": "6.6.1",
     "jsdoc": "3.3.2",
-    "lodash": "3.10.0",
+    "lodash": "3.10.1",
     "lout": "6.2.3",
-    "mongoose": "4.1.0",
+    "mongoose": "4.1.1",
     "octokat": "0.4.11",
     "yar": "3.0.3",
-    "yargs": "3.16.1"
+    "yargs": "3.17.1"
   },
   "devDependencies": {
     "code": "1.5.0",
     "eslint": "1.0.0",
-    "lab": "5.14.0"
+    "lab": "5.14.1"
   },
   "engines": {
     "node": ">=2.0.0"
