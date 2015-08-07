@@ -50,12 +50,7 @@ module.exports = {
      */
     update: function (id, properties) {
         return User
-            .findOneAndUpdate(
-                {
-                    _id: id
-                },
-                properties
-            )
+            .findOneAndUpdate({_id: id}, properties)
             .exec();
     },
     /**
