@@ -37,7 +37,7 @@
     "mongoose": "4.1.1",
     "octokat": "0.4.11",
     "yar": "3.0.3",
-    "yargs": "3.17.1"
+    "yargs": "3.18.0"
   },
   "devDependencies": {
     "code": "1.5.0",
