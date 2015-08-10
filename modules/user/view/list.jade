@@ -16,5 +16,5 @@ block body
                     tr
                         td= userId._id
                         td
-                            button.ui.primary.button Edit
-                            button.ui.negative.button Delete
+                            a.ui.primary.button(href = '/recipe/manage-users/edit/' + userId._id) Edit
+                            a.ui.negative.button(href = '/recipe/manage-users/delete/' + userId._id) Delete

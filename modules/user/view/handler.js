@@ -12,5 +12,12 @@ module.exports = {
             .then(function (userIds) {
                 reply.view('modules/user/view/list', {userIds: userIds});
             });
+    },
+    view: function (request, reply) {
+        User
+            .read(request.params.id)
+            .then(function (user) {
+                reply.view('modules/user/view/view', {user: user});
+            });
     }
 };

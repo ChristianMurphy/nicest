@@ -23,5 +23,15 @@ module.exports = [
                 lout: false
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/manage-users/edit/{id}',
+        handler: handler.view,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
     }
 ];
