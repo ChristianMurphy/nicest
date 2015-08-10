@@ -1,6 +1,7 @@
 'use strict';
 
 const handler = require('./handler');
+const Joi = require('joi');
 
 module.exports = [
     {
@@ -31,6 +32,11 @@ module.exports = [
         config: {
             plugins: {
                 lout: false
+            },
+            validate: {
+                params: {
+                    id: Joi.string().hex()
+                }
             }
         }
     }
