@@ -39,5 +39,25 @@ module.exports = [
                 }
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/github-individual-project/choose-students',
+        handler: handler.chooseStudents,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/github-individual-project/choose-students',
+        handler: handler.selectStudents,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
     }
 ];
