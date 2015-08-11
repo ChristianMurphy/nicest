@@ -2,15 +2,21 @@ extends ../../shared-template/default.jade
 
 block title
     title Choose a Repository
+    
+block head
+    script(src='//code.jquery.com/jquery-2.1.4.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.0.8/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.0.8/components/dropdown.min.js')
 
 block body
     .ui.container
         h1.ui.center.aligned.header Choose a Repository
-        table.ui.celled.table
-            thead
-                tr
-                    th name
-            tbody
-                each repo in repos
-                    tr
-                        td= repo.name
+        form.ui.large.form(action='/recipe/github/login', method='POST')
+            .ui.stacked.segment
+                .field
+                    label Repository
+                    select.ui.search.dropdown(required)
+                        each repo in repos
+                            option(value=repo.name)= repo.name
+                input.ui.fluid.large.teal.submit.button(type='submit', value='submit')
+    script $('select.dropdown').dropdown();
