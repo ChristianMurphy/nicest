@@ -17,7 +17,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/github-individual-project/choose',
-        handler: handler.login,
+        handler: handler.choose,
         config: {
             plugins: {
                 lout: false
