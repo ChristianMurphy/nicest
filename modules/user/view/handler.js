@@ -26,10 +26,7 @@ module.exports = {
     },
     save: function (request, reply) {
         User
-            .update(request.params.id, {
-                name: request.payload.name,
-                modules: JSON.parse(request.payload.modules)
-            })
+            .update(request.params.id, request.payload)
             .then(function () {
                 reply().redirect('/recipe/manage-users/edit/' + request.params.id);
             });
@@ -45,10 +42,7 @@ module.exports = {
     },
     create: function (request, reply) {
         User
-            .create({
-                name: request.payload.name,
-                modules: JSON.parse(request.payload.modules)
-            })
+            .create(request.payload)
             .then(function (user) {
                 reply().redirect('/recipe/manage-users/edit/' + user._id);
             });

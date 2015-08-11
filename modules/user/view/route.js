@@ -51,6 +51,10 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi.string().hex()
+                },
+                payload: {
+                    name: Joi.string().regex(/[A-Za-z ]+/),
+                    modules: Joi.object()
                 }
             }
         }
@@ -87,6 +91,10 @@ module.exports = [
         config: {
             plugins: {
                 lout: false
+            },
+            payload: {
+                name: Joi.string().regex(/[A-Za-z ]+/),
+                modules: Joi.object()
             }
         }
     }

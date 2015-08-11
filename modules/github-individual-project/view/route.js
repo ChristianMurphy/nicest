@@ -1,6 +1,7 @@
 'use strict';
 
 const handler = require('./handler');
+const Joi = require('joi');
 
 module.exports = [
     {
@@ -16,11 +17,26 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/recipe/github-individual-project/choose',
-        handler: handler.choose,
+        path: '/recipe/github-individual-project/choose-repository',
+        handler: handler.chooseRepository,
         config: {
             plugins: {
                 lout: false
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/github-individual-project/choose-repository',
+        handler: handler.selectRepository,
+        config: {
+            plugins: {
+                lout: false
+            },
+            validate: {
+                payload: {
+                    repo: Joi.string().alphanum()
+                }
             }
         }
     }
