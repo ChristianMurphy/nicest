@@ -35,7 +35,7 @@ module.exports = [
             },
             validate: {
                 payload: {
-                    repo: Joi.string().alphanum()
+                    repo: Joi.string().regex(/[A-Za-z0-9\-]+/)
                 }
             }
         }
@@ -54,6 +54,31 @@ module.exports = [
         method: 'POST',
         path: '/recipe/github-individual-project/choose-students',
         handler: handler.selectStudents,
+        config: {
+            plugins: {
+                lout: false
+            },
+            validate: {
+                payload: {
+                    students: Joi.array().single().unique()
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/github-individual-project/confirm',
+        handler: handler.confirmView,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/github-individual-project/confirm',
+        handler: handler.confirm,
         config: {
             plugins: {
                 lout: false

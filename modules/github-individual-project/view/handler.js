@@ -40,15 +40,38 @@ module.exports = {
     },
     selectStudents: function (request, reply) {
         request.session.set({
-            'github-individual-project-repo': request.payload.repo
+            'github-individual-project-students': request.payload.students
         });
 
         reply().redirect('/recipe/github-individual-project/confirm');
+    },
+    confirmView: function (request, reply) {
+        User
+            .list('name modules')
+            .then(function (users) {
+                let students = filterGithubUsers(users);
+                const studentFilter = request.session.get('github-individual-project-students').sort();
+
+                students = selectedStudents(students, studentFilter);
+                reply.view('modules/github-individual-project/view/confirm', {
+                    repo: request.session.get('github-individual-project-repo'),
+                    students: students
+                });
+            });
+    },
+    confirm: function (request, reply) {
+        reply().redirect('/recipes');
     }
 };
 
 function filterGithubUsers (users) {
     return _.filter(users, function (user) {
         return _.has(user, 'modules.github.username');
+    });
+}
+
+function selectedStudents (students, filterArray) {
+    return _.filter(students, function (student) {
+        return _.indexOf(filterArray, student.modules.github.username, true) > -1;
     });
 }
