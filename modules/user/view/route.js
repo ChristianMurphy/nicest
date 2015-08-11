@@ -92,9 +92,11 @@ module.exports = [
             plugins: {
                 lout: false
             },
-            payload: {
-                name: Joi.string().regex(/[A-Za-z ]+/),
-                modules: Joi.object()
+            validate: {
+                payload: {
+                    name: Joi.string().regex(/[A-Za-z ]+/),
+                    modules: Joi.object()
+                }
             }
         }
     }
