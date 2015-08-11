@@ -39,5 +39,55 @@ module.exports = [
                 }
             }
         }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/manage-users/edit/{id}',
+        handler: handler.save,
+        config: {
+            plugins: {
+                lout: false
+            },
+            validate: {
+                params: {
+                    id: Joi.string().hex()
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/manage-users/delete/{id}',
+        handler: handler.delete,
+        config: {
+            plugins: {
+                lout: false
+            },
+            validate: {
+                params: {
+                    id: Joi.string().hex()
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/manage-users/create',
+        handler: handler.viewEmpty,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/manage-users/create',
+        handler: handler.create,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
     }
 ];

@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 'use strict';
 
 const User = require('../model/user');
@@ -17,7 +18,46 @@ module.exports = {
         User
             .read(request.params.id)
             .then(function (user) {
-                reply.view('modules/user/view/view', {user: user});
+                reply.view('modules/user/view/view', {
+                    url: '/recipe/manage-users/edit/' + user._id,
+                    user: user
+                });
+            });
+    },
+    save: function (request, reply) {
+        User
+            .update(request.params.id, {
+                name: request.payload.name,
+                modules: JSON.parse(request.payload.modules)
+            })
+            .then(function () {
+                reply().redirect('/recipe/manage-users/edit/' + request.params.id);
+            });
+    },
+    viewEmpty: function (request, reply) {
+        reply.view('modules/user/view/view', {
+            url: '/recipe/manage-users/create',
+            user: {
+                name: '',
+                modules: {}
+            }
+        });
+    },
+    create: function (request, reply) {
+        User
+            .create({
+                name: request.payload.name,
+                modules: JSON.parse(request.payload.modules)
+            })
+            .then(function (user) {
+                reply().redirect('/recipe/manage-users/edit/' + user._id);
+            });
+    },
+    delete: function (request, reply) {
+        User
+            .delete(request.params.id)
+            .then(function () {
+                reply().redirect('/recipe/manage-users/list');
             });
     }
 };
