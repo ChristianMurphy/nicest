@@ -5,9 +5,9 @@ const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
 module.exports = {
     redirect: function (request, reply) {
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
-            reply().redirect('/recipe/github/login');
-        } else {
             reply().redirect('/recipe/github-individual-project/choose-repository');
+        } else {
+            reply().redirect('/recipe/github/login');
         }
     },
     chooseRepository: function (request, reply) {
