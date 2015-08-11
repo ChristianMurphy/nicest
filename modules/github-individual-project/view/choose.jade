@@ -1,0 +1,16 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Choose a Repository
+
+block body
+    .ui.container
+        h1.ui.center.aligned.header Choose a Repository
+        table.ui.celled.table
+            thead
+                tr
+                    th name
+            tbody
+                each repo in repos
+                    tr
+                        td= repo.name

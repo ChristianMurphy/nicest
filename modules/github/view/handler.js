@@ -18,8 +18,6 @@ module.exports = {
         reply().redirect('/recipe/github/list');
     },
     list: function (request, reply) {
-        console.log(request.session.get('github-username'), request.session.get('github-password'));
-
         const Github = new Octokat({
             username: request.session.get('github-username'),
             password: request.session.get('github-password')

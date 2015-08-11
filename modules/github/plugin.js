@@ -9,7 +9,7 @@ module.exports.register = function (server, options, next) {
         require('./view/route')
     );
 
-    server.expose('Github', Github);
+    server.expose('Octokat', Github);
 
     next();
 };

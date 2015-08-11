@@ -25,7 +25,7 @@ const argv = require('yargs')
     .argv;
 
 const database = require('../lib/database');
-const server = require('../lib/server')(argv);
+const server = require('../lib/server').setup(argv);
 
 database(argv.database);
 

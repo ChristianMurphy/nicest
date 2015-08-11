@@ -1,6 +1,6 @@
 'use strict';
 
-const boom = require('boom');
+const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
 
 module.exports = {
     redirect: function (request, reply) {
@@ -11,6 +11,13 @@ module.exports = {
         }
     },
     choose: function (request, reply) {
-        reply(boom.notImplemented());
+        const Github = new Octokat({
+            username: request.session.get('github-username'),
+            password: request.session.get('github-password')
+        });
+
+        Github.me.repos.fetch().then(function (repos) {
+            reply.view('modules/github-individual-project/view/choose', {repos: repos});
+        });
     }
 };

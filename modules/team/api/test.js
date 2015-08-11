@@ -12,7 +12,7 @@ const after = lab.after;
 const expect = Code.expect;
 
 const mongoose = require('mongoose');
-const server = require('../../../lib/server')('test');
+const server = require('../../../lib/server').setup('test');
 
 describe('Team', function () {
     /*

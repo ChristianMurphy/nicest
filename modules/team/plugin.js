@@ -14,7 +14,7 @@ module.exports.register = function (server, options, next) {
         require('./view/route')
     );
 
-    server.expose('Team', team);
+    server.expose(team);
 
     next();
 };
