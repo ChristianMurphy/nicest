@@ -32,6 +32,6 @@ block body
                     label Repository
                     select.ui.search.dropdown(name='repo', required)
                         each repo in repos
-                            option(value=repo.name)= repo.name
+                            option(value=repo.fullName)= repo.name
                 input.ui.fluid.large.teal.submit.button(type='submit', value='next')
     script $('select.dropdown').dropdown();

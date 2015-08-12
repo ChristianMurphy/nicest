@@ -1,8 +1,14 @@
+/* eslint new-cap: 0 */
 'use strict';
+
+const _ = require('lodash');
+const NodeGit = require('nodegit');
+const rimraf = require('rimraf');
+const path = require('path');
 
 const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
 const User = require('../../../lib/server').server.plugins.user;
-const _ = require('lodash');
+const tempFolder = path.join(__dirname, 'temp');
 
 module.exports = {
     redirect: function (request, reply) {
@@ -51,16 +57,64 @@ module.exports = {
             .then(function (users) {
                 let students = filterGithubUsers(users);
                 const studentFilter = request.session.get('github-individual-project-students').sort();
+                const repo = request.session.get('github-individual-project-repo');
 
                 students = selectedStudents(students, studentFilter);
                 reply.view('modules/github-individual-project/view/confirm', {
-                    repo: request.session.get('github-individual-project-repo'),
+                    repoUrl: 'https://github.com/' + repo,
+                    repoName: /[A-Za-z0-9\-]+$/.exec(repo),
                     students: students
                 });
             });
     },
     confirm: function (request, reply) {
-        reply().redirect('/recipes');
+        const githubUsername = request.session.get('github-username');
+        const githubPassword = request.session.get('github-password');
+        const Github = new Octokat({
+            username: githubUsername,
+            password: githubPassword
+        });
+        const repo = request.session.get('github-individual-project-repo');
+        const students = request.session.get('github-individual-project-students');
+
+        // clear current temp folder
+        rmrf(tempFolder)
+            // clone repo to temp folder
+            .then(function () {
+                return NodeGit.Clone('https://github.com/' + repo, tempFolder);
+            })
+            // create empty repos for each student on github
+            .then(
+                function () {
+                    const promises = [];
+                    const githubUrl = /[A-Za-z0-9\-]+$/.exec(repo) + '-';
+
+                    // for each student
+                    for (let index = 0; index < students.length; index++) {
+                        // gather the promises
+                        promises.push(
+                            // create a repository
+                            Github.me.repos.create({
+                                name: githubUrl + students[index],
+                                private: true,
+                                has_issues: false,
+                                has_wiki: false
+                            })
+                        );
+                    }
+                    return Promise.all(promises);
+                }
+            )
+            // redirect
+            .then(
+                function () {
+                    reply().redirect('/recipes');
+                },
+                function (err) {
+                    console.log(err);
+                    reply().redirect('/recipes');
+                }
+            );
     }
 };
 
@@ -73,5 +127,17 @@ function filterGithubUsers (users) {
 function selectedStudents (students, filterArray) {
     return _.filter(students, function (student) {
         return _.indexOf(filterArray, student.modules.github.username, true) > -1;
+    });
+}
+
+function rmrf (folder) {
+    return new Promise (function (resolve, reject) {
+        rimraf(folder, function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
     });
 }
