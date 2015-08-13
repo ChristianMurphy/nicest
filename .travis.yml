@@ -16,3 +16,5 @@ services:
 before_script:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 50
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
+  - sudo update-alternatives --config gcc
+  - sudo update-alternatives --config g++
