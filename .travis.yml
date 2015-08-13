@@ -4,7 +4,7 @@ node_js: iojs-2
 addons:
   apt:
     packages:
-      - gcc-4.9
+      - libc6-i386
 
 services:
   - mongodb
