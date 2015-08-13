@@ -1,5 +1,7 @@
 language: node_js
-node_js: iojs-2
+node_js:
+  - iojs-2
+  - iojs-3
 
 services:
   - mongodb
