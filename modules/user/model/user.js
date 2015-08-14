@@ -50,12 +50,7 @@ module.exports = {
      */
     update: function (id, properties) {
         return User
-            .findOneAndUpdate(
-                {
-                    _id: id
-                },
-                properties
-            )
+            .findOneAndUpdate({_id: id}, properties)
             .exec();
     },
     /**
@@ -74,12 +69,13 @@ module.exports = {
     /**
      * Lists all the User ids
      * @function list
+     * @param {String} select - comma seperated list of columns to select
      * @returns {Promise} resolves to an {Array} of {String}
      */
-    list: function () {
+    list: function (select) {
         return User
             .find({})
-            .select('_id')
+            .select(select)
             .exec();
     }
 };

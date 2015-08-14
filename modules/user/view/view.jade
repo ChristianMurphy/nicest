@@ -1,0 +1,16 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Edit User
+
+block body
+    .ui.container
+        form.ui.large.form(action=url, method='POST')
+            .ui.stacked.segment
+                .field
+                    label name
+                    input(type='text', name='name', placeholder='john smith', value=user.name, required)
+                .field
+                    label modules
+                    textarea(name='modules', placeholder='{}')= JSON.stringify(user.modules, null, 4)
+                input.ui.fluid.large.teal.submit.button(type='submit', value='submit')

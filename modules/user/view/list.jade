@@ -6,7 +6,8 @@ block title
 block body
     .ui.container
         h1.ui.center.aligned.header User Management
-        table.ui.celled.table
+        a.ui.positive.top.attached.button(href = '/recipe/manage-users/create') Create User
+        table.ui.attached.celled.table
             thead
                 tr
                     th id
@@ -16,5 +17,5 @@ block body
                     tr
                         td= userId._id
                         td
-                            button.ui.primary.button Edit
-                            button.ui.negative.button Delete
+                            a.ui.primary.button(href = '/recipe/manage-users/edit/' + userId._id) Edit
+                            a.ui.negative.button(href = '/recipe/manage-users/delete/' + userId._id) Delete

@@ -1,0 +1,39 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Confirm
+
+block body
+    .ui.container
+        .ui.three.top.attached.steps
+            .completed.step
+                i.git.square.icon
+                .content
+                    .title Respository
+                    .description Choose a Seed Repository
+            .completed.step
+                i.users.icon
+                .content
+                    .title Students
+                    .description Choose Students to Participate
+            .active.step
+                i.info.icon
+                .content
+                    .title Confirm
+                    .description Confirm Selections
+        form.ui.attached.large.form(action='/recipe/github-individual-project/confirm', method='POST')
+            .ui.attached.stacked.segment
+                h4.ui.horizontal.divider.header
+                    i.git.square.icon
+                    | Repository
+                a(href=repoUrl, target='_blank')= repoName
+                h4.ui.horizontal.divider.header
+                    i.users.icon
+                    | Students
+                .ui.list
+                    each student in students
+                        .item
+                            i.user.icon
+                            = student.name
+                input.ui.fluid.large.teal.submit.button(type='submit', value='confirm')
+    script $('select.dropdown').dropdown();

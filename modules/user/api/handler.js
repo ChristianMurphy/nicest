@@ -63,7 +63,7 @@ module.exports = {
     },
     list: function (request, reply) {
         User
-            .list()
+            .list('_id')
             .then(
                 function (userIds) {
                     reply(_.pluck(userIds, '_id'));

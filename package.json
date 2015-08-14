@@ -28,23 +28,27 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "boom": "2.8.0",
-    "hapi": "8.8.1",
+    "hapi": "9.0.1",
+    "inert": "3.0.1",
     "jade": "1.11.0",
     "joi": "6.6.1",
     "jsdoc": "3.3.2",
     "lodash": "3.10.1",
-    "lout": "6.2.3",
-    "mongoose": "4.1.1",
+    "lout": "7.0.0",
+    "mongoose": "4.1.2",
+    "nodegit": "0.4.1",
     "octokat": "0.4.11",
+    "rimraf": "2.4.2",
+    "vision": "2.0.1",
     "yar": "3.0.3",
-    "yargs": "3.17.1"
+    "yargs": "3.19.0"
   },
   "devDependencies": {
     "code": "1.5.0",
-    "eslint": "1.0.0",
-    "lab": "5.14.1"
+    "eslint": "1.1.0",
+    "lab": "5.15.1"
   },
   "engines": {
-    "node": ">=2.0.0"
+    "node": ">=2.0.0 <3.0.0"
   }
 }
