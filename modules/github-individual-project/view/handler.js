@@ -1,4 +1,4 @@
-/* eslint new-cap: 0 */
+/* eslint new-cap: 0, max-nested-callbacks: [2, 2], no-loop-func: 0 */
 'use strict';
 
 const _ = require('lodash');
@@ -105,46 +105,38 @@ module.exports = {
                     return Promise.all(promises);
                 }
             )
-            // Push seed files into the new repositories
 
-            // .then(
-            //     function () {
-            //         const promises = [];
-            //         const gitRepo = NodeGit.Repository.open(tempFolder);
-            //         const githubUrl = 'https://github.com/' + /[A-Za-z0-9\-]+$/.exec(repo) + '-';
-            //         const credentials = NodeGit.Cred.userpassPlaintextNew(githubUsername, githubPassword);
-            //         const signature = NodeGit.Signature.now('Nicest', 'foo@bar.com');
-            //         const branchReference = 'refs/heads/master:refs/heads/master';
-            //
-            //         // for each student
-            //         for (let index = 0; index < students.length; index++) {
-            //             // gather the promises
-            //             promises.push(
-            //                 // create a remote to that students repo
-            //                 NodeGit.Remote.create(gitRepo, students[index], githubUrl + students[index])
-            //                     // push the seed code to the students repo
-            //                     .then(function (remote) {
-            //                         console.log('not dead yet');
-            //                         remote.setCallbacks({
-            //                             credentials: function () {
-            //                                 return credentials;
-            //                             }
-            //                         });
-            //
-            //                         console.log('not dead yet');
-            //                         return remote.push(
-            //                             [branchReference],
-            //                             null,
-            //                             signature,
-            //                             'test'
-            //                         );
-            //                     })
-            //             );
-            //         }
-            //         console.log('seeding repos', promises);
-            //         return Promise.all(promises);
-            //     }
-            // )
+            // open repo
+            .then(function () {
+                return NodeGit.Repository.open(tempFolder);
+            })
+
+
+            // Push seed files into the new repositories
+            .then(
+                function (gitRepo) {
+                    const promises = [];
+                    const githubUrl = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(repo) + '-';
+                    const credentials = NodeGit.Cred.userpassPlaintextNew(githubUsername, githubPassword);
+                    const branchReference = 'refs/heads/master:refs/heads/master';
+
+                    // for each student
+                    for (let index = 0; index < students.length; index++) {
+                        NodeGit.Remote.create(gitRepo, students[index], githubUrl + students[index]);
+                        NodeGit.Remote.lookup(gitRepo, students[index]).then(function (remote) {
+                            remote.setCallbacks({
+                                credentials: function () {
+                                    return credentials;
+                                }
+                            });
+                            promises.push(
+                                remote.push([branchReference])
+                            );
+                        });
+                    }
+                    return Promise.all(promises);
+                }
+            )
 
             // Add student as collaborator
             .then(
