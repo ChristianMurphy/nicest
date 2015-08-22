@@ -1,4 +1,4 @@
-/* eslint new-cap: 0 */
+/* eslint new-cap: 0, max-nested-callbacks: [2, 2], no-loop-func: 0 */
 'use strict';
 
 const _ = require('lodash');
@@ -105,6 +105,60 @@ module.exports = {
                     return Promise.all(promises);
                 }
             )
+
+            // open repo
+            .then(function () {
+                return NodeGit.Repository.open(tempFolder);
+            })
+
+
+            // Push seed files into the new repositories
+            .then(
+                function (gitRepo) {
+                    const promises = [];
+                    const githubUrl = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(repo) + '-';
+                    const credentials = NodeGit.Cred.userpassPlaintextNew(githubUsername, githubPassword);
+                    const branchReference = 'refs/heads/master:refs/heads/master';
+
+                    // for each student
+                    for (let index = 0; index < students.length; index++) {
+                        NodeGit.Remote.create(gitRepo, students[index], githubUrl + students[index]);
+                        NodeGit.Remote.lookup(gitRepo, students[index]).then(function (remote) {
+                            remote.setCallbacks({
+                                credentials: function () {
+                                    return credentials;
+                                }
+                            });
+                            promises.push(
+                                remote.push([branchReference])
+                            );
+                        });
+                    }
+                    return Promise.all(promises);
+                }
+            )
+
+            // Add student as collaborator
+            .then(
+                function () {
+                    const promises = [];
+                    const githubUrl = /[A-Za-z0-9\-]+$/.exec(repo) + '-';
+
+                    // for each student
+                    for (let index = 0; index < students.length; index++) {
+                        // gather the promises
+                        promises.push(
+                            // create a repository
+                            Github
+                                .repos(githubUsername, githubUrl + students[index])
+                                .collaborators(students[index])
+                                .add()
+                        );
+                    }
+                    return Promise.all(promises);
+                }
+            )
+
             // redirect
             .then(
                 function () {
