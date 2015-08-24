@@ -7,6 +7,7 @@ block head
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.0.8/components/transition.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.0.8/components/dropdown.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.0.8/components/checkbox.min.js')
 
 block body
     .ui.container
@@ -36,5 +37,19 @@ block body
                                 = repo.name
                                 |  - 
                                 = repo.description
+                .field
+                    .ui.toggle.checkbox
+                        input(type='checkbox', name='isPrivate', class='hidden')
+                        label Make Repository Private
+                .field
+                    .ui.toggle.checkbox
+                        input(type='checkbox', name='hasWiki', class='hidden')
+                        label Enable Project Wiki
+                .field
+                    .ui.toggle.checkbox
+                        input(type='checkbox', name='hasIssueTracker', class='hidden')
+                        label Enable Project Issue Tracker
                 input.ui.fluid.large.teal.submit.button(type='submit', value='next')
-    script $('select.dropdown').dropdown();
+    script.
+        $('select.dropdown').dropdown();
+        $('.ui.checkbox').checkbox();

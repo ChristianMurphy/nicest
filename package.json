@@ -41,7 +41,7 @@
     "rimraf": "~2.4.0",
     "vision": "~3.0.0",
     "yar": "~3.0.0",
-    "yargs": "~3.20.0"
+    "yargs": "~3.21.0"
   },
   "devDependencies": {
     "code": "~1.5.0",

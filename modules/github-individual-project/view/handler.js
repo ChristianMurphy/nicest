@@ -15,7 +15,7 @@ module.exports = {
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
             reply().redirect('/recipe/github-individual-project/choose-repository');
         } else {
-            reply().redirect('/recipe/github/login');
+            reply().redirect('/recipe/github/login?next=/recipe/github-individual-project/choose-repository');
         }
     },
     chooseRepository: function (request, reply) {
@@ -31,6 +31,15 @@ module.exports = {
     selectRepository: function (request, reply) {
         request.session.set({
             'github-individual-project-repo': request.payload.repo
+        });
+        request.session.set({
+            'github-individual-project-is-private': request.payload.isPrivate || false
+        });
+        request.session.set({
+            'github-individual-project-has-wiki': request.payload.hasWiki || false
+        });
+        request.session.set({
+            'github-individual-project-has-issue-tracker': request.payload.hasIssueTracker || false
         });
 
         reply().redirect('/recipe/github-individual-project/choose-students');
@@ -76,6 +85,9 @@ module.exports = {
         });
         const repo = request.session.get('github-individual-project-repo');
         const students = request.session.get('github-individual-project-students');
+        const isPrivate = request.session.get('github-individual-project-is-private');
+        const hasWiki = request.session.get('github-individual-project-has-wiki');
+        const hasIssueTracker = request.session.get('github-individual-project-has-issue-tracker');
 
         // clear current temp folder
         rmrf(tempFolder)
@@ -96,9 +108,9 @@ module.exports = {
                             // create a repository
                             Github.me.repos.create({
                                 name: githubUrl + students[index],
-                                private: true,
-                                has_issues: false,
-                                has_wiki: false
+                                private: isPrivate,
+                                has_issues: hasIssueTracker,
+                                has_wiki: hasWiki
                             })
                         );
                     }

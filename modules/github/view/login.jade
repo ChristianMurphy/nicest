@@ -6,6 +6,7 @@ block title
 block body
     .ui.container
         form.ui.large.form(action='/recipe/github/login', method='POST')
+            input(type='hidden', name='redirect', value=redirect)
             .ui.stacked.segment
                 .field
                     .ui.left.icon.input

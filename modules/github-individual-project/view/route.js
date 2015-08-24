@@ -35,7 +35,10 @@ module.exports = [
             },
             validate: {
                 payload: {
-                    repo: Joi.string().regex(/[A-Za-z0-9\-]+/)
+                    repo: Joi.string().regex(/[A-Za-z0-9\-]+/),
+                    isPrivate: Joi.boolean(),
+                    hasIssueTracker: Joi.boolean(),
+                    hasWiki: Joi.boolean()
                 }
             }
         }
