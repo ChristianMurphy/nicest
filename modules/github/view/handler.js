@@ -7,7 +7,7 @@ module.exports = {
         reply().redirect('/recipe/github/login');
     },
     loginView: function (request, reply) {
-        reply.view('modules/github/view/login');
+        reply.view('modules/github/view/login', {redirect: request.query.next || 'none'});
     },
     loginAction: function (request, reply) {
         request.session.set({
@@ -15,7 +15,11 @@ module.exports = {
             'github-password': request.payload.password
         });
 
-        reply().redirect('/recipe/github/list');
+        if (request.payload.redirect === 'none') {
+            reply().redirect('/recipe/github/list');
+        } else {
+            reply().redirect(request.payload.redirect);
+        }
     },
     list: function (request, reply) {
         const Github = new Octokat({

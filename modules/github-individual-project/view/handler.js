@@ -15,7 +15,7 @@ module.exports = {
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
             reply().redirect('/recipe/github-individual-project/choose-repository');
         } else {
-            reply().redirect('/recipe/github/login');
+            reply().redirect('/recipe/github/login?next=/recipe/github-individual-project/choose-repository');
         }
     },
     chooseRepository: function (request, reply) {
