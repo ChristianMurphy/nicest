@@ -28,7 +28,6 @@ Each view can define any of these things
 * **api** - a restful endpoint for plugin
 * **view** - a generic template view
 * **recipe** - a view specific to setting up learning tools
-* **assessment** - a view specific to gauging student progress
 
 A plug-in can define any or all of these categories.
 The plug-in is served through a `plugin.js` file.
@@ -75,10 +74,8 @@ E.G. a `User` model `let user = {add: function (newUser) {...}}` would register 
 
  **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately. Apis live in a separate sub-server `let api = server.select('api')`, attach the routes to subserver `api.route(...)`.
 
- **Views**, **Recipes** and **Assessments** should use [Jade](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended. Views, recipes and assessments all live in a separate sub-server `let view = server.select('view')`, attach the routes to sub-server `view.route(...)`.
+ **Views** and **Recipes** should use [Jade](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended. Views and recipes live in a separate sub-server `let view = server.select('view')`, attach the routes to sub-server `view.route(...)`.
 
  **Recipes** should define an entry point using the HTTP `GET` verb and the `/recipe/{name}` replacing {name} with the actual name of the recipe. Recipes should have all lowercase names, and separate multiple words with a dash. E.G. `/recipe/user-management`. The entry point should add a `config` attribute with a `description` sub-attribute that should give a short description of the plug-in, this will be shown on the recipe listing. E.G. `config: {description: 'User Management'}`.
-
- **Assessments** should define an entry point using the HTTP `GET` verb and the `/assessment/{name}` replacing {name} with the actual name of the assessment. Assessments should have all lowercase names, and separate multiple words with a dash. E.G. `/assessment/issue-tracking`. The entry point should add a `config` attribute with a `description` sub-attribute that should give a short description of the plug-in, this will be shown on the recipe listing. E.G. `config: {description: 'Assesses Issue Tracker Usage'}`.
 
  Plug-ins can be loaded by registering the plug-in in `lib/server.js`.
