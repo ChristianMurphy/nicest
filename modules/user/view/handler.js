@@ -9,9 +9,9 @@ module.exports = {
     },
     list: function (request, reply) {
         User
-            .list('_id')
-            .then(function (userIds) {
-                reply.view('modules/user/view/list', {userIds: userIds});
+            .list('_id name')
+            .then(function (users) {
+                reply.view('modules/user/view/list', {users: users});
             });
     },
     view: function (request, reply) {
