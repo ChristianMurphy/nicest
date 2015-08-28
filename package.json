@@ -28,6 +28,8 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "boom": "~2.8.0",
+    "good": "~6.3.0",
+    "good-file": "~5.0.0",
     "hapi": "~9.0.0",
     "inert": "~3.0.0",
     "jade": "~1.11.0",
