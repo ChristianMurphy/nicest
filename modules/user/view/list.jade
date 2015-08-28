@@ -13,9 +13,9 @@ block body
                     th id
                     th actions
             tbody
-                each userId in userIds
+                each user in users
                     tr
-                        td= userId._id
+                        td= user.name
                         td
-                            a.ui.primary.button(href = '/recipe/manage-users/edit/' + userId._id) Edit
-                            a.ui.negative.button(href = '/recipe/manage-users/delete/' + userId._id) Delete
+                            a.ui.primary.button(href = '/recipe/manage-users/edit/' + user._id) Edit
+                            a.ui.negative.button(href = '/recipe/manage-users/delete/' + user._id) Delete
