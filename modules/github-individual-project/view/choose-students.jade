@@ -33,5 +33,6 @@ block body
                     select.ui.search.dropdown(name='students', multiple, required)
                         each student in students
                             option(value=student.modules.github.username)= student.name
-                input.ui.fluid.large.teal.submit.button(type='submit', value='next')
+                a.ui.large.secondary.submit.button(href='/recipe/github-individual-project/choose-repository') previous
+                input.ui.large.teal.submit.button(type='submit', value='next')
     script $('select.dropdown').dropdown();
