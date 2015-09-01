@@ -5,8 +5,12 @@ block title
 
 block body
     .ui.container
+        if saved
+            .ui.top.attached.positive.message
+                i.user.icon
+                | User saved
         form.ui.large.form(action=url, method='POST')
-            .ui.stacked.segment
+            .ui.stacked.attached.segment
                 .field
                     label name
                     input(type='text', name='name', placeholder='john smith', value=user.name, required)

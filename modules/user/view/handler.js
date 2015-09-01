@@ -20,6 +20,7 @@ module.exports = {
             .then(function (user) {
                 reply.view('modules/user/view/view', {
                     url: '/recipe/manage-users/edit/' + user._id,
+                    saved: request.query.saved,
                     user: {
                         name: user.name,
                         modules: user.modules || {}
@@ -31,7 +32,7 @@ module.exports = {
         User
             .update(request.params.id, request.payload)
             .then(function () {
-                reply().redirect('/recipe/manage-users/edit/' + request.params.id);
+                reply().redirect('/recipe/manage-users/edit/' + request.params.id + '?saved=true');
             });
     },
     viewEmpty: function (request, reply) {
@@ -47,7 +48,7 @@ module.exports = {
         User
             .create(request.payload)
             .then(function (user) {
-                reply().redirect('/recipe/manage-users/edit/' + user._id);
+                reply().redirect('/recipe/manage-users/edit/' + user._id + '?saved=true');
             });
     },
     delete: function (request, reply) {
