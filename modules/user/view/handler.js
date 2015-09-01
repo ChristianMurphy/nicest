@@ -20,7 +20,10 @@ module.exports = {
             .then(function (user) {
                 reply.view('modules/user/view/view', {
                     url: '/recipe/manage-users/edit/' + user._id,
-                    user: user
+                    user: {
+                        name: user.name,
+                        modules: user.modules || {}
+                    }
                 });
             });
     },
