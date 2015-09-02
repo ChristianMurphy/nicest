@@ -86,7 +86,7 @@ module.exports = [
             plugins: {
                 lout: false,
                 blankie: {
-                    fontSrc: ['self', 'oss.maxcdn.com'],
+                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
                     styleSrc: ['self', 'oss.maxcdn.com'],
                     scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
                 }
