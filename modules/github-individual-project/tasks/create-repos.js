@@ -1,3 +1,6 @@
+/**
+ * @module CreateGithubRepositories
+ */
 'use strict';
 
 /**
@@ -9,6 +12,8 @@
  */
 
 /**
+ * Takes in a list of names, and creates an empty repo for each name
+ * @function createRepositories
  * @param {Object} Github - a logged in Octokat instance
  * @param {Array} names - an {Array} of {String} with repo names
  * @param {RepoOptions} options - options to be used with repo
