@@ -8,6 +8,7 @@ const path = require('path');
 
 const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
 const User = require('../../../lib/server').server.plugins.user;
+const CreateRepos = require('../tasks/create-repos');
 const tempFolder = path.join(__dirname, 'temp');
 
 module.exports = {
@@ -98,23 +99,19 @@ module.exports = {
             // create empty repos for each student on github
             .then(
                 function () {
-                    const promises = [];
+                    const names = [];
                     const githubUrl = /[A-Za-z0-9\-]+$/.exec(repo) + '-';
 
-                    // for each student
+                    // for each student create a repo name
                     for (let index = 0; index < students.length; index++) {
-                        // gather the promises
-                        promises.push(
-                            // create a repository
-                            Github.me.repos.create({
-                                name: githubUrl + students[index],
-                                private: isPrivate,
-                                has_issues: hasIssueTracker,
-                                has_wiki: hasWiki
-                            })
-                        );
+                        names.push(githubUrl + students[index]);
                     }
-                    return Promise.all(promises);
+
+                    return CreateRepos(Github, names, {
+                        private: isPrivate,
+                        has_wiki: hasWiki,
+                        has_issues: hasIssueTracker
+                    });
                 }
             )
 
