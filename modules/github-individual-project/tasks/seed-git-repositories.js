@@ -8,7 +8,7 @@ const NodeGit = require('nodegit');
 const rimraf = require('rimraf');
 const path = require('path');
 
-const tempFolder = path.join(__dirname, 'temp');
+const temporaryFolder = path.join(__dirname, 'temp');
 const branchReference = 'refs/heads/master:refs/heads/master';
 
 /**
@@ -23,31 +23,39 @@ const branchReference = 'refs/heads/master:refs/heads/master';
 module.exports = function (username, password, seedRepositoryURL, destinationRepositoryURLs) {
     const credentials = NodeGit.Cred.userpassPlaintextNew(username, password);
 
-    return rmrf(tempFolder)
-        // clone repo to temp folder
+    // clear temporary folder
+    return rmrf(temporaryFolder)
+        // clone repository to temporary folder
         .then(function () {
-            return NodeGit.Clone(seedRepositoryURL, tempFolder);
+            return NodeGit.Clone(seedRepositoryURL, temporaryFolder);
         })
+        // open the repository
         .then(function () {
-            return NodeGit.Repository.open(tempFolder);
+            return NodeGit.Repository.open(temporaryFolder);
         })
+        // push the seed repository to all destination repositories
         .then(function (seedRepository) {
             const promises = [];
 
             // for each student
             for (let index = 0; index < destinationRepositoryURLs.length; index++) {
+                // create a remote for destination
                 NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
+                // open remote for destination
                 NodeGit.Remote.lookup(seedRepository, index.toString()).then(function (remote) {
+                    // add Git authentication information
                     remote.setCallbacks({
                         credentials: function () {
                             return credentials;
                         }
                     });
+                    // push to destination remote and collect resulting promise
                     promises.push(
                         remote.push([branchReference])
                     );
                 });
             }
+            // wait for all pushes to complete
             return Promise.all(promises);
         });
 };

@@ -76,10 +76,6 @@ module.exports = {
     confirm: function (request, reply) {
         const githubUsername = request.session.get('github-username');
         const githubPassword = request.session.get('github-password');
-        const Github = new Octokat({
-            username: githubUsername,
-            password: githubPassword
-        });
         const seedRepository = request.session.get('github-individual-project-repo');
         const students = request.session.get('github-individual-project-students');
         const isPrivate = request.session.get('github-individual-project-is-private');
@@ -87,44 +83,30 @@ module.exports = {
         const hasIssueTracker = request.session.get('github-individual-project-has-issue-tracker');
 
         // create empty repos for each student on github
-        const names = [];
-        const urls = [];
+        const githubRepositories = [];
+        const githubUrls = [];
         const githubName = /[A-Za-z0-9\-]+$/.exec(seedRepository) + '-';
         const githubUrl = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository) + '-';
         const seedRepositoryURL = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository);
 
         // for each student create a repo name
         for (let index = 0; index < students.length; index++) {
-            names.push(githubName + students[index]);
-            urls.push(githubUrl + students[index]);
+            githubRepositories.push({
+                name: githubName + students[index],
+                collaborators: [students[index]]
+            });
+            githubUrls.push(githubUrl + students[index]);
         }
-        console.log(urls, seedRepository);
 
-        createGithubRepositories(Github, names, {
+        // create repostories
+        createGithubRepositories(githubUsername, githubPassword, githubRepositories, {
             private: isPrivate,
             has_wiki: hasWiki,
             has_issues: hasIssueTracker
         })
+            // add seed code to repositories
             .then(function () {
-                return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, urls);
-            })
-
-            // Add student as collaborator
-            .then(function () {
-                const promises = [];
-
-                // for each student
-                for (let index = 0; index < students.length; index++) {
-                    // gather the promises
-                    promises.push(
-                        // create a repository
-                        Github
-                            .repos(githubUsername, githubUrl + students[index])
-                            .collaborators(students[index])
-                            .add()
-                    );
-                }
-                return Promise.all(promises);
+                return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
             })
 
             // redirect
