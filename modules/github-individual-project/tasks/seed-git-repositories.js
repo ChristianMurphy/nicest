@@ -31,27 +31,25 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
         .then(function () {
             return NodeGit.Repository.open(tempFolder);
         })
-        .then(
-            function (seedRepository) {
-                const promises = [];
+        .then(function (seedRepository) {
+            const promises = [];
 
-                // for each student
-                for (let index = 0; index < destinationRepositoryURLs.length; index++) {
-                    NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
-                    NodeGit.Remote.lookup(seedRepository, index.toString()).then(function (remote) {
-                        remote.setCallbacks({
-                            credentials: function () {
-                                return credentials;
-                            }
-                        });
-                        promises.push(
-                            remote.push([branchReference])
-                        );
+            // for each student
+            for (let index = 0; index < destinationRepositoryURLs.length; index++) {
+                NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
+                NodeGit.Remote.lookup(seedRepository, index.toString()).then(function (remote) {
+                    remote.setCallbacks({
+                        credentials: function () {
+                            return credentials;
+                        }
                     });
-                }
-                return Promise.all(promises);
+                    promises.push(
+                        remote.push([branchReference])
+                    );
+                });
             }
-        );
+            return Promise.all(promises);
+        });
 };
 
 /**
