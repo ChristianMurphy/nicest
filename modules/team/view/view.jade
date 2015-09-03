@@ -23,7 +23,10 @@ block body
                     label members
                     select.ui.search.dropdown(name='members', multiple, required)
                         each user in users
-                            option(value=user._id)= user.name
+                            if team.members.indexOf(user._id) > -1
+                                option(value=user._id, selected)= user.name
+                            else
+                                option(value=user._id)= user.name
                 .field
                     label modules
                     textarea(name='modules', placeholder='{}')= JSON.stringify(team.modules, null, 4)

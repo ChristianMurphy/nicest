@@ -25,10 +25,11 @@ module.exports = {
                 const users = data[1];
 
                 reply.view('modules/team/view/view', {
-                    url: '/recipe/manage-teamss/edit/' + team._id,
+                    url: '/recipe/manage-teams/edit/' + team._id,
                     saved: request.query.saved,
                     team: {
                         name: team.name,
+                        members: team.members || [],
                         modules: team.modules || {}
                     },
                     users: users
@@ -49,6 +50,7 @@ module.exports = {
                     url: '/recipe/manage-teams/create',
                     team: {
                         name: '',
+                        members: [],
                         modules: {}
                     },
                     users: users
