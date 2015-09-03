@@ -1,0 +1,35 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Team User
+    
+block head
+    script(src='//code.jquery.com/jquery-2.1.4.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.0.8/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.0.8/components/dropdown.min.js')
+
+block body
+    .ui.container
+        if saved
+            .ui.top.attached.positive.message
+                i.users.icon
+                | Team saved
+        form.ui.large.form(action=url, method='POST')
+            .ui.stacked.attached.segment
+                .field
+                    label name
+                    input(type='text', name='name', placeholder='team a', value=team.name, required)
+                .field
+                    label members
+                    select.ui.search.dropdown(name='members', multiple, required)
+                        each user in users
+                            if team.members.indexOf(user._id) > -1
+                                option(value=user._id, selected)= user.name
+                            else
+                                option(value=user._id)= user.name
+                .field
+                    label modules
+                    textarea(name='modules', placeholder='{}')= JSON.stringify(team.modules, null, 4)
+                input.ui.large.primary.submit.button(type='submit', value='submit')
+                a.ui.large.red.submit.button(href='/recipe/manage-teams/list') cancel
+    script $('select.dropdown').dropdown();

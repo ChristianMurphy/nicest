@@ -71,12 +71,13 @@ module.exports = {
     /**
      * Lists all the Team ids
      * @function list
-     * @returns {Promise} resolves to an {Array} of {String}
+     * @param {String} select - space seperated list of columns to select
+     * @returns {Promise} resolves to an {Array} of {Object}
      */
-    list: function () {
+    list: function (select) {
         return Team
             .find({})
-            .select('_id')
+            .select(select)
             .exec();
     }
 };
