@@ -6,15 +6,16 @@ block title
 block body
     .ui.container
         h1.ui.center.aligned.header Team Management
-        table.ui.celled.table
+        a.ui.positive.top.attached.button(href = '/recipe/manage-teams/create') Create Team
+        table.ui.attached.celled.table
             thead
                 tr
                     th id
                     th actions
             tbody
-                each teamId in teamIds
+                each team in teams
                     tr
-                        td= teamId._id
+                        td= team.name
                         td
-                            button.ui.primary.button Edit
-                            button.ui.negative.button Delete
+                            a.ui.primary.button(href = '/recipe/manage-teams/edit/' + team._id) Edit
+                            a.ui.negative.button(href = '/recipe/manage-teams/delete/' + team._id) Delete

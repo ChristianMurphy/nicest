@@ -69,8 +69,8 @@ module.exports = {
     /**
      * Lists all the User ids
      * @function list
-     * @param {String} select - comma seperated list of columns to select
-     * @returns {Promise} resolves to an {Array} of {String}
+     * @param {String} select - space seperated list of columns to select
+     * @returns {Promise} resolves to an {Array} of {Object}
      */
     list: function (select) {
         return User

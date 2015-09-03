@@ -1,0 +1,21 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Team User
+
+block body
+    .ui.container
+        if saved
+            .ui.top.attached.positive.message
+                i.users.icon
+                | Team saved
+        form.ui.large.form(action=url, method='POST')
+            .ui.stacked.attached.segment
+                .field
+                    label name
+                    input(type='text', name='name', placeholder='team a', value=team.name, required)
+                .field
+                    label modules
+                    textarea(name='modules', placeholder='{}')= JSON.stringify(team.modules, null, 4)
+                input.ui.large.primary.submit.button(type='submit', value='submit')
+                a.ui.large.red.submit.button(href='/recipe/manage-teams/list') cancel
