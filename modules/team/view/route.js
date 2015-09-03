@@ -25,14 +25,18 @@ module.exports = [
             }
         }
     },
-
     {
         method: 'GET',
         path: '/recipe/manage-teams/edit/{id}',
         handler: handler.view,
         config: {
             plugins: {
-                lout: false
+                lout: false,
+                blankie: {
+                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
+                    styleSrc: ['self', 'oss.maxcdn.com'],
+                    scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
+                }
             },
             validate: {
                 params: {
@@ -55,6 +59,7 @@ module.exports = [
                 },
                 payload: {
                     name: Joi.string().regex(/[A-Za-z ]+/),
+                    members: Joi.array().single().unique(),
                     modules: Joi.object()
                 }
             }
@@ -81,7 +86,12 @@ module.exports = [
         handler: handler.viewEmpty,
         config: {
             plugins: {
-                lout: false
+                lout: false,
+                blankie: {
+                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
+                    styleSrc: ['self', 'oss.maxcdn.com'],
+                    scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
+                }
             }
         }
     },
@@ -96,6 +106,7 @@ module.exports = [
             validate: {
                 payload: {
                     name: Joi.string().regex(/[A-Za-z ]+/),
+                    members: Joi.array().single().unique(),
                     modules: Joi.object()
                 }
             }

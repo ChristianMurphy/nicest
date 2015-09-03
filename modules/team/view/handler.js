@@ -2,6 +2,7 @@
 'use strict';
 
 const Team = require('../model/team');
+const User = require('../../../lib/server').server.plugins.user;
 
 module.exports = {
     redirect: function (request, reply) {
@@ -15,16 +16,22 @@ module.exports = {
             });
     },
     view: function (request, reply) {
-        Team
-            .read(request.params.id)
-            .then(function (team) {
+        Promise.all([
+            Team.read(request.params.id),
+            User.list('_id name')
+        ])
+            .then(function (data) {
+                const team = data[0];
+                const users = data[1];
+
                 reply.view('modules/team/view/view', {
                     url: '/recipe/manage-teamss/edit/' + team._id,
                     saved: request.query.saved,
                     team: {
                         name: team.name,
                         modules: team.modules || {}
-                    }
+                    },
+                    users: users
                 });
             });
     },
@@ -36,13 +43,17 @@ module.exports = {
             });
     },
     viewEmpty: function (request, reply) {
-        reply.view('modules/team/view/view', {
-            url: '/recipe/manage-teams/create',
-            team: {
-                name: '',
-                modules: {}
-            }
-        });
+        User.list('_id name')
+            .then(function (users) {
+                reply.view('modules/team/view/view', {
+                    url: '/recipe/manage-teams/create',
+                    team: {
+                        name: '',
+                        modules: {}
+                    },
+                    users: users
+                });
+            });
     },
     create: function (request, reply) {
         Team
