@@ -21,7 +21,7 @@ block body
                 .content
                     .title Confirm
                     .description Confirm Selections
-        form.ui.attached.large.form(action='/recipe/github-individual-project/confirm', method='POST')
+        form.ui.attached.large.form(action='/recipe/code-project/confirm', method='POST')
             .ui.attached.stacked.segment
                 h4.ui.horizontal.divider.header
                     i.git.square.icon
@@ -36,5 +36,5 @@ block body
                             i.user.icon
                             = student.name
                             
-                a.ui.large.secondary.submit.button(href='/recipe/github-individual-project/choose-students') previous
+                a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-students') previous
                 input.ui.large.teal.submit.button(type='submit', value='confirm')

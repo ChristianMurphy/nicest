@@ -12,7 +12,7 @@ module.exports.register = function (server, options, next) {
 
 module.exports.register.attributes = {
     pkg: {
-        name: 'github-individual-project',
+        name: 'code-project',
         version: '0.1.0'
     }
 };
