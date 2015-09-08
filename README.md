@@ -9,7 +9,7 @@
 nicely integrating complex education software together
 
 ## Installation
-1. Install [iojs 2](https://iojs.org/)
+1. Install [iojs 4+](https://iojs.org/)
 2. Install [MongoDb](https://www.mongodb.org/)
 3. Run `npm install -g nicest`
 
