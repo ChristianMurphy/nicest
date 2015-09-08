@@ -2,7 +2,7 @@
 
 const Recipe = require('../model/recipe');
 const _ = require('lodash');
-const recipeMap = function (recipe) {
+const recipeMap = (recipe) => {
     return {
         path: recipe.path,
         description: recipe.settings.description
@@ -10,7 +10,7 @@ const recipeMap = function (recipe) {
 };
 
 module.exports = {
-    list: function (request, reply) {
+    list: (request, reply) => {
         reply(_.map(Recipe.list(), recipeMap));
     }
 };

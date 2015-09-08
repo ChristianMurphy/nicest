@@ -12,6 +12,25 @@ const temporaryFolder = path.join(__dirname, 'temp');
 const branchReference = 'refs/heads/master:refs/heads/master';
 
 /**
+ * Promise wrapper for rimraf, recursively deletes a folder
+ * @function rmrf
+ * @private
+ * @param {String} folder - folder to recursively remove
+ * @returns {Promise} promise will resolve when folder has been deleted
+ */
+const rmrf = (folder) => {
+    return new Promise ((resolve, reject) => {
+        rimraf(folder, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+};
+
+/**
  * Takes in a seed repository and a list of repositories to replicate to.
  * @function seedGitRepository
  * @param {String} username - username for Git user
@@ -20,7 +39,7 @@ const branchReference = 'refs/heads/master:refs/heads/master';
  * @param {Array} destinationRepositoryURLs - {Array} of {String} with repository URLs
  * @returns {Promise} promise will resolve when all repos have been seeded
  */
-module.exports = function (username, password, seedRepositoryURL, destinationRepositoryURLs) {
+module.exports = (username, password, seedRepositoryURL, destinationRepositoryURLs) => {
     const credentials = NodeGit.Cred.userpassPlaintextNew(username, password);
 
     // clear temporary folder
@@ -45,7 +64,7 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
                 NodeGit.Remote.lookup(seedRepository, index.toString()).then((remote) => {
                     // add Git authentication information
                     remote.setCallbacks({
-                        credentials: function () {
+                        credentials: () => {
                             return credentials;
                         }
                     });
@@ -59,22 +78,3 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
             return Promise.all(promises);
         });
 };
-
-/**
- * Promise wrapper for rimraf, recursively deletes a folder
- * @function rmrf
- * @private
- * @param {String} folder - folder to recursively remove
- * @returns {Promise} promise will resolve when folder has been deleted
- */
-function rmrf (folder) {
-    return new Promise ((resolve, reject) => {
-        rimraf(folder, (err) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve();
-            }
-        });
-    });
-}

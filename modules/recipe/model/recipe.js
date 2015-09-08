@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 let server;
 
-const filterRecipes = function (route) {
+const filterRecipes = (route) => {
     return route.method === 'get' && route.path.match(/^\/recipe\/[^/]+\/?$/);
 };
 
@@ -26,7 +26,7 @@ module.exports = {
      * @param {Object} serve - Hapi JS server object
      * @returns {Undefined} undefined
      */
-    setServer: function (serve) {
+    setServer: (serve) => {
         server = serve;
     },
     /**
@@ -34,7 +34,7 @@ module.exports = {
      * @function list
      * @returns {Array} {Array} of {Route}
      */
-    list: function () {
+    list: () => {
         return _.filter(server.table()[0].table, filterRecipes);
     }
 };

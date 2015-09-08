@@ -2,7 +2,7 @@
 
 const recipes = require('./model/recipe');
 
-module.exports.register = function (server, options, next) {
+module.exports.register = (server, options, next) => {
     const api = server.select('api');
     const view = server.select('view');
 

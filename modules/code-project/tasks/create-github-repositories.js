@@ -30,7 +30,7 @@ const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
  * @param {GithubRepositoryOptions} options - options to be used with repository
  * @returns {Promise} promise will resolve when all repos have been created
  */
-module.exports = function (githubUsername, githubPassword, repositories, options) {
+module.exports = (githubUsername, githubPassword, repositories, options) => {
     const promises = [];
 
     const Github = new Octokat({
