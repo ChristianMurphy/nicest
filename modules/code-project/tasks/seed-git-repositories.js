@@ -26,15 +26,15 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
     // clear temporary folder
     return rmrf(temporaryFolder)
         // clone repository to temporary folder
-        .then(function () {
+        .then(() => {
             return NodeGit.Clone(seedRepositoryURL, temporaryFolder);
         })
         // open the repository
-        .then(function () {
+        .then(() => {
             return NodeGit.Repository.open(temporaryFolder);
         })
         // push the seed repository to all destination repositories
-        .then(function (seedRepository) {
+        .then((seedRepository) => {
             const promises = [];
 
             // for each student
@@ -42,7 +42,7 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
                 // create a remote for destination
                 NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
                 // open remote for destination
-                NodeGit.Remote.lookup(seedRepository, index.toString()).then(function (remote) {
+                NodeGit.Remote.lookup(seedRepository, index.toString()).then((remote) => {
                     // add Git authentication information
                     remote.setCallbacks({
                         credentials: function () {
@@ -68,8 +68,8 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
  * @returns {Promise} promise will resolve when folder has been deleted
  */
 function rmrf (folder) {
-    return new Promise (function (resolve, reject) {
-        rimraf(folder, function (err) {
+    return new Promise ((resolve, reject) => {
+        rimraf(folder, (err) => {
             if (err) {
                 reject(err);
             } else {

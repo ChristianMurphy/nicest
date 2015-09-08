@@ -29,6 +29,6 @@ const server = require('../lib/server').setup(argv);
 
 database(argv.database);
 
-server.start(function () {
+server.start(() => {
     console.log('Server running at:', server.info.uri);
 });

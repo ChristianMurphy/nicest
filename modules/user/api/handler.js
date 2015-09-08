@@ -9,10 +9,10 @@ module.exports = {
         User
             .create(request.payload)
             .then(
-                function (newUser) {
+                (newUser) => {
                     reply(newUser).code(201);
                 },
-                function () {
+                () => {
                     reply(boom.badRequest());
                 }
             );
@@ -21,14 +21,14 @@ module.exports = {
         User
             .read(request.params.id)
             .then(
-                function (user) {
+                (user) => {
                     if (user) {
                         reply(user);
                     } else {
                         reply(boom.notFound());
                     }
                 },
-                function () {
+                () => {
                     reply(boom.notFound());
                 }
             );
@@ -37,14 +37,14 @@ module.exports = {
         User
             .update(request.params.id, request.payload)
             .then(
-                function (user) {
+                (user) => {
                     if (user) {
                         reply(user);
                     } else {
                         reply(boom.notFound());
                     }
                 },
-                function () {
+                () => {
                     reply(boom.badRequest());
                 }
             );
@@ -53,10 +53,10 @@ module.exports = {
         User
             .delete(request.params.id)
             .then(
-                function () {
+                () => {
                     reply().code(204);
                 },
-                function () {
+                () => {
                     reply().code(204);
                 }
             );
@@ -65,10 +65,10 @@ module.exports = {
         User
             .list('_id')
             .then(
-                function (userIds) {
+                (userIds) => {
                     reply(_.pluck(userIds, '_id'));
                 },
-                function () {
+                () => {
                     reply(boom.notFound());
                 }
             );

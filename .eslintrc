@@ -161,7 +161,7 @@ rules:
         - both
     no-const-assign: 2
     no-var: 2
-    prefer-arrow-callback: 0 # Delay this until Node JS adds stable support for arrow functions
+    prefer-arrow-callback: 2
     prefer-const: 2
     prefer-reflect: 2
     require-yield: 2

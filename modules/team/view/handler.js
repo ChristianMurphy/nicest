@@ -11,7 +11,7 @@ module.exports = {
     list: function (request, reply) {
         Team
             .list('_id name')
-            .then(function (teams) {
+            .then((teams) => {
                 reply.view('modules/team/view/list', {teams: teams});
             });
     },
@@ -20,7 +20,7 @@ module.exports = {
             Team.read(request.params.id),
             User.list('_id name')
         ])
-            .then(function (data) {
+            .then((data) => {
                 const team = data[0];
                 const users = data[1];
 
@@ -39,13 +39,13 @@ module.exports = {
     save: function (request, reply) {
         Team
             .update(request.params.id, request.payload)
-            .then(function () {
+            .then(() => {
                 reply().redirect('/recipe/manage-teams/edit/' + request.params.id + '?saved=true');
             });
     },
     viewEmpty: function (request, reply) {
         User.list('_id name')
-            .then(function (users) {
+            .then((users) => {
                 reply.view('modules/team/view/view', {
                     url: '/recipe/manage-teams/create',
                     team: {
@@ -60,14 +60,14 @@ module.exports = {
     create: function (request, reply) {
         Team
             .create(request.payload)
-            .then(function (team) {
+            .then((team) => {
                 reply().redirect('/recipe/manage-teams/edit/' + team._id + '?saved=true');
             });
     },
     delete: function (request, reply) {
         Team
             .delete(request.params.id)
-            .then(function () {
+            .then(() => {
                 reply().redirect('/recipe/manage-teams/list');
             });
     }

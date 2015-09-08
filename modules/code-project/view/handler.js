@@ -21,7 +21,7 @@ module.exports = {
             password: request.session.get('github-password')
         });
 
-        Github.me.repos.fetch().then(function (repos) {
+        Github.me.repos.fetch().then((repos) => {
             reply.view('modules/code-project/view/choose-repository', {repos: repos});
         });
     },
@@ -44,7 +44,7 @@ module.exports = {
     chooseStudents: function (request, reply) {
         User
             .list('name modules')
-            .then(function (users) {
+            .then((users) => {
                 reply.view('modules/code-project/view/choose-students', {
                     students: filterGithubUsers(users)
                 });
@@ -60,7 +60,7 @@ module.exports = {
     confirmView: function (request, reply) {
         User
             .list('name modules')
-            .then(function (users) {
+            .then((users) => {
                 let students = filterGithubUsers(users);
                 const studentFilter = request.session.get('code-project-students').sort();
                 const repo = request.session.get('github-project-repo');
@@ -105,16 +105,16 @@ module.exports = {
             has_issues: hasIssueTracker
         })
             // add seed code to repositories
-            .then(function () {
+            .then(() => {
                 return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
             })
 
             // redirect
             .then(
-                function () {
+                () => {
                     reply().redirect('/recipes');
                 },
-                function (err) {
+                (err) => {
                     console.log(err);
                     reply().redirect('/recipes');
                 }
@@ -123,13 +123,13 @@ module.exports = {
 };
 
 function filterGithubUsers (users) {
-    return _.filter(users, function (user) {
+    return _.filter(users, (user) => {
         return _.has(user, 'modules.github.username');
     });
 }
 
 function selectedStudents (students, filterArray) {
-    return _.filter(students, function (student) {
+    return _.filter(students, (student) => {
         return _.indexOf(filterArray, student.modules.github.username, true) > -1;
     });
 }

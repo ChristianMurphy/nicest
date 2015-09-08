@@ -14,12 +14,12 @@ const expect = Code.expect;
 const mongoose = require('mongoose');
 const server = require('../../../lib/server').setup('test');
 
-describe('User', function () {
+describe('User', () => {
     /*
      * Connect to database when starting tests
      */
-    before(function (done) {
-        mongoose.connect('mongodb://localhost/test', function () {
+    before((done) => {
+        mongoose.connect('mongodb://localhost/test', () => {
             done();
         });
     });
@@ -27,16 +27,16 @@ describe('User', function () {
     /*
      * Clear all users before running tests
      */
-    beforeEach(function (done) {
+    beforeEach((done) => {
         mongoose.models.User
             .find({})
             .remove()
             .exec()
             .then(
-                function () {
+                () => {
                     done();
                 },
-                function (error) {
+                (error) => {
                     done(error);
                 }
             );
@@ -45,20 +45,20 @@ describe('User', function () {
     /*
      * Disconnect from database after tests
      */
-    after(function (done) {
-        mongoose.disconnect(function () {
+    after((done) => {
+        mongoose.disconnect(() => {
             done();
         });
     });
 
-    describe('#list(request, reply)', function () {
-        it('should have an empty list of user ids', function (done) {
+    describe('#list(request, reply)', () => {
+        it('should have an empty list of user ids', (done) => {
             const request = {
                 method: 'GET',
                 url: '/api/users'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(200);
                 expect(response.result).to.be.an.array();
                 expect(response.result).to.have.length(0);
@@ -67,8 +67,8 @@ describe('User', function () {
         });
     });
 
-    describe('#create(request, reply)', function () {
-        it('should create a new user', function (done) {
+    describe('#create(request, reply)', () => {
+        it('should create a new user', (done) => {
             const request = {
                 method: 'POST',
                 url: '/api/user',
@@ -80,7 +80,7 @@ describe('User', function () {
                 }
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(201);
                 expect(response.result.name).to.be.string();
                 expect(response.result.modules).to.be.an.object();
@@ -89,42 +89,42 @@ describe('User', function () {
         });
     });
 
-    describe('#read(request, reply)', function () {
-        it('should error when user does not exist', function (done) {
+    describe('#read(request, reply)', () => {
+        it('should error when user does not exist', (done) => {
             const request = {
                 method: 'GET',
                 url: '/api/user/000000000000000000000000'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(404);
                 done();
             });
         });
     });
 
-    describe('#update(request, reply)', function () {
-        it('should error when user does not exist', function (done) {
+    describe('#update(request, reply)', () => {
+        it('should error when user does not exist', (done) => {
             const request = {
                 method: 'PUT',
                 url: '/api/user/000000000000000000000000'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(404);
                 done();
             });
         });
     });
 
-    describe('#delete(request, reply)', function () {
-        it('should be okay when user does not exist', function (done) {
+    describe('#delete(request, reply)', () => {
+        it('should be okay when user does not exist', (done) => {
             const request = {
                 method: 'DELETE',
                 url: '/api/user/000000000000000000000000'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(204);
                 done();
             });
