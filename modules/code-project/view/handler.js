@@ -10,9 +10,9 @@ const seedGitRepositories = require('../tasks/seed-git-repositories');
 module.exports = {
     redirect: function (request, reply) {
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
-            reply().redirect('/recipe/github-individual-project/choose-repository');
+            reply().redirect('/recipe/code-project/choose-repository');
         } else {
-            reply().redirect('/recipe/github/login?next=/recipe/github-individual-project/choose-repository');
+            reply().redirect('/recipe/github/login?next=/recipe/code-project/choose-repository');
         }
     },
     chooseRepository: function (request, reply) {
@@ -22,51 +22,51 @@ module.exports = {
         });
 
         Github.me.repos.fetch().then(function (repos) {
-            reply.view('modules/github-individual-project/view/choose-repository', {repos: repos});
+            reply.view('modules/code-project/view/choose-repository', {repos: repos});
         });
     },
     selectRepository: function (request, reply) {
         request.session.set({
-            'github-individual-project-repo': request.payload.repo
+            'github-project-repo': request.payload.repo
         });
         request.session.set({
-            'github-individual-project-is-private': request.payload.isPrivate || false
+            'github-project-is-private': request.payload.isPrivate || false
         });
         request.session.set({
-            'github-individual-project-has-wiki': request.payload.hasWiki || false
+            'github-project-has-wiki': request.payload.hasWiki || false
         });
         request.session.set({
-            'github-individual-project-has-issue-tracker': request.payload.hasIssueTracker || false
+            'github-project-has-issue-tracker': request.payload.hasIssueTracker || false
         });
 
-        reply().redirect('/recipe/github-individual-project/choose-students');
+        reply().redirect('/recipe/code-project/choose-students');
     },
     chooseStudents: function (request, reply) {
         User
             .list('name modules')
             .then(function (users) {
-                reply.view('modules/github-individual-project/view/choose-students', {
+                reply.view('modules/code-project/view/choose-students', {
                     students: filterGithubUsers(users)
                 });
             });
     },
     selectStudents: function (request, reply) {
         request.session.set({
-            'github-individual-project-students': request.payload.students
+            'code-project-students': request.payload.students
         });
 
-        reply().redirect('/recipe/github-individual-project/confirm');
+        reply().redirect('/recipe/code-project/confirm');
     },
     confirmView: function (request, reply) {
         User
             .list('name modules')
             .then(function (users) {
                 let students = filterGithubUsers(users);
-                const studentFilter = request.session.get('github-individual-project-students').sort();
-                const repo = request.session.get('github-individual-project-repo');
+                const studentFilter = request.session.get('code-project-students').sort();
+                const repo = request.session.get('github-project-repo');
 
                 students = selectedStudents(students, studentFilter);
-                reply.view('modules/github-individual-project/view/confirm', {
+                reply.view('modules/code-project/view/confirm', {
                     repoUrl: 'https://github.com/' + repo,
                     repoName: /[A-Za-z0-9\-]+$/.exec(repo),
                     students: students
@@ -76,11 +76,11 @@ module.exports = {
     confirm: function (request, reply) {
         const githubUsername = request.session.get('github-username');
         const githubPassword = request.session.get('github-password');
-        const seedRepository = request.session.get('github-individual-project-repo');
-        const students = request.session.get('github-individual-project-students');
-        const isPrivate = request.session.get('github-individual-project-is-private');
-        const hasWiki = request.session.get('github-individual-project-has-wiki');
-        const hasIssueTracker = request.session.get('github-individual-project-has-issue-tracker');
+        const seedRepository = request.session.get('github-project-repo');
+        const students = request.session.get('code-project-students');
+        const isPrivate = request.session.get('github-project-is-private');
+        const hasWiki = request.session.get('github-project-has-wiki');
+        const hasIssueTracker = request.session.get('github-project-has-issue-tracker');
 
         // create empty repos for each student on github
         const githubRepositories = [];

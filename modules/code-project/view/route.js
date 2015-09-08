@@ -6,10 +6,10 @@ const Joi = require('joi');
 module.exports = [
     {
         method: 'GET',
-        path: '/recipe/github-individual-project',
+        path: '/recipe/code-project',
         handler: handler.redirect,
         config: {
-            description: 'Create a individual project from a seed repository',
+            description: 'Create a computer code project',
             plugins: {
                 lout: false
             }
@@ -17,7 +17,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/recipe/github-individual-project/choose-repository',
+        path: '/recipe/code-project/choose-repository',
         handler: handler.chooseRepository,
         config: {
             plugins: {
@@ -32,7 +32,7 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/recipe/github-individual-project/choose-repository',
+        path: '/recipe/code-project/choose-repository',
         handler: handler.selectRepository,
         config: {
             plugins: {
@@ -50,7 +50,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/recipe/github-individual-project/choose-students',
+        path: '/recipe/code-project/choose-students',
         handler: handler.chooseStudents,
         config: {
             plugins: {
@@ -65,7 +65,7 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/recipe/github-individual-project/choose-students',
+        path: '/recipe/code-project/choose-students',
         handler: handler.selectStudents,
         config: {
             plugins: {
@@ -80,7 +80,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/recipe/github-individual-project/confirm',
+        path: '/recipe/code-project/confirm',
         handler: handler.confirmView,
         config: {
             plugins: {
@@ -95,7 +95,7 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/recipe/github-individual-project/confirm',
+        path: '/recipe/code-project/confirm',
         handler: handler.confirm,
         config: {
             plugins: {
