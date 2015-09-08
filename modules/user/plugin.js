@@ -2,7 +2,7 @@
 
 const user = require('./model/user');
 
-module.exports.register = function (server, options, next) {
+module.exports.register = (server, options, next) => {
     const api = server.select('api');
     const view = server.select('view');
 

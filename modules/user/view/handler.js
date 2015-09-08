@@ -4,20 +4,20 @@
 const User = require('../model/user');
 
 module.exports = {
-    redirect: function (request, reply) {
+    redirect: (request, reply) => {
         reply().redirect('/recipe/manage-users/list');
     },
-    list: function (request, reply) {
+    list: (request, reply) => {
         User
             .list('_id name')
-            .then(function (users) {
+            .then((users) => {
                 reply.view('modules/user/view/list', {users: users});
             });
     },
-    view: function (request, reply) {
+    view: (request, reply) => {
         User
             .read(request.params.id)
-            .then(function (user) {
+            .then((user) => {
                 reply.view('modules/user/view/view', {
                     url: '/recipe/manage-users/edit/' + user._id,
                     saved: request.query.saved,
@@ -28,14 +28,14 @@ module.exports = {
                 });
             });
     },
-    save: function (request, reply) {
+    save: (request, reply) => {
         User
             .update(request.params.id, request.payload)
-            .then(function () {
+            .then(() => {
                 reply().redirect('/recipe/manage-users/edit/' + request.params.id + '?saved=true');
             });
     },
-    viewEmpty: function (request, reply) {
+    viewEmpty: (request, reply) => {
         reply.view('modules/user/view/view', {
             url: '/recipe/manage-users/create',
             user: {
@@ -44,17 +44,17 @@ module.exports = {
             }
         });
     },
-    create: function (request, reply) {
+    create: (request, reply) => {
         User
             .create(request.payload)
-            .then(function (user) {
+            .then((user) => {
                 reply().redirect('/recipe/manage-users/edit/' + user._id + '?saved=true');
             });
     },
-    delete: function (request, reply) {
+    delete: (request, reply) => {
         User
             .delete(request.params.id)
-            .then(function () {
+            .then(() => {
                 reply().redirect('/recipe/manage-users/list');
             });
     }

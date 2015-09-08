@@ -14,12 +14,12 @@ const expect = Code.expect;
 const mongoose = require('mongoose');
 const server = require('../../../lib/server').setup('test');
 
-describe('Team', function () {
+describe('Team', () => {
     /*
      * Connect to database when starting tests
      */
-    before(function (done) {
-        mongoose.connect('mongodb://localhost/test', function () {
+    before((done) => {
+        mongoose.connect('mongodb://localhost/test', () => {
             done();
         });
     });
@@ -27,16 +27,16 @@ describe('Team', function () {
     /*
      * Clear all teams before running tests
      */
-    beforeEach(function (done) {
+    beforeEach((done) => {
         mongoose.models.Team
             .find({})
             .remove()
             .exec()
             .then(
-                function () {
+                () => {
                     done();
                 },
-                function (error) {
+                (error) => {
                     done(error);
                 }
             );
@@ -45,20 +45,20 @@ describe('Team', function () {
     /*
      * Disconnect from database after tests
      */
-    after(function (done) {
-        mongoose.disconnect(function () {
+    after((done) => {
+        mongoose.disconnect(() => {
             done();
         });
     });
 
-    describe('#list(request, reply)', function () {
-        it('should have an empty list of team ids', function (done) {
+    describe('#list(request, reply)', () => {
+        it('should have an empty list of team ids', (done) => {
             const request = {
                 method: 'GET',
                 url: '/api/teams'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(200);
                 expect(response.result).to.be.an.array();
                 expect(response.result).to.have.length(0);
@@ -67,8 +67,8 @@ describe('Team', function () {
         });
     });
 
-    describe('#create(request, reply)', function () {
-        it('should create a new team', function (done) {
+    describe('#create(request, reply)', () => {
+        it('should create a new team', (done) => {
             const request = {
                 method: 'POST',
                 url: '/api/team',
@@ -83,7 +83,7 @@ describe('Team', function () {
                 }
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(201);
                 expect(response.result.name).to.be.string();
                 expect(response.result.members).to.be.array();
@@ -93,42 +93,42 @@ describe('Team', function () {
         });
     });
 
-    describe('#read(request, reply)', function () {
-        it('should error when team does not exist', function (done) {
+    describe('#read(request, reply)', () => {
+        it('should error when team does not exist', (done) => {
             const request = {
                 method: 'GET',
                 url: '/api/team/000000000000000000000000'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(404);
                 done();
             });
         });
     });
 
-    describe('#update(request, reply)', function () {
-        it('should error when team does not exist', function (done) {
+    describe('#update(request, reply)', () => {
+        it('should error when team does not exist', (done) => {
             const request = {
                 method: 'PUT',
                 url: '/api/team/000000000000000000000000'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(404);
                 done();
             });
         });
     });
 
-    describe('#delete(request, reply)', function () {
-        it('should be okay when team does not exist', function (done) {
+    describe('#delete(request, reply)', () => {
+        it('should be okay when team does not exist', (done) => {
             const request = {
                 method: 'DELETE',
                 url: '/api/team/000000000000000000000000'
             };
 
-            server.inject(request, function (response) {
+            server.inject(request, (response) => {
                 expect(response.statusCode).to.equal(204);
                 done();
             });

@@ -37,7 +37,7 @@ For example this plugin defines an api and a recipe.
 ``` js
 'use strict';
 
-module.exports.register = function (server, options, next) {
+module.exports.register = (server, options, next) => {
     const api = server.select('api');
     const view = server.select('view');
     const model = require(...);
@@ -70,7 +70,7 @@ Plugins use [lout](https://github.com/hapijs/lout) and [JSdoc](https://github.co
 
 **Models** should allows wrap async behavior in [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) and annotate code with valid JSDoc. Models should be exposed using [Hapi JS's plugin expose method](http://hapijs.com/api#serverexposeobj) .
 
-E.G. a `User` model `let user = {add: function (newUser) {...}}` would register using `server.expose(user);`, other modules would then be able to access the function by calling `server.plugin.user.add()`.
+E.G. a `User` model `let user = {add: (newUser) => {...}}` would register using `server.expose(user);`, other modules would then be able to access the function by calling `server.plugin.user.add()`.
 
  **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately. Apis live in a separate sub-server `let api = server.select('api')`, attach the routes to subserver `api.route(...)`.
 

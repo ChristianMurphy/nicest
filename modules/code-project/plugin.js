@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports.register = function (server, options, next) {
+module.exports.register = (server, options, next) => {
     const view = server.select('view');
 
     view.route(

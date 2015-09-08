@@ -7,25 +7,37 @@ const User = require('../../../lib/server').server.plugins.user;
 const createGithubRepositories = require('../tasks/create-github-repositories');
 const seedGitRepositories = require('../tasks/seed-git-repositories');
 
+const filterGithubUsers = (users) => {
+    return _.filter(users, (user) => {
+        return _.has(user, 'modules.github.username');
+    });
+};
+
+const selectedStudents = (students, filterArray) => {
+    return _.filter(students, (student) => {
+        return _.indexOf(filterArray, student.modules.github.username, true) > -1;
+    });
+};
+
 module.exports = {
-    redirect: function (request, reply) {
+    redirect: (request, reply) => {
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
             reply().redirect('/recipe/code-project/choose-repository');
         } else {
             reply().redirect('/recipe/github/login?next=/recipe/code-project/choose-repository');
         }
     },
-    chooseRepository: function (request, reply) {
+    chooseRepository: (request, reply) => {
         const Github = new Octokat({
             username: request.session.get('github-username'),
             password: request.session.get('github-password')
         });
 
-        Github.me.repos.fetch().then(function (repos) {
+        Github.me.repos.fetch().then((repos) => {
             reply.view('modules/code-project/view/choose-repository', {repos: repos});
         });
     },
-    selectRepository: function (request, reply) {
+    selectRepository: (request, reply) => {
         request.session.set({
             'github-project-repo': request.payload.repo
         });
@@ -41,26 +53,26 @@ module.exports = {
 
         reply().redirect('/recipe/code-project/choose-students');
     },
-    chooseStudents: function (request, reply) {
+    chooseStudents: (request, reply) => {
         User
             .list('name modules')
-            .then(function (users) {
+            .then((users) => {
                 reply.view('modules/code-project/view/choose-students', {
                     students: filterGithubUsers(users)
                 });
             });
     },
-    selectStudents: function (request, reply) {
+    selectStudents: (request, reply) => {
         request.session.set({
             'code-project-students': request.payload.students
         });
 
         reply().redirect('/recipe/code-project/confirm');
     },
-    confirmView: function (request, reply) {
+    confirmView: (request, reply) => {
         User
             .list('name modules')
-            .then(function (users) {
+            .then((users) => {
                 let students = filterGithubUsers(users);
                 const studentFilter = request.session.get('code-project-students').sort();
                 const repo = request.session.get('github-project-repo');
@@ -73,7 +85,7 @@ module.exports = {
                 });
             });
     },
-    confirm: function (request, reply) {
+    confirm: (request, reply) => {
         const githubUsername = request.session.get('github-username');
         const githubPassword = request.session.get('github-password');
         const seedRepository = request.session.get('github-project-repo');
@@ -105,31 +117,19 @@ module.exports = {
             has_issues: hasIssueTracker
         })
             // add seed code to repositories
-            .then(function () {
+            .then(() => {
                 return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
             })
 
             // redirect
             .then(
-                function () {
+                () => {
                     reply().redirect('/recipes');
                 },
-                function (err) {
+                (err) => {
                     console.log(err);
                     reply().redirect('/recipes');
                 }
             );
     }
 };
-
-function filterGithubUsers (users) {
-    return _.filter(users, function (user) {
-        return _.has(user, 'modules.github.username');
-    });
-}
-
-function selectedStudents (students, filterArray) {
-    return _.filter(students, function (student) {
-        return _.indexOf(filterArray, student.modules.github.username, true) > -1;
-    });
-}

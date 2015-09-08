@@ -27,7 +27,7 @@ module.exports = {
      * @param {Team} team - new team
      * @returns {Promise} resolves to {Team}
      */
-    create: function (team) {
+    create: (team) => {
         return Team.create(team);
     },
     /**
@@ -36,7 +36,7 @@ module.exports = {
      * @param {String} id - hex Mongoose id
      * @returns {Promise} resolves to {Team}
      */
-    read: function (id) {
+    read: (id) => {
         return Team
             .findOne({
                 _id: id
@@ -50,7 +50,7 @@ module.exports = {
      * @param {Team} properties - new or different properties to be set
      * @returns {Promise} resolves to updated {Team}
      */
-    update: function (id, properties) {
+    update: (id, properties) => {
         return Team
             .findOneAndUpdate({_id: id}, properties)
             .exec();
@@ -61,7 +61,7 @@ module.exports = {
      * @param {String} id - hex Mongoose id
      * @returns {Promise} resolves with deleted {Team}
      */
-    delete: function (id) {
+    delete: (id) => {
         return Team
             .remove({
                 _id: id
@@ -74,7 +74,7 @@ module.exports = {
      * @param {String} select - space seperated list of columns to select
      * @returns {Promise} resolves to an {Array} of {Object}
      */
-    list: function (select) {
+    list: (select) => {
         return Team
             .find({})
             .select(select)
