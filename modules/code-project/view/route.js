@@ -21,12 +21,7 @@ module.exports = [
         handler: handler.chooseRepository,
         config: {
             plugins: {
-                lout: false,
-                blankie: {
-                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
-                    styleSrc: ['self', 'oss.maxcdn.com'],
-                    scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
-                }
+                lout: false
             }
         }
     },
@@ -54,12 +49,7 @@ module.exports = [
         handler: handler.chooseStudents,
         config: {
             plugins: {
-                lout: false,
-                blankie: {
-                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
-                    styleSrc: ['self', 'oss.maxcdn.com'],
-                    scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
-                }
+                lout: false
             }
         }
     },
@@ -84,12 +74,7 @@ module.exports = [
         handler: handler.confirmView,
         config: {
             plugins: {
-                lout: false,
-                blankie: {
-                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
-                    styleSrc: ['self', 'oss.maxcdn.com'],
-                    scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
-                }
+                lout: false
             }
         }
     },
