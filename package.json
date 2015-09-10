@@ -1,6 +1,6 @@
 {
   "name": "nicest",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "nicely integrating complex education software together",
   "main": "lib/server.js",
   "bin": {
@@ -43,7 +43,6 @@
     "request": "~2.61.0",
     "rimraf": "~2.4.0",
     "scooter": "~2.0.0",
-    "tv": "~4.1.0",
     "vision": "~3.0.0",
     "yar": "~4.1.0",
     "yargs": "~3.24.0"
