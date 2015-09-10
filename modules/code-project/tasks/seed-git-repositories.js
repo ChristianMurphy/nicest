@@ -13,7 +13,7 @@ const branchReference = 'refs/heads/master:refs/heads/master';
 
 /**
  * Takes in a seed repository and a list of repositories to replicate to.
- * @function seedGitRepository
+ * @function SeedGitRepository
  * @param {String} username - username for Git user
  * @param {String} password - password for Git user
  * @param {String} seedRepositoryURL - remote Git url to use as seed for other repos
