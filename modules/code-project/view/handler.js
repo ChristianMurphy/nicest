@@ -71,7 +71,7 @@ module.exports = {
     loginAction: function (request, reply) {
         request.session.set({
             'taiga-username': request.payload.username,
-            'taiga-password': request.payload.passwordpasswordpasswordpassword
+            'taiga-password': request.payload.password
         });
 
         reply().redirect('/recipe/code-project/choose-students');
