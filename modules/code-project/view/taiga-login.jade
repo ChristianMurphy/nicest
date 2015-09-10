@@ -1,0 +1,19 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Login to Taiga
+
+block body
+    .ui.container
+        form.ui.large.form(action='/recipe/code-project/taiga-login', method='POST')
+            .ui.stacked.segment
+                h1.ui.header Login to Taiga
+                .field
+                    .ui.left.icon.input
+                        i.user.icon
+                        input(type='text', name='username', placeholder='username')
+                .field
+                    .ui.left.icon.input
+                        i.lock.icon
+                        input(type='password', name='password', placeholder='password')
+                input.ui.fluid.large.teal.submit.button(type='submit', value='submit')

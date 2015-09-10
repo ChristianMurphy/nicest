@@ -45,6 +45,63 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/recipe/code-project/choose-issue-tracker',
+        handler: handler.chooseIssueTracker,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/code-project/choose-issue-tracker',
+        handler: handler.selectIssueTracker,
+        config: {
+            plugins: {
+                lout: false
+            },
+            validate: {
+                payload: {
+                    useTaiga: Joi.boolean(),
+                    description: Joi.string(),
+                    isPrivate: Joi.boolean(),
+                    hasIssues: Joi.boolean(),
+                    hasBacklog: Joi.boolean(),
+                    hasKanban: Joi.boolean(),
+                    hasWiki: Joi.boolean()
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/code-project/taiga-login',
+        handler: handler.loginView,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/code-project/taiga-login',
+        handler: handler.loginAction,
+        config: {
+            plugins: {
+                lout: false
+            },
+            validate: {
+                payload: {
+                    username: Joi.string().alphanum(),
+                    password: Joi.string()
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
         path: '/recipe/code-project/choose-students',
         handler: handler.chooseStudents,
         config: {
