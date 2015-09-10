@@ -70,6 +70,16 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/recipe/code-project/toggle-student-type',
+        handler: handler.toggleStudentType,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'GET',
         path: '/recipe/code-project/confirm',
         handler: handler.confirmView,
         config: {
