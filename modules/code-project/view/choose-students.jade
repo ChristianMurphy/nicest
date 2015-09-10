@@ -10,12 +10,17 @@ block head
 
 block body
     .ui.container
-        .ui.three.top.attached.steps
+        .ui.four.top.attached.steps
             .completed.step
                 i.git.square.icon
                 .content
                     .title Respository
                     .description Choose a Seed Repository
+            .completed.step
+                i.columns.icon
+                .content
+                    .title Issues
+                    .description Choose Issue Tracker
             .active.step
                 i.users.icon
                 .content
@@ -48,6 +53,6 @@ block body
                                 option(value=student.name)= student.name
                             else
                                 option(value=student.modules.github.username)= student.name
-                a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-repository') previous
+                a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
     script $('select.dropdown').dropdown();

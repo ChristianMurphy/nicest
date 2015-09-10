@@ -1,3 +1,4 @@
+
 'use strict';
 
 const _ = require('lodash');
@@ -7,6 +8,7 @@ const User = require('../../../lib/server').server.plugins.user;
 const Team = require('../../../lib/server').server.plugins.team;
 const gatherGithubUsers = require('../tasks/gather-github-users');
 const createGithubRepositories = require('../tasks/create-github-repositories');
+const createTaigaBoards = require('../tasks/create-taiga-boards');
 const seedGitRepositories = require('../tasks/seed-git-repositories');
 
 module.exports = {
@@ -39,6 +41,37 @@ module.exports = {
         });
         request.session.set({
             'github-project-has-issue-tracker': request.payload.hasIssueTracker || false
+        });
+
+        reply().redirect('/recipe/code-project/choose-issue-tracker');
+    },
+    chooseIssueTracker: function (request, reply) {
+        reply.view('modules/code-project/view/choose-issue-tracker');
+    },
+    selectIssueTracker: function (request, reply) {
+        request.session.set({
+            'taiga-project-use-taiga': request.payload.useTaiga || false,
+            'taiga-project-description': request.payload.description,
+            'taiga-project-is-private': request.payload.isPrivate || false,
+            'taiga-project-has-issues': request.payload.hasIssues || false,
+            'taiga-project-has-backlog': request.payload.hasBacklog || false,
+            'taiga-project-has-kanban': request.payload.hasKanban || false,
+            'taiga-project-has-wiki': request.payload.hasWiki || false
+        });
+
+        if (request.payload.useTaiga) {
+            reply().redirect('/recipe/code-project/taiga-login');
+        } else {
+            reply().redirect('/recipe/code-project/choose-students');
+        }
+    },
+    loginView: function (request, reply) {
+        reply.view('modules/code-project/view/taiga-login');
+    },
+    loginAction: function (request, reply) {
+        request.session.set({
+            'taiga-username': request.payload.username,
+            'taiga-password': request.payload.password
         });
 
         reply().redirect('/recipe/code-project/choose-students');
@@ -133,6 +166,7 @@ module.exports = {
         const hasWiki = request.session.get('github-project-has-wiki');
         const hasIssueTracker = request.session.get('github-project-has-issue-tracker');
         const studentType = request.session.get('code-project-student-type');
+        const useTaiga = request.session.get('taiga-project-use-taiga');
         let githubRepositories;
 
         // Gather Github user information from Users/Teams
@@ -155,6 +189,24 @@ module.exports = {
                 const githubUrls = _.pluck(githubRepositories, 'url');
 
                 return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
+            })
+
+            // create Taiga boards
+            .then(function () {
+                if (useTaiga) {
+                    const taigaUsername = request.session.get('taiga-username');
+                    const taigaPassword = request.session.get('taiga-password');
+                    const taigaOptions = {
+                        description: request.session.get('taiga-project-description'),
+                        isPrivate: request.session.get('taiga-project-is-private'),
+                        isBacklogActived: request.session.get('taiga-project-has-backlog'),
+                        isIssuesActived: request.session.get('taiga-project-has-issues'),
+                        isKanbanActivated: request.session.get('taiga-project-has-kanban'),
+                        isWikiActivated: request.session.get('taiga-project-has-wiki')
+                    };
+
+                    createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);
+                }
             })
 
             // redirect
