@@ -5,6 +5,7 @@ const _ = require('lodash');
 const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
 const User = require('../../../lib/server').server.plugins.user;
 const Team = require('../../../lib/server').server.plugins.team;
+const gatherGithubUsers = require('../tasks/gather-github-users');
 const createGithubRepositories = require('../tasks/create-github-repositories');
 const seedGitRepositories = require('../tasks/seed-git-repositories');
 
@@ -132,35 +133,27 @@ module.exports = {
         const hasWiki = request.session.get('github-project-has-wiki');
         const hasIssueTracker = request.session.get('github-project-has-issue-tracker');
         const studentType = request.session.get('code-project-student-type');
+        let githubRepositories;
 
-        // create empty repos for each student on github
-        const githubRepositories = [];
-        const githubUrls = [];
-        const githubName = /[A-Za-z0-9\-]+$/.exec(seedRepository) + '-';
-        const githubUrl = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository) + '-';
-        const seedRepositoryURL = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository);
+        // Gather Github user information from Users/Teams
+        gatherGithubUsers(seedRepository, githubUsername, studentType, students)
 
-        if (studentType === 'team') {
+            // create repostories
+            .then(function (temporaryGithubRepositories) {
+                githubRepositories = temporaryGithubRepositories;
 
-        } else {
-            // for each student create a repo name
-            for (let index = 0; index < students.length; index++) {
-                githubRepositories.push({
-                    name: githubName + students[index],
-                    collaborators: [students[index]]
+                return createGithubRepositories(githubUsername, githubPassword, githubRepositories, {
+                    private: isPrivate,
+                    has_wiki: hasWiki,
+                    has_issues: hasIssueTracker
                 });
-                githubUrls.push(githubUrl + students[index]);
-            }
-        }
+            })
 
-        // create repostories
-        createGithubRepositories(githubUsername, githubPassword, githubRepositories, {
-            private: isPrivate,
-            has_wiki: hasWiki,
-            has_issues: hasIssueTracker
-        })
             // add seed code to repositories
             .then(function () {
+                const seedRepositoryURL = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository);
+                const githubUrls = _.pluck(githubRepositories, 'url');
+
                 return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
             })
 
