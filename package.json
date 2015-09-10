@@ -44,7 +44,7 @@
     "rimraf": "~2.4.0",
     "scooter": "~2.0.0",
     "vision": "~3.0.0",
-    "yar": "~4.1.0",
+    "yar": "~4.2.0",
     "yargs": "~3.24.0"
   },
   "devDependencies": {
