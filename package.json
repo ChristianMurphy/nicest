@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
-    "blankie": "~1.1.0",
     "boom": "~2.8.0",
     "good": "~6.3.0",
     "good-file": "~5.0.0",
@@ -43,8 +42,9 @@
     "octokat": "~0.4.0",
     "rimraf": "~2.4.0",
     "scooter": "~2.0.0",
+    "tv": "~4.1.0",
     "vision": "~3.0.0",
-    "yar": "~3.0.0",
+    "yar": "~4.1.0",
     "yargs": "~3.24.0"
   },
   "devDependencies": {

@@ -31,12 +31,7 @@ module.exports = [
         handler: handler.view,
         config: {
             plugins: {
-                lout: false,
-                blankie: {
-                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
-                    styleSrc: ['self', 'oss.maxcdn.com'],
-                    scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
-                }
+                lout: false
             },
             validate: {
                 params: {
@@ -86,12 +81,7 @@ module.exports = [
         handler: handler.viewEmpty,
         config: {
             plugins: {
-                lout: false,
-                blankie: {
-                    fontSrc: ['self', 'oss.maxcdn.com', 'data:'],
-                    styleSrc: ['self', 'oss.maxcdn.com'],
-                    scriptSrc: ['self', 'code.jquery.com', 'oss.maxcdn.com', 'unsafe-inline']
-                }
+                lout: false
             }
         }
     },

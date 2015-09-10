@@ -1,6 +1,6 @@
 /* eslint new-cap: 0, no-loop-func: 0, max-nested-callbacks: [2, 2] */
 /**
- * @module seedGitRepository
+ * @module SeedGitRepository
  */
 'use strict';
 

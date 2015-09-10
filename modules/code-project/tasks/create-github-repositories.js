@@ -9,6 +9,7 @@ const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
 /**
  * GithubRepository is meta data and collaborator information.
  * @typedef {Object} GithubRepository
+ * @property {String} url - url of the repository
  * @property {String} name - name of the repository
  * @property {Array} collaborators - {Array} of {String} with Github usernames
  */
@@ -23,7 +24,7 @@ const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
 
 /**
  * Takes in a list of names, and creates an empty repo for each name.
- * @function createRepositories
+ * @function CreateRepositories
  * @param {String} githubUsername - Github username
  * @param {String} githubPassword - Github password
  * @param {Array} repositories - {Array} of {GithubRepository}
