@@ -21,6 +21,10 @@ const argv = require('yargs')
         default: hostname,
         describe: 'server hostname'
     })
+    .option('token', {
+        default: 'password',
+        describe: 'token for hashing session data'
+    })
     .help('help')
     .alias('h', 'help')
     .version(version)
