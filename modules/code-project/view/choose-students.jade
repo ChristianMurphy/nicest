@@ -5,8 +5,8 @@ block title
     
 block head
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.2/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.2/components/dropdown.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.3/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.3/components/dropdown.min.js')
 
 block body
     .ui.container
@@ -40,9 +40,9 @@ block body
                             if studentType === 'team'
                                 button.ui.button indvidual
                                 .or
-                                button.ui.button.active team
+                                button.ui.button.primary team
                             else
-                                button.ui.button.active indvidual
+                                button.ui.button.primary indvidual
                                 .or
                                 button.ui.button team
                 .field
