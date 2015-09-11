@@ -27,7 +27,13 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
     return rmrf(temporaryFolder)
         // clone repository to temporary folder
         .then(function () {
-            return NodeGit.Clone(seedRepositoryURL, temporaryFolder);
+            return NodeGit.Clone(seedRepositoryURL, temporaryFolder, {
+                remoteCallbacks: {
+                    credentials: function () {
+                        return credentials;
+                    }
+                }
+            });
         })
         // open the repository
         .then(function () {
