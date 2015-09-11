@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
+const hostname = require('os').hostname;
+const version = require('../package.json').version;
+
 // Get options from terminal
 const argv = require('yargs')
     .usage('nicest [options]')
@@ -15,12 +18,12 @@ const argv = require('yargs')
         describe: 'mongo database connection'
     })
     .option('host', {
-        default: require('os').hostname,
+        default: hostname,
         describe: 'server hostname'
     })
     .help('help')
     .alias('h', 'help')
-    .version(require('../package.json').version)
+    .version(version)
     .alias('v', 'version')
     .argv;
 

@@ -1,18 +1,16 @@
 'use strict';
 
 const user = require('./model/user');
+const apiRoute = require('./api/route');
+const viewRoute = require('./view/route');
 
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
     const view = server.select('view');
 
-    api.route(
-        require('./api/route')
-    );
+    api.route(apiRoute);
 
-    view.route(
-        require('./view/route')
-    );
+    view.route(viewRoute);
 
     server.expose(user);
 
@@ -20,8 +18,6 @@ module.exports.register = function (server, options, next) {
 };
 
 module.exports.register.attributes = {
-    pkg: {
-        name: 'user',
-        version: '0.1.0'
-    }
+    name: 'user',
+    version: '0.1.0'
 };

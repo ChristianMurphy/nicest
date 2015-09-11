@@ -1,18 +1,16 @@
 'use strict';
 
+const viewRoute = require('./view/route');
+
 exports.register = function (server, options, next) {
     const view = server.select('view');
 
-    view.route(
-        require('./view/route')
-    );
+    view.route(viewRoute);
 
     next();
 };
 
 exports.register.attributes = {
-    pkg: {
-        name: 'welcome',
-        version: '0.1.0'
-    }
+    name: 'welcome',
+    version: '0.1.0'
 };
