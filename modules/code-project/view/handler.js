@@ -3,7 +3,7 @@
 
 const _ = require('lodash');
 
-const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
+const Octokat = require('octokat');
 const User = require('../../../lib/server').server.plugins.user;
 const Team = require('../../../lib/server').server.plugins.team;
 const gatherGithubUsers = require('../tasks/gather-github-users');
@@ -31,15 +31,9 @@ module.exports = {
     },
     selectRepository: function (request, reply) {
         request.session.set({
-            'github-project-repo': request.payload.repo
-        });
-        request.session.set({
-            'github-project-is-private': request.payload.isPrivate || false
-        });
-        request.session.set({
-            'github-project-has-wiki': request.payload.hasWiki || false
-        });
-        request.session.set({
+            'github-project-repo': request.payload.repo,
+            'github-project-is-private': request.payload.isPrivate || false,
+            'github-project-has-wiki': request.payload.hasWiki || false,
             'github-project-has-issue-tracker': request.payload.hasIssueTracker || false
         });
 
@@ -222,12 +216,25 @@ module.exports = {
     }
 };
 
+/**
+ * Finds users that have a Github username
+ * @private
+ * @param {Array} users - an {Array} of {User}
+ * @returns {Array} of {User} that have a Github Username
+ */
 function filterGithubUsers (users) {
     return _.filter(users, function (user) {
         return _.has(user, 'modules.github.username');
     });
 }
 
+/**
+ * Finds complete student information from Github Username
+ * @private
+ * @param {Array} students - an {Array} of {User} complete student information
+ * @param {Array} filterArray - an {Array} of {String} with Github usernames
+ * @returns {Array} of {User} that are selected
+ */
 function selectedStudents (students, filterArray) {
     return _.filter(students, function (student) {
         return _.indexOf(filterArray, student.modules.github.username, true) > -1;

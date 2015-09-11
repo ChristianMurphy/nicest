@@ -1,22 +1,16 @@
 'use strict';
 
-const Github = require('octokat');
+const viewRoute = require('./view/route');
 
 module.exports.register = function (server, options, next) {
     const view = server.select('view');
 
-    view.route(
-        require('./view/route')
-    );
-
-    server.expose('Octokat', Github);
+    view.route(viewRoute);
 
     next();
 };
 
 module.exports.register.attributes = {
-    pkg: {
-        name: 'github',
-        version: '0.1.0'
-    }
+    name: 'github',
+    version: '0.1.0'
 };

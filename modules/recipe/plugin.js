@@ -1,6 +1,8 @@
 'use strict';
 
 const recipes = require('./model/recipe');
+const apiRoute = require('./api/route');
+const viewRoute = require('./view/route');
 
 module.exports.register = function (server, options, next) {
     const api = server.select('api');
@@ -8,13 +10,9 @@ module.exports.register = function (server, options, next) {
 
     recipes.setServer(server);
 
-    api.route(
-        require('./api/route')
-    );
+    api.route(apiRoute);
 
-    view.route(
-        require('./view/route')
-    );
+    view.route(viewRoute);
 
     server.expose(recipes);
 
@@ -22,8 +20,6 @@ module.exports.register = function (server, options, next) {
 };
 
 module.exports.register.attributes = {
-    pkg: {
-        name: 'recipe',
-        version: '0.1.0'
-    }
+    name: 'recipe',
+    version: '0.1.0'
 };

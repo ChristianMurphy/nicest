@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const Octokat = require('../../../lib/server').server.plugins.github.Octokat;
+const Octokat = require('octokat');
 
 /**
  * GithubRepository is meta data and collaborator information.

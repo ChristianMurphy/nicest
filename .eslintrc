@@ -80,6 +80,7 @@ rules:
         - nofunc
 
     # Node.js
+    global-require: 2
     handle-callback-err: 2
     no-new-require: 2
     no-path-concat: 2
@@ -144,6 +145,7 @@ rules:
     space-after-keywords: 2
     space-before-blocks: 2
     space-before-function-paren: 2
+    space-before-keywords: 2
     space-in-parens: 2
     space-return-throw-case: 2
     space-infix-ops: 2
@@ -153,6 +155,8 @@ rules:
         - always
         - markers:
             - '*'
+    require-jsdoc: 2
+
     # ECMAScript 6
     arrow-spacing: 2
     arrow-parens: 2
@@ -161,7 +165,6 @@ rules:
         - both
     no-const-assign: 2
     no-var: 2
-    prefer-arrow-callback: 0 # Delay this until Node JS adds stable support for arrow functions
     prefer-const: 2
     prefer-reflect: 2
     require-yield: 2
