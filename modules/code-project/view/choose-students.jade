@@ -49,10 +49,7 @@ block body
                     label Students
                     select.ui.search.dropdown(name='students', multiple, required)
                         each student in students
-                            if studentType === 'team'
-                                option(value=student.name)= student.name
-                            else
-                                option(value=student.modules.github.username)= student.name
+                            option(value=student._id)= student.name
                 a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
     script $('select.dropdown').dropdown();

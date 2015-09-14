@@ -45,7 +45,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
             for (let teamIndex = 0; teamIndex < students.length; teamIndex++) {
                 // find the current team
                 const currentTeam = _.find(teams, function (team) {
-                    return team.name === students[teamIndex];
+                    return team._id.toString() === students[teamIndex];
                 });
 
                 // add team information to Github meta data
@@ -71,23 +71,30 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                 githubRepositories.push(githubInformation);
             }
 
-            return new Promise(function (resolve) {
-                resolve(githubRepositories);
-            });
+            return githubRepositories;
         });
     } else {
-        // for each student create a repo name
-        for (let index = 0; index < students.length; index++) {
-            githubRepositories.push({
-                name: githubName + students[index],
-                url: githubUrl + students[index],
-                collaborators: [students[index]]
-            });
-        }
+        return User
+            .list('_id modules')
+            .then(function (users) {
+                // for each student
+                for (let index = 0; index < students.length; index++) {
+                    // find the current user
+                    const currentUser = _.find(users, function (user) {
+                        return user._id.toString() === students[index];
+                    });
 
-        // return a promise for consistency
-        return new Promise(function (resolve) {
-            resolve(githubRepositories);
-        });
+                    const githubUsername = currentUser.modules.github.username;
+
+                    // create the Respository meta data
+                    githubRepositories.push({
+                        name: githubName + githubUsername,
+                        url: githubUrl + githubUsername,
+                        collaborators: [githubUsername]
+                    });
+                }
+
+                return githubRepositories;
+            });
     }
 };

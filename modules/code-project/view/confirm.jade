@@ -2,6 +2,11 @@ extends ../../shared-template/default.jade
 
 block title
     title Confirm
+    
+block head
+    script(src='//code.jquery.com/jquery-2.1.4.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.3/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.3/components/accordion.min.js')
 
 block body
     .ui.container
@@ -35,11 +40,32 @@ block body
                 h4.ui.horizontal.divider.header
                     i.users.icon
                     | Students
-                .ui.list
-                    each student in students
-                        .item
-                            i.user.icon
-                            = student.name
-                            
+                if studentType === 'user'
+                    .ui.list
+                        each student in students
+                            .item
+                                i.user.icon
+                                .content
+                                    = student.name
+                                    if !student.modules.github || !student.modules.github.username
+                                        i.red.warning.sign.icon(title='missing Github username')
+                else
+                    .ui.accordion
+                        each team in students
+                            .title
+                                i.dropdown.icon
+                                i.users.icon
+                                = team.name
+                                if team.hasInvalidMember
+                                    i.red.warning.sign.icon
+                            .content
+                                .ui.list
+                                    each user in team.memberObjects
+                                        .item
+                                            i.user.icon
+                                            .content= user.name
+                                                if !user.modules.github || !user.modules.github.username
+                                                    i.red.warning.sign.icon(title='missing Github username')
                 a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-students') previous
                 input.ui.large.teal.submit.button(type='submit', value='confirm')
+    script $('.accordion').accordion();
