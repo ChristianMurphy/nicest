@@ -2,7 +2,7 @@
 'use strict';
 
 const Team = require('../model/team');
-const User = require('../../../lib/server').server.plugins.user;
+const User = require('../../user/model/user');
 
 module.exports = {
     redirect: function (request, reply) {
