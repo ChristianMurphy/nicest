@@ -136,6 +136,7 @@ module.exports = {
                         // find any invalid users
                         for (let userIndex = 0; userIndex < selectedTeams[teamIndex].memberObjects.length; userIndex++) {
                             const currentUser = selectedTeams[teamIndex].memberObjects[userIndex];
+
                             if (!currentUser.modules.github || !currentUser.modules.github.username) {
                                 selectedTeams[teamIndex].hasInvalidMember = true;
                             }

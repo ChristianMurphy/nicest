@@ -45,7 +45,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
             for (let teamIndex = 0; teamIndex < students.length; teamIndex++) {
                 // find the current team
                 const currentTeam = _.find(teams, function (team) {
-                    return team.name === students[teamIndex];
+                    return team._id.toString() === students[teamIndex];
                 });
 
                 // add team information to Github meta data
@@ -71,9 +71,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                 githubRepositories.push(githubInformation);
             }
 
-            return new Promise(function (resolve) {
-                resolve(githubRepositories);
-            });
+            return githubRepositories;
         });
     } else {
         // for each student create a repo name
