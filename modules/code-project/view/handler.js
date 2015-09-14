@@ -129,9 +129,17 @@ module.exports = {
                     const users = data[1];
                     const selectedTeams = selectedObjects(teams, studentIds);
 
-                    // for the members of each team, replace the user id with the user data
                     for (let teamIndex = 0; teamIndex < selectedTeams.length; teamIndex++) {
+                        // for the members of each team, replace the user id with the user data
                         selectedTeams[teamIndex].memberObjects = selectedObjects(users, selectedTeams[teamIndex].members);
+
+                        // find any invalid users
+                        for (let userIndex = 0; userIndex < selectedTeams[teamIndex].memberObjects.length; userIndex++) {
+                            const currentUser = selectedTeams[teamIndex].memberObjects[userIndex];
+                            if (!currentUser.modules.github || !currentUser.modules.github.username) {
+                                selectedTeams[teamIndex].hasInvalidMember = true;
+                            }
+                        }
                     }
 
                     reply.view('modules/code-project/view/confirm', {
