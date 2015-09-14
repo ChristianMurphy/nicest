@@ -71,7 +71,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                 githubRepositories.push(githubInformation);
             }
 
-            return githubRepositories
+            return githubRepositories;
         });
     } else {
         return User
