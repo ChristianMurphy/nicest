@@ -1,4 +1,3 @@
-
 'use strict';
 
 const _ = require('lodash');
@@ -75,7 +74,7 @@ module.exports = {
 
         if (studentType === 'team') {
             Team
-                .list('name')
+                .list('_id name')
                 .then(function (teams) {
                     reply.view('modules/code-project/view/choose-students', {
                         students: teams,
@@ -84,10 +83,10 @@ module.exports = {
                 });
         } else {
             User
-                .list('name modules')
+                .list('_id name')
                 .then(function (users) {
                     reply.view('modules/code-project/view/choose-students', {
-                        students: filterGithubUsers(users),
+                        students: users,
                         studentType: studentType
                     });
                 });
@@ -117,35 +116,41 @@ module.exports = {
     },
     confirmView: function (request, reply) {
         const studentType = request.session.get('code-project-student-type');
+        const repo = request.session.get('github-project-repo');
+        const studentIds = request.session.get('code-project-students');
 
         if (studentType === 'team') {
-            const repo = request.session.get('github-project-repo');
-            const students = _.map(
-                request.session.get('code-project-students'),
-                function (team) {
-                    return {
-                        name: team
-                    };
-                }
-            );
+            Promise.all([
+                Team.list('_id name members'),
+                User.list('_id name modules')
+            ])
+                .then(function (data) {
+                    const teams = data[0];
+                    const users = data[1];
+                    const selectedTeams = selectedObjects(teams, studentIds);
 
-            reply.view('modules/code-project/view/confirm', {
-                repoUrl: 'https://github.com/' + repo,
-                repoName: /[A-Za-z0-9\-]+$/.exec(repo),
-                students: students
-            });
-        } else {
-            User
-                .list('name modules')
-                .then(function (users) {
-                    let students = filterGithubUsers(users);
-                    const studentFilter = request.session.get('code-project-students').sort();
-                    const repo = request.session.get('github-project-repo');
+                    // for the members of each team, replace the user id with the user data
+                    for (let teamIndex = 0; teamIndex < selectedTeams.length; teamIndex++) {
+                        selectedTeams[teamIndex].memberObjects = selectedObjects(users, selectedTeams[teamIndex].members);
+                    }
 
-                    students = selectedStudents(students, studentFilter);
                     reply.view('modules/code-project/view/confirm', {
                         repoUrl: 'https://github.com/' + repo,
                         repoName: /[A-Za-z0-9\-]+$/.exec(repo),
+                        studentType: 'team',
+                        students: selectedTeams
+                    });
+                });
+        } else {
+            User
+                .list('_id name modules')
+                .then(function (users) {
+                    const students = selectedObjects(users, studentIds);
+
+                    reply.view('modules/code-project/view/confirm', {
+                        repoUrl: 'https://github.com/' + repo,
+                        repoName: /[A-Za-z0-9\-]+$/.exec(repo),
+                        studentType: 'user',
                         students: students
                     });
                 });
@@ -217,26 +222,14 @@ module.exports = {
 };
 
 /**
- * Finds users that have a Github username
+ * Finds complete database information from UUID
  * @private
- * @param {Array} users - an {Array} of {User}
- * @returns {Array} of {User} that have a Github Username
+ * @param {Array} databaseObjects - an {Array} of {Object}
+ * @param {Array} UUIDs - an {Array} of {String} with UUIDs
+ * @returns {Array} of {Object} that are selected
  */
-function filterGithubUsers (users) {
-    return _.filter(users, function (user) {
-        return _.has(user, 'modules.github.username');
-    });
-}
-
-/**
- * Finds complete student information from Github Username
- * @private
- * @param {Array} students - an {Array} of {User} complete student information
- * @param {Array} filterArray - an {Array} of {String} with Github usernames
- * @returns {Array} of {User} that are selected
- */
-function selectedStudents (students, filterArray) {
-    return _.filter(students, function (student) {
-        return _.indexOf(filterArray, student.modules.github.username, true) > -1;
+function selectedObjects (databaseObjects, UUIDs) {
+    return _.filter(databaseObjects, function (databaseObject) {
+        return _.indexOf(UUIDs, databaseObject._id.toString()) > -1;
     });
 }

@@ -36,10 +36,26 @@ block body
                     i.users.icon
                     | Students
                 .ui.list
-                    each student in students
-                        .item
-                            i.user.icon
-                            = student.name
-                            
+                    if studentType === 'user'
+                        each student in students
+                            .item
+                                i.user.icon
+                                .content
+                                    = student.name
+                                    if !student.modules.github || !student.modules.github.username
+                                        i.red.warning.sign.icon(title='missing github username')
+                    else
+                        each team in students
+                            .item
+                                i.users.icon
+                                .content
+                                    .header= team.name
+                                    .list
+                                        each user in team.memberObjects
+                                            .item
+                                                i.user.icon
+                                                .content= user.name
+                                                    if !user.modules || !user.modules.github || !user.modules.github.username
+                                                        i.red.warning.sign.icon(title='missing github username')
                 a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-students') previous
                 input.ui.large.teal.submit.button(type='submit', value='confirm')
