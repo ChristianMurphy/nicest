@@ -1,8 +1,10 @@
+/* eslint max-nested-callbacks: [2, 2] */
 'use strict';
 /**
  * @module CreateTaigaBoards
  */
 const request = require('request');
+const _ = require('lodash');
 
 /**
  * TaigaBoard is meta data for creating a single board.
@@ -81,6 +83,38 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
         }
 
         // wait for all boards to be created
+        return Promise.all(promises);
+    })
+    .then(function (data) {
+        const promises = [];
+
+        // for each person in each project
+        for (let boardIndex = 0; boardIndex < taigaBoards.length; boardIndex++) {
+            for (let userIndex = 0; userIndex < taigaBoards[boardIndex].emails.length; userIndex++) {
+                // setup the members permissions
+                const userMetadata = {
+                    project: data[boardIndex].id,
+                    role: _.find(data[boardIndex].roles, function (role) {
+                        return role.name === 'Back';
+                    }).id,
+                    email: taigaBoards[boardIndex].emails[userIndex]
+                };
+
+                // add them to the taiga board
+                promises.push(
+                    requestPromise({
+                        method: 'POST',
+                        uri: 'https://api.taiga.io/api/v1/memberships',
+                        headers: {
+                            Authorization: 'Bearer ' + authorizationToken
+                        },
+                        json: true,
+                        body: userMetadata
+                    })
+                );
+            }
+        }
+
         return Promise.all(promises);
     });
 };
