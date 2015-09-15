@@ -101,7 +101,7 @@ module.exports = {
             'taiga-password': request.payload.password
         });
 
-        reply().redirect('/recipe/code-project/choose-students');
+        reply().redirect('/recipe/code-project/confirm');
     },
     confirmView: function (request, reply) {
         const studentType = request.session.get('code-project-student-type');
@@ -126,7 +126,7 @@ module.exports = {
                         for (let userIndex = 0; userIndex < selectedTeams[teamIndex].memberObjects.length; userIndex++) {
                             const currentUser = selectedTeams[teamIndex].memberObjects[userIndex];
 
-                            if (!currentUser.modules.github || !currentUser.modules.github.username) {
+                            if (!currentUser.modules.github || !currentUser.modules.github.username || !currentUser.modules.taiga || !currentUser.modules.taiga.email) {
                                 selectedTeams[teamIndex].hasInvalidMember = true;
                             }
                         }

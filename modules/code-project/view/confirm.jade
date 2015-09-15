@@ -49,6 +49,8 @@ block body
                                     = student.name
                                     if !student.modules.github || !student.modules.github.username
                                         i.red.warning.sign.icon(title='missing Github username')
+                                    if !student.modules.taiga || !student.modules.taiga.email
+                                        i.red.warning.sign.icon(title='missing Tiaga email')
                 else
                     .ui.accordion
                         each team in students
@@ -66,6 +68,8 @@ block body
                                             .content= user.name
                                                 if !user.modules.github || !user.modules.github.username
                                                     i.red.warning.sign.icon(title='missing Github username')
+                                                if !user.modules.taiga || !user.modules.taiga.email
+                                                    i.red.warning.sign.icon(title='missing Tiaga email')
                 a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-students') previous
                 input.ui.large.teal.submit.button(type='submit', value='confirm')
     script $('.accordion').accordion();
