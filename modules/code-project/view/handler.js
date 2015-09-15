@@ -13,10 +13,44 @@ const seedGitRepositories = require('../tasks/seed-git-repositories');
 module.exports = {
     redirect: function (request, reply) {
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
-            reply().redirect('/recipe/code-project/choose-repository');
+            reply().redirect('/recipe/code-project/choose-students');
         } else {
-            reply().redirect('/recipe/github/login?next=/recipe/code-project/choose-repository');
+            reply().redirect('/recipe/github/login?next=/recipe/code-project/choose-students');
         }
+    },
+    chooseStudents: function (request, reply) {
+        if (request.query.type === 'team') {
+            request.session.set({
+                'code-project-student-type': 'team'
+            });
+            Team
+                .list('_id name')
+                .then(function (teams) {
+                    reply.view('modules/code-project/view/choose-students', {
+                        students: teams,
+                        studentType: 'team'
+                    });
+                });
+        } else {
+            request.session.set({
+                'code-project-student-type': 'indvidual'
+            });
+            User
+                .list('_id name')
+                .then(function (users) {
+                    reply.view('modules/code-project/view/choose-students', {
+                        students: users,
+                        studentType: 'individual'
+                    });
+                });
+        }
+    },
+    selectStudents: function (request, reply) {
+        request.session.set({
+            'code-project-students': request.payload.students
+        });
+
+        reply().redirect('/recipe/code-project/choose-repository');
     },
     chooseRepository: function (request, reply) {
         const Github = new Octokat({
@@ -55,7 +89,7 @@ module.exports = {
         if (request.payload.useTaiga) {
             reply().redirect('/recipe/code-project/taiga-login');
         } else {
-            reply().redirect('/recipe/code-project/choose-students');
+            reply().redirect('/recipe/code-project/confirm');
         }
     },
     loginView: function (request, reply) {
@@ -68,40 +102,6 @@ module.exports = {
         });
 
         reply().redirect('/recipe/code-project/choose-students');
-    },
-    chooseStudents: function (request, reply) {
-        if (request.query.type === 'team') {
-            request.session.set({
-                'code-project-student-type': 'team'
-            });
-            Team
-                .list('_id name')
-                .then(function (teams) {
-                    reply.view('modules/code-project/view/choose-students', {
-                        students: teams,
-                        studentType: 'team'
-                    });
-                });
-        } else {
-            request.session.set({
-                'code-project-student-type': 'indvidual'
-            });
-            User
-                .list('_id name')
-                .then(function (users) {
-                    reply.view('modules/code-project/view/choose-students', {
-                        students: users,
-                        studentType: 'individual'
-                    });
-                });
-        }
-    },
-    selectStudents: function (request, reply) {
-        request.session.set({
-            'code-project-students': request.payload.students
-        });
-
-        reply().redirect('/recipe/code-project/confirm');
     },
     confirmView: function (request, reply) {
         const studentType = request.session.get('code-project-student-type');
