@@ -52,7 +52,8 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                 const githubInformation = {
                     name: githubName + currentTeam.name.replace(' ', '-'),
                     url: githubUrl + currentTeam.name.replace(' ', '-'),
-                    collaborators: []
+                    collaborators: [],
+                    emails: []
                 };
 
                 // for each team member
@@ -65,6 +66,9 @@ module.exports = function (seedRepository, githubUsername, studentType, students
 
                     githubInformation.collaborators.push(
                         currentUser.modules.github.username
+                    );
+                    githubInformation.emails.push(
+                        currentUser.modules.taiga.email
                     );
                 }
 
@@ -90,7 +94,8 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                     githubRepositories.push({
                         name: githubName + githubUsername,
                         url: githubUrl + githubUsername,
-                        collaborators: [githubUsername]
+                        collaborators: [githubUsername],
+                        emails: [currentUser.modules.taiga.email]
                     });
                 }
 

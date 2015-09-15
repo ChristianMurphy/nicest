@@ -53,7 +53,8 @@ block body
                 .field
                     .ui.toggle.checkbox
                         input(type='checkbox', name='hasIssueTracker', class='hidden')
-                        label Enable Project Issue Tracker
+                        label Enable Project Issue Tracker        
+                a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
     script.
         $('select.dropdown').dropdown();
