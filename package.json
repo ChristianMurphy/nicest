@@ -40,7 +40,7 @@
     "mongoose": "~4.1.0",
     "nodegit": "~0.4.0",
     "octokat": "~0.4.0",
-    "request": "~2.61.0",
+    "request": "~2.62.0",
     "rimraf": "~2.4.0",
     "scooter": "~2.0.0",
     "vision": "~3.0.0",
