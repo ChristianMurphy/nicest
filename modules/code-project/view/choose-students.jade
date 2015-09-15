@@ -35,16 +35,15 @@ block body
             .ui.attached.stacked.segment
                 .field
                     label Project Type
-                    a(href='/recipe/code-project/toggle-student-type')
-                        .ui.buttons
-                            if studentType === 'team'
-                                button.ui.button indvidual
-                                .or
-                                button.ui.button.primary team
-                            else
-                                button.ui.button.primary indvidual
-                                .or
-                                button.ui.button team
+                    .ui.buttons
+                        if studentType === 'team'
+                            a.ui.button(href='/recipe/code-project/choose-students?type=individual') indvidual
+                            .or
+                            a.ui.button.primary(href='/recipe/code-project/choose-students?type=team') team
+                        else
+                            a.ui.button.primary(href='/recipe/code-project/choose-students?type=individual') indvidual
+                            .or
+                            a.ui.button(href='/recipe/code-project/choose-students?type=team') team
                 .field
                     label Students
                     select.ui.search.dropdown(name='students', multiple, required)

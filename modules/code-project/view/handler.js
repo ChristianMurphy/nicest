@@ -70,42 +70,31 @@ module.exports = {
         reply().redirect('/recipe/code-project/choose-students');
     },
     chooseStudents: function (request, reply) {
-        const studentType = request.session.get('code-project-student-type');
-
-        if (studentType === 'team') {
+        if (request.query.type === 'team') {
+            request.session.set({
+                'code-project-student-type': 'team'
+            });
             Team
                 .list('_id name')
                 .then(function (teams) {
                     reply.view('modules/code-project/view/choose-students', {
                         students: teams,
-                        studentType: studentType
+                        studentType: 'team'
                     });
                 });
         } else {
+            request.session.set({
+                'code-project-student-type': 'indvidual'
+            });
             User
                 .list('_id name')
                 .then(function (users) {
                     reply.view('modules/code-project/view/choose-students', {
                         students: users,
-                        studentType: studentType
+                        studentType: 'individual'
                     });
                 });
         }
-    },
-    toggleStudentType: function (request, reply) {
-        const studentType = request.session.get('code-project-student-type');
-
-        if (studentType === 'team') {
-            request.session.set({
-                'code-project-student-type': 'indvidual'
-            });
-        } else {
-            request.session.set({
-                'code-project-student-type': 'team'
-            });
-        }
-
-        reply().redirect('/recipe/code-project/choose-students');
     },
     selectStudents: function (request, reply) {
         request.session.set({
