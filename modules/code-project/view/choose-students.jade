@@ -11,21 +11,21 @@ block head
 block body
     .ui.container
         .ui.four.top.attached.steps
-            .completed.step
-                i.git.square.icon
-                .content
-                    .title Respository
-                    .description Choose a Seed Repository
-            .completed.step
-                i.columns.icon
-                .content
-                    .title Issues
-                    .description Choose Issue Tracker
             .active.step
                 i.users.icon
                 .content
                     .title Students
                     .description Choose Students to Participate
+            .disabled.step
+                i.git.square.icon
+                .content
+                    .title Respository
+                    .description Choose a Seed Repository
+            .disabled.step
+                i.columns.icon
+                .content
+                    .title Issues
+                    .description Choose Issue Tracker
             .disabled.step
                 i.info.icon
                 .content
