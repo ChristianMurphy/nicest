@@ -28,7 +28,7 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
         // clone repository to temporary folder
         .then(function () {
             return NodeGit.Clone(seedRepositoryURL, temporaryFolder, {
-                remoteCallbacks: {
+                callbacks: {
                     credentials: function () {
                         return credentials;
                     }
@@ -47,19 +47,20 @@ module.exports = function (username, password, seedRepositoryURL, destinationRep
             for (let index = 0; index < destinationRepositoryURLs.length; index++) {
                 // create a remote for destination
                 NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
-                // open remote for destination
-                NodeGit.Remote.lookup(seedRepository, index.toString()).then(function (remote) {
-                    // add Git authentication information
-                    remote.setCallbacks({
-                        credentials: function () {
-                            return credentials;
-                        }
-                    });
-                    // push to destination remote and collect resulting promise
-                    promises.push(
-                        remote.push([branchReference])
-                    );
-                });
+                // open remote for destination and collect resulting promise
+                promises.push(
+                    NodeGit.Remote.lookup(seedRepository, index.toString())
+                        .then(function (remote) {
+                            // push to destination remote
+                            return remote.push([branchReference], {
+                                callbacks: {
+                                    credentials: function () {
+                                        return credentials;
+                                    }
+                                }
+                            });
+                        })
+                );
             }
             // wait for all pushes to complete
             return Promise.all(promises);
