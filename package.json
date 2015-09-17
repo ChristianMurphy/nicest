@@ -38,7 +38,7 @@
     "lodash": "~3.10.0",
     "lout": "~7.1.0",
     "mongoose": "~4.1.0",
-    "nodegit": "~0.4.0",
+    "nodegit": "nodegit/nodegit",
     "octokat": "~0.4.0",
     "request": "~2.62.0",
     "rimraf": "~2.4.0",
@@ -53,6 +53,6 @@
     "lab": "~5.17.0"
   },
   "engines": {
-    "node": ">=2.0.0 <3.0.0"
+    "node": ">=4.0.0"
   }
 }
