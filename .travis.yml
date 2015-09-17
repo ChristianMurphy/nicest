@@ -1,5 +1,10 @@
 language: node_js
 node_js: v4.1
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+
 services:
   - mongodb
