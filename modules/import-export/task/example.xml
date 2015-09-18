@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<nicest>
+    <users>
+        <user>
+            <name>Jane Smith</name>
+            <github>CodeSmith</github>
+            <taiga>jane.smith@email.com</taiga>
+        </user>
+        <user>
+            <name>John Doe</name>
+            <github>HeresJohnny</github>
+            <taiga>john.doe@email.com</taiga>
+        </user>
+    </users>
+    <teams>
+        <team>
+            <name>Team A</name>
+            <member>Jane Smith</member>
+            <member>John Doe</member>
+        </team>
+    </teams>
+</nicest>
