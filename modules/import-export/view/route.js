@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const handler = require('./handler');
 
 module.exports = [
@@ -19,6 +20,21 @@ module.exports = [
         path: '/recipe/import-export/import-xml',
         handler: handler.importXML,
         config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/recipe/import-export/import-xml',
+        handler: handler.downloadXML,
+        config: {
+            payload: {
+                output: 'file',
+                allow: ['multipart/form-data'],
+                uploads: path.join(__dirname, 'temp')
+            },
             plugins: {
                 lout: false
             }

@@ -3,8 +3,8 @@
 const _ = require('lodash');
 
 const Octokat = require('octokat');
-const User = require('../../../lib/server').server.plugins.user;
-const Team = require('../../../lib/server').server.plugins.team;
+const User = require('../../user/model/user');
+const Team = require('../../team/model/team');
 const gatherGithubUsers = require('../task/gather-github-users');
 const createGithubRepositories = require('../task/create-github-repositories');
 const createTaigaBoards = require('../task/create-taiga-boards');

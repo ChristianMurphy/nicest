@@ -3,6 +3,7 @@
 ### Custom ###
 docs
 temp
+!.gitkeep
 
 ### Node ###
 # Logs

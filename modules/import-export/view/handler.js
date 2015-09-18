@@ -6,5 +6,9 @@ module.exports = {
     },
     importXML: function (request, reply) {
         reply.view('modules/import-export/view/import');
+    },
+    downloadXML: function (request, reply) {
+        console.log(request.payload);
+        reply.view('modules/import-export/view/import');
     }
 };
