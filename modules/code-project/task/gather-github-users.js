@@ -5,8 +5,8 @@
 'use strict';
 
 const _ = require('lodash');
-const User = require('../../../lib/server').server.plugins.user;
-const Team = require('../../../lib/server').server.plugins.team;
+const User = require('../../user/model/user');
+const Team = require('../../team/model/team');
 
 /**
  * GithubRepository is meta data and collaborator information.

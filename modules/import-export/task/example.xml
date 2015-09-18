@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<nicest>
+    <users>
+        <user id="1">
+            <first-name>Jane</first-name>
+            <last-name>Smith</last-name>
+            <github>CodeSmith</github>
+            <email>jane.smith@email.com</email>
+        </user>
+        <user id="2">
+            <first-name>John</first-name>
+            <last-name>Doe</last-name>
+            <github>HeresJohnny</github>
+            <email>john.doe@email.com</email>
+        </user>
+    </users>
+    <teams>
+        <team>
+            <name>Team A</name>
+            <member id="1"/>
+            <member id="2"/>
+        </team>
+    </teams>
+</nicest>

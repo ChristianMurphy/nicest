@@ -3,12 +3,12 @@
 const _ = require('lodash');
 
 const Octokat = require('octokat');
-const User = require('../../../lib/server').server.plugins.user;
-const Team = require('../../../lib/server').server.plugins.team;
-const gatherGithubUsers = require('../tasks/gather-github-users');
-const createGithubRepositories = require('../tasks/create-github-repositories');
-const createTaigaBoards = require('../tasks/create-taiga-boards');
-const seedGitRepositories = require('../tasks/seed-git-repositories');
+const User = require('../../user/model/user');
+const Team = require('../../team/model/team');
+const gatherGithubUsers = require('../task/gather-github-users');
+const createGithubRepositories = require('../task/create-github-repositories');
+const createTaigaBoards = require('../task/create-taiga-boards');
+const seedGitRepositories = require('../task/seed-git-repositories');
 
 module.exports = {
     redirect: function (request, reply) {
