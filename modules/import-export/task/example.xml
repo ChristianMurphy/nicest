@@ -1,22 +1,24 @@
 <?xml version="1.0"?>
 <nicest>
     <users>
-        <user>
-            <name>Jane Smith</name>
+        <user id="1">
+            <first-name>Jane</first-name>
+            <last-name>Smith</last-name>
             <github>CodeSmith</github>
-            <taiga>jane.smith@email.com</taiga>
+            <email>jane.smith@email.com</email>
         </user>
-        <user>
-            <name>John Doe</name>
+        <user id="2">
+            <first-name>John</first-name>
+            <last-name>Doe</last-name>
             <github>HeresJohnny</github>
-            <taiga>john.doe@email.com</taiga>
+            <email>john.doe@email.com</email>
         </user>
     </users>
     <teams>
         <team>
             <name>Team A</name>
-            <member>Jane Smith</member>
-            <member>John Doe</member>
+            <member id="1"/>
+            <member id="2"/>
         </team>
     </teams>
 </nicest>

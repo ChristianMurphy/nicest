@@ -9,14 +9,20 @@
                             <xs:element name="user" maxOccurs="unbounded">
                                 <xs:complexType>
                                     <xs:all>
-                                        <xs:element name="name" type="xs:string"/>
+                                        <xs:element name="first-name" type="xs:string"/>
+                                        <xs:element name="last-name" type="xs:string"/>
                                         <xs:element name="github" type="xs:string"/>
-                                        <xs:element name="taiga" type="xs:string"/>
+                                        <xs:element name="email" type="xs:string"/>
                                     </xs:all>
+                                    <xs:attribute name="id" type="xs:integer" use="required"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
                     </xs:complexType>
+                    <xs:unique name="unique-user-id">
+                        <xs:selector xpath="user"/>
+                        <xs:field xpath="@id"/>
+                    </xs:unique>
                 </xs:element>
                 <xs:element name="teams">
                     <xs:complexType>
@@ -25,9 +31,17 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="name" type="xs:string"/>
-                                        <xs:element name="member" type="xs:string" maxOccurs="unbounded"/>
+                                        <xs:element name="member" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="id" type="xs:integer" use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
+                                <xs:unique name="unique-member-id">
+                                    <xs:selector xpath="member"/>
+                                    <xs:field xpath="@id"/>
+                                </xs:unique>
                             </xs:element>
                         </xs:sequence>
                     </xs:complexType>
