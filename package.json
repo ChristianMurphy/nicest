@@ -28,7 +28,7 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "boom": "~2.8.0",
-    "good": "~6.3.0",
+    "good": "~6.4.0",
     "good-file": "~5.0.0",
     "hapi": "~10.0.0",
     "inert": "~3.0.0",
@@ -51,7 +51,7 @@
   "devDependencies": {
     "code": "~1.5.0",
     "eslint": "~1.5.0",
-    "lab": "~5.17.0"
+    "lab": "~5.18.0"
   },
   "engines": {
     "node": ">=4.0.0"
