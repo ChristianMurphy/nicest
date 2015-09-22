@@ -209,13 +209,19 @@ module.exports = {
             // redirect
             .then(
                 function () {
-                    reply().redirect('/recipes');
+                    reply().redirect('/recipe/code-project/success');
                 },
                 function (err) {
                     console.log(err);
-                    reply().redirect('/recipes');
+                    reply().redirect('/recipe/code-project/error');
                 }
             );
+    },
+    successView: function (request, reply) {
+        reply.view('modules/code-project/view/success');
+    },
+    errorView: function (request, reply) {
+        reply.view('modules/code-project/view/error').code(500);
     }
 };
 
