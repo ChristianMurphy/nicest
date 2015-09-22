@@ -50,8 +50,8 @@ module.exports = function (seedRepository, githubUsername, studentType, students
 
                 // add team information to Github meta data
                 const githubInformation = {
-                    name: githubName + currentTeam.name.replace(' ', '-'),
-                    url: githubUrl + currentTeam.name.replace(' ', '-'),
+                    name: githubName + currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-'),
+                    url: githubUrl + currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-'),
                     collaborators: [],
                     emails: []
                 };
