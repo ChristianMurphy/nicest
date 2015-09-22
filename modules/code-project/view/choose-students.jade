@@ -50,4 +50,30 @@ block body
                         each student in students
                             option(value=student._id)= student.name
                 input.ui.large.teal.submit.button(type='submit', value='next')
+                    
+        if students.length < 1
+            .ui.large.warning.icon.message
+                i.idea.icon
+                .content
+                    .header Hey There
+                    if studentType == 'team'
+                        p 
+                            | It looks like you don't have any teams. 
+                            | Would you like to 
+                            strong
+                                a(href='/recipe/manage-teams/list') create some teams 
+                            | or 
+                            strong
+                                a(href='/recipe/import-export/import-xml') import some teams
+                            | ?
+                    else
+                        p 
+                            | It looks like you don't have any users. 
+                            | Would you like to 
+                            strong
+                                a(href='/recipe/manage-users/list') create some users 
+                            | or 
+                            strong 
+                                a(href='/recipe/import-export/import-xml') import some users
+                            | ?
     script $('select.dropdown').dropdown();
