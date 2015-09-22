@@ -24,6 +24,7 @@ module.exports = function (location) {
 
         return {
             valid: isValid,
+            done: true,
             errors: parsedDateset.validationErrors
         };
     })

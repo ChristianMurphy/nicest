@@ -8,9 +8,13 @@ block body
         h1.ui.center.aligned.header Import XML
         form.ui.large.stacked.segment.form(action='/recipe/import-export/import-xml', method='POST', enctype='multipart/form-data')
             input(type='file', name='file', accept='xml')
-            input.ui.button(type='submit', value='validate')
+            input.ui.button(type='submit', value='import')
 
-        unless validation.valid
+        if validation.done && validation.valid
+            .ui.success.message
+                .header Success
+                p Data has been imported
+        else if !validation.valid
             .ui.stacked.segments
                 .ui.red.inverted.segment
                     h3 Errors

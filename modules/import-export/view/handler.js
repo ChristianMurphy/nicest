@@ -11,7 +11,8 @@ module.exports = {
         reply.view('modules/import-export/view/import', {
             example: example,
             validation: {
-                valid: true
+                valid: true,
+                done: false
             }
         });
     },
