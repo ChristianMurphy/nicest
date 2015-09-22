@@ -144,5 +144,25 @@ module.exports = [
                 lout: false
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/code-project/success',
+        handler: handler.successView,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/code-project/error',
+        handler: handler.errorView,
+        config: {
+            plugins: {
+                lout: false
+            }
+        }
     }
 ];
