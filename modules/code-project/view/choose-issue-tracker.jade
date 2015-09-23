@@ -65,3 +65,8 @@ block body
                 input.ui.large.teal.submit.button(type='submit', value='next')
     script.
         $('.ui.checkbox').checkbox();
+        var taigaCheckbox = $('input[name=useTaiga]');
+        var taigaDescription = $('input[name=description]');
+        taigaCheckbox.change(function () {
+            taigaDescription.prop('required', taigaCheckbox.is(':checked'));
+        });

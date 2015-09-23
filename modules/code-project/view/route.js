@@ -89,7 +89,7 @@ module.exports = [
             validate: {
                 payload: {
                     useTaiga: Joi.boolean(),
-                    description: Joi.string(),
+                    description: Joi.string().empty(''),
                     isPrivate: Joi.boolean(),
                     hasIssues: Joi.boolean(),
                     hasBacklog: Joi.boolean(),
