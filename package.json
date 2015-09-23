@@ -39,7 +39,7 @@
     "lodash": "~3.10.0",
     "lout": "~7.1.0",
     "mongoose": "~4.1.0",
-    "nodegit": "nodegit/nodegit",
+    "nodegit": "~0.5.0",
     "octokat": "~0.4.0",
     "request": "~2.63.0",
     "rimraf": "~2.4.0",
