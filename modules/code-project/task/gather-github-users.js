@@ -90,7 +90,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
 
                     const githubUsername = currentUser.modules.github.username;
 
-                    // create the Respository meta data
+                    // create the Repository meta data
                     githubRepositories.push({
                         name: githubName + githubUsername,
                         url: githubUrl + githubUsername,
