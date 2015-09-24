@@ -212,7 +212,7 @@ module.exports = {
                     reply().redirect('/recipe/code-project/success');
                 },
                 function (err) {
-                    console.log(err);
+                    request.log('error', err.toString());
                     reply().redirect('/recipe/code-project/error');
                 }
             );
