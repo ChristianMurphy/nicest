@@ -8,6 +8,7 @@ module.exports = [
         path: '/recipes',
         handler: handler.list,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }

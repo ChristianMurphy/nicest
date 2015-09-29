@@ -10,6 +10,7 @@ module.exports = [
             }
         },
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }

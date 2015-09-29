@@ -9,6 +9,7 @@ module.exports = [
         path: '/recipe/code-project',
         handler: handler.redirect,
         config: {
+            auth: 'github',
             description: 'Create a computer code project',
             plugins: {
                 lout: false
@@ -20,6 +21,7 @@ module.exports = [
         path: '/recipe/code-project/choose-students',
         handler: handler.chooseStudents,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -30,6 +32,7 @@ module.exports = [
         path: '/recipe/code-project/choose-students',
         handler: handler.selectStudents,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -45,6 +48,7 @@ module.exports = [
         path: '/recipe/code-project/choose-repository',
         handler: handler.chooseRepository,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -55,6 +59,7 @@ module.exports = [
         path: '/recipe/code-project/choose-repository',
         handler: handler.selectRepository,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -73,6 +78,7 @@ module.exports = [
         path: '/recipe/code-project/choose-issue-tracker',
         handler: handler.chooseIssueTracker,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -83,6 +89,7 @@ module.exports = [
         path: '/recipe/code-project/choose-issue-tracker',
         handler: handler.selectIssueTracker,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -104,6 +111,7 @@ module.exports = [
         path: '/recipe/code-project/taiga-login',
         handler: handler.loginView,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -114,6 +122,7 @@ module.exports = [
         path: '/recipe/code-project/taiga-login',
         handler: handler.loginAction,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -130,6 +139,7 @@ module.exports = [
         path: '/recipe/code-project/confirm',
         handler: handler.confirmView,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -140,6 +150,7 @@ module.exports = [
         path: '/recipe/code-project/confirm',
         handler: handler.confirm,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -150,6 +161,7 @@ module.exports = [
         path: '/recipe/code-project/success',
         handler: handler.successView,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -160,6 +172,7 @@ module.exports = [
         path: '/recipe/code-project/error',
         handler: handler.errorView,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }

@@ -9,6 +9,7 @@ module.exports = [
         path: '/recipe/github',
         handler: handler.redirect,
         config: {
+            auth: 'github',
             description: 'Manage Github Users, Teams and Repos',
             plugins: {
                 lout: false
@@ -20,6 +21,7 @@ module.exports = [
         path: '/recipe/github/login',
         handler: handler.loginView,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -30,6 +32,7 @@ module.exports = [
         path: '/recipe/github/login',
         handler: handler.loginAction,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -47,6 +50,7 @@ module.exports = [
         path: '/recipe/github/list',
         handler: handler.list,
         config: {
+            auth: 'github',
             plugins: {
                 lout: false
             }
