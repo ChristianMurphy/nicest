@@ -9,7 +9,6 @@ module.exports = [
         path: '/recipe/manage-users',
         handler: handler.redirect,
         config: {
-            auth: 'github',
             description: 'User Management',
             plugins: {
                 lout: false
@@ -21,7 +20,6 @@ module.exports = [
         path: '/recipe/manage-users/list',
         handler: handler.list,
         config: {
-            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -32,7 +30,6 @@ module.exports = [
         path: '/recipe/manage-users/edit/{id}',
         handler: handler.view,
         config: {
-            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -48,7 +45,6 @@ module.exports = [
         path: '/recipe/manage-users/edit/{id}',
         handler: handler.save,
         config: {
-            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -68,7 +64,6 @@ module.exports = [
         path: '/recipe/manage-users/delete/{id}',
         handler: handler.delete,
         config: {
-            auth: 'github',
             plugins: {
                 lout: false
             },
@@ -84,7 +79,6 @@ module.exports = [
         path: '/recipe/manage-users/create',
         handler: handler.viewEmpty,
         config: {
-            auth: 'github',
             plugins: {
                 lout: false
             }
@@ -95,7 +89,6 @@ module.exports = [
         path: '/recipe/manage-users/create',
         handler: handler.create,
         config: {
-            auth: 'github',
             plugins: {
                 lout: false
             },

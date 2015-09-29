@@ -9,7 +9,6 @@ module.exports = [
         path: '/recipe/import-export',
         handler: handler.redirect,
         config: {
-            auth: 'github',
             description: 'Import and Export Teams and Users',
             plugins: {
                 lout: false
