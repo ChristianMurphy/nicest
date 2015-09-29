@@ -5,12 +5,8 @@ const apiRoute = require('./api/route');
 const viewRoute = require('./view/route');
 
 module.exports.register = function (server, options, next) {
-    const api = server.select('api');
-    const view = server.select('view');
-
-    api.route(apiRoute);
-
-    view.route(viewRoute);
+    server.route(apiRoute);
+    server.route(viewRoute);
 
     server.expose(team);
 
