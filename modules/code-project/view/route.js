@@ -9,30 +9,19 @@ module.exports = [
         path: '/recipe/code-project',
         handler: handler.redirect,
         config: {
-            description: 'Create a computer code project',
-            plugins: {
-                lout: false
-            }
+            description: 'Create a computer code project'
         }
     },
     {
         method: 'GET',
         path: '/recipe/code-project/choose-students',
-        handler: handler.chooseStudents,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.chooseStudents
     },
     {
         method: 'POST',
         path: '/recipe/code-project/choose-students',
         handler: handler.selectStudents,
         config: {
-            plugins: {
-                lout: false
-            },
             validate: {
                 payload: {
                     students: Joi.array().single().unique()
@@ -43,21 +32,13 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/choose-repository',
-        handler: handler.chooseRepository,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.chooseRepository
     },
     {
         method: 'POST',
         path: '/recipe/code-project/choose-repository',
         handler: handler.selectRepository,
         config: {
-            plugins: {
-                lout: false
-            },
             validate: {
                 payload: {
                     repo: Joi.string().regex(/[A-Za-z0-9\-]+/),
@@ -71,21 +52,13 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/choose-issue-tracker',
-        handler: handler.chooseIssueTracker,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.chooseIssueTracker
     },
     {
         method: 'POST',
         path: '/recipe/code-project/choose-issue-tracker',
         handler: handler.selectIssueTracker,
         config: {
-            plugins: {
-                lout: false
-            },
             validate: {
                 payload: {
                     useTaiga: Joi.boolean(),
@@ -102,21 +75,13 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/taiga-login',
-        handler: handler.loginView,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.loginView
     },
     {
         method: 'POST',
         path: '/recipe/code-project/taiga-login',
         handler: handler.loginAction,
         config: {
-            plugins: {
-                lout: false
-            },
             validate: {
                 payload: {
                     username: Joi.string().alphanum(),
@@ -128,41 +93,21 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/confirm',
-        handler: handler.confirmView,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.confirmView
     },
     {
         method: 'POST',
         path: '/recipe/code-project/confirm',
-        handler: handler.confirm,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.confirm
     },
     {
         method: 'GET',
         path: '/recipe/code-project/success',
-        handler: handler.successView,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.successView
     },
     {
         method: 'GET',
         path: '/recipe/code-project/error',
-        handler: handler.errorView,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.errorView
     }
 ];

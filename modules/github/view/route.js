@@ -9,30 +9,19 @@ module.exports = [
         path: '/recipe/github',
         handler: handler.redirect,
         config: {
-            description: 'Manage Github Users, Teams and Repos',
-            plugins: {
-                lout: false
-            }
+            description: 'Manage Github Users, Teams and Repos'
         }
     },
     {
         method: 'GET',
         path: '/recipe/github/login',
-        handler: handler.loginView,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.loginView
     },
     {
         method: 'POST',
         path: '/recipe/github/login',
         handler: handler.loginAction,
         config: {
-            plugins: {
-                lout: false
-            },
             validate: {
                 payload: {
                     username: Joi.string().alphanum(),
@@ -45,11 +34,6 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/github/list',
-        handler: handler.list,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.list
     }
 ];
