@@ -1,17 +1,5 @@
 language: node_js
 node_js: v4.1
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-4.9
-      - g++-4.9
-
-services:
-  - mongodb
-
-before_install:
-    - export CC=/usr/bin/gcc-4.9;
-    - export CXX=/usr/bin/g++-4.9;
+install: npm install --global eslint
+script: eslint .

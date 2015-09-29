@@ -36,19 +36,12 @@ The `plugin.js` file attaches the routes to their appropriate endpoints.
 For example this plugin defines an api and a recipe.
 ``` js
 'use strict';
+const model = require(...);
 
 module.exports.register = function (server, options, next) {
-    const api = server.select('api');
-    const view = server.select('view');
-    const model = require(...);
-
-    api.route(
+    server.route([
         ...
-    );
-
-    view.route(
-        ...
-    );
+    ]);
 
     server.expose(model);
 
@@ -72,9 +65,9 @@ Plugins use [lout](https://github.com/hapijs/lout) and [JSdoc](https://github.co
 
 E.G. a `User` model `let user = {add: function (newUser) {...}}` would register using `server.expose(user);`, other modules would then be able to access the function by calling `server.plugin.user.add()`.
 
- **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately. Apis live in a separate sub-server `let api = server.select('api')`, attach the routes to subserver `api.route(...)`.
+ **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately.
 
- **Views** and **Recipes** should use [Jade](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended. Views and recipes live in a separate sub-server `let view = server.select('view')`, attach the routes to sub-server `view.route(...)`.
+ **Views** and **Recipes** should use [Jade](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended.
 
  **Recipes** should define an entry point using the HTTP `GET` verb and the `/recipe/{name}` replacing {name} with the actual name of the recipe. Recipes should have all lowercase names, and separate multiple words with a dash. E.G. `/recipe/user-management`. The entry point should add a `config` attribute with a `description` sub-attribute that should give a short description of the plug-in, this will be shown on the recipe listing. E.G. `config: {description: 'User Management'}`.
 

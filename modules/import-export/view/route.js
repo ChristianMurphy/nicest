@@ -9,21 +9,13 @@ module.exports = [
         path: '/recipe/import-export',
         handler: handler.redirect,
         config: {
-            description: 'Import and Export Teams and Users',
-            plugins: {
-                lout: false
-            }
+            description: 'Import and Export Teams and Users'
         }
     },
     {
         method: 'GET',
         path: '/recipe/import-export/import-xml',
-        handler: handler.importXML,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        handler: handler.importXML
     },
     {
         method: 'POST',
@@ -34,9 +26,6 @@ module.exports = [
                 output: 'file',
                 allow: ['multipart/form-data'],
                 uploads: path.join(__dirname, 'temp')
-            },
-            plugins: {
-                lout: false
             }
         }
     }
