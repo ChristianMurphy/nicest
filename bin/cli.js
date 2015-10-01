@@ -6,7 +6,15 @@ const version = require('../package.json').version;
 
 // Get options from terminal
 const argv = require('yargs')
-    .usage('nicest [options]')
+    .usage('nicest --github-client <value> --github-secret <value> [options]')
+    .option('github-client', {
+        describe: 'github client application token',
+        demand: true
+    })
+    .option('github-secret', {
+        describe: 'github secret application token',
+        demand: true
+    })
     .option('p', {
         alias: 'port',
         default: 3000,
