@@ -12,10 +12,12 @@ const seedGitRepositories = require('../task/seed-git-repositories');
 
 module.exports = {
     redirect: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
-            reply().redirect('/recipe/code-project/choose-students');
+            reply().redirect(prefix + '/recipe/code-project/choose-students');
         } else {
-            reply().redirect('/recipe/github/login?next=/recipe/code-project/choose-students');
+            reply().redirect(prefix + '/recipe/github/login?next=' + prefix + '/recipe/code-project/choose-students');
         }
     },
     chooseStudents: function (request, reply) {
@@ -46,11 +48,13 @@ module.exports = {
         }
     },
     selectStudents: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         request.session.set({
             'code-project-students': request.payload.students
         });
 
-        reply().redirect('/recipe/code-project/choose-repository');
+        reply().redirect(prefix + '/recipe/code-project/choose-repository');
     },
     chooseRepository: function (request, reply) {
         const Github = new Octokat({
@@ -63,6 +67,8 @@ module.exports = {
         });
     },
     selectRepository: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         request.session.set({
             'github-project-repo': request.payload.repo,
             'github-project-is-private': request.payload.isPrivate || false,
@@ -70,12 +76,14 @@ module.exports = {
             'github-project-has-issue-tracker': request.payload.hasIssueTracker || false
         });
 
-        reply().redirect('/recipe/code-project/choose-issue-tracker');
+        reply().redirect(prefix + '/recipe/code-project/choose-issue-tracker');
     },
     chooseIssueTracker: function (request, reply) {
         reply.view('modules/code-project/view/choose-issue-tracker');
     },
     selectIssueTracker: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         request.session.set({
             'taiga-project-use-taiga': request.payload.useTaiga || false,
             'taiga-project-description': request.payload.description,
@@ -87,21 +95,23 @@ module.exports = {
         });
 
         if (request.payload.useTaiga) {
-            reply().redirect('/recipe/code-project/taiga-login');
+            reply().redirect(prefix + '/recipe/code-project/taiga-login');
         } else {
-            reply().redirect('/recipe/code-project/confirm');
+            reply().redirect(prefix + '/recipe/code-project/confirm');
         }
     },
     loginView: function (request, reply) {
         reply.view('modules/code-project/view/taiga-login');
     },
     loginAction: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         request.session.set({
             'taiga-username': request.payload.username,
             'taiga-password': request.payload.password
         });
 
-        reply().redirect('/recipe/code-project/confirm');
+        reply().redirect(prefix + '/recipe/code-project/confirm');
     },
     confirmView: function (request, reply) {
         const studentType = request.session.get('code-project-student-type');
@@ -155,6 +165,8 @@ module.exports = {
         }
     },
     confirm: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         const githubUsername = request.session.get('github-username');
         const githubPassword = request.session.get('github-password');
         const seedRepository = request.session.get('github-project-repo');
@@ -209,11 +221,11 @@ module.exports = {
             // redirect
             .then(
                 function () {
-                    reply().redirect('/recipe/code-project/success');
+                    reply().redirect(prefix + '/recipe/code-project/success');
                 },
                 function (err) {
                     request.log('error', err.toString());
-                    reply().redirect('/recipe/code-project/error');
+                    reply().redirect(prefix + '/recipe/code-project/error');
                 }
             );
     },

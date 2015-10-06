@@ -5,7 +5,9 @@ const example = require('../task/example');
 
 module.exports = {
     redirect: function (request, reply) {
-        reply().redirect('/recipe/import-export/import-xml');
+        const prefix = request.route.realm.modifiers.route.prefix;
+
+        reply().redirect(prefix + '/recipe/import-export/import-xml');
     },
     importXML: function (request, reply) {
         reply.view('modules/import-export/view/import', {

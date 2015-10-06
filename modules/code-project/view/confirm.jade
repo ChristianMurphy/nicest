@@ -31,7 +31,7 @@ block body
                 .content
                     .title Confirm
                     .description Confirm Selections
-        form.ui.attached.large.form(action='/recipe/code-project/confirm', method='POST')
+        form.ui.attached.large.form(action = prefix + '/recipe/code-project/confirm', method='POST')
             .ui.attached.stacked.segment
                 h4.ui.horizontal.divider.header
                     i.git.square.icon
@@ -70,6 +70,6 @@ block body
                                                     i.red.warning.sign.icon(title='missing Github username')
                                                 if !user.modules.taiga || !user.modules.taiga.email
                                                     i.red.warning.sign.icon(title='missing Tiaga email')
-                a.ui.large.secondary.submit.button(href='/recipe/code-project/choose-issue-tracker') previous
+                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='confirm')
     script $('.accordion').accordion();

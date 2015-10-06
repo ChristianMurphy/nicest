@@ -29,6 +29,10 @@ const argv = require('yargs')
         default: hostname,
         describe: 'server hostname'
     })
+    .option('prefix', {
+        default: '/',
+        describe: 'prefix for the routes'
+    })
     .option('token', {
         default: 'password',
         describe: 'token for hashing session data'
