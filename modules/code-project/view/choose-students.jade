@@ -31,19 +31,19 @@ block body
                 .content
                     .title Confirm
                     .description Confirm Selections
-        form.ui.attached.large.form(action='/recipe/code-project/choose-students', method='POST')
+        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-students', method='POST')
             .ui.attached.stacked.segment
                 .field
                     label Project Type
                     .ui.buttons
                         if studentType === 'team'
-                            a.ui.button(href='/recipe/code-project/choose-students?type=individual') indvidual
+                            a.ui.button(href = prefix + '/recipe/code-project/choose-students?type=individual') indvidual
                             .or
-                            a.ui.button.primary(href='/recipe/code-project/choose-students?type=team') team
+                            a.ui.button.primary(href = prefix + '/recipe/code-project/choose-students?type=team') team
                         else
-                            a.ui.button.primary(href='/recipe/code-project/choose-students?type=individual') indvidual
+                            a.ui.button.primary(href = prefix + '/recipe/code-project/choose-students?type=individual') indvidual
                             .or
-                            a.ui.button(href='/recipe/code-project/choose-students?type=team') team
+                            a.ui.button(href = prefix + '/recipe/code-project/choose-students?type=team') team
                 .field
                     label Students
                     select.ui.search.dropdown(name='students', multiple, required)
@@ -61,19 +61,19 @@ block body
                             | It looks like you don't have any teams. 
                             | Would you like to 
                             strong
-                                a(href='/recipe/manage-teams/list') create some teams 
+                                a(href = prefix + '/recipe/manage-teams/list') create some teams 
                             | or 
                             strong
-                                a(href='/recipe/import-export/import-xml') import some teams
+                                a(href = prefix + '/recipe/import-export/import-xml') import some teams
                             | ?
                     else
                         p 
                             | It looks like you don't have any users. 
                             | Would you like to 
                             strong
-                                a(href='/recipe/manage-users/list') create some users 
+                                a(href = prefix + '/recipe/manage-users/list') create some users 
                             | or 
                             strong 
-                                a(href='/recipe/import-export/import-xml') import some users
+                                a(href = prefix + '/recipe/import-export/import-xml') import some users
                             | ?
     script $('select.dropdown').dropdown();

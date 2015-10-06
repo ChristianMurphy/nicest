@@ -31,5 +31,5 @@ block body
                     label modules
                     textarea(name='modules', placeholder='{}')= JSON.stringify(team.modules, null, 4)
                 input.ui.large.primary.submit.button(type='submit', value='submit')
-                a.ui.large.red.submit.button(href='/recipe/manage-teams/list') cancel
+                a.ui.large.red.submit.button(href = prefix + '/recipe/manage-teams/list') cancel
     script $('select.dropdown').dropdown();

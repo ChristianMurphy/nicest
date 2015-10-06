@@ -6,7 +6,9 @@ const User = require('../../user/model/user');
 
 module.exports = {
     redirect: function (request, reply) {
-        reply().redirect('/recipe/manage-teams/list');
+        const prefix = request.route.realm.modifiers.route.prefix;
+
+        reply().redirect(prefix + '/recipe/manage-teams/list');
     },
     list: function (request, reply) {
         Team
@@ -16,6 +18,8 @@ module.exports = {
             });
     },
     view: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         Promise.all([
             Team.read(request.params.id),
             User.list('_id name')
@@ -25,7 +29,7 @@ module.exports = {
                 const users = data[1];
 
                 reply.view('modules/team/view/view', {
-                    url: '/recipe/manage-teams/edit/' + team._id,
+                    url: prefix + '/recipe/manage-teams/edit/' + team._id,
                     saved: request.query.saved,
                     team: {
                         name: team.name,
@@ -37,17 +41,21 @@ module.exports = {
             });
     },
     save: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         Team
             .update(request.params.id, request.payload)
             .then(function () {
-                reply().redirect('/recipe/manage-teams/edit/' + request.params.id + '?saved=true');
+                reply().redirect(prefix + '/recipe/manage-teams/edit/' + request.params.id + '?saved=true');
             });
     },
     viewEmpty: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         User.list('_id name')
             .then(function (users) {
                 reply.view('modules/team/view/view', {
-                    url: '/recipe/manage-teams/create',
+                    url: prefix + '/recipe/manage-teams/create',
                     team: {
                         name: '',
                         members: [],
@@ -58,17 +66,21 @@ module.exports = {
             });
     },
     create: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         Team
             .create(request.payload)
             .then(function (team) {
-                reply().redirect('/recipe/manage-teams/edit/' + team._id + '?saved=true');
+                reply().redirect(prefix + '/recipe/manage-teams/edit/' + team._id + '?saved=true');
             });
     },
     delete: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         Team
             .delete(request.params.id)
             .then(function () {
-                reply().redirect('/recipe/manage-teams/list');
+                reply().redirect(prefix + '/recipe/manage-teams/list');
             });
     }
 };

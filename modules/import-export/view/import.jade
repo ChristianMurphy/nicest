@@ -6,7 +6,7 @@ block title
 block body
     .ui.container
         h1.ui.center.aligned.header Import XML
-        form.ui.large.stacked.segment.form(action='/recipe/import-export/import-xml', method='POST', enctype='multipart/form-data')
+        form.ui.large.stacked.segment.form(action = prefix + '/recipe/import-export/import-xml', method='POST', enctype='multipart/form-data')
             input(type='file', name='file', accept='xml')
             input.ui.button(type='submit', value='import')
 

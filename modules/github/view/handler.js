@@ -4,19 +4,23 @@ const Octokat = require('octokat');
 
 module.exports = {
     redirect: function (request, reply) {
-        reply().redirect('/recipe/github/login');
+        const prefix = request.route.realm.modifiers.route.prefix;
+
+        reply().redirect(prefix + '/recipe/github/login');
     },
     loginView: function (request, reply) {
         reply.view('modules/github/view/login', {redirect: request.query.next || 'none'});
     },
     loginAction: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         request.session.set({
             'github-username': request.payload.username,
             'github-password': request.payload.password
         });
 
         if (request.payload.redirect === 'none') {
-            reply().redirect('/recipe/github/list');
+            reply().redirect(prefix + '/recipe/github/list');
         } else {
             reply().redirect(request.payload.redirect);
         }
