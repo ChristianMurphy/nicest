@@ -5,7 +5,9 @@ const User = require('../model/user');
 
 module.exports = {
     redirect: function (request, reply) {
-        reply().redirect('/recipe/manage-users/list');
+        const prefix = request.route.realm.modifiers.route.prefix;
+
+        reply().redirect(prefix + '/recipe/manage-users/list');
     },
     list: function (request, reply) {
         User
@@ -15,11 +17,13 @@ module.exports = {
             });
     },
     view: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         User
             .read(request.params.id)
             .then(function (user) {
                 reply.view('modules/user/view/view', {
-                    url: '/recipe/manage-users/edit/' + user._id,
+                    url: prefix + '/recipe/manage-users/edit/' + user._id,
                     saved: request.query.saved,
                     user: {
                         name: user.name,
@@ -29,15 +33,19 @@ module.exports = {
             });
     },
     save: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         User
             .update(request.params.id, request.payload)
             .then(function () {
-                reply().redirect('/recipe/manage-users/edit/' + request.params.id + '?saved=true');
+                reply().redirect(prefix + '/recipe/manage-users/edit/' + request.params.id + '?saved=true');
             });
     },
     viewEmpty: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         reply.view('modules/user/view/view', {
-            url: '/recipe/manage-users/create',
+            url: prefix + '/recipe/manage-users/create',
             user: {
                 name: '',
                 modules: {}
@@ -45,17 +53,21 @@ module.exports = {
         });
     },
     create: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         User
             .create(request.payload)
             .then(function (user) {
-                reply().redirect('/recipe/manage-users/edit/' + user._id + '?saved=true');
+                reply().redirect(prefix + '/recipe/manage-users/edit/' + user._id + '?saved=true');
             });
     },
     delete: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
         User
             .delete(request.params.id)
             .then(function () {
-                reply().redirect('/recipe/manage-users/list');
+                reply().redirect(prefix + '/recipe/manage-users/list');
             });
     }
 };

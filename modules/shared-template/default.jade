@@ -8,8 +8,8 @@ html(lang='en')
         block head
     body
         .ui.stackable.menu
-            a.item(href='/') Nicest
-            a.item(href='/recipes') Recipes
-            a.item(href='/docs') Docs
-            a.item(href='/apis') Api
+            a.item(href = prefix + '/') Nicest
+            a.item(href = prefix + '/recipes') Recipes
+            a.item(href = prefix + '/docs') Docs
+            a.item(href = prefix + '/apis') Api
         block body
