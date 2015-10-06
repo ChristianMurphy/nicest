@@ -8,6 +8,7 @@ module.exports = [
             view: 'modules/welcome/view/welcome'
         },
         config: {
+            auth: false,
             plugins: {
                 lout: false
             }
