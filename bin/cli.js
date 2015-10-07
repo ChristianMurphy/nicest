@@ -30,7 +30,7 @@ const argv = require('yargs')
         describe: 'server hostname'
     })
     .option('prefix', {
-        default: '/',
+        default: '',
         describe: 'prefix for the routes'
     })
     .option('token', {
