@@ -47,7 +47,7 @@
     "scooter": "~2.0.0",
     "vision": "~3.0.0",
     "yar": "~4.2.0",
-    "yargs": "~3.26.0"
+    "yargs": "~3.27.0"
   },
   "devDependencies": {
     "eslint": "~1.6.0"
