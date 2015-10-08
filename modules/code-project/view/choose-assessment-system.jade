@@ -40,38 +40,18 @@ block body
             .ui.attached.stacked.segment
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='useTaiga', class='hidden', checked)
-                        label Use Taiga as an Issue Tracker
+                        input(type='checkbox', name='useCADashboard', class='hidden', checked)
+                        label Use CA Dashboard as an Assessment System
                 .field
-                    label Issue Tracker Description
-                    input(type='text', name='description', placeholder='some snazzy description' required)
-                .field
-                    .ui.toggle.checkbox
-                        input(type='checkbox', name='isPrivate', class='hidden')
-                        label Make Issue Tracker Private
-                .field
-                    .ui.toggle.checkbox
-                        input(type='checkbox', name='hasIssues', class='hidden', checked)
-                        label Enable Issues
-                .field
-                    .ui.toggle.checkbox
-                        input(type='checkbox', name='hasBacklog', class='hidden', checked)
-                        label Enable Scrum Backlog
-                .field
-                    .ui.toggle.checkbox
-                        input(type='checkbox', name='hasKanban', class='hidden')
-                        label Enable Kanban Board
-                .field
-                    .ui.toggle.checkbox
-                        input(type='checkbox', name='hasWiki', class='hidden')
-                        label Enable Wiki
+                    label CA Dashboard URL
+                    input(type='text', name='serverUrl', placeholder='example.com/ca_dashboard' required)
                         
-                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-repository') previous
+                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
     script.
         $('.ui.checkbox').checkbox();
-        var taigaCheckbox = $('input[name=useTaiga]');
-        var taigaDescription = $('input[name=description]');
-        taigaCheckbox.change(function () {
-            taigaDescription.prop('required', taigaCheckbox.is(':checked'));
+        var dashboardCheckbox = $('input[name=useCADashboard]');
+        var serverUrl = $('input[name=serverUrl]');
+        dashboardCheckbox.change(function () {
+            serverUrl.prop('required', dashboardCheckbox.is(':checked'));
         });

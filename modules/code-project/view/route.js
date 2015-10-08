@@ -92,6 +92,24 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/recipe/code-project/choose-assessment-system',
+        handler: handler.chooseAssessmentSystem
+    },
+    {
+        method: 'POST',
+        path: '/recipe/code-project/choose-assessment-system',
+        handler: handler.selectAssessmentSystem,
+        config: {
+            validate: {
+                payload: {
+                    useCADashboard: Joi.boolean(),
+                    serverUrl: Joi.string().empty('')
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
         path: '/recipe/code-project/confirm',
         handler: handler.confirmView
     },

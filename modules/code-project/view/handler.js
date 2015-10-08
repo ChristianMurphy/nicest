@@ -97,7 +97,7 @@ module.exports = {
         if (request.payload.useTaiga) {
             reply().redirect(prefix + '/recipe/code-project/taiga-login');
         } else {
-            reply().redirect(prefix + '/recipe/code-project/confirm');
+            reply().redirect(prefix + '/recipe/code-project/choose-assessment-system');
         }
     },
     loginView: function (request, reply) {
@@ -109,6 +109,19 @@ module.exports = {
         request.session.set({
             'taiga-username': request.payload.username,
             'taiga-password': request.payload.password
+        });
+
+        reply().redirect(prefix + '/recipe/code-project/choose-assessment-system');
+    },
+    chooseAssessmentSystem: function (request, reply) {
+        reply.view('modules/code-project/view/choose-assessment-system');
+    },
+    selectAssessmentSystem: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
+        request.session.set({
+            'assessment-use-ca-dashboard': request.payload.useCADashboard,
+            'assessment-url': request.payload.serverUrl
         });
 
         reply().redirect(prefix + '/recipe/code-project/confirm');
