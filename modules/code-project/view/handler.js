@@ -9,6 +9,8 @@ const gatherGithubUsers = require('../task/gather-github-users');
 const createGithubRepositories = require('../task/create-github-repositories');
 const createTaigaBoards = require('../task/create-taiga-boards');
 const seedGitRepositories = require('../task/seed-git-repositories');
+const gatherCaUsers = require('../task/gather-ca-users');
+const configureCaDashboard = require('../task/configure-ca-dashboard');
 
 module.exports = {
     redirect: function (request, reply) {
@@ -97,7 +99,7 @@ module.exports = {
         if (request.payload.useTaiga) {
             reply().redirect(prefix + '/recipe/code-project/taiga-login');
         } else {
-            reply().redirect(prefix + '/recipe/code-project/confirm');
+            reply().redirect(prefix + '/recipe/code-project/choose-assessment-system');
         }
     },
     loginView: function (request, reply) {
@@ -109,6 +111,19 @@ module.exports = {
         request.session.set({
             'taiga-username': request.payload.username,
             'taiga-password': request.payload.password
+        });
+
+        reply().redirect(prefix + '/recipe/code-project/choose-assessment-system');
+    },
+    chooseAssessmentSystem: function (request, reply) {
+        reply.view('modules/code-project/view/choose-assessment-system');
+    },
+    selectAssessmentSystem: function (request, reply) {
+        const prefix = request.route.realm.modifiers.route.prefix;
+
+        request.session.set({
+            'assessment-use-ca-dashboard': request.payload.useCADashboard,
+            'assessment-url': request.payload.serverUrl
         });
 
         reply().redirect(prefix + '/recipe/code-project/confirm');
@@ -176,6 +191,8 @@ module.exports = {
         const hasIssueTracker = request.session.get('github-project-has-issue-tracker');
         const studentType = request.session.get('code-project-student-type');
         const useTaiga = request.session.get('taiga-project-use-taiga');
+        const useAssessment = request.session.get('assessment-use-ca-dashboard');
+        const assessmentUrl = request.session.get('assessment-url');
         let githubRepositories;
 
         // Gather Github user information from Users/Teams
@@ -215,6 +232,20 @@ module.exports = {
                     };
 
                     createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);
+                }
+            })
+
+            // gather CA Dashboard users
+            .then(function () {
+                if (useAssessment) {
+                    return gatherCaUsers(seedRepository, githubUsername, studentType, students);
+                }
+            })
+
+            // setup CA Dashboard
+            .then(function (caConfiguration) {
+                if (useAssessment) {
+                    return configureCaDashboard(assessmentUrl, caConfiguration);
                 }
             })
 

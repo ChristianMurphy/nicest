@@ -1,12 +1,11 @@
 extends ../../shared-template/default.jade
 
 block title
-    title Choose a Repository
+    title Choose Issue Tracker
     
 block head
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.3/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.3/components/dropdown.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.3/components/checkbox.min.js')
 
 block body
@@ -17,17 +16,17 @@ block body
                 .content
                     .title Students
                     .description Choose Students to Participate
-            .active.step
+            .completed.step
                 i.git.square.icon
                 .content
                     .title Repository
                     .description Choose a Seed Repository
-            .disabled.step
+            .completed.step
                 i.columns.icon
                 .content
                     .title Issues
                     .description Choose Issue Tracker
-            .disabled.step
+            .active.step
                 i.info.icon
                 .content
                     .title Assessment
@@ -37,30 +36,22 @@ block body
                 .content
                     .title Confirm
                     .description Confirm Selections
-        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-repository', method='POST')
+        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-assessment-system', method='POST')
             .ui.attached.stacked.segment
                 .field
-                    label Repository
-                    select.ui.search.dropdown(name='repo', required)
-                        each repo in repos
-                            option(value=repo.fullName)
-                                = repo.name
-                                |  - 
-                                = repo.description
-                .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='isPrivate', class='hidden')
-                        label Make Repository Private
+                        input(type='checkbox', name='useCADashboard', class='hidden')
+                        label Use CA Dashboard as an Assessment System
                 .field
-                    .ui.toggle.checkbox
-                        input(type='checkbox', name='hasWiki', class='hidden')
-                        label Enable Project Wiki
-                .field
-                    .ui.toggle.checkbox
-                        input(type='checkbox', name='hasIssueTracker', class='hidden')
-                        label Enable Project Issue Tracker        
-                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-students') previous
+                    label CA Dashboard URL
+                    input(type='text', name='serverUrl', placeholder='example.com/ca_dashboard')
+                        
+                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
     script.
-        $('select.dropdown').dropdown();
         $('.ui.checkbox').checkbox();
+        var dashboardCheckbox = $('input[name=useCADashboard]');
+        var serverUrl = $('input[name=serverUrl]');
+        dashboardCheckbox.change(function () {
+            serverUrl.prop('required', dashboardCheckbox.is(':checked'));
+        });
