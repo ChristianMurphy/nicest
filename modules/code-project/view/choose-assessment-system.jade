@@ -36,15 +36,15 @@ block body
                 .content
                     .title Confirm
                     .description Confirm Selections
-        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-issue-tracker', method='POST')
+        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-assessment-system', method='POST')
             .ui.attached.stacked.segment
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='useCADashboard', class='hidden', checked)
+                        input(type='checkbox', name='useCADashboard', class='hidden')
                         label Use CA Dashboard as an Assessment System
                 .field
                     label CA Dashboard URL
-                    input(type='text', name='serverUrl', placeholder='example.com/ca_dashboard' required)
+                    input(type='text', name='serverUrl', placeholder='example.com/ca_dashboard')
                         
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
