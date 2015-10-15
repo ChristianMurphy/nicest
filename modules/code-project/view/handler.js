@@ -209,14 +209,6 @@ module.exports = {
                 });
             })
 
-            // add seed code to repositories
-            .then(function () {
-                const seedRepositoryURL = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository);
-                const githubUrls = _.pluck(githubRepositories, 'url');
-
-                return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
-            })
-
             // create Taiga boards
             .then(function () {
                 if (useTaiga) {
@@ -247,6 +239,15 @@ module.exports = {
                 if (useAssessment) {
                     return configureCaDashboard(assessmentUrl, caConfiguration);
                 }
+            })
+
+            // add seed code to repositories
+            // FIXME this is last because it can sometimes trigger a core dump crash
+            .then(function () {
+                const seedRepositoryURL = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository);
+                const githubUrls = _.pluck(githubRepositories, 'url');
+
+                return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
             })
 
             // redirect
