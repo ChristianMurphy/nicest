@@ -49,6 +49,7 @@ module.exports = {
             url: prefix + '/recipe/manage-users/create',
             user: {
                 name: '',
+                admin: false,
                 modules: {}
             }
         });
