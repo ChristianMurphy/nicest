@@ -15,6 +15,10 @@ block body
                     label name
                     input(type='text', name='name', placeholder='john smith', value=user.name, required)
                 .field
+                    .ui.checkbox
+                        input.hidden(type='checkbox', checked=user.admin)
+                        label Admin
+                .field
                     label modules
                     textarea(name='modules', placeholder='{}')= JSON.stringify(user.modules, null, 4)
                 input.ui.large.primary.submit.button(type='submit', value='submit')

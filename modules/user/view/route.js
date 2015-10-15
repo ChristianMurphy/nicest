@@ -40,6 +40,7 @@ module.exports = [
                 },
                 payload: {
                     name: Joi.string().regex(/[A-Za-z ]+/),
+                    admin: Joi.boolean(),
                     modules: Joi.object()
                 }
             }
@@ -70,6 +71,7 @@ module.exports = [
             validate: {
                 payload: {
                     name: Joi.string().regex(/[A-Za-z ]+/),
+                    admin: Joi.boolean(),
                     modules: Joi.object()
                 }
             }

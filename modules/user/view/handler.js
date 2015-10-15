@@ -27,6 +27,7 @@ module.exports = {
                     saved: request.query.saved,
                     user: {
                         name: user.name,
+                        admin: user.admin,
                         modules: user.modules || {}
                     }
                 });

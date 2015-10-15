@@ -19,6 +19,13 @@ module.exports = [
         path: '/api/user',
         handler: handler.create,
         config: {
+            validate: {
+                payload: {
+                    name: Joi.string().regex(/[A-Za-z ]+/),
+                    admin: Joi.boolean(),
+                    modules: Joi.object()
+                }
+            },
             description: 'Create a new user',
             notes: 'Will respond with HTTP 201 for success and return the new user object',
             tags: ['create']
@@ -50,6 +57,11 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi.string().hex()
+                },
+                payload: {
+                    name: Joi.string().regex(/[A-Za-z ]+/),
+                    admin: Joi.boolean(),
+                    modules: Joi.object()
                 }
             }
         }
