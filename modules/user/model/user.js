@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
  */
 const schema = new mongoose.Schema({
     name: String,
+    admin: Boolean,
     modules: mongoose.Schema.Types.Mixed
 });
 
