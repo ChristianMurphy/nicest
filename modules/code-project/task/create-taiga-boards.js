@@ -74,7 +74,7 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
                     method: 'POST',
                     uri: 'https://api.taiga.io/api/v1/projects',
                     headers: {
-                        Authorization: 'Bearer ' + authorizationToken
+                        Authorization: `Bearer ${authorizationToken}`
                     },
                     json: true,
                     body: boardMetaData
@@ -106,7 +106,7 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
                         method: 'POST',
                         uri: 'https://api.taiga.io/api/v1/memberships',
                         headers: {
-                            Authorization: 'Bearer ' + authorizationToken
+                            Authorization: `Bearer ${authorizationToken}`
                         },
                         json: true,
                         body: userMetadata

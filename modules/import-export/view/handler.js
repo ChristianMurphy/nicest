@@ -7,7 +7,7 @@ module.exports = {
     redirect: function (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        reply().redirect(prefix + '/recipe/import-export/import-xml');
+        reply().redirect(`${prefix}/recipe/import-export/import-xml`);
     },
     importXML: function (request, reply) {
         reply.view('modules/import-export/view/import', {

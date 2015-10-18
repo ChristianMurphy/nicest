@@ -28,8 +28,8 @@ const Team = require('../../team/model/team');
 module.exports = function (seedRepository, githubUsername, studentType, students) {
     // create empty repos for each student on github
     const githubRepositories = [];
-    const githubName = /[A-Za-z0-9\-]+$/.exec(seedRepository) + '-';
-    const githubUrl = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository) + '-';
+    const githubName = `${/[A-Za-z0-9\-]+$/.exec(seedRepository)}-`;
+    const githubUrl = `https://github.com/${githubUsername}/${/[A-Za-z0-9\-]+$/.exec(seedRepository)}-`;
 
     if (studentType === 'team') {
         // lookup stored users and teams

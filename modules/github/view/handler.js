@@ -6,7 +6,7 @@ module.exports = {
     redirect: function (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        reply().redirect(prefix + '/recipe/github/login');
+        reply().redirect(`${prefix}/recipe/github/login`);
     },
     loginView: function (request, reply) {
         reply.view('modules/github/view/login', {redirect: request.query.next || 'none'});
@@ -20,7 +20,7 @@ module.exports = {
         });
 
         if (request.payload.redirect === 'none') {
-            reply().redirect(prefix + '/recipe/github/list');
+            reply().redirect(`${prefix}/recipe/github/list`);
         } else {
             reply().redirect(request.payload.redirect);
         }

@@ -44,7 +44,7 @@ module.exports = function (location) {
                 // create a new database object
                 promises.push(
                     User.create({
-                        name: currentUser.get('first-name').text() + ' ' + currentUser.get('last-name').text(),
+                        name: `${currentUser.get('first-name').text()} ${currentUser.get('last-name').text()}`,
                         modules: {
                             github: {
                                 username: currentUser.get('github').text()
