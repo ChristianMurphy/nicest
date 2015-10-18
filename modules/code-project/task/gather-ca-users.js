@@ -37,7 +37,7 @@ const Team = require('../../team/model/team');
 module.exports = function (seedRepository, githubUsername, studentType, students) {
     // create empty repos for each student on github
     const caDashboardProjects = [];
-    const githubUrl = githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository) + '-';
+    const githubUrl = `${githubUsername}/'${/[A-Za-z0-9\-]+$/.exec(seedRepository)}-`;
 
     if (studentType === 'team') {
         // lookup stored users and teams
@@ -60,7 +60,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                 const caInformation = {
                     name: currentTeam.name,
                     'github-url': githubUrl + currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-'),
-                    'taiga-slug': currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-') + '-' + /[A-Za-z0-9\-]+$/.exec(seedRepository),
+                    'taiga-slug': `${currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-')}-${/[A-Za-z0-9\-]+$/.exec(seedRepository)}`,
                     members: []
                 };
 
@@ -99,7 +99,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                     caDashboardProjects.push({
                         name: currentUser.name,
                         'github-url': githubUrl + currentUser.modules.github.username,
-                        'tiaga-slug': currentUser.name.replace(/[!@#$%^&*? ]+/g, '-') + '-' + /[A-Za-z0-9\-]+$/.exec(seedRepository),
+                        'tiaga-slug': `${currentUser.name.replace(/[!@#$%^&*? ]+/g, '-')}-${/[A-Za-z0-9\-]+$/.exec(seedRepository)}`,
                         members: [{
                             name: currentUser.name,
                             'github-username': currentUser.modules.github.username,

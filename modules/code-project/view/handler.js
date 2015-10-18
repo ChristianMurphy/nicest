@@ -17,9 +17,9 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
-            reply().redirect(prefix + '/recipe/code-project/choose-students');
+            reply().redirect(`${prefix}/recipe/code-project/choose-students`);
         } else {
-            reply().redirect(prefix + '/recipe/github/login?next=' + prefix + '/recipe/code-project/choose-students');
+            reply().redirect(`${prefix}/recipe/github/login?next=${prefix}/recipe/code-project/choose-students`);
         }
     },
     chooseStudents: function (request, reply) {
@@ -56,7 +56,7 @@ module.exports = {
             'code-project-students': request.payload.students
         });
 
-        reply().redirect(prefix + '/recipe/code-project/choose-repository');
+        reply().redirect(`${prefix}/recipe/code-project/choose-repository`);
     },
     chooseRepository: function (request, reply) {
         const Github = new Octokat({
@@ -78,7 +78,7 @@ module.exports = {
             'github-project-has-issue-tracker': request.payload.hasIssueTracker || false
         });
 
-        reply().redirect(prefix + '/recipe/code-project/choose-issue-tracker');
+        reply().redirect(`${prefix}/recipe/code-project/choose-issue-tracker`);
     },
     chooseIssueTracker: function (request, reply) {
         reply.view('modules/code-project/view/choose-issue-tracker');
@@ -97,9 +97,9 @@ module.exports = {
         });
 
         if (request.payload.useTaiga) {
-            reply().redirect(prefix + '/recipe/code-project/taiga-login');
+            reply().redirect(`${prefix}/recipe/code-project/taiga-login`);
         } else {
-            reply().redirect(prefix + '/recipe/code-project/choose-assessment-system');
+            reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
         }
     },
     loginView: function (request, reply) {
@@ -113,7 +113,7 @@ module.exports = {
             'taiga-password': request.payload.password
         });
 
-        reply().redirect(prefix + '/recipe/code-project/choose-assessment-system');
+        reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
     },
     chooseAssessmentSystem: function (request, reply) {
         reply.view('modules/code-project/view/choose-assessment-system');
@@ -126,7 +126,7 @@ module.exports = {
             'assessment-url': request.payload.serverUrl
         });
 
-        reply().redirect(prefix + '/recipe/code-project/confirm');
+        reply().redirect(`${prefix}/recipe/code-project/confirm`);
     },
     confirmView: function (request, reply) {
         const studentType = request.session.get('code-project-student-type');
@@ -158,7 +158,7 @@ module.exports = {
                     }
 
                     reply.view('modules/code-project/view/confirm', {
-                        repoUrl: 'https://github.com/' + repo,
+                        repoUrl: `https://github.com/${repo}`,
                         repoName: /[A-Za-z0-9\-]+$/.exec(repo),
                         studentType: 'team',
                         students: selectedTeams
@@ -171,7 +171,7 @@ module.exports = {
                     const students = selectedObjects(users, studentIds);
 
                     reply.view('modules/code-project/view/confirm', {
-                        repoUrl: 'https://github.com/' + repo,
+                        repoUrl: `https://github.com/${repo}`,
                         repoName: /[A-Za-z0-9\-]+$/.exec(repo),
                         studentType: 'user',
                         students: students
@@ -209,14 +209,6 @@ module.exports = {
                 });
             })
 
-            // add seed code to repositories
-            .then(function () {
-                const seedRepositoryURL = 'https://github.com/' + githubUsername + '/' + /[A-Za-z0-9\-]+$/.exec(seedRepository);
-                const githubUrls = _.pluck(githubRepositories, 'url');
-
-                return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
-            })
-
             // create Taiga boards
             .then(function () {
                 if (useTaiga) {
@@ -249,14 +241,23 @@ module.exports = {
                 }
             })
 
+            // add seed code to repositories
+            // FIXME this is last because it can sometimes trigger a core dump crash
+            .then(function () {
+                const seedRepositoryURL = `https://github.com/${githubUsername}/${/[A-Za-z0-9\-]+$/.exec(seedRepository)}`;
+                const githubUrls = _.pluck(githubRepositories, 'url');
+
+                return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
+            })
+
             // redirect
             .then(
                 function () {
-                    reply().redirect(prefix + '/recipe/code-project/success');
+                    reply().redirect(`${prefix}/recipe/code-project/success`);
                 },
                 function (err) {
                     request.log('error', err.toString());
-                    reply().redirect(prefix + '/recipe/code-project/error');
+                    reply().redirect(`${prefix}/recipe/code-project/error`);
                 }
             );
     },

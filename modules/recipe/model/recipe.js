@@ -8,7 +8,7 @@ const _ = require('lodash');
 let server;
 
 const filterRecipes = function (route) {
-    const search = new RegExp('^' + server.realm.modifiers.route.prefix + '\/recipe\/[^/]+\/?$');
+    const search = new RegExp(`^${server.realm.modifiers.route.prefix}\/recipe\/[^/]+\/?$`);
 
     return route.method === 'get' && route.path.match(search);
 };
