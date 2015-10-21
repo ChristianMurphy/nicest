@@ -99,7 +99,7 @@ module.exports = {
         if (request.payload.useTaiga) {
             reply().redirect(`${prefix}/recipe/code-project/taiga-login`);
         } else {
-            reply().redirect(`${prefix}/recipe/code-project/confirm`);
+            reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
         }
     },
     loginView: function (request, reply) {
@@ -113,7 +113,7 @@ module.exports = {
             'taiga-password': request.payload.password
         });
 
-        reply().redirect(`${prefix}/recipe/code-project/confirm`);
+        reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
     },
     chooseAssessmentSystem: function (request, reply) {
         reply.view('modules/code-project/view/choose-assessment-system');
