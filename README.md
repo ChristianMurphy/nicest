@@ -3,7 +3,6 @@
 [![npm version](https://img.shields.io/npm/v/nicest.svg)](https://www.npmjs.com/package/nicest)
 [![Build Status](https://travis-ci.org/ChristianMurphy/nicest.svg?branch=master)](https://travis-ci.org/ChristianMurphy/nicest)
 [![Dependency Status](https://david-dm.org/ChristianMurphy/nicest.svg)](https://david-dm.org/ChristianMurphy/nicest)
-[![devDependency Status](https://david-dm.org/ChristianMurphy/nicest/dev-status.svg)](https://david-dm.org/ChristianMurphy/nicest#info=devDependencies)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ChristianMurphy/nicest/master/LICENSE)
 
 nicely integrating complex education software together
@@ -24,6 +23,13 @@ nicely integrating complex education software together
   * open the mongo shell `mongo`
   * open the nicest collection `use nicest;`
   * create an admin user `db.users.insert({name: "Your Name", admin: true, modules: {github: {username: "Your Github Username"}}})`
+4. Run `nicest init`
 
-## Start app
-1. Run `nicest --github-client <client id> --github-secret <secret token>`
+## Start
+1. Run `nicest start`
+
+### Stop
+1. Run `nicest stop`
+
+### Having Issues Starting Nicest?
+1. Run `nicest dev`

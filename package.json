@@ -8,9 +8,8 @@
   },
   "scripts": {
     "postinstall": "jsdoc modules --recurse -d docs",
-    "prestart": "jsdoc modules --recurse -d docs",
-    "start": "node bin/cli",
-    "test": "eslint ."
+    "documentation": "jsdoc modules --recurse --destination docs",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -28,9 +27,12 @@
   "dependencies": {
     "bell": "^5.4.0",
     "boom": "^2.9.0",
+    "chalk": "^1.1.1",
+    "cliui": "^3.0.3",
+    "eslint": "^1.7.3",
     "good": "^6.4.0",
     "good-file": "^5.1.0",
-    "hapi": "^11.0.1",
+    "hapi": "^11.0.2",
     "hapi-auth-cookie": "^3.1.0",
     "inert": "^3.1.0",
     "jade": "^1.11.0",
@@ -41,16 +43,15 @@
     "lout": "^7.2.0",
     "mongoose": "^4.1.11",
     "nodegit": "^0.5.0",
+    "npm": "^3.3.8",
     "octokat": "^0.4.12",
+    "pm2": "^0.15.7",
+    "read": "^1.0.7",
     "request": "^2.65.0",
     "rimraf": "^2.4.3",
     "scooter": "^2.0.1",
     "vision": "^3.0.0",
-    "yar": "^4.2.0",
-    "yargs": "^3.28.0"
-  },
-  "devDependencies": {
-    "eslint": "^1.7.2"
+    "yar": "^4.2.0"
   },
   "engines": {
     "node": ">=4.0.0"
