@@ -1,53 +1,60 @@
 #!/usr/bin/env node
 'use strict';
 
-const hostname = require('os').hostname;
-const version = require('../package.json').version;
+const _ = require('lodash');
+const chalk = require('chalk');
+const ui = require('cliui')();
 
-// Get options from terminal
-const argv = require('yargs')
-    .usage('nicest --github-client <value> --github-secret <value> [options]')
-    .option('github-client', {
-        describe: 'github client application token',
-        demand: true
-    })
-    .option('github-secret', {
-        describe: 'github secret application token',
-        demand: true
-    })
-    .option('p', {
-        alias: 'port',
-        default: 3000,
-        describe: 'port to run server on'
-    })
-    .option('db', {
-        alias: 'database',
-        default: 'mongodb://localhost/nicest',
-        describe: 'mongo database connection'
-    })
-    .option('host', {
-        default: hostname,
-        describe: 'server hostname'
-    })
-    .option('prefix', {
-        default: '',
-        describe: 'prefix for the routes'
-    })
-    .option('token', {
-        default: 'password',
-        describe: 'token for hashing session data'
-    })
-    .help('help')
-    .alias('h', 'help')
-    .version(version)
-    .alias('v', 'version')
-    .argv;
+const nicestInit = require('../tasks/init');
+const nicestStart = require('../tasks/start');
+const nicestStop = require('../tasks/stop');
+const nicestDoc = require('../tasks/doc');
+const nicestDev = require('../tasks/dev');
+const nicestLint = require('../tasks/lint');
 
-const database = require('../lib/database');
-const server = require('../lib/server').setup(argv);
+const command = process.argv.slice(2)[0];
 
-database(argv.database);
+const tasks = [
+    nicestInit,
+    nicestStart,
+    nicestStop,
+    nicestDoc,
+    nicestDev,
+    nicestLint
+];
 
-server.start(function () {
-    console.log('Server running at:', server.info.uri);
+const task = _.find(tasks, function (task) {
+    return task.name === command;
 });
+
+if (typeof task === 'undefined') {
+    ui.div({
+        text: chalk.bold('Nicest Command Line Interface'),
+        padding: [1, 0, 1, 0]
+    });
+    ui.div({
+        text: `${chalk.bold('usage:')} nicest <command>`,
+        padding: [0, 0, 1, 0]
+    });
+    ui.div({
+        text: chalk.bold('commands'),
+        padding: [0, 0, 1, 0]
+    });
+
+    _.forEach(tasks, function (task) {
+        ui.div(
+            {
+                text: task.name,
+                padding: [0, 4, 0, 4]
+            },
+            {
+                text: task.description,
+                width: 60
+            }
+        );
+    });
+
+    console.log(ui.toString());
+} else {
+    task();
+}
