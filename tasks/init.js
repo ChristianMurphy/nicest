@@ -42,7 +42,7 @@ function init () {
     .then(function (prefix) {
         config.server.prefix = prefix;
 
-        console.log(chalk.bold('\nsetup for nicest database\n'));
+        console.log(chalk.bold('\nconfiguration for nicest database\n'));
 
         return read({
             prompt: 'hostname:',
@@ -69,7 +69,7 @@ function init () {
     .then(function (databasePort) {
         config.database.port = parseInt(databasePort, 10);
 
-        console.log(chalk.bold('\nsetup for nicest security and authentication\n'));
+        console.log(chalk.bold('\nconfiguration for nicest security and authentication\n'));
 
         return read({
             prompt: 'cookie encryption token:',

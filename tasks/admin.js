@@ -45,6 +45,6 @@ function admin () {
     });
 }
 
-admin.description = 'Creates an administrator';
+admin.description = 'Creates an administrator.';
 
 module.exports = admin;
