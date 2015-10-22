@@ -18,12 +18,9 @@ nicely integrating complex education software together
   * 'Application Name', 'Homepage URL', and 'Application Description' can be anything
   * 'Authorization callback URL' must be the Host name or IP address of your computer/server
   * E.G. 'Authorization callback URL' could be 'example.com/login', 'localhost:3000/login' or '11.11.11.11/login'
-  * After creating the application be sure to copy down the client id and secret token to use when starting the server
-3. Create an admin user
-  * open the mongo shell `mongo`
-  * open the nicest collection `use nicest;`
-  * create an admin user `db.users.insert({name: "Your Name", admin: true, modules: {github: {username: "Your Github Username"}}})`
-4. Run `nicest init`
+  * After creating the application be sure to copy down the client id and secret token
+3. Run `nicest init` to configure nicest
+4. Run `nicest admin` to create an admin
 
 ## Start
 1. Run `nicest start`

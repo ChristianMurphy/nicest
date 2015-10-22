@@ -6,7 +6,6 @@ const npmPackage = require('../package.json');
 /**
  * Turns documentation comments into viewable wep pages.
  * @function doc
- * @param {Function} done - completion callback
  * @returns {Null} nothing
  */
 function doc () {

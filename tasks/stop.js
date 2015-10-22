@@ -4,13 +4,12 @@ const processManager = require('pm2');
 
 /**
  * Stops the server system service.
- * @param {Function} done - completion callback
  * @returns {Null} nothing
  */
-function stop (done) {
+function stop () {
     processManager.connect(function () {
         processManager.delete('nicest', function () {
-            processManager.disconnect(done);
+            processManager.disconnect();
         });
     });
 }

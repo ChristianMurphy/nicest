@@ -5,7 +5,6 @@ const npmPackage = require('../package.json');
 
 /**
  * Checks that the Javascript code is valid.
- * @param {Function} done - completion callback
  * @returns {Null} nothing
  */
 function lint () {

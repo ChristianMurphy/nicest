@@ -6,20 +6,22 @@ const chalk = require('chalk');
 const ui = require('cliui')();
 
 const nicestInit = require('../tasks/init');
+const nicestAdmin = require('../tasks/admin');
 const nicestStart = require('../tasks/start');
 const nicestStop = require('../tasks/stop');
-const nicestDoc = require('../tasks/doc');
 const nicestDev = require('../tasks/dev');
+const nicestDoc = require('../tasks/doc');
 const nicestLint = require('../tasks/lint');
 
 const command = process.argv.slice(2)[0];
 
 const tasks = [
     nicestInit,
+    nicestAdmin,
     nicestStart,
     nicestStop,
-    nicestDoc,
     nicestDev,
+    nicestDoc,
     nicestLint
 ];
 
