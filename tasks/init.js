@@ -8,10 +8,9 @@ const writeFile = require('./helpers/write-file-promise');
 
 /**
  * Writes a server configuration file.
- * @param {Function} done - completion callback
  * @returns {Null} nothing
  */
-function init (done) {
+function init () {
     const config = {};
 
     console.log(chalk.bold('\nNicest Setup Wizard\n'));
@@ -106,7 +105,7 @@ function init (done) {
 
         writeFile(path.resolve(__dirname, '..', 'nicest.json'), JSON.stringify(config, null, 2));
     })
-    .then(done);
+    .then();
 }
 
 init.description = 'Writes a nicest configuration file.';

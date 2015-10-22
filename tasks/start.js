@@ -6,10 +6,9 @@ const path = require('path');
 /**
  * Starts the server as a system service.
  * This allows for running on a production server.
- * @param {Function} done - completion callback
  * @returns {Null} nothing
  */
-function start (done) {
+function start () {
     processManager.connect(function () {
         processManager.start(
             {
@@ -17,7 +16,7 @@ function start (done) {
                 script: path.resolve(__dirname, 'helpers', 'start-server.js')
             },
             function () {
-                processManager.disconnect(done);
+                processManager.disconnect();
             }
         );
     });

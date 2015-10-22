@@ -2,7 +2,6 @@
 
 /**
  * Starts server in developer mode.
- * @param {Function} done - completion callback
  * @returns {Null} nothing
  */
 function dev () {
