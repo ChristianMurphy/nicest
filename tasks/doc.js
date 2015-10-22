@@ -21,6 +21,6 @@ function doc () {
     });
 }
 
-doc.description = 'Turns documentation comments into viewable wep pages.';
+doc.description = 'Turns documentation comments into viewable web pages.';
 
 module.exports = doc;
