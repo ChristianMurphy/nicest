@@ -30,6 +30,7 @@
     "chalk": "^1.1.1",
     "cliui": "^3.0.3",
     "eslint": "^1.7.3",
+    "eslint-plugin-lodash3": "^0.1.12",
     "good": "^6.4.0",
     "good-file": "^5.1.0",
     "hapi": "^11.0.2",

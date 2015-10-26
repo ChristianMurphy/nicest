@@ -94,9 +94,7 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
                 // setup the members permissions
                 const userMetadata = {
                     project: data[boardIndex].id,
-                    role: _.find(data[boardIndex].roles, function (role) {
-                        return role.name === 'Back';
-                    }).id,
+                    role: _.find(data[boardIndex].roles, _.matches({name: 'Back'})).id,
                     email: taigaBoards[boardIndex].emails[userIndex]
                 };
 

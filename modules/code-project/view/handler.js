@@ -16,7 +16,7 @@ module.exports = {
     redirect: function (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
+        if (_.isString(request.session.get('github-username')) && _.isString(request.session.get('github-password'))) {
             reply().redirect(`${prefix}/recipe/code-project/choose-students`);
         } else {
             reply().redirect(`${prefix}/recipe/github/login?next=${prefix}/recipe/code-project/choose-students`);

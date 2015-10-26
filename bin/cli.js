@@ -25,11 +25,9 @@ const tasks = [
     nicestLint
 ];
 
-const task = _.find(tasks, function (task) {
-    return task.name === command;
-});
+const task = _.find(tasks, _.matches({name: command}));
 
-if (typeof task === 'undefined') {
+if (_.isUndefined(task)) {
     ui.div({
         text: chalk.bold('Nicest Command Line Interface'),
         padding: [1, 0, 1, 0]
