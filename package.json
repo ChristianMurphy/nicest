@@ -26,7 +26,7 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "bell": "^5.4.0",
-    "boom": "^2.9.0",
+    "boom": "^2.10.0",
     "chalk": "^1.1.1",
     "cliui": "^3.0.3",
     "eslint": "^1.7.3",
@@ -42,7 +42,7 @@
     "libxmljs": "^0.15.0",
     "lodash": "^3.10.1",
     "lout": "^7.2.0",
-    "mongoose": "^4.2.2",
+    "mongoose": "^4.2.3",
     "nodegit": "^0.5.0",
     "npm": "^3.3.10",
     "octokat": "^0.4.12",
