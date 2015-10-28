@@ -78,7 +78,7 @@ function init () {
     })
     .then(function (authenticationSecret) {
         config.authentication = {};
-        config.authentication.secret = authenticationSecret;
+        config.authentication.token = authenticationSecret;
 
         return read({
             prompt: 'is there an https proxy?:',
