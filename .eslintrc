@@ -163,11 +163,13 @@ rules:
     require-jsdoc: 2
 
     # ECMAScript 6
-    arrow-spacing: 2
+    arrow-body-style: 2
     arrow-parens: 2
+    arrow-spacing: 2
     generator-star-spacing:
         - 2
         - both
+    no-arrow-condition: 2
     no-const-assign: 2
     no-var: 2
     prefer-const: 2
