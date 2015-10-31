@@ -6,12 +6,20 @@
 const request = require('request');
 
 module.exports = function (serverUrl, metaData) {
-    return requestPromise({
-        method: 'POST',
-        uri: serverUrl,
-        json: true,
-        body: metaData
-    });
+    const promises = [];
+
+    for (let index = 0; index < metaData.length; index++) {
+        promises.push(
+            requestPromise({
+                method: 'POST',
+                uri: serverUrl,
+                json: true,
+                body: metaData[index]
+            })
+        );
+    }
+
+    return Promise.all(promises);
 };
 
 /**
