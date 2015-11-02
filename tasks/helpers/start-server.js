@@ -9,7 +9,7 @@ server.setup(configuration);
 
 database(configuration);
 
-server.server.start(function () {
+server.server.start(() => {
     console.log('Server running at:', server.server.info.uri);
 });
 

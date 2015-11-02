@@ -31,7 +31,7 @@ module.exports = {
             password: request.session.get('github-password')
         });
 
-        Github.me.repos.fetch().then(function (repos) {
+        Github.me.repos.fetch().then((repos) => {
             reply.view('modules/github/view/list', {repos: repos});
         });
     }

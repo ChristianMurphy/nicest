@@ -26,21 +26,21 @@ function admin () {
     read({
         prompt: 'name:'
     })
-    .then(function (userName) {
+    .then((userName) => {
         admin.name = userName;
 
         return read({
             prompt: 'Github Username:'
         });
     })
-    .then(function (userGithubName) {
+    .then((userGithubName) => {
         admin.modules = {};
         admin.modules.github = {};
         admin.modules.github.username = userGithubName;
 
         return user.create(admin);
     })
-    .then(function () {
+    .then(() => {
         mongoose.disconnect();
     });
 }

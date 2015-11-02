@@ -12,7 +12,7 @@ module.exports = {
     list: function (request, reply) {
         User
             .list('_id name')
-            .then(function (users) {
+            .then((users) => {
                 reply.view('modules/user/view/list', {users: users});
             });
     },
@@ -21,7 +21,7 @@ module.exports = {
 
         User
             .read(request.params.id)
-            .then(function (user) {
+            .then((user) => {
                 reply.view('modules/user/view/view', {
                     url: `${prefix}/recipe/manage-users/edit/${user._id}`,
                     saved: request.query.saved,
@@ -38,7 +38,7 @@ module.exports = {
 
         User
             .update(request.params.id, request.payload)
-            .then(function () {
+            .then(() => {
                 reply().redirect(`${prefix}/recipe/manage-users/edit/${request.params.id}?saved=true`);
             });
     },
@@ -59,7 +59,7 @@ module.exports = {
 
         User
             .create(request.payload)
-            .then(function (user) {
+            .then((user) => {
                 reply().redirect(`${prefix}/recipe/manage-users/edit/${user._id}?saved=true`);
             });
     },
@@ -68,7 +68,7 @@ module.exports = {
 
         User
             .delete(request.params.id)
-            .then(function () {
+            .then(() => {
                 reply().redirect(`${prefix}/recipe/manage-users/list`);
             });
     }

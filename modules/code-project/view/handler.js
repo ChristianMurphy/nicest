@@ -29,7 +29,7 @@ module.exports = {
             });
             Team
                 .list('_id name')
-                .then(function (teams) {
+                .then((teams) => {
                     reply.view('modules/code-project/view/choose-students', {
                         students: teams,
                         studentType: 'team'
@@ -41,7 +41,7 @@ module.exports = {
             });
             User
                 .list('_id name')
-                .then(function (users) {
+                .then((users) => {
                     reply.view('modules/code-project/view/choose-students', {
                         students: users,
                         studentType: 'individual'
@@ -64,7 +64,7 @@ module.exports = {
             password: request.session.get('github-password')
         });
 
-        Github.me.repos.fetch().then(function (repos) {
+        Github.me.repos.fetch().then((repos) => {
             reply.view('modules/code-project/view/choose-repository', {repos: repos});
         });
     },
@@ -138,7 +138,7 @@ module.exports = {
                 Team.list('_id name members'),
                 User.list('_id name modules')
             ])
-                .then(function (data) {
+                .then((data) => {
                     const teams = data[0];
                     const users = data[1];
                     const selectedTeams = selectedObjects(teams, studentIds);
@@ -167,7 +167,7 @@ module.exports = {
         } else {
             User
                 .list('_id name modules')
-                .then(function (users) {
+                .then((users) => {
                     const students = selectedObjects(users, studentIds);
 
                     reply.view('modules/code-project/view/confirm', {
@@ -199,7 +199,7 @@ module.exports = {
         gatherGithubUsers(seedRepository, githubUsername, studentType, students)
 
             // create repostories
-            .then(function (temporaryGithubRepositories) {
+            .then((temporaryGithubRepositories) => {
                 githubRepositories = temporaryGithubRepositories;
 
                 return createGithubRepositories(githubUsername, githubPassword, githubRepositories, {
@@ -210,7 +210,7 @@ module.exports = {
             })
 
             // create Taiga boards
-            .then(function () {
+            .then(() => {
                 if (useTaiga) {
                     const taigaUsername = request.session.get('taiga-username');
                     const taigaPassword = request.session.get('taiga-password');
@@ -228,14 +228,14 @@ module.exports = {
             })
 
             // gather CA Dashboard users
-            .then(function () {
+            .then(() => {
                 if (useAssessment) {
                     return gatherCaUsers(seedRepository, githubUsername, studentType, students);
                 }
             })
 
             // setup CA Dashboard
-            .then(function (caConfiguration) {
+            .then((caConfiguration) => {
                 if (useAssessment) {
                     return configureCaDashboard(assessmentUrl, caConfiguration);
                 }
@@ -243,7 +243,7 @@ module.exports = {
 
             // add seed code to repositories
             // FIXME this is last because it can sometimes trigger a core dump crash
-            .then(function () {
+            .then(() => {
                 const seedRepositoryURL = `https://github.com/${githubUsername}/${/[A-Za-z0-9\-]+$/.exec(seedRepository)}`;
                 const githubUrls = _.pluck(githubRepositories, 'url');
 
@@ -252,10 +252,10 @@ module.exports = {
 
             // redirect
             .then(
-                function () {
+                () => {
                     reply().redirect(`${prefix}/recipe/code-project/success`);
                 },
-                function (err) {
+                (err) => {
                     request.log('error', err.toString());
                     reply().redirect(`${prefix}/recipe/code-project/error`);
                 }
@@ -277,7 +277,7 @@ module.exports = {
  * @returns {Array} of {Object} that are selected
  */
 function selectedObjects (databaseObjects, UUIDs) {
-    return _.filter(databaseObjects, function (databaseObject) {
+    return _.filter(databaseObjects, (databaseObject) => {
         return _.indexOf(UUIDs, databaseObject._id.toString()) > -1;
     });
 }

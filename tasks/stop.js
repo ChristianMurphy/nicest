@@ -7,8 +7,8 @@ const processManager = require('pm2');
  * @returns {Null} nothing
  */
 function stop () {
-    processManager.connect(function () {
-        processManager.delete('nicest', function () {
+    processManager.connect(() => {
+        processManager.delete('nicest', () => {
             processManager.disconnect();
         });
     });

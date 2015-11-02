@@ -19,7 +19,7 @@ module.exports = {
         });
     },
     downloadXML: function (request, reply) {
-        importData(request.payload.file.path).then(function (result) {
+        importData(request.payload.file.path).then((result) => {
             reply.view('modules/import-export/view/import', {
                 example: example,
                 validation: result

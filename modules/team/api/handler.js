@@ -9,10 +9,10 @@ module.exports = {
         Team
             .create(request.payload)
             .then(
-                function (newTeam) {
+                (newTeam) => {
                     reply(newTeam).code(201);
                 },
-                function () {
+                () => {
                     reply(boom.badRequest());
                 }
             );
@@ -21,14 +21,14 @@ module.exports = {
         Team
             .read(request.params.id)
             .then(
-                function (team) {
+                (team) => {
                     if (team) {
                         reply(team);
                     } else {
                         reply(boom.notFound());
                     }
                 },
-                function () {
+                () => {
                     reply(boom.notFound());
                 }
             );
@@ -37,14 +37,14 @@ module.exports = {
         Team
             .update(request.params.id, request.payload)
             .then(
-                function (team) {
+                (team) => {
                     if (team) {
                         reply(team);
                     } else {
                         reply(boom.notFound());
                     }
                 },
-                function () {
+                () => {
                     reply(boom.badRequest());
                 }
             );
@@ -53,10 +53,10 @@ module.exports = {
         Team
             .delete(request.params.id)
             .then(
-                function () {
+                () => {
                     reply().code(204);
                 },
-                function () {
+                () => {
                     reply().code(204);
                 }
             );
@@ -65,10 +65,10 @@ module.exports = {
         Team
             .list()
             .then(
-                function (teamIds) {
+                (teamIds) => {
                     reply(_.pluck(teamIds, '_id'));
                 },
-                function () {
+                () => {
                     reply(boom.notFound());
                 }
             );

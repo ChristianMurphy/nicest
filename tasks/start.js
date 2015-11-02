@@ -9,13 +9,13 @@ const path = require('path');
  * @returns {Null} nothing
  */
 function start () {
-    processManager.connect(function () {
+    processManager.connect(() => {
         processManager.start(
             {
                 name: 'nicest',
                 script: path.resolve(__dirname, 'helpers', 'start-server.js')
             },
-            function () {
+            () => {
                 processManager.disconnect();
             }
         );
