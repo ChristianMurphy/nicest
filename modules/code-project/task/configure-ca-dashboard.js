@@ -30,8 +30,8 @@ module.exports = function (serverUrl, metaData) {
  * @returns {Promise} promise will resolve to response body or reject with error code
  */
 function requestPromise (data) {
-    return new Promise(function (resolve, reject) {
-        request(data, function (error, request, body) {
+    return new Promise((resolve, reject) => {
+        request(data, (error, request, body) => {
             if (error) {
                 reject(error);
             } else {

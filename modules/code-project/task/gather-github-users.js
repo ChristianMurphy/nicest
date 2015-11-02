@@ -37,14 +37,14 @@ module.exports = function (seedRepository, githubUsername, studentType, students
             Team.list('name members'),
             User.list('_id modules')
         ])
-        .then(function (data) {
+        .then((data) => {
             const teams = data[0];
             const users = data[1];
 
             // for each team
             for (let teamIndex = 0; teamIndex < students.length; teamIndex++) {
                 // find the current team
-                const currentTeam = _.find(teams, function (team) {
+                const currentTeam = _.find(teams, (team) => {
                     return team._id.toString() === students[teamIndex];
                 });
 
@@ -59,7 +59,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                 // for each team member
                 for (let userIndex = 0; userIndex < currentTeam.members.length; userIndex++) {
                     // find this team member
-                    const currentUser = _.find(users, function (user) {
+                    const currentUser = _.find(users, (user) => {
                         // mongoose id needs to be cased to string
                         return user._id.toString() === currentTeam.members[userIndex];
                     });
@@ -80,11 +80,11 @@ module.exports = function (seedRepository, githubUsername, studentType, students
     } else {
         return User
             .list('_id modules')
-            .then(function (users) {
+            .then((users) => {
                 // for each student
                 for (let index = 0; index < students.length; index++) {
                     // find the current user
-                    const currentUser = _.find(users, function (user) {
+                    const currentUser = _.find(users, (user) => {
                         return user._id.toString() === students[index];
                     });
 

@@ -47,7 +47,7 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
             password: taigaPassword
         }
     })
-    .then(function (data) {
+    .then((data) => {
         // store authorization token for later
         authorizationToken = data.auth_token;
 
@@ -85,7 +85,7 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
         // wait for all boards to be created
         return Promise.all(promises);
     })
-    .then(function (data) {
+    .then((data) => {
         const promises = [];
 
         // for each person in each project
@@ -125,8 +125,8 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
  * @returns {Promise} promise will resolve to response body or reject with error code
  */
 function requestPromise (data) {
-    return new Promise(function (resolve, reject) {
-        request(data, function (error, request, body) {
+    return new Promise((resolve, reject) => {
+        request(data, (error, request, body) => {
             if (error) {
                 reject(error);
             } else {

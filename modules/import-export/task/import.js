@@ -16,7 +16,7 @@ module.exports = function (location) {
     let parsedDateset;
 
     // Check that the XML document is valid
-    return readFilePromise(location).then(function (dataset) {
+    return readFilePromise(location).then((dataset) => {
         // parse the new file
         parsedDateset = libxml.parseXmlString(dataset);
         // validate the file
@@ -30,7 +30,7 @@ module.exports = function (location) {
     })
 
     // Copy users to Mongoose
-    .then(function (result) {
+    .then((result) => {
         // if the result is valid generate users and teams
         if (result.valid) {
             // find all the users
@@ -53,7 +53,7 @@ module.exports = function (location) {
                                 email: currentUser.get('email').text()
                             }
                         }
-                    }).then(function (newUser) {
+                    }).then((newUser) => {
                         // map the XML id to the Mongoose id
                         return {
                             databaseId: newUser._id,
@@ -64,7 +64,7 @@ module.exports = function (location) {
             }
 
             // wait for all users to be created
-            return Promise.all(promises).then(function (identifierMapping) {
+            return Promise.all(promises).then((identifierMapping) => {
                 result.identifierMapping = identifierMapping;
                 return result;
             });
@@ -74,7 +74,7 @@ module.exports = function (location) {
     })
 
     // copy teams to Mongoose
-    .then(function (result) {
+    .then((result) => {
         // if the result is valid generate users and teams
         if (result.valid) {
             // find all the users
@@ -105,7 +105,7 @@ module.exports = function (location) {
             }
 
             // wait for all teams to be created
-            return Promise.all(promises).then(function () {
+            return Promise.all(promises).then(() => {
                 return result;
             });
         } else {
@@ -121,8 +121,8 @@ module.exports = function (location) {
  * @returns {Promise} resolves with data or rejects with error
  */
 function readFilePromise (path) {
-    return new Promise(function (resolve, reject) {
-        fs.readFile(path, 'utf-8', function (err, data) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, 'utf-8', (err, data) => {
             if (err) {
                 reject(err);
             } else {

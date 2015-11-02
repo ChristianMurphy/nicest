@@ -22,7 +22,7 @@ function init () {
         prompt: 'hostname:',
         default: 'localhost'
     })
-    .then(function (serverHostname) {
+    .then((serverHostname) => {
         config.server = {};
         config.server.hostname = serverHostname;
 
@@ -31,7 +31,7 @@ function init () {
             default: 80
         });
     })
-    .then(function (serverPort) {
+    .then((serverPort) => {
         config.server.port = parseInt(serverPort, 10);
 
         return read({
@@ -39,7 +39,7 @@ function init () {
             default: ''
         });
     })
-    .then(function (prefix) {
+    .then((prefix) => {
         config.server.prefix = prefix;
 
         console.log(chalk.bold('\nconfiguration for nicest database\n'));
@@ -49,7 +49,7 @@ function init () {
             default: 'localhost'
         });
     })
-    .then(function (databaseHostname) {
+    .then((databaseHostname) => {
         config.database = {};
         config.database.hostname = databaseHostname;
 
@@ -58,7 +58,7 @@ function init () {
             default: 'nicest'
         });
     })
-    .then(function (databaseName) {
+    .then((databaseName) => {
         config.database.name = databaseName;
 
         return read({
@@ -66,7 +66,7 @@ function init () {
             default: 27017
         });
     })
-    .then(function (databasePort) {
+    .then((databasePort) => {
         config.database.port = parseInt(databasePort, 10);
 
         console.log(chalk.bold('\nconfiguration for nicest security and authentication\n'));
@@ -76,7 +76,7 @@ function init () {
             default: 'secret'
         });
     })
-    .then(function (authenticationSecret) {
+    .then((authenticationSecret) => {
         config.authentication = {};
         config.authentication.token = authenticationSecret;
 
@@ -85,14 +85,14 @@ function init () {
             default: 'false'
         });
     })
-    .then(function (authenticationHttpsProxy) {
+    .then((authenticationHttpsProxy) => {
         config.authentication.https = authenticationHttpsProxy === 'true';
 
         return read({
             prompt: 'Github Client ID:'
         });
     })
-    .then(function (authenticationGithubClientId) {
+    .then((authenticationGithubClientId) => {
         config.authentication.github = {};
         config.authentication.github.client = authenticationGithubClientId;
 
@@ -100,7 +100,7 @@ function init () {
             prompt: 'Github Client Secret:'
         });
     })
-    .then(function (authenticationGithubClientSecret) {
+    .then((authenticationGithubClientSecret) => {
         config.authentication.github.secret = authenticationGithubClientSecret;
 
         writeFile(path.resolve(__dirname, '..', 'nicest.json'), JSON.stringify(config, null, 2));

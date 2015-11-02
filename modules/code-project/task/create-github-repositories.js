@@ -51,7 +51,7 @@ module.exports = function (githubUsername, githubPassword, repositories, options
                 has_wiki: options.has_wiki
             })
             // Add student as collaborator
-            .then(function () {
+            .then(() => {
                 const collaboratorPromises = [];
 
                 // for each student

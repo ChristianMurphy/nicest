@@ -41,7 +41,7 @@ if (_.isUndefined(task)) {
         padding: [0, 0, 1, 0]
     });
 
-    _.forEach(tasks, function (task) {
+    _.forEach(tasks, (task) => {
         ui.div(
             {
                 text: task.name,

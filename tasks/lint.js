@@ -8,11 +8,11 @@ const npmPackage = require('../package.json');
  * @returns {Null} nothing
  */
 function lint () {
-    npm.load(npmPackage, function (err) {
+    npm.load(npmPackage, (err) => {
         if (err) {
             console.log(err);
         }
-        npm.commands.runScript(['lint'], function (err) {
+        npm.commands.runScript(['lint'], (err) => {
             if (err) {
                 console.log(err);
             }
