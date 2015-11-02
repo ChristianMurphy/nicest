@@ -26,7 +26,7 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "bell": "^5.4.0",
-    "boom": "^2.10.1",
+    "boom": "^3.0.0",
     "chalk": "^1.1.1",
     "cliui": "^3.0.3",
     "eslint": "^1.8.0",
@@ -37,7 +37,7 @@
     "hapi-auth-cookie": "^3.1.0",
     "inert": "^3.1.0",
     "jade": "^1.11.0",
-    "joi": "^6.10.0",
+    "joi": "^7.0.0",
     "jsdoc": "github:jsdoc3/jsdoc",
     "libxmljs": "^0.15.0",
     "lodash": "^3.10.1",
