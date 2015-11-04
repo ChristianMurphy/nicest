@@ -1,6 +1,6 @@
 {
   "name": "nicest",
-  "version": "0.24.3",
+  "version": "0.24.4",
   "description": "nicely integrating complex education software together",
   "main": "lib/server.js",
   "bin": {
