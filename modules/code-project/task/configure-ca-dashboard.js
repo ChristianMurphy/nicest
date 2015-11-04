@@ -3,40 +3,27 @@
  */
 'use strict';
 
-const request = require('request');
+const mongoose = require('mongoose');
 
-module.exports = function (serverUrl, metaData) {
-    const promises = [];
+const Members = new mongoose.Schema({
+    name: String,
+    'github-username': String,
+    email: String
+});
 
-    for (let index = 0; index < metaData.length; index++) {
-        promises.push(
-            requestPromise({
-                method: 'POST',
-                uri: serverUrl,
-                json: true,
-                body: metaData[index]
-            })
-        );
-    }
+const project = new mongoose.Schema({
+    name: String,
+    'github-url': String,
+    'taiga-slug': String,
+    members: [Members]
+});
 
-    return Promise.all(promises);
-};
+const connection = mongoose.createConnection('mongodb://localhost/NicestDashboard');
 
-/**
- * Promise wrapper for request, abstracts the http api
- * @function requestPromise
- * @private
- * @param {object} data - request object
- * @returns {Promise} promise will resolve to response body or reject with error code
- */
-function requestPromise (data) {
-    return new Promise((resolve, reject) => {
-        request(data, (error, request, body) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(body);
-            }
-        });
+const integration = connection.model('integration', project);
+
+module.exports = function (metaData) {
+    integration.collection.insert(metaData, () => {
+        return;
     });
-}
+};

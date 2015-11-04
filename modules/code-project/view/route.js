@@ -102,8 +102,7 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    useCADashboard: Joi.boolean(),
-                    serverUrl: Joi.string().empty('')
+                    useCADashboard: Joi.boolean()
                 }
             }
         }

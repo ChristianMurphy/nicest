@@ -122,8 +122,7 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         request.session.set({
-            'assessment-use-ca-dashboard': request.payload.useCADashboard,
-            'assessment-url': request.payload.serverUrl
+            'assessment-use-ca-dashboard': request.payload.useCADashboard
         });
 
         reply().redirect(`${prefix}/recipe/code-project/confirm`);
@@ -192,7 +191,6 @@ module.exports = {
         const studentType = request.session.get('code-project-student-type');
         const useTaiga = request.session.get('taiga-project-use-taiga');
         const useAssessment = request.session.get('assessment-use-ca-dashboard');
-        const assessmentUrl = request.session.get('assessment-url');
         let githubRepositories;
 
         // Gather Github user information from Users/Teams
@@ -237,7 +235,7 @@ module.exports = {
             // setup CA Dashboard
             .then((caConfiguration) => {
                 if (useAssessment) {
-                    return configureCaDashboard(assessmentUrl, caConfiguration);
+                    return configureCaDashboard(caConfiguration);
                 }
             })
 
