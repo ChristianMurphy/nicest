@@ -41,17 +41,8 @@ block body
                 .field
                     .ui.toggle.checkbox
                         input(type='checkbox', name='useCADashboard', class='hidden')
-                        label Use CA Dashboard as an Assessment System
-                .field
-                    label CA Dashboard URL
-                    input(type='text', name='serverUrl', value="http://swent0linux.asu.edu:3000/cadashboard", placeholder='http://example.com/ca_dashboard')
-                        
+                        label Use CA Dashboard as an Assessment System    
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
     script.
         $('.ui.checkbox').checkbox();
-        var dashboardCheckbox = $('input[name=useCADashboard]');
-        var serverUrl = $('input[name=serverUrl]');
-        dashboardCheckbox.change(function () {
-            serverUrl.prop('required', dashboardCheckbox.is(':checked'));
-        });
