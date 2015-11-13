@@ -1,6 +1,6 @@
 /* eslint no-loop-func: 0, max-nested-callbacks: [2, 2], no-else-return: 0 */
 /**
- * @module GatherGithubUsers
+ * @module GatherCaUsers
  */
 'use strict';
 
@@ -27,7 +27,7 @@ const Team = require('../../team/model/team');
 
  /**
   * Takes in basic information and generates Github metadata
-  * @function GatherGithubUsers
+  * @function GatherCaUsers
   * @param {String} seedRepository - name of seed repository
   * @param {String} githubUsername - username of logged in and hosting user
   * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
