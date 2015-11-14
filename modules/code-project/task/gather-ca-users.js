@@ -99,7 +99,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                     caDashboardProjects.push({
                         name: currentUser.name,
                         'github-url': githubUrl + currentUser.modules.github.username,
-                        'tiaga-slug': `${currentUser.name.replace(/[!@#$%^&*? ]+/g, '-')}-${/[A-Za-z0-9\-]+$/.exec(seedRepository)}`,
+                        'tiaga-slug': (githubUrl + currentUser.modules.github.username).replace(/\//, '-'),
                         members: [{
                             name: currentUser.name,
                             'github-username': currentUser.modules.github.username,
