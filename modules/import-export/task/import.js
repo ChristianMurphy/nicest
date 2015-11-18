@@ -118,7 +118,7 @@ module.exports = function (location) {
  * Promise wrapper for fs.readFile
  * @private
  * @param {String} path - path to file
- * @returns {Promise} resolves with data or rejects with error
+ * @returns {Promise.<String>} resolves with data or rejects with error
  */
 function readFilePromise (path) {
     return new Promise((resolve, reject) => {

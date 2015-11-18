@@ -121,8 +121,8 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
  * Promise wrapper for request, abstracts the http api
  * @function requestPromise
  * @private
- * @param {object} data - request object
- * @returns {Promise} promise will resolve to response body or reject with error code
+ * @param {Object} data - request object
+ * @returns {Promise.<String>} promise will resolve to response body or reject with error code
  */
 function requestPromise (data) {
     return new Promise((resolve, reject) => {

@@ -32,7 +32,7 @@ const Team = require('../../team/model/team');
   * @param {String} githubUsername - username of logged in and hosting user
   * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
   * @param {Array} students - an {Array} of {String} with names, either usernames or team names
-  * @returns {Promise} resolves to {Array} of {CaMeta}
+  * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
   */
 module.exports = function (seedRepository, githubUsername, studentType, students) {
     // create empty repos for each student on github
