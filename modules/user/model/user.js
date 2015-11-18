@@ -24,7 +24,7 @@ module.exports = {
      * Creates a new User
      * @function create
      * @param {User} user - new user
-     * @returns {Promise} resolves to {User}
+     * @returns {Promise.<User>} new {User}
      */
     create: function (user) {
         return User.create(user);
@@ -33,7 +33,7 @@ module.exports = {
      * Reads an existing user
      * @function read
      * @param {String} id - hex Mongoose id
-     * @returns {Promise} resolves to {User}
+     * @returns {Promise.<User>} selected {User}
      */
     read: function (id) {
         return User
@@ -47,7 +47,7 @@ module.exports = {
      * @function update
      * @param {String} id - hex Mongoose id
      * @param {User} properties - new or different properties to be set
-     * @returns {Promise} resolves to updated {User}
+     * @returns {Promise.<User>} updated {User}
      */
     update: function (id, properties) {
         return User
@@ -58,7 +58,7 @@ module.exports = {
      * Deletes an existing user
      * @function delete
      * @param {String} id - hex Mongoose id
-     * @returns {Promise} resolves with deleted {User}
+     * @returns {Promise.<User>} deleted {User}
      */
     delete: function (id) {
         return User
@@ -71,7 +71,7 @@ module.exports = {
      * Lists all the User ids
      * @function list
      * @param {String} select - space seperated list of columns to select
-     * @returns {Promise} resolves to an {Array} of {Object}
+     * @returns {Promise.<Array>} resolves to an {Array} of {User}
      */
     list: function (select) {
         return User

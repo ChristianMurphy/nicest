@@ -25,7 +25,7 @@ module.exports = {
      * Creates a new Team
      * @function create
      * @param {Team} team - new team
-     * @returns {Promise} resolves to {Team}
+     * @returns {Promise.<Team>} new {Team}
      */
     create: function (team) {
         return Team.create(team);
@@ -34,7 +34,7 @@ module.exports = {
      * Reads an existing Team
      * @function read
      * @param {String} id - hex Mongoose id
-     * @returns {Promise} resolves to {Team}
+     * @returns {Promise.<Team>} selected {Team}
      */
     read: function (id) {
         return Team
@@ -48,7 +48,7 @@ module.exports = {
      * @function update
      * @param {String} id - hex Mongoose id
      * @param {Team} properties - new or different properties to be set
-     * @returns {Promise} resolves to updated {Team}
+     * @returns {Promise.<Team>} updated {Team}
      */
     update: function (id, properties) {
         return Team
@@ -59,7 +59,7 @@ module.exports = {
      * Deletes an existing Team
      * @function delete
      * @param {String} id - hex Mongoose id
-     * @returns {Promise} resolves with deleted {Team}
+     * @returns {Promise.<Team>} deleted {Team}
      */
     delete: function (id) {
         return Team
@@ -72,7 +72,7 @@ module.exports = {
      * Lists all the Team ids
      * @function list
      * @param {String} select - space seperated list of columns to select
-     * @returns {Promise} resolves to an {Array} of {Object}
+     * @returns {Promise.<Array>} lists all the {Team}
      */
     list: function (select) {
         return Team
