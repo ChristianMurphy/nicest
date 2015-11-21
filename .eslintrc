@@ -185,6 +185,7 @@ rules:
     # Lodash
     lodash3/collection-return: 2
     lodash3/matches-prop-shorthand: 2
+    lodash3/matches-shorthand: 2
     lodash3/no-commit: 2
     lodash3/no-double-unwrap: 2
     lodash3/no-single-chain: 2
