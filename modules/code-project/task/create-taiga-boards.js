@@ -1,4 +1,3 @@
-/* eslint max-nested-callbacks: [2, 2] */
 'use strict';
 /**
  * @module CreateTaigaBoards
@@ -26,14 +25,13 @@ const _ = require('lodash');
 
 /**
  * Takes in Taiga meta data and create boards for each
- * @function CreateTaigaBoards
  * @param {String} taigaUsername - Taiga admin username
  * @param {String} taigaPassword - Taiga admin password
  * @param {Array} taigaBoards - an {Array} of {TaigaBoard}
  * @param {TaigaOptions} taigaOptions - shared options for all boards
  * @returns {Promise} resolves when boards have been created
  */
-module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
+function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
     let authorizationToken;
 
     // login to Taiga
@@ -65,7 +63,7 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
         const promises = [];
 
         // create each board
-        for (let index = 0; index < taigaBoards.length; index++) {
+        for (let index = 0; index < taigaBoards.length; index += 1) {
             // set the name
             boardMetaData.name = taigaBoards[index].name;
             // create board
@@ -89,8 +87,8 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
         const promises = [];
 
         // for each person in each project
-        for (let boardIndex = 0; boardIndex < taigaBoards.length; boardIndex++) {
-            for (let userIndex = 0; userIndex < taigaBoards[boardIndex].emails.length; userIndex++) {
+        for (let boardIndex = 0; boardIndex < taigaBoards.length; boardIndex += 1) {
+            for (let userIndex = 0; userIndex < taigaBoards[boardIndex].emails.length; userIndex += 1) {
                 // setup the members permissions
                 const userMetadata = {
                     project: data[boardIndex].id,
@@ -115,18 +113,19 @@ module.exports = function (taigaUsername, taigaPassword, taigaBoards, taigaOptio
 
         return Promise.all(promises);
     });
-};
+}
+
+module.exports = createTiagaBoards;
 
 /**
  * Promise wrapper for request, abstracts the http api
- * @function requestPromise
  * @private
  * @param {Object} data - request object
  * @returns {Promise.<String>} promise will resolve to response body or reject with error code
  */
 function requestPromise (data) {
     return new Promise((resolve, reject) => {
-        request(data, (error, request, body) => {
+        request(data, (error, headers, body) => {
             if (error) {
                 reject(error);
             } else {

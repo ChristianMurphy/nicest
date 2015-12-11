@@ -1,4 +1,3 @@
-/* eslint no-loop-func: 0 */
 /**
  * @module CreateGithubRepositories
  */
@@ -31,7 +30,7 @@ const Octokat = require('octokat');
  * @param {GithubRepositoryOptions} options - options to be used with repository
  * @returns {Promise} promise will resolve when all repos have been created
  */
-module.exports = function (githubUsername, githubPassword, repositories, options) {
+function createRepositories (githubUsername, githubPassword, repositories, options) {
     const promises = [];
 
     const Github = new Octokat({
@@ -40,7 +39,7 @@ module.exports = function (githubUsername, githubPassword, repositories, options
     });
 
     // for each student
-    for (let index = 0; index < repositories.length; index++) {
+    for (let index = 0; index < repositories.length; index += 1) {
         // gather the promises
         promises.push(
             // create a repository
@@ -53,15 +52,16 @@ module.exports = function (githubUsername, githubPassword, repositories, options
             // Add student as collaborator
             .then(() => {
                 const collaboratorPromises = [];
+                const collaborators = repositories[index].collaborators;
 
                 // for each student
-                for (let collaboratorIndex = 0; collaboratorIndex < repositories[index].collaborators.length; collaboratorIndex++) {
+                for (let collaboratorIndex = 0; collaboratorIndex < collaborators.length; collaboratorIndex += 1) {
                     // gather the promises
                     collaboratorPromises.push(
                         // create a repository
                         Github
                             .repos(githubUsername, repositories[index].name)
-                            .collaborators(repositories[index].collaborators[collaboratorIndex])
+                            .collaborators(collaborators[collaboratorIndex])
                             .add()
                     );
                 }
@@ -70,4 +70,6 @@ module.exports = function (githubUsername, githubPassword, repositories, options
         );
     }
     return Promise.all(promises);
-};
+}
+
+module.exports = createRepositories;

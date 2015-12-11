@@ -19,64 +19,63 @@ const schema = new mongoose.Schema({
 
 const User = mongoose.model('User', schema);
 
-module.exports = {
-    /**
-     * Creates a new User
-     * @function create
-     * @param {User} user - new user
-     * @returns {Promise.<User>} new {User}
-     */
-    create: function (user) {
-        return User.create(user);
-    },
-    /**
-     * Reads an existing user
-     * @function read
-     * @param {String} id - hex Mongoose id
-     * @returns {Promise.<User>} selected {User}
-     */
-    read: function (id) {
-        return User
-            .findOne({
-                _id: id
-            })
-            .exec();
-    },
-    /**
-     * Updates an existing user
-     * @function update
-     * @param {String} id - hex Mongoose id
-     * @param {User} properties - new or different properties to be set
-     * @returns {Promise.<User>} updated {User}
-     */
-    update: function (id, properties) {
-        return User
-            .findOneAndUpdate({_id: id}, properties)
-            .exec();
-    },
-    /**
-     * Deletes an existing user
-     * @function delete
-     * @param {String} id - hex Mongoose id
-     * @returns {Promise.<User>} deleted {User}
-     */
-    delete: function (id) {
-        return User
-            .remove({
-                _id: id
-            })
-            .exec();
-    },
-    /**
-     * Lists all the User ids
-     * @function list
-     * @param {String} select - space seperated list of columns to select
-     * @returns {Promise.<Array>} resolves to an {Array} of {User}
-     */
-    list: function (select) {
-        return User
-            .find({})
-            .select(select)
-            .exec();
-    }
-};
+/**
+ * Creates a new User
+ * @param {User} user - new user
+ * @returns {Promise.<User>} new {User}
+ */
+function create (user) {
+    return User.create(user);
+}
+
+/**
+ * Reads an existing user
+ * @param {String} id - hex Mongoose id
+ * @returns {Promise.<User>} selected {User}
+ */
+function read (id) {
+    return User
+        .findOne({
+            _id: id
+        })
+        .exec();
+}
+
+/**
+ * Updates an existing user
+ * @param {String} id - hex Mongoose id
+ * @param {User} properties - new or different properties to be set
+ * @returns {Promise.<User>} updated {User}
+ */
+function update (id, properties) {
+    return User
+        .findOneAndUpdate({_id: id}, properties)
+        .exec();
+}
+
+/**
+ * Removes an existing user
+ * @param {String} id - hex Mongoose id
+ * @returns {Promise.<User>} removed {User}
+ */
+function remove (id) {
+    return User
+        .remove({
+            _id: id
+        })
+        .exec();
+}
+
+/**
+ * Lists all the User ids
+ * @param {String} select - space seperated list of columns to select
+ * @returns {Promise.<Array>} resolves to an {Array} of {User}
+ */
+function list (select) {
+    return User
+        .find({})
+        .select(select)
+        .exec();
+}
+
+module.exports = {create, read, update, remove, list};

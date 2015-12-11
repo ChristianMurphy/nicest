@@ -40,12 +40,13 @@ const integration = connection.model('integration', Project);
 
 /**
  * Stores a list of new projects to Mongo for CA Dashboard to use.
- * @function ConfigureCaDashboard
  * @param {Array} metaData - {Array} of {Project} with Project info
  * @returns {Null} returns after completion
  */
-module.exports = function (metaData) {
+function configureCaDashboard (metaData) {
     integration.collection.insert(metaData, () => {
         return;
     });
-};
+}
+
+module.exports = configureCaDashboard;

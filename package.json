@@ -7,9 +7,9 @@
     "nicest": "bin/cli.js"
   },
   "scripts": {
-    "postinstall": "jsdoc modules --recurse -d docs",
-    "documentation": "jsdoc modules --recurse --destination docs",
-    "lint": "eslint ."
+    "postinstall": "jsdoc --recurse modules --destination docs",
+    "documentation": "jsdoc --recurse modules --destination docs",
+    "lint": "eslint . --inline-config=false"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "boom": "^3.0.0",
     "chalk": "^1.1.1",
     "cliui": "^3.1.0",
-    "eslint": "^1.10.3",
+    "eslint": "^2.0.0-alpha-1",
     "eslint-plugin-lodash3": "^0.4.0",
     "good": "^6.4.0",
     "good-file": "^5.1.1",

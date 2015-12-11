@@ -1,0 +1,8 @@
+rules:
+    max-nested-callbacks:
+        - 2
+        - 2
+    max-statements:
+        - 2
+        - 14
+    no-sync: 0

@@ -4,7 +4,14 @@ const recipes = require('./model/recipe');
 const apiRoute = require('./api/route');
 const viewRoute = require('./view/route');
 
-module.exports.register = function (server, options, next) {
+/**
+ * Registers the Recipe plugin
+ * @param {Object} server - Hapi Server object
+ * @param {Object} options - Plugin specific options
+ * @param {Fuction} next - Callback to confirm plugin registration
+ * @returns {Null} nothing
+ */
+function recipe (server, options, next) {
     recipes.setServer(server);
 
     server.route(apiRoute);
@@ -13,9 +20,11 @@ module.exports.register = function (server, options, next) {
     server.expose(recipes);
 
     next();
-};
+}
 
-module.exports.register.attributes = {
+exports.register = recipe;
+
+exports.register.attributes = {
     name: 'recipe',
     version: '0.1.0'
 };

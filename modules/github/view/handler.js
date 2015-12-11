@@ -3,15 +3,15 @@
 const Octokat = require('octokat');
 
 module.exports = {
-    redirect: function (request, reply) {
+    redirect (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         reply().redirect(`${prefix}/recipe/github/login`);
     },
-    loginView: function (request, reply) {
+    loginView (request, reply) {
         reply.view('modules/github/view/login', {redirect: request.query.next || 'none'});
     },
-    loginAction: function (request, reply) {
+    loginAction (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         request.session.set({
@@ -25,14 +25,14 @@ module.exports = {
             reply().redirect(request.payload.redirect);
         }
     },
-    list: function (request, reply) {
+    list (request, reply) {
         const Github = new Octokat({
             username: request.session.get('github-username'),
             password: request.session.get('github-password')
         });
 
         Github.me.repos.fetch().then((repos) => {
-            reply.view('modules/github/view/list', {repos: repos});
+            reply.view('modules/github/view/list', {repos});
         });
     }
 };

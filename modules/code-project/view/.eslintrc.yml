@@ -1,0 +1,7 @@
+rules:
+    camelcase: 0
+    max-len: 0
+    max-statements:
+        - 2
+        - 14
+    no-magic-numbers: 0

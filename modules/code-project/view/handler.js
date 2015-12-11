@@ -11,9 +11,10 @@ const createTaigaBoards = require('../task/create-taiga-boards');
 const seedGitRepositories = require('../task/seed-git-repositories');
 const gatherCaUsers = require('../task/gather-ca-users');
 const configureCaDashboard = require('../task/configure-ca-dashboard');
+const httpInternalServerError = 500;
 
 module.exports = {
-    redirect: function (request, reply) {
+    redirect (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         if (_.isString(request.session.get('github-username')) && _.isString(request.session.get('github-password'))) {
@@ -22,7 +23,7 @@ module.exports = {
             reply().redirect(`${prefix}/recipe/github/login?next=${prefix}/recipe/code-project/choose-students`);
         }
     },
-    chooseStudents: function (request, reply) {
+    chooseStudents (request, reply) {
         if (request.query.type === 'team') {
             request.session.set({
                 'code-project-student-type': 'team'
@@ -49,7 +50,7 @@ module.exports = {
                 });
         }
     },
-    selectStudents: function (request, reply) {
+    selectStudents (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         request.session.set({
@@ -58,17 +59,17 @@ module.exports = {
 
         reply().redirect(`${prefix}/recipe/code-project/choose-repository`);
     },
-    chooseRepository: function (request, reply) {
+    chooseRepository (request, reply) {
         const Github = new Octokat({
             username: request.session.get('github-username'),
             password: request.session.get('github-password')
         });
 
         Github.me.repos.fetch().then((repos) => {
-            reply.view('modules/code-project/view/choose-repository', {repos: repos});
+            reply.view('modules/code-project/view/choose-repository', {repos});
         });
     },
-    selectRepository: function (request, reply) {
+    selectRepository (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         request.session.set({
@@ -80,10 +81,10 @@ module.exports = {
 
         reply().redirect(`${prefix}/recipe/code-project/choose-issue-tracker`);
     },
-    chooseIssueTracker: function (request, reply) {
+    chooseIssueTracker (request, reply) {
         reply.view('modules/code-project/view/choose-issue-tracker');
     },
-    selectIssueTracker: function (request, reply) {
+    selectIssueTracker (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         request.session.set({
@@ -102,10 +103,10 @@ module.exports = {
             reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
         }
     },
-    loginView: function (request, reply) {
+    loginView (request, reply) {
         reply.view('modules/code-project/view/taiga-login');
     },
-    loginAction: function (request, reply) {
+    loginAction (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         request.session.set({
@@ -115,10 +116,10 @@ module.exports = {
 
         reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
     },
-    chooseAssessmentSystem: function (request, reply) {
+    chooseAssessmentSystem (request, reply) {
         reply.view('modules/code-project/view/choose-assessment-system');
     },
-    selectAssessmentSystem: function (request, reply) {
+    selectAssessmentSystem (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         request.session.set({
@@ -127,7 +128,7 @@ module.exports = {
 
         reply().redirect(`${prefix}/recipe/code-project/confirm`);
     },
-    confirmView: function (request, reply) {
+    confirmView (request, reply) {
         const studentType = request.session.get('code-project-student-type');
         const repo = request.session.get('github-project-repo');
         const studentIds = request.session.get('code-project-students');
@@ -142,12 +143,12 @@ module.exports = {
                     const users = data[1];
                     const selectedTeams = selectedObjects(teams, studentIds);
 
-                    for (let teamIndex = 0; teamIndex < selectedTeams.length; teamIndex++) {
+                    for (let teamIndex = 0; teamIndex < selectedTeams.length; teamIndex += 1) {
                         // for the members of each team, replace the user id with the user data
                         selectedTeams[teamIndex].memberObjects = selectedObjects(users, selectedTeams[teamIndex].members);
 
                         // find any invalid users
-                        for (let userIndex = 0; userIndex < selectedTeams[teamIndex].memberObjects.length; userIndex++) {
+                        for (let userIndex = 0; userIndex < selectedTeams[teamIndex].memberObjects.length; userIndex += 1) {
                             const currentUser = selectedTeams[teamIndex].memberObjects[userIndex];
 
                             if (!currentUser.modules.github || !currentUser.modules.github.username || !currentUser.modules.taiga || !currentUser.modules.taiga.email) {
@@ -158,7 +159,7 @@ module.exports = {
 
                     reply.view('modules/code-project/view/confirm', {
                         repoUrl: `https://github.com/${repo}`,
-                        repoName: /[A-Za-z0-9\-]+$/.exec(repo),
+                        repoName: (/[A-Za-z0-9\-]+$/).exec(repo),
                         studentType: 'team',
                         students: selectedTeams
                     });
@@ -171,14 +172,14 @@ module.exports = {
 
                     reply.view('modules/code-project/view/confirm', {
                         repoUrl: `https://github.com/${repo}`,
-                        repoName: /[A-Za-z0-9\-]+$/.exec(repo),
+                        repoName: (/[A-Za-z0-9\-]+$/).exec(repo),
                         studentType: 'user',
-                        students: students
+                        students
                     });
                 });
         }
     },
-    confirm: function (request, reply) {
+    confirm (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         const githubUsername = request.session.get('github-username');
@@ -230,6 +231,7 @@ module.exports = {
                 if (useAssessment) {
                     return gatherCaUsers(seedRepository, githubUsername, studentType, students);
                 }
+                return null;
             })
 
             // setup CA Dashboard
@@ -237,12 +239,13 @@ module.exports = {
                 if (useAssessment) {
                     return configureCaDashboard(caConfiguration);
                 }
+                return null;
             })
 
             // add seed code to repositories
             // FIXME this is last because it can sometimes trigger a core dump crash
             .then(() => {
-                const seedRepositoryURL = `https://github.com/${githubUsername}/${/[A-Za-z0-9\-]+$/.exec(seedRepository)}`;
+                const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}`;
                 const githubUrls = _.pluck(githubRepositories, 'url');
 
                 return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
@@ -259,11 +262,11 @@ module.exports = {
                 }
             );
     },
-    successView: function (request, reply) {
+    successView (request, reply) {
         reply.view('modules/code-project/view/success');
     },
-    errorView: function (request, reply) {
-        reply.view('modules/code-project/view/error').code(500);
+    errorView (request, reply) {
+        reply.view('modules/code-project/view/error').code(httpInternalServerError);
     }
 };
 
