@@ -1,8 +1,8 @@
-/* eslint no-loop-func: 0, max-nested-callbacks: [2, 2], no-else-return: 0 */
+'use strict';
+
 /**
  * @module GatherGithubUsers
  */
-'use strict';
 
 const _ = require('lodash');
 const User = require('../../user/model/user');
@@ -18,18 +18,17 @@ const Team = require('../../team/model/team');
 
  /**
   * Takes in basic information and generates Github metadata
-  * @function GatherGithubUsers
   * @param {String} seedRepository - name of seed repository
   * @param {String} githubUsername - username of logged in and hosting user
   * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
   * @param {Array} students - an {Array} of {String} with names, either usernames or team names
   * @returns {Promise.<Array>} resolves to {Array} of {GithubRepository}
   */
-module.exports = function (seedRepository, githubUsername, studentType, students) {
+function gatherGithubUsers (seedRepository, githubUsername, studentType, students) {
     // create empty repos for each student on github
     const githubRepositories = [];
-    const githubName = `${/[A-Za-z0-9\-]+$/.exec(seedRepository)}-`;
-    const githubUrl = `https://github.com/${githubUsername}/${/[A-Za-z0-9\-]+$/.exec(seedRepository)}-`;
+    const githubName = `${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}-`;
+    const githubUrl = `https://github.com/${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}-`;
 
     if (studentType === 'team') {
         // lookup stored users and teams
@@ -38,11 +37,13 @@ module.exports = function (seedRepository, githubUsername, studentType, students
             User.list('_id modules')
         ])
         .then((data) => {
-            const teams = data[0];
-            const users = data[1];
+            const teamDeconstructor = 0;
+            const userDeconstructor = 1;
+            const teams = data[teamDeconstructor];
+            const users = data[userDeconstructor];
 
             // for each team
-            for (let teamIndex = 0; teamIndex < students.length; teamIndex++) {
+            for (let teamIndex = 0; teamIndex < students.length; teamIndex += 1) {
                 // find the current team
                 const currentTeam = _.find(teams, (team) => {
                     return team._id.toString() === students[teamIndex];
@@ -57,7 +58,7 @@ module.exports = function (seedRepository, githubUsername, studentType, students
                 };
 
                 // for each team member
-                for (let userIndex = 0; userIndex < currentTeam.members.length; userIndex++) {
+                for (let userIndex = 0; userIndex < currentTeam.members.length; userIndex += 1) {
                     // find this team member
                     const currentUser = _.find(users, (user) => {
                         // mongoose id needs to be cased to string
@@ -77,29 +78,30 @@ module.exports = function (seedRepository, githubUsername, studentType, students
 
             return githubRepositories;
         });
-    } else {
-        return User
-            .list('_id modules')
-            .then((users) => {
-                // for each student
-                for (let index = 0; index < students.length; index++) {
-                    // find the current user
-                    const currentUser = _.find(users, (user) => {
-                        return user._id.toString() === students[index];
-                    });
-
-                    const githubUsername = currentUser.modules.github.username;
-
-                    // create the Repository meta data
-                    githubRepositories.push({
-                        name: githubName + githubUsername,
-                        url: githubUrl + githubUsername,
-                        collaborators: [githubUsername],
-                        emails: [currentUser.modules.taiga.email]
-                    });
-                }
-
-                return githubRepositories;
-            });
     }
-};
+    return User
+        .list('_id modules')
+        .then((users) => {
+            // for each student
+            for (let index = 0; index < students.length; index += 1) {
+                // find the current user
+                const currentUser = _.find(users, (user) => {
+                    return user._id.toString() === students[index];
+                });
+
+                const currentGithubUsername = currentUser.modules.github.username;
+
+                // create the Repository meta data
+                githubRepositories.push({
+                    name: githubName + currentGithubUsername,
+                    url: githubUrl + currentGithubUsername,
+                    collaborators: [currentGithubUsername],
+                    emails: [currentUser.modules.taiga.email]
+                });
+            }
+
+            return githubRepositories;
+        });
+}
+
+module.exports = gatherGithubUsers;

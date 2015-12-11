@@ -2,13 +2,22 @@
 
 const viewRoute = require('./view/route');
 
-module.exports.register = function (server, options, next) {
+/**
+ * Registers the Error Page plugin
+ * @param {Object} server - Hapi Server object
+ * @param {Object} options - Plugin specific options
+ * @param {Fuction} next - Callback to confirm plugin registration
+ * @returns {Null} nothing
+ */
+function errorPage (server, options, next) {
     server.route(viewRoute);
 
     next();
-};
+}
 
-module.exports.register.attributes = {
+exports.register = errorPage;
+
+exports.register.attributes = {
     name: 'error-page',
     version: '0.1.0'
 };

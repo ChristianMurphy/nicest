@@ -102,8 +102,9 @@ function init () {
     })
     .then((authenticationGithubClientSecret) => {
         config.authentication.github.secret = authenticationGithubClientSecret;
+        const jsonIndent = 2;
 
-        writeFile(path.resolve(__dirname, '..', 'nicest.json'), JSON.stringify(config, null, 2));
+        writeFile(path.resolve(__dirname, '..', 'nicest.json'), JSON.stringify(config, null, jsonIndent));
     })
     .then();
 }

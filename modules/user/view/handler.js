@@ -1,22 +1,21 @@
-/* eslint no-underscore-dangle: 0 */
 'use strict';
 
 const User = require('../model/user');
 
 module.exports = {
-    redirect: function (request, reply) {
+    redirect (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         reply().redirect(`${prefix}/recipe/manage-users/list`);
     },
-    list: function (request, reply) {
+    list (request, reply) {
         User
             .list('_id name')
             .then((users) => {
-                reply.view('modules/user/view/list', {users: users});
+                reply.view('modules/user/view/list', {users});
             });
     },
-    view: function (request, reply) {
+    view (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         User
@@ -33,7 +32,7 @@ module.exports = {
                 });
             });
     },
-    save: function (request, reply) {
+    save (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         User
@@ -42,7 +41,7 @@ module.exports = {
                 reply().redirect(`${prefix}/recipe/manage-users/edit/${request.params.id}?saved=true`);
             });
     },
-    viewEmpty: function (request, reply) {
+    viewEmpty (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         reply.view('modules/user/view/view', {
@@ -54,7 +53,7 @@ module.exports = {
             }
         });
     },
-    create: function (request, reply) {
+    create (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         User
@@ -63,11 +62,11 @@ module.exports = {
                 reply().redirect(`${prefix}/recipe/manage-users/edit/${user._id}?saved=true`);
             });
     },
-    delete: function (request, reply) {
+    delete (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         User
-            .delete(request.params.id)
+            .remove(request.params.id)
             .then(() => {
                 reply().redirect(`${prefix}/recipe/manage-users/list`);
             });

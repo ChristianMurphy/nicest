@@ -19,26 +19,25 @@ function admin () {
 
     console.log(chalk.bold('\nCreate an Administrator\n'));
 
-    const admin = {};
+    const adminUser = {};
 
-    admin.admin = true;
+    adminUser.admin = true;
 
     read({
         prompt: 'name:'
     })
     .then((userName) => {
-        admin.name = userName;
+        adminUser.name = userName;
 
         return read({
             prompt: 'Github Username:'
         });
     })
-    .then((userGithubName) => {
-        admin.modules = {};
-        admin.modules.github = {};
-        admin.modules.github.username = userGithubName;
+    .then((username) => {
+        adminUser.modules = {};
+        adminUser.modules.github = {username};
 
-        return user.create(admin);
+        return user.create(adminUser);
     })
     .then(() => {
         mongoose.disconnect();

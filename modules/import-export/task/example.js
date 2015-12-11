@@ -1,4 +1,3 @@
-/* eslint no-sync: 0 */
 'use strict';
 
 const fs = require('fs');

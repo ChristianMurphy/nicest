@@ -2,13 +2,22 @@
 
 const viewRoute = require('./view/route');
 
-module.exports.register = function (server, options, next) {
+/**
+ * Registers the Github plugin
+ * @param {Object} server - Hapi Server object
+ * @param {Object} options - Plugin specific options
+ * @param {Fuction} next - Callback to confirm plugin registration
+ * @returns {Null} nothing
+ */
+function github (server, options, next) {
     server.route(viewRoute);
 
     next();
-};
+}
 
-module.exports.register.attributes = {
+exports.register = github;
+
+exports.register.attributes = {
     name: 'github',
     version: '0.1.0'
 };

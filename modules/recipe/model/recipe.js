@@ -6,12 +6,18 @@
 const _ = require('lodash');
 
 let server;
+const first = 0;
 
-const filterRecipes = function (route) {
+/**
+ * Tests a route to see if it is the home page of a Recipe
+ * @param {String} route - route path
+ * @returns {Boolean} recipe home will return true
+ */
+function filterRecipes (route) {
     const search = new RegExp(`^${server.realm.modifiers.route.prefix}\/recipe\/[^/]+\/?$`);
 
     return route.method === 'get' && route.path.match(search);
-};
+}
 
 /**
  * Route represents a view.
@@ -28,7 +34,7 @@ module.exports = {
      * @param {Object} serve - Hapi JS server object
      * @returns {Undefined} undefined
      */
-    setServer: function (serve) {
+    setServer (serve) {
         server = serve;
     },
     /**
@@ -36,7 +42,7 @@ module.exports = {
      * @function list
      * @returns {Array} {Array} of {Route}
      */
-    list: function () {
-        return _.filter(server.table()[0].table, filterRecipes);
+    list () {
+        return _.filter(server.table()[first].table, filterRecipes);
     }
 };

@@ -1,4 +1,3 @@
-/* eslint no-loop-func: 0, max-nested-callbacks: [2, 2], no-else-return: 0 */
 /**
  * @module GatherCaUsers
  */
@@ -27,17 +26,16 @@ const Team = require('../../team/model/team');
 
  /**
   * Takes in basic information and generates Github metadata
-  * @function GatherCaUsers
   * @param {String} seedRepository - name of seed repository
   * @param {String} githubUsername - username of logged in and hosting user
   * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
   * @param {Array} students - an {Array} of {String} with names, either usernames or team names
   * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
   */
-module.exports = function (seedRepository, githubUsername, studentType, students) {
+function gatherCaUsers (seedRepository, githubUsername, studentType, students) {
     // create empty repos for each student on github
     const caDashboardProjects = [];
-    const githubUrl = `${githubUsername}/${/[A-Za-z0-9\-]+$/.exec(seedRepository)}-`;
+    const githubUrl = `${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}-`;
 
     if (studentType === 'team') {
         // lookup stored users and teams
@@ -46,26 +44,31 @@ module.exports = function (seedRepository, githubUsername, studentType, students
             User.list('_id name modules')
         ])
         .then((data) => {
-            const teams = data[0];
-            const users = data[1];
+            const teamDeconstructor = 0;
+            const userDeconstructor = 1;
+            const teams = data[teamDeconstructor];
+            const users = data[userDeconstructor];
 
             // for each team
-            for (let teamIndex = 0; teamIndex < students.length; teamIndex++) {
+            for (let teamIndex = 0; teamIndex < students.length; teamIndex += 1) {
                 // find the current team
                 const currentTeam = _.find(teams, (team) => {
                     return team._id.toString() === students[teamIndex];
                 });
 
+                const githubIndividualUrl = githubUrl + currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-');
+                const taigaSlug = githubIndividualUrl.replace(/\//, '-').toLowerCase();
+
                 // add team information to Github meta data
                 const caInformation = {
                     name: currentTeam.name,
-                    'github-url': githubUrl + currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-'),
-                    'taiga-slug': `${currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-')}-${/[A-Za-z0-9\-]+$/.exec(seedRepository)}`,
+                    'github-url': githubIndividualUrl,
+                    'taiga-slug': taigaSlug,
                     members: []
                 };
 
                 // for each team member
-                for (let userIndex = 0; userIndex < currentTeam.members.length; userIndex++) {
+                for (let userIndex = 0; userIndex < currentTeam.members.length; userIndex += 1) {
                     // find this team member
                     const currentUser = _.find(users, (user) => {
                         // mongoose id needs to be cased to string
@@ -84,31 +87,36 @@ module.exports = function (seedRepository, githubUsername, studentType, students
 
             return caDashboardProjects;
         });
-    } else {
-        return User
-            .list('_id name modules')
-            .then((users) => {
-                // for each student
-                for (let index = 0; index < students.length; index++) {
-                    // find the current user
-                    const currentUser = _.find(users, (user) => {
-                        return user._id.toString() === students[index];
-                    });
-
-                    // create the Repository meta data
-                    caDashboardProjects.push({
-                        name: currentUser.name,
-                        'github-url': githubUrl + currentUser.modules.github.username,
-                        'tiaga-slug': (githubUrl + currentUser.modules.github.username).replace(/\//, '-').toLowerCase(),
-                        members: [{
-                            name: currentUser.name,
-                            'github-username': currentUser.modules.github.username,
-                            email: currentUser.modules.taiga.email
-                        }]
-                    });
-                }
-
-                return caDashboardProjects;
-            });
     }
-};
+
+    return User
+        .list('_id name modules')
+        .then((users) => {
+            // for each student
+            for (let index = 0; index < students.length; index += 1) {
+                // find the current user
+                const currentUser = _.find(users, (user) => {
+                    return user._id.toString() === students[index];
+                });
+
+                const githubIndividualUrl = githubUrl + currentUser.modules.github.username;
+                const taigaSlug = githubIndividualUrl.replace(/\//, '-').toLowerCase();
+
+                // create the Repository meta data
+                caDashboardProjects.push({
+                    name: currentUser.name,
+                    'github-url': githubIndividualUrl,
+                    'tiaga-slug': taigaSlug,
+                    members: [{
+                        name: currentUser.name,
+                        'github-username': currentUser.modules.github.username,
+                        email: currentUser.modules.taiga.email
+                    }]
+                });
+            }
+
+            return caDashboardProjects;
+        });
+}
+
+module.exports = gatherCaUsers;

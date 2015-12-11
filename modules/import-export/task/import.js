@@ -1,4 +1,3 @@
-/* eslint no-sync: 0, max-nested-callbacks: [2, 2], no-else-return: 0 , no-underscore-dangle: 0 */
 'use strict';
 
 const libxml = require('libxmljs');
@@ -12,7 +11,12 @@ const Team = require('../../team/model/team');
 const schema = fs.readFileSync(path.join(__dirname, 'schema.xsd'));
 const parsedSchema = libxml.parseXmlString(schema);
 
-module.exports = function (location) {
+/**
+ * Reads in an XML file and stores data to database
+ * @param {String} location - path to XML file
+ * @returns {Promise.<Object>} resolves with validation status
+ */
+function importXML (location) {
     let parsedDateset;
 
     // Check that the XML document is valid
@@ -38,7 +42,7 @@ module.exports = function (location) {
             const promises = [];
 
             // for each user
-            for (let index = 0; index < users.length; index++) {
+            for (let index = 0; index < users.length; index += 1) {
                 const currentUser = users[index];
 
                 // create a new database object
@@ -53,7 +57,8 @@ module.exports = function (location) {
                                 email: currentUser.get('email').text()
                             }
                         }
-                    }).then((newUser) => {
+                    })
+                    .then((newUser) => {
                         // map the XML id to the Mongoose id
                         return {
                             databaseId: newUser._id,
@@ -68,9 +73,9 @@ module.exports = function (location) {
                 result.identifierMapping = identifierMapping;
                 return result;
             });
-        } else {
-            return result;
         }
+
+        return result;
     })
 
     // copy teams to Mongoose
@@ -82,7 +87,7 @@ module.exports = function (location) {
             const promises = [];
 
             // for each user
-            for (let teamIndex = 0; teamIndex < teams.length; teamIndex++) {
+            for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
                 // gather all team members for current team
                 const teamMembers = teams[teamIndex].find('member');
                 const teamMetadata = {
@@ -93,7 +98,7 @@ module.exports = function (location) {
                 teamMetadata.name = teams[teamIndex].get('name').text();
 
                 // get each of the team members' ids
-                for (let memberIndex = 0; memberIndex < teamMembers.length; memberIndex++) {
+                for (let memberIndex = 0; memberIndex < teamMembers.length; memberIndex += 1) {
                     const memberXmlId = teamMembers[memberIndex].attr('id').value();
                     const memberMongoId = _.find(result.identifierMapping, 'xmlId', memberXmlId).databaseId;
 
@@ -108,21 +113,22 @@ module.exports = function (location) {
             return Promise.all(promises).then(() => {
                 return result;
             });
-        } else {
-            return result;
         }
+        return result;
     });
-};
+}
+
+module.exports = importXML;
 
 /**
  * Promise wrapper for fs.readFile
  * @private
- * @param {String} path - path to file
+ * @param {String} location - path to file
  * @returns {Promise.<String>} resolves with data or rejects with error
  */
-function readFilePromise (path) {
+function readFilePromise (location) {
     return new Promise((resolve, reject) => {
-        fs.readFile(path, 'utf-8', (err, data) => {
+        fs.readFile(location, 'utf-8', (err, data) => {
             if (err) {
                 reject(err);
             } else {

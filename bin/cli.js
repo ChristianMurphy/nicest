@@ -13,7 +13,8 @@ const nicestDev = require('../tasks/dev');
 const nicestDoc = require('../tasks/doc');
 const nicestLint = require('../tasks/lint');
 
-const command = process.argv.slice(2)[0];
+const commandLocation = 2;
+const command = process.argv[commandLocation];
 
 const tasks = [
     nicestInit,
@@ -25,9 +26,9 @@ const tasks = [
     nicestLint
 ];
 
-const task = _.find(tasks, _.matches({name: command}));
+const selectedTask = _.find(tasks, _.matches({name: command}));
 
-if (_.isUndefined(task)) {
+if (_.isUndefined(selectedTask)) {
     ui.div({
         text: chalk.bold('Nicest Command Line Interface'),
         padding: [1, 0, 1, 0]
@@ -56,5 +57,5 @@ if (_.isUndefined(task)) {
 
     console.log(ui.toString());
 } else {
-    task();
+    selectedTask();
 }

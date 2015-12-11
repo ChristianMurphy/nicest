@@ -4,20 +4,23 @@ const boom = require('boom');
 const User = require('../model/user');
 const _ = require('lodash');
 
+const httpCreated = 201;
+const httpNoContent = 204;
+
 module.exports = {
-    create: function (request, reply) {
+    create (request, reply) {
         User
             .create(request.payload)
             .then(
                 (newUser) => {
-                    reply(newUser).code(201);
+                    reply(newUser).code(httpCreated);
                 },
                 () => {
                     reply(boom.badRequest());
                 }
             );
     },
-    read: function (request, reply) {
+    read (request, reply) {
         User
             .read(request.params.id)
             .then(
@@ -33,7 +36,7 @@ module.exports = {
                 }
             );
     },
-    update: function (request, reply) {
+    update (request, reply) {
         User
             .update(request.params.id, request.payload)
             .then(
@@ -49,19 +52,19 @@ module.exports = {
                 }
             );
     },
-    delete: function (request, reply) {
+    delete (request, reply) {
         User
-            .delete(request.params.id)
+            .remove(request.params.id)
             .then(
                 () => {
-                    reply().code(204);
+                    reply().code(httpNoContent);
                 },
                 () => {
-                    reply().code(204);
+                    reply().code(httpNoContent);
                 }
             );
     },
-    list: function (request, reply) {
+    list (request, reply) {
         User
             .list('_id')
             .then(
