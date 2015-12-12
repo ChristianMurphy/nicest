@@ -19,7 +19,7 @@
 2. Run `nicest` from anywhere
 
 ### Test the Application
-1. Run `npm test`
+1. Run `npm run lint`
 
 ## Creating a Plugin
 Plug-ins are based off the [Hapi JS plug-in system](http://hapijs.com/tutorials/plugins).
@@ -38,7 +38,14 @@ For example this plugin defines an api and a recipe.
 'use strict';
 const model = require(...);
 
-module.exports.register = function (server, options, next) {
+/**
+ * Registers the Example plugin
+ * @param {Object} server - Hapi Server object
+ * @param {Object} options - Plugin specific options
+ * @param {Fuction} next - Callback to confirm plugin registration
+ * @returns {Null} nothing
+ */
+function example (server, options, next) {
     server.route([
         ...
     ]);
@@ -48,9 +55,11 @@ module.exports.register = function (server, options, next) {
     next();
 };
 
-module.exports.register.attributes = {
+exports.register = example;
+
+exports.register.attributes = {
     pkg: {
-        name: 'my plugin',
+        name: 'example',
         version: '0.1.0'
     }
 };
