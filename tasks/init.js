@@ -106,7 +106,9 @@ function init () {
 
         writeFile(path.resolve(__dirname, '..', 'nicest.json'), JSON.stringify(config, null, jsonIndent));
     })
-    .then();
+    .catch((err) => {
+        console.error(err);
+    });
 }
 
 init.description = 'Writes a nicest configuration file.';
