@@ -251,16 +251,16 @@ module.exports = {
                 return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
             })
 
-            // redirect
-            .then(
-                () => {
-                    reply().redirect(`${prefix}/recipe/code-project/success`);
-                },
-                (err) => {
-                    request.log('error', err.toString());
-                    reply().redirect(`${prefix}/recipe/code-project/error`);
-                }
-            );
+            // sucess redirect
+            .then(() => {
+                reply().redirect(`${prefix}/recipe/code-project/success`);
+            })
+
+            // failure redirect
+            .catch((err) => {
+                request.log('error', err.toString());
+                reply().redirect(`${prefix}/recipe/code-project/error`);
+            });
     },
     successView (request, reply) {
         reply.view('modules/code-project/view/success');

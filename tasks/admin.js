@@ -41,6 +41,10 @@ function admin () {
     })
     .then(() => {
         mongoose.disconnect();
+    })
+    .catch((err) => {
+        console.error(err);
+        mongoose.disconnect();
     });
 }
 
