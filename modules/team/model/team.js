@@ -21,7 +21,7 @@ const schema = new mongoose.Schema({
     modules: mongoose.Schema.Types.Mixed
 });
 
-const Team = mongoose.model('Team', schema);
+const model = mongoose.model('Team', schema);
 
 /**
  * Creates a new Team
@@ -29,7 +29,7 @@ const Team = mongoose.model('Team', schema);
  * @returns {Promise.<Team>} new {Team}
  */
 function create (team) {
-    return Team.create(team);
+    return model.create(team);
 }
 
 /**
@@ -38,7 +38,7 @@ function create (team) {
  * @returns {Promise.<Team>} selected {Team}
  */
 function read (id) {
-    return Team
+    return model
         .findOne({
             _id: id
         })
@@ -52,7 +52,7 @@ function read (id) {
  * @returns {Promise.<Team>} updated {Team}
  */
 function update (id, properties) {
-    return Team
+    return model
         .findOneAndUpdate({_id: id}, properties)
         .exec();
 }
@@ -63,7 +63,7 @@ function update (id, properties) {
  * @returns {Promise.<Team>} removed {Team}
  */
 function remove (id) {
-    return Team
+    return model
         .remove({
             _id: id
         })
@@ -76,10 +76,10 @@ function remove (id) {
  * @returns {Promise.<Array>} lists all the {Team}
  */
 function list (select) {
-    return Team
+    return model
         .find({})
         .select(select)
         .exec();
 }
 
-module.exports = {create, read, update, remove, list};
+module.exports = {create, read, update, remove, list, model};

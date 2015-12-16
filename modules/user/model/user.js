@@ -24,7 +24,7 @@ const schema = new mongoose.Schema({
     modules: mongoose.Schema.Types.Mixed
 });
 
-const User = mongoose.model('User', schema);
+const model = mongoose.model('User', schema);
 
 /**
  * Creates a new User
@@ -32,7 +32,7 @@ const User = mongoose.model('User', schema);
  * @returns {Promise.<User>} new {User}
  */
 function create (user) {
-    return User.create(user);
+    return model.create(user);
 }
 
 /**
@@ -41,7 +41,7 @@ function create (user) {
  * @returns {Promise.<User>} selected {User}
  */
 function read (id) {
-    return User
+    return model
         .findOne({
             _id: id
         })
@@ -55,7 +55,7 @@ function read (id) {
  * @returns {Promise.<User>} updated {User}
  */
 function update (id, properties) {
-    return User
+    return model
         .findOneAndUpdate({_id: id}, properties)
         .exec();
 }
@@ -66,7 +66,7 @@ function update (id, properties) {
  * @returns {Promise.<User>} removed {User}
  */
 function remove (id) {
-    return User
+    return model
         .remove({
             _id: id
         })
@@ -79,10 +79,10 @@ function remove (id) {
  * @returns {Promise.<Array>} resolves to an {Array} of {User}
  */
 function list (select) {
-    return User
+    return model
         .find({})
         .select(select)
         .exec();
 }
 
-module.exports = {create, read, update, remove, list};
+module.exports = {create, read, update, remove, list, model};

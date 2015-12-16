@@ -131,28 +131,26 @@ module.exports = {
     confirmView (request, reply) {
         const studentType = request.session.get('code-project-student-type');
         const repo = request.session.get('github-project-repo');
-        const studentIds = request.session.get('code-project-students');
+        const objectIds = request.session.get('code-project-students');
 
         if (studentType === 'team') {
-            Promise.all([
-                Team.list('_id name members'),
-                User.list('_id name modules')
-            ])
-                .then((data) => {
-                    const teams = data[0];
-                    const users = data[1];
-                    const selectedTeams = selectedObjects(teams, studentIds);
-
-                    for (let teamIndex = 0; teamIndex < selectedTeams.length; teamIndex += 1) {
-                        // for the members of each team, replace the user id with the user data
-                        selectedTeams[teamIndex].memberObjects = selectedObjects(users, selectedTeams[teamIndex].members);
-
+            Team
+                .model
+                .find({
+                    _id: {
+                        $in: objectIds
+                    }
+                })
+                .populate('members')
+                .exec()
+                .then((teams) => {
+                    for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
                         // find any invalid users
-                        for (let userIndex = 0; userIndex < selectedTeams[teamIndex].memberObjects.length; userIndex += 1) {
-                            const currentUser = selectedTeams[teamIndex].memberObjects[userIndex];
+                        for (let userIndex = 0; userIndex < teams[teamIndex].members.length; userIndex += 1) {
+                            const currentUser = teams[teamIndex].members[userIndex];
 
                             if (!currentUser.modules.github || !currentUser.modules.github.username || !currentUser.modules.taiga || !currentUser.modules.taiga.email) {
-                                selectedTeams[teamIndex].hasInvalidMember = true;
+                                teams[teamIndex].hasInvalidMember = true;
                             }
                         }
                     }
@@ -161,15 +159,20 @@ module.exports = {
                         repoUrl: `https://github.com/${repo}`,
                         repoName: (/[A-Za-z0-9\-]+$/).exec(repo),
                         studentType: 'team',
-                        students: selectedTeams
+                        students: teams
                     });
                 });
         } else {
             User
-                .list('_id name modules')
-                .then((users) => {
-                    const students = selectedObjects(users, studentIds);
-
+                .model
+                .find({
+                    _id: {
+                        $in: objectIds
+                    }
+                })
+                .select('_id name modules')
+                .exec()
+                .then((students) => {
                     reply.view('modules/code-project/view/confirm', {
                         repoUrl: `https://github.com/${repo}`,
                         repoName: (/[A-Za-z0-9\-]+$/).exec(repo),
@@ -269,16 +272,3 @@ module.exports = {
         reply.view('modules/code-project/view/error').code(httpInternalServerError);
     }
 };
-
-/**
- * Finds complete database information from UUID
- * @private
- * @param {Array} databaseObjects - an {Array} of {Object}
- * @param {Array} UUIDs - an {Array} of {String} with UUIDs
- * @returns {Array} of {Object} that are selected
- */
-function selectedObjects (databaseObjects, UUIDs) {
-    return _.filter(databaseObjects, (databaseObject) => {
-        return _.indexOf(UUIDs, databaseObject._id.toString()) > -1;
-    });
-}
