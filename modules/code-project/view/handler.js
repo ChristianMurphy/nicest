@@ -29,7 +29,9 @@ module.exports = {
                 'code-project-student-type': 'team'
             });
             Team
-                .list('_id name')
+                .find({})
+                .select('_id name')
+                .exec()
                 .then((teams) => {
                     reply.view('modules/code-project/view/choose-students', {
                         students: teams,
@@ -41,7 +43,9 @@ module.exports = {
                 'code-project-student-type': 'indvidual'
             });
             User
-                .list('_id name')
+                .find({})
+                .select('_id name')
+                .exec()
                 .then((users) => {
                     reply.view('modules/code-project/view/choose-students', {
                         students: users,
@@ -135,7 +139,6 @@ module.exports = {
 
         if (studentType === 'team') {
             Team
-                .model
                 .find({
                     _id: {
                         $in: objectIds
@@ -164,7 +167,6 @@ module.exports = {
                 });
         } else {
             User
-                .model
                 .find({
                     _id: {
                         $in: objectIds

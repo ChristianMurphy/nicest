@@ -10,7 +10,9 @@ module.exports = {
     },
     list (request, reply) {
         User
-            .list('_id name')
+            .find({})
+            .select('_id name')
+            .exec()
             .then((users) => {
                 reply.view('modules/user/view/list', {users});
             });
@@ -19,7 +21,10 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         User
-            .read(request.params.id)
+            .findOne({
+                _id: request.params.id
+            })
+            .exec()
             .then((user) => {
                 reply.view('modules/user/view/view', {
                     url: `${prefix}/recipe/manage-users/edit/${user._id}`,
@@ -36,7 +41,8 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         User
-            .update(request.params.id, request.payload)
+            .findOneAndUpdate({_id: request.params.id}, request.payload)
+            .exec()
             .then(() => {
                 reply().redirect(`${prefix}/recipe/manage-users/edit/${request.params.id}?saved=true`);
             });
@@ -66,7 +72,9 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         User
-            .remove(request.params.id)
+            .remove({
+                _id: request.params.id
+            })
             .then(() => {
                 reply().redirect(`${prefix}/recipe/manage-users/list`);
             });

@@ -1,6 +1,5 @@
 'use strict';
 
-const teamModel = require('./model/team');
 const apiRoute = require('./api/route');
 const viewRoute = require('./view/route');
 
@@ -14,8 +13,6 @@ const viewRoute = require('./view/route');
 function team (server, options, next) {
     server.route(apiRoute);
     server.route(viewRoute);
-
-    server.expose(teamModel);
 
     next();
 }

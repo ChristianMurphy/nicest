@@ -7,7 +7,7 @@ const userValidation = {
     name: Joi
         .string()
         .regex(/[A-Za-z ]+/)
-        .description('Real name of user'),
+        .description('Full name of user'),
     role: Joi
         .string()
         .valid('student', 'instructor', 'admin')

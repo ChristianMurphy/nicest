@@ -1,6 +1,5 @@
 'use strict';
 
-const userModel = require('./model/user');
 const apiRoute = require('./api/route');
 const viewRoute = require('./view/route');
 
@@ -14,8 +13,6 @@ const viewRoute = require('./view/route');
 function user (server, options, next) {
     server.route(apiRoute);
     server.route(viewRoute);
-
-    server.expose(userModel);
 
     next();
 }

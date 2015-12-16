@@ -40,8 +40,8 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students) {
     if (studentType === 'team') {
         // lookup stored users and teams
         return Promise.all([
-            Team.list('name members'),
-            User.list('_id name modules')
+            Team.find({}).select('name members').exec(),
+            User.find({}).select('_id name modules').exec()
         ])
         .then((data) => {
             const teamDeconstructor = 0;
@@ -90,7 +90,9 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students) {
     }
 
     return User
-        .list('_id name modules')
+        .find({})
+        .select('_id name modules')
+        .exec()
         .then((users) => {
             // for each student
             for (let index = 0; index < students.length; index += 1) {

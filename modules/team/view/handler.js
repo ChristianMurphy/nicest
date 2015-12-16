@@ -11,7 +11,9 @@ module.exports = {
     },
     list (request, reply) {
         Team
-            .list('_id name')
+            .find({})
+            .select('_id name')
+            .exec()
             .then((teams) => {
                 reply.view('modules/team/view/list', {teams});
             });
@@ -20,8 +22,15 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         Promise.all([
-            Team.read(request.params.id),
-            User.list('_id name')
+            Team
+                .findOne({
+                    _id: request.params.id
+                })
+                .exec(),
+            User
+                .find({})
+                .select('_id name')
+                .exec()
         ])
         .then((data) => {
             const teamDeconstructor = 0;
@@ -45,7 +54,8 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         Team
-            .update(request.params.id, request.payload)
+            .findOneAndUpdate({_id: request.params.id}, request.payload)
+            .exec()
             .then(() => {
                 reply().redirect(`${prefix}/recipe/manage-teams/edit/${request.params.id}?saved=true`);
             });
@@ -53,7 +63,10 @@ module.exports = {
     viewEmpty (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        User.list('_id name')
+        User
+            .find({})
+            .select('_id name')
+            .exec()
             .then((users) => {
                 reply.view('modules/team/view/view', {
                     url: `${prefix}/recipe/manage-teams/create`,
@@ -79,7 +92,9 @@ module.exports = {
         const prefix = request.route.realm.modifiers.route.prefix;
 
         Team
-            .remove(request.params.id)
+            .remove({
+                _id: request.params.id
+            })
             .then(() => {
                 reply().redirect(`${prefix}/recipe/manage-teams/list`);
             });
