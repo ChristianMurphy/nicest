@@ -20,7 +20,7 @@ nicely integrating complex education software together
   * E.G. 'Authorization callback URL' could be 'example.com/login', 'localhost:3000/login' or '11.11.11.11/login'
   * After creating the application be sure to copy down the client id and secret token
 3. Run `nicest init` to configure nicest
-4. Run `nicest admin` to create an admin
+4. Run `nicest user` to create an admin
 
 ## Start
 1. Run `nicest start`

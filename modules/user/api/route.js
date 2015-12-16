@@ -3,6 +3,20 @@
 const handler = require('./handler');
 const Joi = require('joi');
 
+const userValidation = {
+    name: Joi
+        .string()
+        .regex(/[A-Za-z ]+/)
+        .description('Real name of user'),
+    role: Joi
+        .string()
+        .valid('student', 'instructor', 'admin')
+        .description('Role user fulfills, and permissions for what user can view'),
+    modules: Joi
+        .object()
+        .description('Assorted information for Nicest plugins')
+};
+
 module.exports = [
     {
         method: 'GET',
@@ -20,11 +34,7 @@ module.exports = [
         handler: handler.create,
         config: {
             validate: {
-                payload: {
-                    name: Joi.string().regex(/[A-Za-z ]+/),
-                    admin: Joi.boolean(),
-                    modules: Joi.object()
-                }
+                payload: userValidation
             },
             description: 'Create a new user',
             notes: 'Will respond with HTTP 201 for success and return the new user object',
@@ -58,11 +68,7 @@ module.exports = [
                 params: {
                     id: Joi.string().hex()
                 },
-                payload: {
-                    name: Joi.string().regex(/[A-Za-z ]+/),
-                    admin: Joi.boolean(),
-                    modules: Joi.object()
-                }
+                payload: userValidation
             }
         }
     },

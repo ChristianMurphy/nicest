@@ -13,7 +13,14 @@ const mongoose = require('mongoose');
  */
 const schema = new mongoose.Schema({
     name: String,
-    admin: Boolean,
+    role: {
+        type: String,
+        enum: [
+            'admin',
+            'instructor',
+            'student'
+        ]
+    },
     modules: mongoose.Schema.Types.Mixed
 });
 

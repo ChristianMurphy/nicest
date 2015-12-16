@@ -7,37 +7,43 @@ const database = require('../lib/database');
 const mongoose = require('mongoose');
 
 /**
- * Creates an administrator.
+ * Creates a new user.
  * @returns {Null} nothing
  */
-function admin () {
+function user () {
     const configuration = require('../nicest.json');
 
     database(configuration);
 
-    const user = require('../modules/user/model/user');
+    const userModel = require('../modules/user/model/user');
 
-    console.log(chalk.bold('\nCreate an Administrator\n'));
+    console.log(chalk.bold('\nCreate a new user\n'));
 
-    const adminUser = {};
-
-    adminUser.admin = true;
+    const newUser = {};
 
     read({
         prompt: 'name:'
     })
     .then((userName) => {
-        adminUser.name = userName;
+        newUser.name = userName;
 
         return read({
-            prompt: 'Github Username:'
+            prompt: 'user role:',
+            default: 'admin'
+        });
+    })
+    .then((role) => {
+        newUser.role = role;
+
+        return read({
+            prompt: 'github username:'
         });
     })
     .then((username) => {
-        adminUser.modules = {};
-        adminUser.modules.github = {username};
+        newUser.modules = {};
+        newUser.modules.github = {username};
 
-        return user.create(adminUser);
+        return userModel.create(newUser);
     })
     .then(() => {
         mongoose.disconnect();
@@ -48,6 +54,6 @@ function admin () {
     });
 }
 
-admin.description = 'Creates an administrator.';
+user.description = 'Creates a new user.';
 
-module.exports = admin;
+module.exports = user;

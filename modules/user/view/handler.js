@@ -26,7 +26,7 @@ module.exports = {
                     saved: request.query.saved,
                     user: {
                         name: user.name,
-                        admin: user.admin,
+                        role: user.role,
                         modules: user.modules || {}
                     }
                 });
@@ -48,7 +48,7 @@ module.exports = {
             url: `${prefix}/recipe/manage-users/create`,
             user: {
                 name: '',
-                admin: false,
+                role: 'student',
                 modules: {}
             }
         });

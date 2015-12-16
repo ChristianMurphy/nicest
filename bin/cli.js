@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const ui = require('cliui')();
 
 const nicestInit = require('../tasks/init');
-const nicestAdmin = require('../tasks/admin');
+const nicestUser = require('../tasks/user');
 const nicestStart = require('../tasks/start');
 const nicestStop = require('../tasks/stop');
 const nicestDev = require('../tasks/dev');
@@ -18,7 +18,7 @@ const command = process.argv[commandLocation];
 
 const tasks = [
     nicestInit,
-    nicestAdmin,
+    nicestUser,
     nicestStart,
     nicestStop,
     nicestDev,
