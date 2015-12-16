@@ -6,7 +6,7 @@ block title
 block head
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/checkbox.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/dropdown.min.js')
 
 block body
     .ui.container
@@ -20,12 +20,14 @@ block body
                     label name
                     input(type='text', name='name', placeholder='john smith', value=user.name, required)
                 .field
-                    .ui.checkbox
-                        input.hidden(name='admin', type='checkbox', checked=user.admin)
-                        label Admin
+                    label role
+                    select.ui.dropdown(name='role', required)
+                        option(selected=user.role==='student') student
+                        option(selected=user.role==='instructor') instructor
+                        option(selected=user.role==='admin') admin
                 .field
                     label modules
                     textarea(name='modules', placeholder='{}')= JSON.stringify(user.modules, null, 4)
                 input.ui.large.primary.submit.button(type='submit', value='submit')
                 a.ui.large.red.submit.button(href = prefix + '/recipe/manage-users/list') cancel
-    script $('.ui.checkbox').checkbox();
+    script $('.ui.dropdown').dropdown();
