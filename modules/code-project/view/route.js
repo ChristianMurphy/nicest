@@ -42,9 +42,9 @@ module.exports = [
             validate: {
                 payload: {
                     repo: Joi.string().regex(/[A-Za-z0-9\-]+/),
-                    isPrivate: Joi.boolean(),
-                    hasIssueTracker: Joi.boolean(),
-                    hasWiki: Joi.boolean()
+                    isPrivate: Joi.boolean().default(false),
+                    hasIssueTracker: Joi.boolean().default(false),
+                    hasWiki: Joi.boolean().default(false)
                 }
             }
         }
@@ -61,13 +61,13 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    useTaiga: Joi.boolean(),
+                    useTaiga: Joi.boolean().default(false),
                     description: Joi.string().empty(''),
-                    isPrivate: Joi.boolean(),
-                    hasIssues: Joi.boolean(),
-                    hasBacklog: Joi.boolean(),
-                    hasKanban: Joi.boolean(),
-                    hasWiki: Joi.boolean()
+                    isPrivate: Joi.boolean().default(false),
+                    hasIssues: Joi.boolean().default(false),
+                    hasBacklog: Joi.boolean().default(false),
+                    hasKanban: Joi.boolean().default(false),
+                    hasWiki: Joi.boolean().default(false)
                 }
             }
         }
@@ -102,7 +102,7 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    useCADashboard: Joi.boolean()
+                    useCADashboard: Joi.boolean().default(false)
                 }
             }
         }
