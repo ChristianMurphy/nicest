@@ -39,29 +39,30 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
         })
         // push the seed repository to all destination repositories
         .then((seedRepository) => {
-            const promises = [];
+            const chain = Promise.resolve();
 
-            // for each student
+            // for each destination
             for (let index = 0; index < destinationRepositoryURLs.length; index += 1) {
                 // create a remote for destination
                 NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
-                // open remote for destination and collect resulting promise
-                promises.push(
+                // open remote for destination
+                chain.then(
                     NodeGit.Remote.lookup(seedRepository, index.toString())
-                        .then((remote) => {
-                            // push to destination remote
-                            return remote.push([branchReference], {
-                                callbacks: {
-                                    credentials () {
-                                        return credentials;
-                                    }
-                                }
-                            });
-                        })
                 );
+                // push to the remote
+                chain.then((remote) => {
+                    // push to destination remote
+                    return remote.push([branchReference], {
+                        callbacks: {
+                            credentials () {
+                                return credentials;
+                            }
+                        }
+                    });
+                });
             }
             // wait for all pushes to complete
-            return Promise.all(promises);
+            return chain;
         });
 }
 
