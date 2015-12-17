@@ -36,7 +36,6 @@ The `plugin.js` file attaches the routes to their appropriate endpoints.
 For example this plugin defines an api and a recipe.
 ``` js
 'use strict';
-const model = require(...);
 
 /**
  * Registers the Example plugin
@@ -49,8 +48,6 @@ function example (server, options, next) {
     server.route([
         ...
     ]);
-
-    server.expose(model);
 
     next();
 };
@@ -69,10 +66,6 @@ routes should be defined in a separate file, be exported, and required from the 
 The export should either be a valid [Hapi JS route object](http://hapijs.com/tutorials/routing) or an array of route objects.
 
 Plugins use [lout](https://github.com/hapijs/lout) and [JSdoc](https://github.com/jsdoc3/jsdoc) to produce documentation from comments and configuration in the source code.
-
-**Models** should allows wrap async behavior in [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) and annotate code with valid JSDoc. Models should be exposed using [Hapi JS's plugin expose method](http://hapijs.com/api#serverexposeobj) .
-
-E.G. a `User` model `let user = {add: function (newUser) {...}}` would register using `server.expose(user);`, other modules would then be able to access the function by calling `server.plugin.user.add()`.
 
  **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately.
 

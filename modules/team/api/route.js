@@ -3,6 +3,21 @@
 const handler = require('./handler');
 const Joi = require('joi');
 
+const teamValidation = {
+    name: Joi
+        .string()
+        .regex(/[A-Za-z ]+/)
+        .description('Team name'),
+    members: Joi
+        .array()
+        .single()
+        .unique()
+        .description('List of User ids, for Users who are a part of the team'),
+    modules: Joi
+        .object()
+        .description('Assorted information for Nicest plugins')
+};
+
 module.exports = [
     {
         method: 'GET',
@@ -19,6 +34,9 @@ module.exports = [
         path: '/api/team',
         handler: handler.create,
         config: {
+            validate: {
+                payload: teamValidation
+            },
             description: 'Create a new team',
             notes: 'Will respond with HTTP 201 for success and return the new team object',
             tags: ['create']
@@ -50,7 +68,8 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi.string().hex()
-                }
+                },
+                payload: teamValidation
             }
         }
     },

@@ -20,7 +20,10 @@ module.exports = {
     },
     read (request, reply) {
         Team
-            .read(request.params.id)
+            .findOne({
+                _id: request.params.id
+            })
+            .exec()
             .then((team) => {
                 if (team) {
                     reply(team);
@@ -34,7 +37,8 @@ module.exports = {
     },
     update (request, reply) {
         Team
-            .update(request.params.id, request.payload)
+            .findOneAndUpdate({_id: request.params.id}, request.payload)
+            .exec()
             .then((team) => {
                 if (team) {
                     reply(team);
@@ -48,7 +52,9 @@ module.exports = {
     },
     delete (request, reply) {
         Team
-            .remove(request.params.id)
+            .remove({
+                _id: request.params.id
+            })
             .then(() => {
                 reply().code(httpNoContent);
             })
@@ -58,7 +64,8 @@ module.exports = {
     },
     list (request, reply) {
         Team
-            .list()
+            .find({})
+            .exec()
             .then((teamIds) => {
                 reply(_.pluck(teamIds, '_id'));
             })

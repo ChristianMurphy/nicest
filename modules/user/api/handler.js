@@ -20,7 +20,10 @@ module.exports = {
     },
     read (request, reply) {
         User
-            .read(request.params.id)
+            .findOne({
+                _id: request.params.id
+            })
+            .exec()
             .then((user) => {
                 if (user) {
                     reply(user);
@@ -34,7 +37,8 @@ module.exports = {
     },
     update (request, reply) {
         User
-            .update(request.params.id, request.payload)
+            .findOneAndUpdate({_id: request.params.id}, request.payload)
+            .exec()
             .then((user) => {
                 if (user) {
                     reply(user);
@@ -48,7 +52,9 @@ module.exports = {
     },
     delete (request, reply) {
         User
-            .remove(request.params.id)
+            .remove({
+                _id: request.params.id
+            })
             .then(() => {
                 reply().code(httpNoContent);
             })
@@ -58,7 +64,9 @@ module.exports = {
     },
     list (request, reply) {
         User
-            .list('_id')
+            .find({})
+            .select('_id')
+            .exec()
             .then((userIds) => {
                 reply(_.pluck(userIds, '_id'));
             })
