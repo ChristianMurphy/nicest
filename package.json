@@ -42,7 +42,7 @@
     "libxmljs": "^0.16.1",
     "lodash": "^3.10.1",
     "lout": "^8.0.1",
-    "mongoose": "^4.3.1",
+    "mongoose": "^4.3.2",
     "nodegit": "^0.6.2",
     "npm": "^3.5.3",
     "octokat": "^0.4.15",

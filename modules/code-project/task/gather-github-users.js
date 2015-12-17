@@ -4,7 +4,6 @@
  * @module GatherGithubUsers
  */
 
-const _ = require('lodash');
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 
@@ -31,74 +30,59 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
     const githubUrl = `https://github.com/${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}-`;
 
     if (studentType === 'team') {
-        // lookup stored users and teams
-        return Promise.all([
-            Team.find({}).select('name members').exec(),
-            User.find({}).select('_id modules').exec()
-        ])
-        .then((data) => {
-            const teamDeconstructor = 0;
-            const userDeconstructor = 1;
-            const teams = data[teamDeconstructor];
-            const users = data[userDeconstructor];
+        return Team
+            .find({
+                _id: {
+                    $in: students
+                }
+            })
+            .populate('members')
+            .exec()
+            .then((teams) => {
+                // for each team
+                for (const team of teams) {
+                    // add team information to Github meta data
+                    const githubInformation = {
+                        name: githubName + team.name.replace(/[!@#$%^&*? ]+/g, '-'),
+                        url: githubUrl + team.name.replace(/[!@#$%^&*? ]+/g, '-'),
+                        collaborators: [],
+                        emails: []
+                    };
 
-            // for each team
-            for (let teamIndex = 0; teamIndex < students.length; teamIndex += 1) {
-                // find the current team
-                const currentTeam = _.find(teams, (team) => {
-                    return team._id.toString() === students[teamIndex];
-                });
+                    // for each team member
+                    for (const member of team.members) {
+                        githubInformation.collaborators.push(
+                            member.modules.github.username
+                        );
+                        githubInformation.emails.push(
+                            member.modules.taiga.email
+                        );
+                    }
 
-                // add team information to Github meta data
-                const githubInformation = {
-                    name: githubName + currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-'),
-                    url: githubUrl + currentTeam.name.replace(/[!@#$%^&*? ]+/g, '-'),
-                    collaborators: [],
-                    emails: []
-                };
-
-                // for each team member
-                for (let userIndex = 0; userIndex < currentTeam.members.length; userIndex += 1) {
-                    // find this team member
-                    const currentUser = _.find(users, (user) => {
-                        // mongoose id needs to be cased to string
-                        return user._id.toString() === currentTeam.members[userIndex];
-                    });
-
-                    githubInformation.collaborators.push(
-                        currentUser.modules.github.username
-                    );
-                    githubInformation.emails.push(
-                        currentUser.modules.taiga.email
-                    );
+                    githubRepositories.push(githubInformation);
                 }
 
-                githubRepositories.push(githubInformation);
-            }
-
-            return githubRepositories;
-        });
+                return githubRepositories;
+            });
     }
     return User
-        .find({})
-        .select('_id modules')
+        .find({
+            _id: {
+                $in: students
+            }
+        })
         .exec()
         .then((users) => {
             // for each student
-            for (let index = 0; index < students.length; index += 1) {
-                // find the current user
-                const currentUser = _.find(users, (user) => {
-                    return user._id.toString() === students[index];
-                });
-
-                const currentGithubUsername = currentUser.modules.github.username;
+            for (const user of users) {
+                const currentGithubUsername = user.modules.github.username;
 
                 // create the Repository meta data
                 githubRepositories.push({
                     name: githubName + currentGithubUsername,
                     url: githubUrl + currentGithubUsername,
                     collaborators: [currentGithubUsername],
-                    emails: [currentUser.modules.taiga.email]
+                    emails: [user.modules.taiga.email]
                 });
             }
 
