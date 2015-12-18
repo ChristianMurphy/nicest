@@ -19,7 +19,8 @@ const schema = new mongoose.Schema({
             'admin',
             'instructor',
             'student'
-        ]
+        ],
+        default: 'student'
     },
     modules: mongoose.Schema.Types.Mixed
 });
