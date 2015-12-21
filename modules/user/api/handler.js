@@ -2,7 +2,6 @@
 
 const boom = require('boom');
 const User = require('../model/user');
-const _ = require('lodash');
 
 const httpCreated = 201;
 const httpNoContent = 204;
@@ -68,7 +67,9 @@ module.exports = {
             .select('_id')
             .exec()
             .then((userIds) => {
-                reply(_.pluck(userIds, '_id'));
+                reply(userIds.map((element) => {
+                    return element._id;
+                }));
             })
             .catch(() => {
                 reply(boom.notFound());

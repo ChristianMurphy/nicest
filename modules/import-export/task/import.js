@@ -3,7 +3,6 @@
 const libxml = require('libxmljs');
 const fs = require('fs');
 const path = require('path');
-const _ = require('lodash');
 
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
@@ -100,7 +99,12 @@ function importXML (location) {
                 // get each of the team members' ids
                 for (let memberIndex = 0; memberIndex < teamMembers.length; memberIndex += 1) {
                     const memberXmlId = teamMembers[memberIndex].attr('id').value();
-                    const memberMongoId = _.find(result.identifierMapping, 'xmlId', memberXmlId).databaseId;
+                    const memberMongoId = result
+                        .identifierMapping
+                        .find((element) => {
+                            return element.xmlId === memberXmlId;
+                        })
+                        .databaseId;
 
                     teamMetadata.members.push(memberMongoId);
                 }

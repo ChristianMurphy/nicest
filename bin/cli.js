@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-const _ = require('lodash');
 const chalk = require('chalk');
 const ui = require('cliui')();
 
@@ -26,9 +25,13 @@ const tasks = [
     nicestLint
 ];
 
-const selectedTask = _.find(tasks, _.matches({name: command}));
+const selectedTask = tasks.find((element) => {
+    return element.name === command;
+});
 
-if (_.isUndefined(selectedTask)) {
+if (selectedTask) {
+    selectedTask();
+} else {
     ui.div({
         text: chalk.bold('Nicest Command Line Interface'),
         padding: [1, 0, 1, 0]
@@ -42,7 +45,7 @@ if (_.isUndefined(selectedTask)) {
         padding: [0, 0, 1, 0]
     });
 
-    _.forEach(tasks, (task) => {
+    for (const task of tasks) {
         ui.div(
             {
                 text: task.name,
@@ -53,9 +56,7 @@ if (_.isUndefined(selectedTask)) {
                 width: 60
             }
         );
-    });
+    }
 
     console.log(ui.toString());
-} else {
-    selectedTask();
 }

@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 const Octokat = require('octokat');
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
@@ -17,7 +15,7 @@ module.exports = {
     redirect (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        if (_.isString(request.session.get('github-username')) && _.isString(request.session.get('github-password'))) {
+        if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
             reply().redirect(`${prefix}/recipe/code-project/choose-students`);
         } else {
             reply().redirect(`${prefix}/recipe/github/login?next=${prefix}/recipe/code-project/choose-students`);
@@ -251,7 +249,9 @@ module.exports = {
             // FIXME this is last because it can sometimes trigger a core dump crash
             .then(() => {
                 const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}`;
-                const githubUrls = _.pluck(githubRepositories, 'url');
+                const githubUrls = githubRepositories.map((element) => {
+                    return element.url;
+                });
 
                 return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
             })
