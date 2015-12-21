@@ -155,11 +155,9 @@ rules:
         - declaration
     id-length:
         - 2
-        - exceptions:
-            - _
     id-match:
         - 2
-        - ^([a-zA-Z]+|_)$
+        - ^[a-zA-Z]+$
     indent:
         - 2
         - 4
