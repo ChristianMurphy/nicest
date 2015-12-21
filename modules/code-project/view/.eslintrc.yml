@@ -1,9 +1,6 @@
 rules:
     camelcase: 0
     max-len: 0
-    max-nested-callbacks:
-        - 2
-        - 2
     max-statements:
         - 2
         - 14
