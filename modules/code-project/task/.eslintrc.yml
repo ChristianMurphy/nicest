@@ -3,10 +3,6 @@ rules:
     max-params:
         - 2
         - 4
-    max-nested-callbacks:
-        - 2
-        - 2
     max-statements:
         - 2
         - 14
-    no-loop-func: 0
