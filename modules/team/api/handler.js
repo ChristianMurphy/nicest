@@ -2,7 +2,6 @@
 
 const boom = require('boom');
 const Team = require('../model/team');
-const _ = require('lodash');
 
 const httpCreated = 201;
 const httpNoContent = 204;
@@ -67,7 +66,9 @@ module.exports = {
             .find({})
             .exec()
             .then((teamIds) => {
-                reply(_.pluck(teamIds, '_id'));
+                reply(teamIds.map((element) => {
+                    return element._id;
+                }));
             })
             .catch(() => {
                 reply(boom.notFound());

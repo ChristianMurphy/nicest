@@ -3,7 +3,6 @@
  * @module CreateTaigaBoards
  */
 const request = require('request');
-const _ = require('lodash');
 
 /**
  * TaigaBoard is meta data for creating a single board.
@@ -92,7 +91,12 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                 // setup the members permissions
                 const userMetadata = {
                     project: data[boardIndex].id,
-                    role: _.find(data[boardIndex].roles, _.matches({name: 'Back'})).id,
+                    role: data[boardIndex]
+                        .roles
+                        .find((element) => {
+                            return element.name === 'Back';
+                        })
+                        .id,
                     email: taigaBoards[boardIndex].emails[userIndex]
                 };
 

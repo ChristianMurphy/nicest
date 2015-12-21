@@ -3,8 +3,6 @@
  */
 'use strict';
 
-const _ = require('lodash');
-
 let server;
 const first = 0;
 
@@ -43,6 +41,6 @@ module.exports = {
      * @returns {Array} {Array} of {Route}
      */
     list () {
-        return _.filter(server.table()[first].table, filterRecipes);
+        return server.table()[first].table.filter(filterRecipes);
     }
 };
