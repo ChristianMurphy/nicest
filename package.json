@@ -26,7 +26,7 @@
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
     "bell": "^6.0.0",
-    "boom": "^3.0.0",
+    "boom": "^3.1.0",
     "chalk": "^1.1.1",
     "cliui": "^3.1.0",
     "eslint": "^2.0.0-alpha-1",
@@ -47,10 +47,10 @@
     "pm2": "^0.15.10",
     "read": "^1.0.7",
     "request": "^2.67.0",
-    "rimraf": "^2.4.4",
+    "rimraf": "^2.4.5",
     "scooter": "^2.0.1",
     "vision": "^4.0.1",
-    "yar": "^5.0.0"
+    "yar": "^5.0.1"
   },
   "engines": {
     "node": ">=4.0.0",
