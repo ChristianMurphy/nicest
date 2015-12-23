@@ -29,7 +29,7 @@
     "boom": "^3.1.0",
     "chalk": "^1.1.1",
     "cliui": "^3.1.0",
-    "eslint": "^2.0.0-alpha-1",
+    "eslint": "^2.0.0-alpha-2",
     "good": "^6.4.0",
     "good-file": "^5.1.1",
     "hapi": "^11.1.2",
