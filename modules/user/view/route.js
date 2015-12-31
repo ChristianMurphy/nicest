@@ -82,5 +82,14 @@ module.exports = [
                 payload: userValidation
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/manage-users/static/{param*}',
+        handler: {
+            directory: {
+                path: 'modules/user/static'
+            }
+        }
     }
 ];

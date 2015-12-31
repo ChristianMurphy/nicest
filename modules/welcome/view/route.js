@@ -13,5 +13,20 @@ module.exports = [
                 lout: false
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/welcome/static/{param*}',
+        handler: {
+            directory: {
+                path: 'modules/welcome/static'
+            }
+        },
+        config: {
+            auth: false,
+            plugins: {
+                lout: false
+            }
+        }
     }
 ];

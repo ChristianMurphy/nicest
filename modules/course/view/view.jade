@@ -1,0 +1,51 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Edit Course
+    
+block script
+    script(src='//code.jquery.com/jquery-2.1.4.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js')
+    script(src= prefix + '/recipe/manage-courses/static/dropdown.js')
+
+block body
+    .ui.container
+        if saved
+            .ui.top.attached.positive.message
+                i.university.icon
+                | Course saved
+        form.ui.large.form(action=url, method='POST')
+            .ui.stacked.attached.segment
+                .field
+                    label name
+                    input(type='text', name='name', placeholder='course name', value=course.name, required)
+                .field
+                    label instructors
+                    select.ui.search.dropdown(name='instructors', multiple, required)
+                        each user in users
+                            if course.instructors.indexOf(user._id) > -1
+                                option(value=user._id.toString(), selected)= user.name
+                            else
+                                option(value=user._id.toString())= user.name
+                .field
+                    label students
+                    select.ui.search.dropdown(name='students', multiple, required)
+                        each user in users
+                            if course.students.indexOf(user._id) > -1
+                                option(value=user._id.toString(), selected)= user.name
+                            else
+                                option(value=user._id.toString())= user.name
+                .field
+                    label teams
+                    select.ui.search.dropdown(name='teams', multiple)
+                        each team in teams
+                            if course.teams.indexOf(team._id) > -1
+                                option(value=team._id.toString(), selected)= team.name
+                            else
+                                option(value=team._id.toString())= team.name
+                .field
+                    label modules
+                    textarea(name='modules', placeholder='{}', required)= JSON.stringify(course.modules, null, 4)
+                input.ui.large.primary.submit.button(type='submit', value='submit')
+                a.ui.large.red.submit.button(href = prefix + '/recipe/manage-courses/list') cancel 

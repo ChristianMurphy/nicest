@@ -1,0 +1,21 @@
+extends ../../shared-template/default.jade
+
+block title
+    title Course Management
+
+block body
+    .ui.container
+        h1.ui.center.aligned.header Course Management
+        a.ui.positive.top.attached.button(href = prefix + '/recipe/manage-courses/create') Create Team
+        table.ui.attached.celled.table
+            thead
+                tr
+                    th id
+                    th actions
+            tbody
+                each course in courses
+                    tr
+                        td= course.name
+                        td
+                            a.ui.primary.button(href = prefix + '/recipe/manage-courses/edit/' + course._id) Edit
+                            a.ui.negative.button(href = prefix + '/recipe/manage-courses/delete/' + course._id) Delete

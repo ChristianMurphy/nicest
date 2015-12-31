@@ -3,10 +3,11 @@ extends ../../shared-template/default.jade
 block title
     title Choose Students
     
-block head
+block script
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/dropdown.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js')
+    script(src = prefix + '/recipe/code-project/static/dropdown.js')
 
 block body
     .ui.container
@@ -53,7 +54,7 @@ block body
                     label Students
                     select.ui.search.dropdown(name='students', multiple, required)
                         each student in students
-                            option(value=student._id)= student.name
+                            option(value=student._id.toString())= student.name
                 input.ui.large.teal.submit.button(type='submit', value='next')
                     
         if students.length < 1
@@ -81,4 +82,3 @@ block body
                             strong 
                                 a(href = prefix + '/recipe/import-export/import-xml') import some users
                             | ?
-    script $('select.dropdown').dropdown();

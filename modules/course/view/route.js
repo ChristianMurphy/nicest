@@ -3,16 +3,26 @@
 const handler = require('./handler');
 const Joi = require('joi');
 
-const teamValidation = {
+const courseValidation = {
     name: Joi
         .string()
         .regex(/[A-Za-z ]+/)
-        .description('Team name'),
-    members: Joi
+        .description('Course name'),
+    students: Joi
         .array()
         .single()
         .unique()
-        .description('List of User ids who are a part of the team'),
+        .description('List of User ids who are participating in the course'),
+    instructors: Joi
+        .array()
+        .single()
+        .unique()
+        .description('List of User ids who are teaching or grading the course'),
+    teams: Joi
+        .array()
+        .single()
+        .unique()
+        .description('List of Team ids that are a part of the course'),
     modules: Joi
         .object()
         .description('Assorted information for Nicest plugins')
@@ -21,20 +31,20 @@ const teamValidation = {
 module.exports = [
     {
         method: 'GET',
-        path: '/recipe/manage-teams',
+        path: '/recipe/manage-courses',
         handler: handler.redirect,
         config: {
-            description: 'Team Management'
+            description: 'Course Management'
         }
     },
     {
         method: 'GET',
-        path: '/recipe/manage-teams/list',
+        path: '/recipe/manage-courses/list',
         handler: handler.list
     },
     {
         method: 'GET',
-        path: '/recipe/manage-teams/edit/{id}',
+        path: '/recipe/manage-courses/edit/{id}',
         handler: handler.view,
         config: {
             validate: {
@@ -46,20 +56,20 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/recipe/manage-teams/edit/{id}',
+        path: '/recipe/manage-courses/edit/{id}',
         handler: handler.save,
         config: {
             validate: {
                 params: {
                     id: Joi.string().hex()
                 },
-                payload: teamValidation
+                payload: courseValidation
             }
         }
     },
     {
         method: 'GET',
-        path: '/recipe/manage-teams/delete/{id}',
+        path: '/recipe/manage-courses/delete/{id}',
         handler: handler.delete,
         config: {
             validate: {
@@ -71,25 +81,25 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/recipe/manage-teams/create',
+        path: '/recipe/manage-courses/create',
         handler: handler.viewEmpty
     },
     {
         method: 'POST',
-        path: '/recipe/manage-teams/create',
+        path: '/recipe/manage-courses/create',
         handler: handler.create,
         config: {
             validate: {
-                payload: teamValidation
+                payload: courseValidation
             }
         }
     },
     {
         method: 'GET',
-        path: '/recipe/manage-teams/static/{param*}',
+        path: '/recipe/manage-courses/static/{param*}',
         handler: {
             directory: {
-                path: 'modules/team/static'
+                path: 'modules/course/static'
             }
         }
     }

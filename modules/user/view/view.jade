@@ -3,10 +3,11 @@ extends ../../shared-template/default.jade
 block title
     title Edit User
 
-block head
+block script
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/dropdown.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js')
+    script(src= prefix + '/recipe/manage-users/static/dropdown.js')
 
 block body
     .ui.container
@@ -30,4 +31,3 @@ block body
                     textarea(name='modules', placeholder='{}')= JSON.stringify(user.modules, null, 4)
                 input.ui.large.primary.submit.button(type='submit', value='submit')
                 a.ui.large.red.submit.button(href = prefix + '/recipe/manage-users/list') cancel
-    script $('.ui.dropdown').dropdown();
