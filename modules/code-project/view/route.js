@@ -126,5 +126,14 @@ module.exports = [
         method: 'GET',
         path: '/recipe/code-project/error',
         handler: handler.errorView
+    },
+    {
+        method: 'GET',
+        path: '/recipe/code-project/static/{param*}',
+        handler: {
+            directory: {
+                path: 'modules/code-project/static'
+            }
+        }
     }
 ];

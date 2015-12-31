@@ -3,9 +3,10 @@ extends ../../shared-template/default.jade
 block title
     title Welcome to Nicest
 
-block head
+block script
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/shape.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/shape.min.js')
+    script(src= prefix + '/welcome/static/flipboard-text.js')
 
 block body
     .ui.inverted.vertical.masthead.center.aligned.segment
@@ -45,10 +46,4 @@ block body
                 | Nicest offers a simple way to add new functionality
                 br
                 | More information coming soon!
-    script.
-        $('.shape').shape();
-        $('.shape').shape('flip up');
         
-        setInterval(function () {
-            $('.shape').shape('flip up');
-        }, 10000);

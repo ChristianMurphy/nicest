@@ -83,5 +83,14 @@ module.exports = [
                 payload: teamValidation
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/manage-teams/static/{param*}',
+        handler: {
+            directory: {
+                path: 'modules/team/static'
+            }
+        }
     }
 ];

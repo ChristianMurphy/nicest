@@ -3,10 +3,11 @@ extends ../../shared-template/default.jade
 block title
     title Confirm
     
-block head
+block script
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/accordion.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/accordion.min.js')
+    script(src = prefix + '/recipe/code-project/static/accordion.js')
 
 block body
     .ui.container
@@ -77,4 +78,3 @@ block body
                                                     i.red.warning.sign.icon(title='missing Tiaga email')
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-assessment-system') previous
                 input.ui.large.teal.submit.button(type='submit', value='confirm')
-    script $('.accordion').accordion();

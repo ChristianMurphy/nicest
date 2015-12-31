@@ -93,5 +93,14 @@ module.exports = [
                 payload: courseValidation
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/manage-courses/static/{param*}',
+        handler: {
+            directory: {
+                path: 'modules/course/static'
+            }
+        }
     }
 ];

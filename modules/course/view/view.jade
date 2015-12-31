@@ -3,10 +3,11 @@ extends ../../shared-template/default.jade
 block title
     title Edit Course
     
-block head
+block script
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.6/components/dropdown.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js')
+    script(src= prefix + '/recipe/manage-courses/static/dropdown.js')
 
 block body
     .ui.container
@@ -47,5 +48,4 @@ block body
                     label modules
                     textarea(name='modules', placeholder='{}')= JSON.stringify(course.modules, null, 4)
                 input.ui.large.primary.submit.button(type='submit', value='submit')
-                a.ui.large.red.submit.button(href = prefix + '/recipe/manage-courses/list') cancel
-    script $('select.dropdown').dropdown();
+                a.ui.large.red.submit.button(href = prefix + '/recipe/manage-courses/list') cancel 

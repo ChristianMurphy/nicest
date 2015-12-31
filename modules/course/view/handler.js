@@ -28,33 +28,42 @@ module.exports = {
                     _id: request.params.id
                 })
                 .exec(),
+            Team
+                .find({})
+                .select('_id name')
+                .exec(),
             User
                 .find({})
                 .select('_id name')
                 .exec()
         ])
         .then((data) => {
-            const teamDeconstructor = 0;
-            const userDeconstructor = 1;
-            const team = data[teamDeconstructor];
-            const users = data[userDeconstructor];
+            const courseIndex = 0;
+            const teamIndex = 1;
+            const userIndex = 2;
+            const course = data[courseIndex];
+            const teams = data[teamIndex];
+            const users = data[userIndex];
 
-            reply.view('modules/team/view/view', {
-                url: `${prefix}/recipe/manage-courses/edit/${team._id}`,
+            reply.view('modules/course/view/view', {
+                url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
                 saved: request.query.saved,
                 team: {
-                    name: team.name,
-                    members: team.members || [],
-                    modules: team.modules || {}
+                    name: course.name,
+                    students: course.students || [],
+                    instructors: course.instructors || [],
+                    teams: course.teams || [],
+                    modules: course.modules || {}
                 },
-                users
+                users,
+                teams
             });
         });
     },
     save (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        Team
+        Course
             .findOneAndUpdate({_id: request.params.id}, request.payload)
             .exec()
             .then(() => {
@@ -97,7 +106,7 @@ module.exports = {
     create (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        Team
+        Course
             .create(request.payload)
             .then((team) => {
                 reply().redirect(`${prefix}/recipe/manage-courses/edit/${team._id}?saved=true`);
@@ -106,12 +115,12 @@ module.exports = {
     delete (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        Team
+        Course
             .remove({
                 _id: request.params.id
             })
             .then(() => {
-                reply().redirect(`${prefix}/recipe/manage-teams/list`);
+                reply().redirect(`${prefix}/recipe/manage-courses/list`);
             });
     }
 };

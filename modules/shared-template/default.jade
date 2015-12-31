@@ -4,8 +4,8 @@ html(lang='en')
         block title
             title nicest
         meta(charset='UTF-8')
-        link(rel='stylesheet', href='//oss.maxcdn.com/semantic-ui/2.1.6/semantic.min.css')
-        block head
+        link(rel='stylesheet', href='//oss.maxcdn.com/semantic-ui/2.1.7/semantic.min.css')
+        block style
     body
         .ui.stackable.menu
             a.item(href = prefix || '/') Nicest
@@ -13,3 +13,4 @@ html(lang='en')
             a.item(href = prefix + '/docs') Docs
             a.item(href = prefix + '/apis') Api
         block body
+        block script
