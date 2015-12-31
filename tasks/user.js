@@ -1,16 +1,14 @@
 'use strict';
 
-const chalk = require('chalk');
-
-const read = require('./helpers/read-promise');
-const database = require('../lib/database');
-const mongoose = require('mongoose');
-
 /**
  * Creates a new user.
  * @returns {Null} nothing
  */
 function user () {
+    const chalk = require('chalk');
+    const read = require('./helpers/read-promise');
+    const database = require('../lib/database');
+    const mongoose = require('mongoose');
     const configuration = require('../nicest.json');
 
     database(configuration);

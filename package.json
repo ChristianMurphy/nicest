@@ -9,7 +9,7 @@
   "scripts": {
     "postinstall": "jsdoc --recurse modules --destination docs",
     "documentation": "jsdoc --recurse modules --destination docs",
-    "lint": "eslint . --inline-config=false && pug-lint modules"
+    "lint": "eslint . --inline-config=false && pug-lint modules && remark *.md"
   },
   "repository": {
     "type": "git",
@@ -53,7 +53,11 @@
   },
   "devDependencies": {
     "eslint": "^2.0.0-alpha-2",
-    "pug-lint": "^2.1.1"
+    "pug-lint": "^2.1.1",
+    "remark": "^3.1.0",
+    "remark-lint": "^2.0.2",
+    "remark-slug": "^3.0.1",
+    "remark-validate-links": "^2.0.2"
   },
   "engines": {
     "node": ">=4.0.0",
