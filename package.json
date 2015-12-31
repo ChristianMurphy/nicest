@@ -9,7 +9,7 @@
   "scripts": {
     "postinstall": "jsdoc --recurse modules --destination docs",
     "documentation": "jsdoc --recurse modules --destination docs",
-    "lint": "eslint . --inline-config=false"
+    "lint": "eslint . --inline-config=false && pug-lint modules"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,6 @@
     "boom": "^3.1.1",
     "chalk": "^1.1.1",
     "cliui": "^3.1.0",
-    "eslint": "^2.0.0-alpha-2",
     "good": "^6.4.0",
     "good-file": "^5.1.1",
     "hapi": "^11.1.4",
@@ -51,6 +50,10 @@
     "scooter": "^2.0.1",
     "vision": "^4.0.1",
     "yar": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^2.0.0-alpha-2",
+    "pug-lint": "^2.1.1"
   },
   "engines": {
     "node": ">=4.0.0",

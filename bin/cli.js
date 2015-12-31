@@ -9,8 +9,6 @@ const nicestUser = require('../tasks/user');
 const nicestStart = require('../tasks/start');
 const nicestStop = require('../tasks/stop');
 const nicestDev = require('../tasks/dev');
-const nicestDoc = require('../tasks/doc');
-const nicestLint = require('../tasks/lint');
 
 const commandLocation = 2;
 const command = process.argv[commandLocation];
@@ -20,9 +18,7 @@ const tasks = [
     nicestUser,
     nicestStart,
     nicestStop,
-    nicestDev,
-    nicestDoc,
-    nicestLint
+    nicestDev
 ];
 
 const selectedTask = tasks.find((element) => {
