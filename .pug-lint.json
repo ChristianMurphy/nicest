@@ -32,7 +32,7 @@
     ],
     "disallowStringConcatenation": true,
     "disallowStringInterpolation": true,
-    "disallowTagInterpolation": true,
+    "disallowTagInterpolation": null,
     "maximumNumberOfLines": 150,
     "requireClassLiteralsBeforeAttributes": true,
     "requireClassLiteralsBeforeIdLiterals": null,
