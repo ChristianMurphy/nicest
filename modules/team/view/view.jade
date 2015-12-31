@@ -4,10 +4,10 @@ block title
     title Edit Team
     
 block script
-    script(src='//code.jquery.com/jquery-2.1.4.min.js', defer)
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js', defer)
-    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js', defer)
-    script(src= prefix + '/recipe/manage-teams/static/dropdown.js', defer)
+    script(src='//code.jquery.com/jquery-2.1.4.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js')
+    script(src= prefix + '/recipe/manage-teams/static/dropdown.js')
 
 block body
     .ui.container
@@ -25,12 +25,11 @@ block body
                     select.ui.search.dropdown(name='members', multiple, required)
                         each user in users
                             if team.members.indexOf(user._id) > -1
-                                option(value=user._id, selected)= user.name
+                                option(value=user._id.toString(), selected)= user.name
                             else
-                                option(value=user._id)= user.name
+                                option(value=user._id.toString())= user.name
                 .field
                     label modules
                     textarea(name='modules', placeholder='{}')= JSON.stringify(team.modules, null, 4)
                 input.ui.large.primary.submit.button(type='submit', value='submit')
                 a.ui.large.red.submit.button(href = prefix + '/recipe/manage-teams/list') cancel
-    script 

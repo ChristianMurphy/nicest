@@ -45,10 +45,11 @@ module.exports = {
             const teams = data[teamIndex];
             const users = data[userIndex];
 
+
             reply.view('modules/course/view/view', {
                 url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
                 saved: request.query.saved,
-                team: {
+                course: {
                     name: course.name,
                     students: course.students || [],
                     instructors: course.instructors || [],

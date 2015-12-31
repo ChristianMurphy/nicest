@@ -13,7 +13,7 @@ block body
     .ui.container
         .ui.five.top.attached.steps
             .active.step
-                i.users.icon
+                i.columns.icon
                 .content
                     .title Students
                     .description Choose Students to Participate
@@ -54,7 +54,7 @@ block body
                     label Students
                     select.ui.search.dropdown(name='students', multiple, required)
                         each student in students
-                            option(value=student._id)= student.name
+                            option(value=student._id.toString())= student.name
                 input.ui.large.teal.submit.button(type='submit', value='next')
                     
         if students.length < 1

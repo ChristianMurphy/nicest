@@ -23,7 +23,7 @@ block body
                     .title Repository
                     .description Choose a Seed Repository
             .completed.step
-                i.users.icon
+                i.columns.icon
                 .content
                     .title Issues
                     .description Choose Issue Tracker
@@ -44,7 +44,7 @@ block body
                     | Repository
                 a(href=repoUrl, target='_blank')= repoName
                 h4.ui.horizontal.divider.header
-                    i.users.icon
+                    i.columns.icon
                     | Students
                 if studentType === 'user'
                     .ui.list
@@ -62,7 +62,7 @@ block body
                         each team in students
                             .title
                                 i.dropdown.icon
-                                i.users.icon
+                                i.columns.icon
                                 = team.name
                                 if team.hasInvalidMember
                                     i.red.warning.sign.icon

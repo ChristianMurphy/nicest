@@ -13,7 +13,7 @@ block body
     .ui.container
         .ui.five.top.attached.steps
             .completed.step
-                i.users.icon
+                i.columns.icon
                 .content
                     .title Students
                     .description Choose Students to Participate
@@ -41,30 +41,30 @@ block body
             .ui.attached.stacked.segment
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='useTaiga', class='hidden', checked)
+                        input.hidden(type='checkbox', name='useTaiga', checked)
                         label Use Taiga as an Issue Tracker
                 .field
                     label Issue Tracker Description
-                    input(type='text', name='description', placeholder='some snazzy description' required)
+                    input(type='text', name='description', placeholder='some snazzy description', required)
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='isPrivate', class='hidden')
+                        input.hidden(type='checkbox', name='isPrivate')
                         label Make Issue Tracker Private
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='hasIssues', class='hidden', checked)
+                        input.hidden(type='checkbox', name='hasIssues', checked)
                         label Enable Issues
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='hasBacklog', class='hidden', checked)
+                        input.hidden(type='checkbox', name='hasBacklog', checked)
                         label Enable Scrum Backlog
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='hasKanban', class='hidden')
+                        input.hidden(type='checkbox', name='hasKanban')
                         label Enable Kanban Board
                 .field
                     .ui.toggle.checkbox
-                        input(type='checkbox', name='hasWiki', class='hidden')
+                        input.hidden(type='checkbox', name='hasWiki')
                         label Enable Wiki
                         
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-repository') previous
