@@ -1,16 +1,16 @@
 'use strict';
 
 const database = require('../../lib/database');
-const server = require('../../lib/server');
+const nicest = require('../../lib/server');
 const configuration = require('../../nicest.json');
 
 
-server.setup(configuration);
+nicest.setup(configuration);
 
 database(configuration);
 
-server.server.start(() => {
-    console.log('Server running at:', server.server.info.uri);
+nicest.server.start(() => {
+    console.log('Server running at:', nicest.server.info.uri + nicest.server.realm.modifiers.route.prefix);
 });
 
-module.exports = server.server;
+module.exports = nicest.server;

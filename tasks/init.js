@@ -1,16 +1,15 @@
 'use strict';
 
-const path = require('path');
-const chalk = require('chalk');
-
-const read = require('./helpers/read-promise');
-const writeFile = require('./helpers/write-file-promise');
-
 /**
  * Writes a server configuration file.
  * @returns {Null} nothing
  */
 function init () {
+    const path = require('path');
+    const chalk = require('chalk');
+    const read = require('./helpers/read-promise');
+    const writeFile = require('./helpers/write-file-promise');
+
     const config = {};
 
     console.log(chalk.bold('\nNicest Setup Wizard\n'));

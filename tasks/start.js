@@ -1,14 +1,14 @@
 'use strict';
 
-const processManager = require('pm2');
-const path = require('path');
-
 /**
  * Starts the server as a system service.
  * This allows for running on a production server.
  * @returns {Null} nothing
  */
 function start () {
+    const processManager = require('pm2');
+    const path = require('path');
+
     processManager.connect(() => {
         processManager.start(
             {
