@@ -13,7 +13,7 @@ block body
     .ui.container
         .ui.five.top.attached.steps
             .completed.step
-                i.columns.icon
+                i.users.icon
                 .content
                     .title Students
                     .description Choose Students to Participate
@@ -44,7 +44,7 @@ block body
                     | Repository
                 a(href=repoUrl, target='_blank')= repoName
                 h4.ui.horizontal.divider.header
-                    i.columns.icon
+                    i.users.icon
                     | Students
                 if studentType === 'user'
                     .ui.list
@@ -62,7 +62,7 @@ block body
                         each team in students
                             .title
                                 i.dropdown.icon
-                                i.columns.icon
+                                i.users.icon
                                 = team.name
                                 if team.hasInvalidMember
                                     i.red.warning.sign.icon
