@@ -69,7 +69,7 @@ Plugins use [lout](https://github.com/hapijs/lout) and [JSdoc](https://github.co
 
  **Apis** should leverage models for any complex behavior, should validate route parameters using [Joi](https://github.com/hapijs/joi), each route should include [lout](http://hapijs.com/tutorials/routing#config) documentation, and each api should use http verbs appropriately.
 
- **Views** and **Recipes** should use [Jade](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended.
+ **Views** and **Recipes** should use [Pug](http://jade-lang.com/reference/) for templating, should hide their routes from [lout](https://github.com/hapijs/lout#ignoring-a-route-in-documentation) and should use [Semantic UI](http://semantic-ui.com/) for base styling. Base templates are defined in the `shared-templates` folder that can be extended.
 
  **Recipes** should define an entry point using the HTTP `GET` verb and the `/recipe/{name}` replacing {name} with the actual name of the recipe. Recipes should have all lowercase names, and separate multiple words with a dash. E.G. `/recipe/user-management`. The entry point should add a `config` attribute with a `description` sub-attribute that should give a short description of the plug-in, this will be shown on the recipe listing. E.G. `config: {description: 'User Management'}`.
 
