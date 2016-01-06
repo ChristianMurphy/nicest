@@ -15,7 +15,7 @@ module.exports = {
     redirect (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        if (typeof request.session.get('github-username') === 'string' && typeof request.session.get('github-password') === 'string') {
+        if (typeof request.yar.get('github-username') === 'string' && typeof request.yar.get('github-password') === 'string') {
             reply().redirect(`${prefix}/recipe/code-project/choose-students`);
         } else {
             reply().redirect(`${prefix}/recipe/github/login?next=${prefix}/recipe/code-project/choose-students`);
@@ -23,7 +23,7 @@ module.exports = {
     },
     chooseStudents (request, reply) {
         if (request.query.type === 'team') {
-            request.session.set({
+            request.yar.set({
                 'code-project-student-type': 'team'
             });
             Team
@@ -37,7 +37,7 @@ module.exports = {
                     });
                 });
         } else {
-            request.session.set({
+            request.yar.set({
                 'code-project-student-type': 'indvidual'
             });
             User
@@ -55,7 +55,7 @@ module.exports = {
     selectStudents (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        request.session.set({
+        request.yar.set({
             'code-project-students': request.payload.students
         });
 
@@ -63,8 +63,8 @@ module.exports = {
     },
     chooseRepository (request, reply) {
         const Github = new Octokat({
-            username: request.session.get('github-username'),
-            password: request.session.get('github-password')
+            username: request.yar.get('github-username'),
+            password: request.yar.get('github-password')
         });
 
         Github.me.repos.fetch().then((repos) => {
@@ -74,7 +74,7 @@ module.exports = {
     selectRepository (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        request.session.set({
+        request.yar.set({
             'github-project-repo': request.payload.repo,
             'github-project-is-private': request.payload.isPrivate,
             'github-project-has-wiki': request.payload.hasWiki,
@@ -89,7 +89,7 @@ module.exports = {
     selectIssueTracker (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        request.session.set({
+        request.yar.set({
             'taiga-project-use-taiga': request.payload.useTaiga,
             'taiga-project-description': request.payload.description,
             'taiga-project-is-private': request.payload.isPrivate,
@@ -111,7 +111,7 @@ module.exports = {
     loginAction (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        request.session.set({
+        request.yar.set({
             'taiga-username': request.payload.username,
             'taiga-password': request.payload.password
         });
@@ -124,16 +124,16 @@ module.exports = {
     selectAssessmentSystem (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        request.session.set({
+        request.yar.set({
             'assessment-use-ca-dashboard': request.payload.useCADashboard
         });
 
         reply().redirect(`${prefix}/recipe/code-project/confirm`);
     },
     confirmView (request, reply) {
-        const studentType = request.session.get('code-project-student-type');
-        const repo = request.session.get('github-project-repo');
-        const objectIds = request.session.get('code-project-students');
+        const studentType = request.yar.get('code-project-student-type');
+        const repo = request.yar.get('github-project-repo');
+        const objectIds = request.yar.get('code-project-students');
 
         if (studentType === 'team') {
             Team
@@ -185,16 +185,16 @@ module.exports = {
     confirm (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        const githubUsername = request.session.get('github-username');
-        const githubPassword = request.session.get('github-password');
-        const seedRepository = request.session.get('github-project-repo');
-        const students = request.session.get('code-project-students');
-        const isPrivate = request.session.get('github-project-is-private');
-        const hasWiki = request.session.get('github-project-has-wiki');
-        const hasIssueTracker = request.session.get('github-project-has-issue-tracker');
-        const studentType = request.session.get('code-project-student-type');
-        const useTaiga = request.session.get('taiga-project-use-taiga');
-        const useAssessment = request.session.get('assessment-use-ca-dashboard');
+        const githubUsername = request.yar.get('github-username');
+        const githubPassword = request.yar.get('github-password');
+        const seedRepository = request.yar.get('github-project-repo');
+        const students = request.yar.get('code-project-students');
+        const isPrivate = request.yar.get('github-project-is-private');
+        const hasWiki = request.yar.get('github-project-has-wiki');
+        const hasIssueTracker = request.yar.get('github-project-has-issue-tracker');
+        const studentType = request.yar.get('code-project-student-type');
+        const useTaiga = request.yar.get('taiga-project-use-taiga');
+        const useAssessment = request.yar.get('assessment-use-ca-dashboard');
         let githubRepositories;
 
         // Gather Github user information from Users/Teams
@@ -214,15 +214,15 @@ module.exports = {
             // create Taiga boards
             .then(() => {
                 if (useTaiga) {
-                    const taigaUsername = request.session.get('taiga-username');
-                    const taigaPassword = request.session.get('taiga-password');
+                    const taigaUsername = request.yar.get('taiga-username');
+                    const taigaPassword = request.yar.get('taiga-password');
                     const taigaOptions = {
-                        description: request.session.get('taiga-project-description'),
-                        isPrivate: request.session.get('taiga-project-is-private'),
-                        isBacklogActived: request.session.get('taiga-project-has-backlog'),
-                        isIssuesActived: request.session.get('taiga-project-has-issues'),
-                        isKanbanActivated: request.session.get('taiga-project-has-kanban'),
-                        isWikiActivated: request.session.get('taiga-project-has-wiki')
+                        description: request.yar.get('taiga-project-description'),
+                        isPrivate: request.yar.get('taiga-project-is-private'),
+                        isBacklogActived: request.yar.get('taiga-project-has-backlog'),
+                        isIssuesActived: request.yar.get('taiga-project-has-issues'),
+                        isKanbanActivated: request.yar.get('taiga-project-has-kanban'),
+                        isWikiActivated: request.yar.get('taiga-project-has-wiki')
                     };
 
                     createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);
