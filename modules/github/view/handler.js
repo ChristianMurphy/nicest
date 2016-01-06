@@ -14,7 +14,7 @@ module.exports = {
     loginAction (request, reply) {
         const prefix = request.route.realm.modifiers.route.prefix;
 
-        request.session.set({
+        request.yar.set({
             'github-username': request.payload.username,
             'github-password': request.payload.password
         });
@@ -27,8 +27,8 @@ module.exports = {
     },
     list (request, reply) {
         const Github = new Octokat({
-            username: request.session.get('github-username'),
-            password: request.session.get('github-password')
+            username: request.yar.get('github-username'),
+            password: request.yar.get('github-password')
         });
 
         Github.me.repos.fetch().then((repos) => {
