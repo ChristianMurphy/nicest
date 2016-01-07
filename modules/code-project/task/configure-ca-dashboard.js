@@ -1,8 +1,8 @@
-/**
- * @module ConfigureCaDashboard
- */
-
 'use strict';
+
+/**
+ * @module code-project/task
+ */
 
 const mongoose = require('mongoose');
 

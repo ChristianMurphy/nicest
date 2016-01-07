@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module GatherGithubUsers
+ * @module code-project/task
  */
 
 const User = require('../../user/model/user');

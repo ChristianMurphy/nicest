@@ -1,6 +1,12 @@
 'use strict';
 
-const handler = require('./handler');
+const handleRedirect = require('./handler/redirect');
+const handleList = require('./handler/list');
+const handleView = require('./handler/view');
+const handleSave = require('./handler/save');
+const handleRemove = require('./handler/remove');
+const handleViewEmpty = require('./handler/view-empty');
+const handleCreate = require('./handler/create');
 const Joi = require('joi');
 
 const courseValidation = {
@@ -32,7 +38,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-courses',
-        handler: handler.redirect,
+        handler: handleRedirect,
         config: {
             description: 'Course Management'
         }
@@ -40,12 +46,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-courses/list',
-        handler: handler.list
+        handler: handleList
     },
     {
         method: 'GET',
         path: '/recipe/manage-courses/edit/{id}',
-        handler: handler.view,
+        handler: handleView,
         config: {
             validate: {
                 params: {
@@ -57,7 +63,7 @@ module.exports = [
     {
         method: 'POST',
         path: '/recipe/manage-courses/edit/{id}',
-        handler: handler.save,
+        handler: handleSave,
         config: {
             validate: {
                 params: {
@@ -70,7 +76,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-courses/delete/{id}',
-        handler: handler.delete,
+        handler: handleRemove,
         config: {
             validate: {
                 params: {
@@ -82,12 +88,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-courses/create',
-        handler: handler.viewEmpty
+        handler: handleViewEmpty
     },
     {
         method: 'POST',
         path: '/recipe/manage-courses/create',
-        handler: handler.create,
+        handler: handleCreate,
         config: {
             validate: {
                 payload: courseValidation

@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module code-project/handler
+ */
+
 const httpInternalServerError = 500;
 
 /**

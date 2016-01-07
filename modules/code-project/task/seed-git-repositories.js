@@ -1,7 +1,8 @@
-/**
- * @module SeedGitRepository
- */
 'use strict';
+
+/**
+ * @module code-project/task
+ */
 
 const NodeGit = require('nodegit');
 const rimraf = require('rimraf');

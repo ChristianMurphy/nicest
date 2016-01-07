@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler
+ */
+
+/**
  * Lets instructor know that project has been generated
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply

@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module core/tasks
+ */
+
+/**
  * Writes a server configuration file.
  * @returns {Null} nothing
  */

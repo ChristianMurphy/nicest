@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module code-project
+ */
+
 const viewRoute = require('./route');
 
 /**

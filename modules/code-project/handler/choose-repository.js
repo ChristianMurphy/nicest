@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module code-project/handler
+ */
+
 const Octokat = require('octokat');
 
 /**

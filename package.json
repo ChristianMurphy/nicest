@@ -9,7 +9,7 @@
   "scripts": {
     "postinstall": "jsdoc --recurse modules --destination docs",
     "documentation": "jsdoc --recurse modules --destination docs",
-    "lint": "eslint . --inline-config=false && pug-lint modules && remark *.md"
+    "lint": "eslint . --inline-config=false && pug-lint modules && remark *.md modules/**/*.md"
   },
   "repository": {
     "type": "git",

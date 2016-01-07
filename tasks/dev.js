@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module core/tasks
+ */
+
+/**
  * Starts server in developer mode.
  * @returns {Null} nothing
  */

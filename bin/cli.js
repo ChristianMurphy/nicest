@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
+/**
+ * @module core/bin
+ */
+
 const chalk = require('chalk');
 const ui = require('cliui')();
 

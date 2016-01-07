@@ -1,7 +1,8 @@
-/**
- * @module CreateGithubRepositories
- */
 'use strict';
+
+/**
+ * @module code-project/task
+ */
 
 const Octokat = require('octokat');
 

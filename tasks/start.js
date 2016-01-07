@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module core/tasks
+ */
+
+/**
  * Starts the server as a system service.
  * This allows for running on a production server.
  * @returns {Null} nothing

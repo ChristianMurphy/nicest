@@ -1,6 +1,11 @@
 'use strict';
 
 /**
+ * @module core/tasks
+ */
+
+
+/**
  * Stops the server system service.
  * @returns {Null} nothing
  */

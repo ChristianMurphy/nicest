@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module core/tasks
+ */
+
+/**
  * Creates a new user.
  * @returns {Null} nothing
  */

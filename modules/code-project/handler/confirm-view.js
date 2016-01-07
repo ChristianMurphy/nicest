@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module code-project/handler
+ */
+
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 

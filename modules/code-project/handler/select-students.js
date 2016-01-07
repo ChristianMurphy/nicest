@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler
+ */
+
+/**
  * Stores the students or teams that were selected
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply
