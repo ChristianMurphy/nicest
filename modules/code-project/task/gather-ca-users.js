@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module code-project/task
+ * @module code-project/task/gather-ca-users
  */
 
 const User = require('../../user/model/user');

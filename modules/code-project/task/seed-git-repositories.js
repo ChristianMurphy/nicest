@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module code-project/task
+ * @module code-project/task/seed-git-repositories
  */
 
 const NodeGit = require('nodegit');

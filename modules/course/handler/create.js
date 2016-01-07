@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module course/handler
+ * @module course/handler/create
  */
 
 const Course = require('../model/course');

@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module code-project/handler
+ * @module code-project/handler/confirm-view
  */
 
 const User = require('../../user/model/user');

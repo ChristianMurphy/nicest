@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module code-project/handler
+ * @module code-project/handler/success-view
  */
 
 /**

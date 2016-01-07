@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module core/tasks
+ * @module core/tasks/user
  */
 
 /**

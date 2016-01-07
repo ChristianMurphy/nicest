@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module course/handler
+ * @module course/handler/view-empty
  */
 
 const Team = require('../../team/model/team');
