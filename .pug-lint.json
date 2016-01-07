@@ -10,7 +10,7 @@
     "disallowHtmlText": true,
     "disallowIdAttributeWithStaticValue": true,
     "disallowIdLiteralsBeforeAttributes": null,
-    "disallowIdLiterals": true,
+    "disallowIdLiterals": null,
     "disallowMultipleLineBreaks": true,
     "disallowSpaceAfterCodeOperator": null,
     "disallowSpacesInsideAttributeBrackets": true,
