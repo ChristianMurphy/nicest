@@ -7,6 +7,7 @@ block script
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js')
+    script(src = prefix + '/recipe/code-project/static/select-course.js')
     script(src = prefix + '/recipe/code-project/static/dropdown.js')
 
 block body
@@ -40,9 +41,14 @@ block body
         form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-students', method='POST')
             .ui.attached.stacked.segment
                 .field
+                    label Course
+                    select#course.ui.dropdown(name='course')
+                        each course in courses
+                            option(value=course._id.toString())= course.name
+                .field
                     label Project Type
                     .ui.buttons
-                        if studentType === 'team'
+                        if listType === 'team'
                             a.ui.button(href = prefix + '/recipe/code-project/choose-students?type=individual') indvidual
                             .or
                             a.ui.button.primary(href = prefix + '/recipe/code-project/choose-students?type=team') team
@@ -51,18 +57,21 @@ block body
                             .or
                             a.ui.button(href = prefix + '/recipe/code-project/choose-students?type=team') team
                 .field
-                    label Students
+                    if listType === 'team'
+                        label Teams
+                    else
+                        label Students
                     select.ui.search.dropdown(name='students', multiple, required)
-                        each student in students
-                            option(value=student._id.toString())= student.name
+                        each item in list
+                            option(value=item._id.toString())= item.name
                 input.ui.large.teal.submit.button(type='submit', value='next')
                     
-        if students.length < 1
+        if list.length < 1
             .ui.large.warning.icon.message
                 i.idea.icon
                 .content
                     .header Hey There
-                    if studentType === 'team'
+                    if listType === 'team'
                         p 
                             | It looks like you don't have any teams. 
                             | Would you like to 

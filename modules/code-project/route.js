@@ -1,13 +1,28 @@
 'use strict';
 
-const handler = require('./handler');
 const Joi = require('joi');
+
+const handleRedirect = require('./handler/redirect');
+const handleChooseStudents = require('./handler/choose-students');
+const handleSelectStudents = require('./handler/select-students');
+const handleChooseRepository = require('./handler/choose-repository');
+const handleSelectRepository = require('./handler/select-repository');
+const handleChooseIssueTracker = require('./handler/choose-issue-tracker');
+const handleSelectIssueTracker = require('./handler/select-issue-tracker');
+const handleLoginView = require('./handler/login-view');
+const handleLoginAction = require('./handler/login-action');
+const handleChooseAssessmentSystem = require('./handler/choose-assessment-system');
+const handleSelectAssessmentSystem = require('./handler/select-assessment-system');
+const handleConfirmView = require('./handler/confirm-view');
+const handleConfirm = require('./handler/confirm');
+const handleSuccessView = require('./handler/success-view');
+const handleErrorView = require('./handler/error-view');
 
 module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project',
-        handler: handler.redirect,
+        handler: handleRedirect,
         config: {
             description: 'Create a computer code project'
         }
@@ -15,12 +30,20 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/choose-students',
-        handler: handler.chooseStudents
+        handler: handleChooseStudents,
+        config: {
+            validate: {
+                query: {
+                    type: Joi.string().valid(['individual', 'team']).default('individual'),
+                    course: Joi.string().hex().default(null)
+                }
+            }
+        }
     },
     {
         method: 'POST',
         path: '/recipe/code-project/choose-students',
-        handler: handler.selectStudents,
+        handler: handleSelectStudents,
         config: {
             validate: {
                 payload: {
@@ -32,12 +55,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/choose-repository',
-        handler: handler.chooseRepository
+        handler: handleChooseRepository
     },
     {
         method: 'POST',
         path: '/recipe/code-project/choose-repository',
-        handler: handler.selectRepository,
+        handler: handleSelectRepository,
         config: {
             validate: {
                 payload: {
@@ -52,12 +75,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/choose-issue-tracker',
-        handler: handler.chooseIssueTracker
+        handler: handleChooseIssueTracker
     },
     {
         method: 'POST',
         path: '/recipe/code-project/choose-issue-tracker',
-        handler: handler.selectIssueTracker,
+        handler: handleSelectIssueTracker,
         config: {
             validate: {
                 payload: {
@@ -75,12 +98,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/taiga-login',
-        handler: handler.loginView
+        handler: handleLoginView
     },
     {
         method: 'POST',
         path: '/recipe/code-project/taiga-login',
-        handler: handler.loginAction,
+        handler: handleLoginAction,
         config: {
             validate: {
                 payload: {
@@ -93,12 +116,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/choose-assessment-system',
-        handler: handler.chooseAssessmentSystem
+        handler: handleChooseAssessmentSystem
     },
     {
         method: 'POST',
         path: '/recipe/code-project/choose-assessment-system',
-        handler: handler.selectAssessmentSystem,
+        handler: handleSelectAssessmentSystem,
         config: {
             validate: {
                 payload: {
@@ -110,22 +133,22 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/confirm',
-        handler: handler.confirmView
+        handler: handleConfirmView
     },
     {
         method: 'POST',
         path: '/recipe/code-project/confirm',
-        handler: handler.confirm
+        handler: handleConfirm
     },
     {
         method: 'GET',
         path: '/recipe/code-project/success',
-        handler: handler.successView
+        handler: handleSuccessView
     },
     {
         method: 'GET',
         path: '/recipe/code-project/error',
-        handler: handler.errorView
+        handler: handleErrorView
     },
     {
         method: 'GET',
