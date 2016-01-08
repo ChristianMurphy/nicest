@@ -1,13 +1,15 @@
 'use strict';
 
 const path = require('path');
-const handler = require('./handler');
+const handleDownloadXML = require('./handler/download-xml');
+const handleImportXML = require('./handler/import-xml');
+const handleRedirect = require('./handler/redirect');
 
 module.exports = [
     {
         method: 'GET',
         path: '/recipe/import-export',
-        handler: handler.redirect,
+        handler: handleRedirect,
         config: {
             description: 'Import and Export Teams and Users'
         }
@@ -15,12 +17,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/import-export/import-xml',
-        handler: handler.importXML
+        handler: handleImportXML
     },
     {
         method: 'POST',
         path: '/recipe/import-export/import-xml',
-        handler: handler.downloadXML,
+        handler: handleDownloadXML,
         config: {
             payload: {
                 output: 'file',
