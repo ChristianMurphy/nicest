@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module welcome
+ */
+
 const viewRoute = require('./route');
 
 /**

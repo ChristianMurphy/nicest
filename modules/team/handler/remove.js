@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module team/handler/save
+ * @module team/handler/remove
  */
 
 const Team = require('../model/team');

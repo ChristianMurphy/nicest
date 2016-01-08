@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module core/tasks/helper/read-promise
+ */
+
 const read = require('read');
 
 /**

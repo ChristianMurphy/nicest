@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module recipe/api
+ */
+
 const Recipe = require('../model/recipe');
 
 /**

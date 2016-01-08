@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module user/handler/save
+ * @module user/handler/remove
  */
 
 const User = require('../model/user');

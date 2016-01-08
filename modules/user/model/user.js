@@ -1,7 +1,8 @@
-/**
- * @module User
- */
 'use strict';
+
+/**
+ * @module user/model
+ */
 
 const mongoose = require('mongoose');
 

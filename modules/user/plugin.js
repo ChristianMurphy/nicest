@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module user
+ */
+
 const apiRoute = require('./api/route');
 const viewRoute = require('./route');
 
