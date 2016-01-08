@@ -1,12 +1,12 @@
 'use strict';
 
-const handler = require('./handler');
+const handleList = require('./handler/list');
 
 module.exports = [
     {
         method: 'GET',
         path: '/recipes',
-        handler: handler.list,
+        handler: handleList,
         config: {
             plugins: {
                 lout: false

@@ -1,8 +1,12 @@
 'use strict';
 
+/**
+ * @module recipe
+ */
+
 const recipes = require('./model/recipe');
 const apiRoute = require('./api/route');
-const viewRoute = require('./view/route');
+const viewRoute = require('./route');
 
 /**
  * Registers the Recipe plugin
