@@ -1,7 +1,7 @@
 'use strict';
 
 const apiRoute = require('./api/route');
-const viewRoute = require('./view/route');
+const viewRoute = require('./route');
 
 /**
  * Registers the User plugin

@@ -1,6 +1,12 @@
 'use strict';
 
-const handler = require('./handler');
+const handleCreate = require('./handler/create');
+const handleList = require('./handler/list');
+const handleRedirect = require('./handler/redirect');
+const handleRemove = require('./handler/remove');
+const handleSave = require('./handler/save');
+const handleViewEmpty = require('./handler/view-empty');
+const handleView = require('./handler/view');
 const Joi = require('joi');
 
 const userValidation = {
@@ -21,7 +27,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-users',
-        handler: handler.redirect,
+        handler: handleRedirect,
         config: {
             description: 'User Management'
         }
@@ -29,12 +35,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-users/list',
-        handler: handler.list
+        handler: handleList
     },
     {
         method: 'GET',
         path: '/recipe/manage-users/edit/{id}',
-        handler: handler.view,
+        handler: handleView,
         config: {
             validate: {
                 params: {
@@ -46,7 +52,7 @@ module.exports = [
     {
         method: 'POST',
         path: '/recipe/manage-users/edit/{id}',
-        handler: handler.save,
+        handler: handleSave,
         config: {
             validate: {
                 params: {
@@ -59,7 +65,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-users/delete/{id}',
-        handler: handler.delete,
+        handler: handleRemove,
         config: {
             validate: {
                 params: {
@@ -71,12 +77,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-users/create',
-        handler: handler.viewEmpty
+        handler: handleViewEmpty
     },
     {
         method: 'POST',
         path: '/recipe/manage-users/create',
-        handler: handler.create,
+        handler: handleCreate,
         config: {
             validate: {
                 payload: userValidation
