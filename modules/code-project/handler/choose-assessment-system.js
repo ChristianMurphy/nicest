@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler/choose-assessment-system
+ */
+
+/**
  * Allows enabling the CA Assess System
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply

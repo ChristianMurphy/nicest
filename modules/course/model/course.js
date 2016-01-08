@@ -1,5 +1,5 @@
 /**
- * @module Course
+ * @module course/model
  */
 'use strict';
 

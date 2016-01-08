@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module code-project/handler/choose-students
+ */
+
 const Course = require('../../course/model/course');
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');

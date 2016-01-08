@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler/redirect
+ */
+
+/**
  * Redirects from the recipe route to the first step in the recipe
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply

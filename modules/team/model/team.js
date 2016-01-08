@@ -1,7 +1,8 @@
-/**
- * @module Team
- */
 'use strict';
+
+/**
+ * @module team/model
+ */
 
 const mongoose = require('mongoose');
 

@@ -1,6 +1,10 @@
 'use strict';
 
-const viewRoute = require('./view/route');
+/**
+ * @module documentation
+ */
+
+const viewRoute = require('./route');
 
 /**
  * Registers the Documentation plugin

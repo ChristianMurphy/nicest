@@ -1,6 +1,10 @@
 'use strict';
 
-const viewRoute = require('./view/route');
+/**
+ * @module import-export
+ */
+
+const viewRoute = require('./route');
 
 /**
  * Registers the Import Export plugin

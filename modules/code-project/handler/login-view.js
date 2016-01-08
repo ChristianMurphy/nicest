@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler/login-view
+ */
+
+/**
  * Allow user to login to Taiga
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply

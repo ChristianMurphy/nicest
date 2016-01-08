@@ -1,6 +1,10 @@
 'use strict';
 
-const viewRoute = require('./view/route');
+/**
+ * @module github
+ */
+
+const viewRoute = require('./route');
 
 /**
  * Registers the Github plugin

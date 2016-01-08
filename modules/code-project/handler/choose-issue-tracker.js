@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler/choose-issue-tracker
+ */
+
+/**
  * Allows instructor to configure Taiga issue tracker
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply

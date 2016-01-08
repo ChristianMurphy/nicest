@@ -1,6 +1,10 @@
 'use strict';
 
-const viewRoute = require('./view/route');
+/**
+ * @module welcome
+ */
+
+const viewRoute = require('./route');
 
 /**
  * Registers the User plugin

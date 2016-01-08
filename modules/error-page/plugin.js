@@ -1,6 +1,10 @@
 'use strict';
 
-const viewRoute = require('./view/route');
+/**
+ * @module error-page
+ */
+
+const viewRoute = require('./route');
 
 /**
  * Registers the Error Page plugin

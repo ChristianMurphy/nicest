@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler/select-issue-tracker
+ */
+
+/**
  * Stores the issue tracker information
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply

@@ -1,7 +1,9 @@
 'use strict';
+
 /**
- * @module CreateTaigaBoards
+ * @module code-project/task/create-taiga-boards
  */
+
 const request = require('request');
 
 /**

@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module code-project/handler/confirm
+ */
+
 const gatherGithubUsers = require('../task/gather-github-users');
 const createGithubRepositories = require('../task/create-github-repositories');
 const createTaigaBoards = require('../task/create-taiga-boards');

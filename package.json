@@ -7,9 +7,8 @@
     "nicest": "bin/cli.js"
   },
   "scripts": {
-    "postinstall": "jsdoc --recurse modules --destination docs",
-    "documentation": "jsdoc --recurse modules --destination docs",
-    "lint": "eslint . --inline-config=false && pug-lint modules && remark *.md"
+    "postinstall": "jsdoc --recurse lib modules tasks --readme README.md --destination docs",
+    "lint": "eslint . --inline-config=false && pug-lint modules && remark *.md modules/**/*.md"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @module code-project/handler/login-action
+ */
+
+/**
  * Stores Taiga Login information
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply

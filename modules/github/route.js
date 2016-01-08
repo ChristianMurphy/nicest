@@ -1,13 +1,16 @@
 'use strict';
 
-const handler = require('./handler');
+const handleList = require('./handler/list');
+const handleLoginAction = require('./handler/login-action');
+const handleLoginView = require('./handler/login-view');
+const handleRedirect = require('./handler/redirect');
 const Joi = require('joi');
 
 module.exports = [
     {
         method: 'GET',
         path: '/recipe/github',
-        handler: handler.redirect,
+        handler: handleRedirect,
         config: {
             description: 'Manage Github Users, Teams and Repos'
         }
@@ -15,12 +18,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/github/login',
-        handler: handler.loginView
+        handler: handleLoginView
     },
     {
         method: 'POST',
         path: '/recipe/github/login',
-        handler: handler.loginAction,
+        handler: handleLoginAction,
         config: {
             validate: {
                 payload: {
@@ -34,6 +37,6 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/github/list',
-        handler: handler.list
+        handler: handleList
     }
 ];

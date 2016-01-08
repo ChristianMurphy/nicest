@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module code-project/handler/choose-repository
+ */
+
 const Octokat = require('octokat');
 
 /**

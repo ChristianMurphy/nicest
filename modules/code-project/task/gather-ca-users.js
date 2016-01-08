@@ -1,7 +1,8 @@
-/**
- * @module GatherCaUsers
- */
 'use strict';
+
+/**
+ * @module code-project/task/gather-ca-users
+ */
 
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
