@@ -1,6 +1,12 @@
 'use strict';
 
-const handler = require('./handler');
+const handleCreate = require('./handler/create');
+const handleList = require('./handler/list');
+const handleRedirect = require('./handler/redirect');
+const handleRemove = require('./handler/remove');
+const handleSave = require('./handler/save');
+const handleViewEmpty = require('./handler/view-empty');
+const handleView = require('./handler/view');
 const Joi = require('joi');
 
 const teamValidation = {
@@ -22,7 +28,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-teams',
-        handler: handler.redirect,
+        handler: handleRedirect,
         config: {
             description: 'Team Management'
         }
@@ -30,12 +36,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-teams/list',
-        handler: handler.list
+        handler: handleList
     },
     {
         method: 'GET',
         path: '/recipe/manage-teams/edit/{id}',
-        handler: handler.view,
+        handler: handleView,
         config: {
             validate: {
                 params: {
@@ -47,7 +53,7 @@ module.exports = [
     {
         method: 'POST',
         path: '/recipe/manage-teams/edit/{id}',
-        handler: handler.save,
+        handler: handleSave,
         config: {
             validate: {
                 params: {
@@ -60,7 +66,7 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-teams/delete/{id}',
-        handler: handler.delete,
+        handler: handleRemove,
         config: {
             validate: {
                 params: {
@@ -72,12 +78,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/manage-teams/create',
-        handler: handler.viewEmpty
+        handler: handleViewEmpty
     },
     {
         method: 'POST',
         path: '/recipe/manage-teams/create',
-        handler: handler.create,
+        handler: handleCreate,
         config: {
             validate: {
                 payload: teamValidation
