@@ -16,6 +16,9 @@ const example = require('../task/example');
 function downloadXML (request, reply) {
     importData(request.payload.file.path).then((validation) => {
         reply.view('modules/import-export/view/import', {example, validation});
+    })
+    .catch((err) => {
+        console.error(err);
     });
 }
 

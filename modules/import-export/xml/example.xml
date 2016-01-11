@@ -15,10 +15,18 @@
         </user>
     </users>
     <teams>
-        <team>
+        <team id="3">
             <name>Team A</name>
             <member id="1"/>
             <member id="2"/>
         </team>
     </teams>
+    <courses>
+        <course>
+            <name>Example Course</name>
+            <instructor id="1" />
+            <student id="2" />
+            <group id="3" />
+        </course>
+    </courses>
 </nicest>

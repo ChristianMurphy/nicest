@@ -11,7 +11,7 @@ const path = require('path');
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 
-const schema = fs.readFileSync(path.join(__dirname, 'schema.xsd'));
+const schema = fs.readFileSync(path.join(__dirname, '..', 'xml', 'schema.xsd'));
 const parsedSchema = libxml.parseXmlString(schema);
 
 /**
