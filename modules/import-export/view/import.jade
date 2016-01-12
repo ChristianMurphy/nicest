@@ -22,7 +22,8 @@ block body
                     .ui.red.segment
                         p
                             if typeof key !== 'number'
-                                span= key + ': '
+                                span= key
+                                | : 
                             span= currentError
 
         .ui.stacked.segment
