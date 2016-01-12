@@ -3,8 +3,8 @@
 const Team = require('../../team/model/team');
 
 /**
- * Takes in an XML document and User ObjectId mappings
- * @param {Object} documentAndMapping -
+ * Adds Teams to Mongoose
+ * @param {Object} documentAndMapping - XML document and User ObjectId mappings
  * @returns {Object} XML Document, User ObjectId mapping, and Team ObjectId mapping
  */
 function importTeams (documentAndMapping) {
@@ -29,7 +29,6 @@ function importTeams (documentAndMapping) {
             const memberMongoId = documentAndMapping
                 .mapping
                 .find((element) => {
-                    console.log(element);
                     return element.xmlId === memberXmlId;
                 })
                 .databaseId;

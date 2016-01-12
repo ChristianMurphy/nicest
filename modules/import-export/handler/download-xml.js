@@ -7,6 +7,7 @@
 const validate = require('../task/validate');
 const importUsers = require('../task/import-users');
 const importTeams = require('../task/import-teams');
+const importCourses = require('../task/import-courses');
 const example = require('../task/example');
 
 /**
@@ -19,6 +20,7 @@ function downloadXML (request, reply) {
     validate(request.payload.file.path)
     .then(importUsers)
     .then(importTeams)
+    .then(importCourses)
     .then(() => {
         reply.view('modules/import-export/view/import', {example, validation: {
             valid: true,

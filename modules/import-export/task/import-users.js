@@ -3,7 +3,7 @@
 const User = require('../../user/model/user');
 
 /**
- * Take document and add Users to Mongoose
+ * Adds Users to Mongoose
  * @param {Object} documentAndMapping - XML document and Array of ObjectId mappings
  * @returns {Object} XML document and User ObjectId mappings
  */
