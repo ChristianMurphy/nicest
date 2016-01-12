@@ -33,12 +33,9 @@ function view (request, reply) {
             .exec()
     ])
     .then((data) => {
-        const courseIndex = 0;
-        const teamIndex = 1;
-        const userIndex = 2;
-        const course = data[courseIndex];
-        const teams = data[teamIndex];
-        const users = data[userIndex];
+        const course = data[0];
+        const teams = data[1];
+        const users = data[2];
 
 
         reply.view('modules/course/view/view', {

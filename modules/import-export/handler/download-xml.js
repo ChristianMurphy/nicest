@@ -4,7 +4,10 @@
  * @module import-export/handler/download-xml
  */
 
-const importData = require('../task/import');
+const validate = require('../task/validate');
+const importUsers = require('../task/import-users');
+const importTeams = require('../task/import-teams');
+const importCourses = require('../task/import-courses');
 const example = require('../task/example');
 
 /**
@@ -14,8 +17,22 @@ const example = require('../task/example');
  * @returns {Null} responds with HTML page
  */
 function downloadXML (request, reply) {
-    importData(request.payload.file.path).then((validation) => {
-        reply.view('modules/import-export/view/import', {example, validation});
+    validate(request.payload.file.path)
+    .then(importUsers)
+    .then(importTeams)
+    .then(importCourses)
+    .then(() => {
+        reply.view('modules/import-export/view/import', {example, validation: {
+            valid: true,
+            done: true
+        }});
+    })
+    .catch((err) => {
+        reply.view('modules/import-export/view/import', {example, validation: {
+            valid: false,
+            done: true,
+            errors: err
+        }});
     });
 }
 

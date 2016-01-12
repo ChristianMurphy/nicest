@@ -27,10 +27,8 @@ function viewEmpty (request, reply) {
             .exec()
     ])
     .then((data) => {
-        const userIndex = 0;
-        const teamIndex = 1;
-        const users = data[userIndex];
-        const teams = data[teamIndex];
+        const users = data[0];
+        const teams = data[1];
 
         reply.view('modules/course/view/view', {
             url: `${prefix}/recipe/manage-courses/create`,

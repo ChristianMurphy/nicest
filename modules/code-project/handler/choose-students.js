@@ -33,10 +33,8 @@ function chooseStudents (request, reply) {
                 .exec()
         ])
         .then((data) => {
-            const courseIndex = 0;
-            const teamIndex = 1;
-            const courses = data[courseIndex];
-            const teams = data[teamIndex].teams;
+            const courses = data[0];
+            const teams = data[1].teams;
 
             reply.view('modules/code-project/view/choose-students', {
                 courses,
@@ -59,10 +57,8 @@ function chooseStudents (request, reply) {
                 .exec()
         ])
         .then((data) => {
-            const courseIndex = 0;
-            const teamIndex = 1;
-            const courses = data[courseIndex];
-            const teams = data[teamIndex];
+            const courses = data[0];
+            const teams = data[1];
 
             reply.view('modules/code-project/view/choose-students', {
                 courses,
@@ -85,10 +81,8 @@ function chooseStudents (request, reply) {
                 .exec()
         ])
         .then((data) => {
-            const courseIndex = 0;
-            const userIndex = 1;
-            const courses = data[courseIndex];
-            const users = data[userIndex].students;
+            const courses = data[0];
+            const users = data[1].students;
 
             reply.view('modules/code-project/view/choose-students', {
                 courses,
@@ -111,10 +105,8 @@ function chooseStudents (request, reply) {
                 .exec()
         ])
         .then((data) => {
-            const courseIndex = 0;
-            const userIndex = 1;
-            const courses = data[courseIndex];
-            const users = data[userIndex];
+            const courses = data[0];
+            const users = data[1];
 
             reply.view('modules/code-project/view/choose-students', {
                 courses,

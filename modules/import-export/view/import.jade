@@ -18,9 +18,13 @@ block body
             .ui.stacked.segments
                 .ui.red.inverted.segment
                     h3 Errors
-                each currentError in validation.errors
+                each currentError, key in validation.errors
                     .ui.red.segment
-                        p= currentError
+                        p
+                            if typeof key !== 'number'
+                                span= key
+                                | : 
+                            span= currentError
 
         .ui.stacked.segment
             h3 example

@@ -28,10 +28,8 @@ function view (request, reply) {
             .exec()
     ])
     .then((data) => {
-        const teamDeconstructor = 0;
-        const userDeconstructor = 1;
-        const team = data[teamDeconstructor];
-        const users = data[userDeconstructor];
+        const team = data[0];
+        const users = data[1];
 
         reply.view('modules/team/view/view', {
             url: `${prefix}/recipe/manage-teams/edit/${team._id}`,
