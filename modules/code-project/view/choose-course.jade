@@ -51,17 +51,17 @@ block body
                         each course in courses
                             option(value=course._id.toString())= course.name
                 input.ui.large.teal.submit.button(type='submit', value='next')
-            if courses.length < 1
-                .ui.large.warning.icon.message
-                    i.idea.icon
-                    .content
-                        .header Hey There
-                        p 
-                            | It looks like you don't have any courses. 
-                            | Would you like to 
-                            strong
-                                a(href = prefix + '/recipe/manage-courses/list') create a course 
-                            | or 
-                            strong
-                                a(href = prefix + '/recipe/import-export/import-xml') import a course
-                            | ?
+        if courses.length < 1
+            .ui.large.warning.icon.message
+                i.idea.icon
+                .content
+                    .header Hey There
+                    p 
+                        | It looks like you don't have any courses. 
+                        | Would you like to 
+                        strong
+                            a(href = prefix + '/recipe/manage-courses/list') create a course 
+                        | or 
+                        strong
+                            a(href = prefix + '/recipe/import-export/import-xml') import a course
+                        | ?
