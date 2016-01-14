@@ -53,8 +53,7 @@ module.exports = [
         config: {
             validate: {
                 query: {
-                    type: Joi.string().valid(['individual', 'team']).default('individual'),
-                    course: Joi.string().hex().default(null)
+                    type: Joi.string().valid(['individual', 'team']).default('individual')
                 }
             }
         }
@@ -66,7 +65,6 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    course: Joi.string().hex(),
                     students: Joi.array().single().unique()
                 }
             }
