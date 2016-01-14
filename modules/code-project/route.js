@@ -3,6 +3,8 @@
 const Joi = require('joi');
 
 const handleRedirect = require('./handler/redirect');
+const handleChooseCourse = require('./handler/choose-course');
+const handleSelectCourse = require('./handler/select-course');
 const handleChooseStudents = require('./handler/choose-students');
 const handleSelectStudents = require('./handler/select-students');
 const handleChooseRepository = require('./handler/choose-repository');
@@ -29,13 +31,29 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/recipe/code-project/choose-course',
+        handler: handleChooseCourse
+    },
+    {
+        method: 'POST',
+        path: '/recipe/code-project/choose-course',
+        handler: handleSelectCourse,
+        config: {
+            validate: {
+                payload: {
+                    course: Joi.string().hex()
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
         path: '/recipe/code-project/choose-students',
         handler: handleChooseStudents,
         config: {
             validate: {
                 query: {
-                    type: Joi.string().valid(['individual', 'team']).default('individual'),
-                    course: Joi.string().hex().default(null)
+                    type: Joi.string().valid(['individual', 'team']).default('individual')
                 }
             }
         }
@@ -47,7 +65,6 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    course: Joi.string().hex(),
                     students: Joi.array().single().unique()
                 }
             }
