@@ -44,7 +44,6 @@ function importCourses (documentAndMapping) {
             const memberMongoId = documentAndMapping
                 .mapping
                 .find((element) => {
-                    console.log(element);
                     return element.xmlId === memberXmlId;
                 })
                 .databaseId;
