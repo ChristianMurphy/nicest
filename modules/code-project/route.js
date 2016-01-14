@@ -47,6 +47,7 @@ module.exports = [
         config: {
             validate: {
                 payload: {
+                    course: Joi.string().hex(),
                     students: Joi.array().single().unique()
                 }
             }
