@@ -7,12 +7,16 @@ block script
     script(src='//code.jquery.com/jquery-2.1.4.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/transition.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.7/components/dropdown.min.js')
-    script(src = prefix + '/recipe/code-project/static/select-course.js')
     script(src = prefix + '/recipe/code-project/static/dropdown.js')
 
 block body
     .ui.container
-        .ui.five.top.attached.steps
+        .ui.six.top.attached.steps
+            .completed.step
+                i.university.icon
+                .content
+                    .title Course
+                    .description Choose Course for Project
             .active.step
                 i.users.icon
                 .content
@@ -40,11 +44,6 @@ block body
                     .description Confirm Selections
         form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-students', method='POST')
             .ui.attached.stacked.segment
-                .field
-                    label Course
-                    select#course.ui.dropdown(name='course')
-                        each course in courses
-                            option(value=course._id.toString())= course.name
                 .field
                     label Project Type
                     .ui.buttons

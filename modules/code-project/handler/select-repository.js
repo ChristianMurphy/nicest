@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module code-project/handler/repository
+ * @module code-project/handler/select-repository
  */
 
 /**

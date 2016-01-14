@@ -3,6 +3,8 @@
 const Joi = require('joi');
 
 const handleRedirect = require('./handler/redirect');
+const handleChooseCourse = require('./handler/choose-course');
+const handleSelectCourse = require('./handler/select-course');
 const handleChooseStudents = require('./handler/choose-students');
 const handleSelectStudents = require('./handler/select-students');
 const handleChooseRepository = require('./handler/choose-repository');
@@ -25,6 +27,23 @@ module.exports = [
         handler: handleRedirect,
         config: {
             description: 'Create a computer code project'
+        }
+    },
+    {
+        method: 'GET',
+        path: '/recipe/code-project/choose-course',
+        handler: handleChooseCourse
+    },
+    {
+        method: 'POST',
+        path: '/recipe/code-project/choose-course',
+        handler: handleSelectCourse,
+        config: {
+            validate: {
+                payload: {
+                    course: Joi.string().hex()
+                }
+            }
         }
     },
     {
