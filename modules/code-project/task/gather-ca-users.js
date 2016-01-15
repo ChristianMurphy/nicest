@@ -6,6 +6,7 @@
 
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
+const Course = require('../../course/model/course');
 
 /**
  * CaMeta is meta data and collaborator information for a project.
@@ -30,23 +31,35 @@ const Team = require('../../team/model/team');
   * @param {String} githubUsername - username of logged in and hosting user
   * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
   * @param {Array} students - an {Array} of {String} with names, either usernames or team names
+  * @param {String} courseId - Course that project is being generated for
   * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
   */
-function gatherCaUsers (seedRepository, githubUsername, studentType, students) {
+function gatherCaUsers (seedRepository, githubUsername, studentType, students, courseId) {
     // create empty repos for each student on github
     const caDashboardProjects = [];
     const githubUrl = `${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}-`;
 
     if (studentType === 'team') {
-        return Team
-            .find({
-                _id: {
-                    $in: students
-                }
-            })
-            .populate('members')
-            .exec()
-            .then((teams) => {
+        return Promise.all([
+            Team
+                .find({
+                    _id: {
+                        $in: students
+                    }
+                })
+                .populate('members')
+                .exec(),
+            Course
+                .findOne({
+                    _id: courseId
+                })
+                .select('name')
+                .exec()
+        ])
+            .then((data) => {
+                const teams = data[0];
+                const course = data[1];
+
                 // for each team
                 for (const team of teams) {
                     const githubIndividualUrl = githubUrl + team.name.replace(/[!@#$%^&*? ]+/g, '-');
@@ -55,6 +68,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students) {
                     // add team information to Github meta data
                     const caInformation = {
                         name: team.name,
+                        course: course.name,
                         'github-url': githubIndividualUrl,
                         'taiga-slug': taigaSlug,
                         members: []
@@ -76,14 +90,25 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students) {
             });
     }
 
-    return User
-        .find({
-            _id: {
-                $in: students
-            }
-        })
-        .exec()
-        .then((users) => {
+    return Promise.all([
+        User
+            .find({
+                _id: {
+                    $in: students
+                }
+            })
+            .exec(),
+        Course
+            .findOne({
+                _id: courseId
+            })
+            .select('name')
+            .exec()
+    ])
+        .then((data) => {
+            const users = data[0];
+            const course = data[1];
+
             // for each student
             for (const user of users) {
                 const githubIndividualUrl = githubUrl + user.modules.github.username;
@@ -92,6 +117,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students) {
                 // create the Repository meta data
                 caDashboardProjects.push({
                     name: user.name,
+                    course: course.name,
                     'github-url': githubIndividualUrl,
                     'tiaga-slug': taigaSlug,
                     members: [{
