@@ -19,7 +19,7 @@ function chooseStudents (request, reply) {
         });
         Course
         .findOne({
-            _id: request.yar.get('course')
+            _id: request.yar.get('code-project-course')
         })
         .select('teams')
         .populate('teams')
@@ -33,7 +33,7 @@ function chooseStudents (request, reply) {
     } else {
         Course
         .findOne({
-            _id: request.yar.get('course')
+            _id: request.yar.get('code-project-course')
         })
         .select('students')
         .populate('students')

@@ -23,6 +23,7 @@ function confirm (request, reply) {
     const githubUsername = request.yar.get('github-username');
     const githubPassword = request.yar.get('github-password');
     const seedRepository = request.yar.get('github-project-repo');
+    const course = request.yar.get('code-project-course');
     const students = request.yar.get('code-project-students');
     const isPrivate = request.yar.get('github-project-is-private');
     const hasWiki = request.yar.get('github-project-has-wiki');
@@ -67,7 +68,7 @@ function confirm (request, reply) {
         // gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
-                return gatherCaUsers(seedRepository, githubUsername, studentType, students);
+                return gatherCaUsers(seedRepository, githubUsername, studentType, students, course);
             }
             return null;
         })
