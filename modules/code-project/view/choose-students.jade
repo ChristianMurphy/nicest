@@ -63,6 +63,7 @@ block body
                     select.ui.search.dropdown(name='students', multiple, required)
                         each item in list
                             option(value=item._id.toString())= item.name
+                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-course') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
                     
         if list.length < 1
