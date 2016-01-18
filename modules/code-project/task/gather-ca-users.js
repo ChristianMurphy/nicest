@@ -86,7 +86,10 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                     }
 
                     for (const instructor of course.instructors) {
-                        caInformation.instructors.push(instructor.name);
+                        caInformation.instructors.push({
+                            name: instructor.name,
+                            email: instructor.modules.taiga.email
+                        });
                     }
 
                     caDashboardProjects.push(caInformation);
@@ -135,7 +138,10 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 };
 
                 for (const instructor of course.instructors) {
-                    caInformation.instructors.push(instructor.name);
+                    caInformation.instructors.push({
+                        name: instructor.name,
+                        email: instructor.modules.taiga.email
+                    });
                 }
 
                 // create the Repository meta data
