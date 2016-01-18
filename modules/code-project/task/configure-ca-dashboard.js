@@ -25,13 +25,15 @@ const Member = new mongoose.Schema({
  * @property {String} name - name of the team
  * @property {String} github-url - Short hand link to the Github repos
  * @property {String} taiga-slug - Shorthand link to Taiga board
- * @property {Array} members - {Array} of {Member} with user meta data
+ * @property {Array<Object>} members - {Array} of {Member} with user meta data
+ * @property {Array<String>} members - {Array} of {String} with instructor ids
  */
 const Project = new mongoose.Schema({
     name: String,
     'github-url': String,
     'taiga-slug': String,
-    members: [Member]
+    members: [Member],
+    instructors: [String]
 });
 
 const connection = mongoose.createConnection('mongodb://localhost/NicestDashboard');
