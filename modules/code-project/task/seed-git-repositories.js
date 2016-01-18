@@ -8,6 +8,7 @@ const NodeGit = require('nodegit');
 const rimraf = require('rimraf');
 const path = require('path');
 
+NodeGit.enableThreadSafety();
 const temporaryFolder = path.join(__dirname, 'temp');
 const branchReference = 'refs/heads/master:refs/heads/master';
 
@@ -40,18 +41,17 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
         })
         // push the seed repository to all destination repositories
         .then((seedRepository) => {
-            const chain = Promise.resolve();
+            let chain = Promise.resolve();
 
             // for each destination
             for (let index = 0; index < destinationRepositoryURLs.length; index += 1) {
-                // create a remote for destination
-                NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
-                // open remote for destination
-                chain.then(
-                    NodeGit.Remote.lookup(seedRepository, index.toString())
-                );
+                // create and open a remote for destination
+                chain = chain
+                .then(() => {
+                    return NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
+                })
                 // push to the remote
-                chain.then((remote) => {
+                .then((remote) => {
                     // push to destination remote
                     return remote.push([branchReference], {
                         callbacks: {
