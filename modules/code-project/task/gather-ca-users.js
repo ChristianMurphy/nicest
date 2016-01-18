@@ -30,7 +30,7 @@ const Course = require('../../course/model/course');
   * @param {String} seedRepository - name of seed repository
   * @param {String} githubUsername - username of logged in and hosting user
   * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
-  * @param {Array} students - an {Array} of {String} with names, either usernames or team names
+  * @param {Array<ObjectId>} students - either user ids or team ids
   * @param {String} courseId - Course that project is being generated for
   * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
   */
@@ -53,7 +53,8 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 .findOne({
                     _id: courseId
                 })
-                .select('name')
+                .populate('instructors')
+                .select('name instructors')
                 .exec()
         ])
             .then((data) => {
@@ -71,6 +72,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         course: course.name,
                         'github-url': githubIndividualUrl,
                         'taiga-slug': taigaSlug,
+                        instructors: [],
                         members: []
                     };
 
@@ -81,6 +83,10 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                             'github-username': member.modules.github.username,
                             email: member.modules.taiga.email
                         });
+                    }
+
+                    for (const instructor of course.instructors) {
+                        caInformation.instructors.push(instructor.name);
                     }
 
                     caDashboardProjects.push(caInformation);
@@ -102,7 +108,8 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
             .findOne({
                 _id: courseId
             })
-            .select('name')
+            .populate('instructors')
+            .select('name instructors')
             .exec()
     ])
         .then((data) => {
@@ -114,8 +121,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 const githubIndividualUrl = githubUrl + user.modules.github.username;
                 const taigaSlug = githubIndividualUrl.replace(/\//, '-').toLowerCase();
 
-                // create the Repository meta data
-                caDashboardProjects.push({
+                const caInformation = {
                     name: user.name,
                     course: course.name,
                     'github-url': githubIndividualUrl,
@@ -124,8 +130,16 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         name: user.name,
                         'github-username': user.modules.github.username,
                         email: user.modules.taiga.email
-                    }]
-                });
+                    }],
+                    instructors: []
+                };
+
+                for (const instructor of course.instructors) {
+                    caInformation.instructors.push(instructor.name);
+                }
+
+                // create the Repository meta data
+                caDashboardProjects.push(caInformation);
             }
 
             return caDashboardProjects;

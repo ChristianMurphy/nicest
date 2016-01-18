@@ -20,7 +20,7 @@ const Team = require('../../team/model/team');
   * @param {String} seedRepository - name of seed repository
   * @param {String} githubUsername - username of logged in and hosting user
   * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
-  * @param {Array} students - an {Array} of {String} with names, either usernames or team names
+  * @param {Array<ObjectId>} students - an {Array} of {ObjectId} with names, either usernames or team names
   * @returns {Promise.<Array>} resolves to {Array} of {GithubRepository}
   */
 function gatherGithubUsers (seedRepository, githubUsername, studentType, students) {
