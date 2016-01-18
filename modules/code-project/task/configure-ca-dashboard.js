@@ -26,7 +26,7 @@ const Member = new mongoose.Schema({
  * @property {String} github-url - Short hand link to the Github repos
  * @property {String} taiga-slug - Shorthand link to Taiga board
  * @property {Array<Object>} members - {Array} of {Member} with user meta data
- * @property {Array<String>} members - {Array} of {String} with instructor ids
+ * @property {Array<String>} instructors - {Array} of {String} with instructor ids
  */
 const Project = new mongoose.Schema({
     name: String,
