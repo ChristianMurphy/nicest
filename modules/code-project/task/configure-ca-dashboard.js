@@ -7,7 +7,7 @@
 const mongoose = require('mongoose');
 
 /**
- * Member is metadata for a single user
+ * Member is metadata for a user
  * @typedef {Object} Member
  * @property {String} name - name of the user
  * @property {String} github-username - User's Github Username
@@ -16,6 +16,17 @@ const mongoose = require('mongoose');
 const Member = new mongoose.Schema({
     name: String,
     'github-username': String,
+    email: String
+});
+
+/**
+ * Member is metadata for an instructor
+ * @typedef {Object} Instructor
+ * @property {String} name - name of the user
+ * @property {String} email - Email address
+ */
+const Instructor = new mongoose.Schema({
+    name: String,
     email: String
 });
 
@@ -33,7 +44,7 @@ const Project = new mongoose.Schema({
     'github-url': String,
     'taiga-slug': String,
     members: [Member],
-    instructors: [String]
+    instructors: [Instructor]
 });
 
 const connection = mongoose.createConnection('mongodb://localhost/NicestDashboard');
