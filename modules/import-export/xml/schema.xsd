@@ -11,8 +11,8 @@
                                     <xs:all>
                                         <xs:element name="first-name" type="xs:string"/>
                                         <xs:element name="last-name" type="xs:string"/>
-                                        <xs:element name="github" type="xs:string"/>
-                                        <xs:element name="email" type="xs:string"/>
+                                        <xs:element name="github" type="github-username"/>
+                                        <xs:element name="email" type="email-address"/>
                                     </xs:all>
                                     <xs:attribute name="id" type="xs:integer" use="required"/>
                                 </xs:complexType>
@@ -90,4 +90,14 @@
             <xs:field xpath="@id"/>
         </xs:keyref>
     </xs:element>
+    <xs:simpleType name="github-username">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\w[\w-]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="email-address">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>
