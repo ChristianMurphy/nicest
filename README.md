@@ -12,7 +12,8 @@ nicely integrating complex education software together
 
 1. Install [Node JS](https://nodejs.org/)
 2. Install [Mongo Db](https://www.mongodb.org/)
-3. Run `npm install -g nicest`
+3. Install [Node Gyp](https://github.com/nodejs/node-gyp#installation) dependencies
+4. Run `npm install -g nicest`
 
 ## Setup
 
