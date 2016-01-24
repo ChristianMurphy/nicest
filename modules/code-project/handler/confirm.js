@@ -82,7 +82,6 @@ function confirm (request, reply) {
         })
 
         // add seed code to repositories
-        // FIXME this is last because it can sometimes trigger a core dump crash
         .then(() => {
             const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}`;
             const githubUrls = githubRepositories.map((element) => {
