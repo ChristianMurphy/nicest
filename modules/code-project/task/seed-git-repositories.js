@@ -21,8 +21,6 @@ const branchReference = 'refs/heads/master:refs/heads/master';
  * @returns {Promise} promise will resolve when all repos have been seeded
  */
 function seedGitRepository (username, password, seedRepositoryURL, destinationRepositoryURLs) {
-    const credentials = NodeGit.Cred.userpassPlaintextNew(username, password);
-
     // clear temporary folder
     return rmrf(temporaryFolder)
         // clone repository to temporary folder
@@ -30,7 +28,7 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
             return NodeGit.Clone.clone(seedRepositoryURL, temporaryFolder, {
                 callbacks: {
                     credentials () {
-                        return credentials;
+                        return NodeGit.Cred.userpassPlaintextNew(username, password);
                     }
                 }
             });
@@ -56,7 +54,7 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                     return remote.push([branchReference], {
                         callbacks: {
                             credentials () {
-                                return credentials;
+                                return NodeGit.Cred.userpassPlaintextNew(username, password);
                             }
                         }
                     });
