@@ -161,6 +161,7 @@ rules:
     id-match:
         - 2
         - ^[a-zA-Z]+$
+    id-blacklist: 0 # none
     indent:
         - 2
         - 4
@@ -206,6 +207,7 @@ rules:
     one-var:
         - 2
         - never
+    one-var-declaration-per-line: 0 # one-var
     operator-assignment: 2
     operator-linebreak: 2
     padded-blocks:
@@ -256,6 +258,7 @@ rules:
     prefer-arrow-callback: 2
     prefer-const: 2
     prefer-reflect: 2
+    prefer-rest-params: 2
     prefer-spread: 2
     prefer-template: 2
     require-yield: 2
