@@ -76,7 +76,7 @@ function init () {
 
         return read({
             prompt: 'cookie encryption token:',
-            default: 'secret'
+            default: 'AReallyReallyLongSuperSecretEncryptionToken'
         });
     })
     .then((authenticationSecret) => {
