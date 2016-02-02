@@ -43,18 +43,26 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                 for (const team of teams) {
                     // add team information to Github meta data
                     const githubInformation = {
-                        name: githubName + team.name.replace(/[!@#$%^&*? ]+/g, '-'),
-                        url: githubUrl + team.name.replace(/[!@#$%^&*? ]+/g, '-'),
+                        name: githubName + team
+                            .name
+                            .replace(/[!@#$%^&*? ]+/g, '-'),
+                        url: githubUrl + team
+                            .name
+                            .replace(/[!@#$%^&*? ]+/g, '-'),
                         collaborators: [],
                         emails: []
                     };
 
                     // for each team member
                     for (const member of team.members) {
-                        githubInformation.collaborators.push(
+                        githubInformation
+                        .collaborators
+                        .push(
                             member.modules.github.username
                         );
-                        githubInformation.emails.push(
+                        githubInformation
+                        .emails
+                        .push(
                             member.modules.taiga.email
                         );
                     }

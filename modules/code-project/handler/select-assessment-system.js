@@ -13,7 +13,9 @@
 function selectAssessmentSystem (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    request.yar.set({
+    request
+    .yar
+    .set({
         'assessment-use-ca-dashboard': request.payload.useCADashboard
     });
 

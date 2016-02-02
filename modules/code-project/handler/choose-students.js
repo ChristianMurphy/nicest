@@ -14,12 +14,16 @@ const Course = require('../../course/model/course');
  */
 function chooseStudents (request, reply) {
     if (request.query.type === 'team') {
-        request.yar.set({
+        request
+        .yar
+        .set({
             'code-project-student-type': 'team'
         });
         Course
         .findOne({
-            _id: request.yar.get('code-project-course')
+            _id: request
+                .yar
+                .get('code-project-course')
         })
         .select('teams')
         .populate('teams')
@@ -33,7 +37,9 @@ function chooseStudents (request, reply) {
     } else {
         Course
         .findOne({
-            _id: request.yar.get('code-project-course')
+            _id: request
+                .yar
+                .get('code-project-course')
         })
         .select('students')
         .populate('students')

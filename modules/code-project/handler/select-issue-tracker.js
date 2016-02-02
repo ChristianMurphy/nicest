@@ -13,7 +13,9 @@
 function selectIssueTracker (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    request.yar.set({
+    request
+    .yar
+    .set({
         'taiga-project-use-taiga': request.payload.useTaiga,
         'taiga-project-description': request.payload.description,
         'taiga-project-is-private': request.payload.isPrivate,

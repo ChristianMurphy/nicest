@@ -44,7 +44,10 @@ function createRepositories (githubUsername, githubPassword, repositories, optio
         // gather the promises
         promises.push(
             // create a repository
-            Github.me.repos.create({
+            Github
+            .me
+            .repos
+            .create({
                 name: repositories[index].name,
                 private: options.private,
                 has_issues: options.has_issues,

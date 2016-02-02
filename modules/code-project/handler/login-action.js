@@ -13,7 +13,9 @@
 function loginAction (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    request.yar.set({
+    request
+    .yar
+    .set({
         'taiga-username': request.payload.username,
         'taiga-password': request.payload.password
     });

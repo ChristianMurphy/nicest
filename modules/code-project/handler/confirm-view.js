@@ -14,9 +14,15 @@ const Team = require('../../team/model/team');
  * @returns {Null} responds with HTML page
  */
 function confirmView (request, reply) {
-    const studentType = request.yar.get('code-project-student-type');
-    const repo = request.yar.get('github-project-repo');
-    const objectIds = request.yar.get('code-project-students');
+    const studentType = request
+    .yar
+    .get('code-project-student-type');
+    const repo = request
+    .yar
+    .get('github-project-repo');
+    const objectIds = request
+    .yar
+    .get('code-project-students');
 
     if (studentType === 'team') {
         Team

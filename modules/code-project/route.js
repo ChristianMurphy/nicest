@@ -41,7 +41,9 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    course: Joi.string().hex()
+                    course: Joi
+                        .string()
+                        .hex()
                 }
             }
         }
@@ -53,7 +55,10 @@ module.exports = [
         config: {
             validate: {
                 query: {
-                    type: Joi.string().valid(['individual', 'team']).default('individual')
+                    type: Joi
+                        .string()
+                        .valid(['individual', 'team'])
+                        .default('individual')
                 }
             }
         }
@@ -65,7 +70,10 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    students: Joi.array().single().unique()
+                    students: Joi
+                        .array()
+                        .single()
+                        .unique()
                 }
             }
         }
@@ -82,10 +90,18 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    repo: Joi.string().regex(/[A-Za-z0-9\-]+/),
-                    isPrivate: Joi.boolean().default(false),
-                    hasIssueTracker: Joi.boolean().default(false),
-                    hasWiki: Joi.boolean().default(false)
+                    repo: Joi
+                        .string()
+                        .regex(/[A-Za-z0-9\-]+/),
+                    isPrivate: Joi
+                        .boolean()
+                        .default(false),
+                    hasIssueTracker: Joi
+                        .boolean()
+                        .default(false),
+                    hasWiki: Joi
+                        .boolean()
+                        .default(false)
                 }
             }
         }
@@ -102,13 +118,27 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    useTaiga: Joi.boolean().default(false),
-                    description: Joi.string().empty(''),
-                    isPrivate: Joi.boolean().default(false),
-                    hasIssues: Joi.boolean().default(false),
-                    hasBacklog: Joi.boolean().default(false),
-                    hasKanban: Joi.boolean().default(false),
-                    hasWiki: Joi.boolean().default(false)
+                    useTaiga: Joi
+                        .boolean()
+                        .default(false),
+                    description: Joi
+                        .string()
+                        .empty(''),
+                    isPrivate: Joi
+                        .boolean()
+                        .default(false),
+                    hasIssues: Joi
+                        .boolean()
+                        .default(false),
+                    hasBacklog: Joi
+                        .boolean()
+                        .default(false),
+                    hasKanban: Joi
+                        .boolean()
+                        .default(false),
+                    hasWiki: Joi
+                        .boolean()
+                        .default(false)
                 }
             }
         }
@@ -125,7 +155,9 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    username: Joi.string().alphanum(),
+                    username: Joi
+                        .string()
+                        .alphanum(),
                     password: Joi.string()
                 }
             }
@@ -143,7 +175,9 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    useCADashboard: Joi.boolean().default(false)
+                    useCADashboard: Joi
+                        .boolean()
+                        .default(false)
                 }
             }
         }

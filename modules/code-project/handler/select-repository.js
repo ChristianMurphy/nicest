@@ -13,7 +13,9 @@
 function selectRepository (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    request.yar.set({
+    request
+    .yar
+    .set({
         'github-project-repo': request.payload.repo,
         'github-project-is-private': request.payload.isPrivate,
         'github-project-has-wiki': request.payload.hasWiki,

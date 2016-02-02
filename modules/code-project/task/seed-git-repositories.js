@@ -25,17 +25,23 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
     return rmrf(temporaryFolder)
         // clone repository to temporary folder
         .then(() => {
-            return NodeGit.Clone.clone(seedRepositoryURL, temporaryFolder, {
+            return NodeGit
+            .Clone
+            .clone(seedRepositoryURL, temporaryFolder, {
                 callbacks: {
                     credentials () {
-                        return NodeGit.Cred.userpassPlaintextNew(username, password);
+                        return NodeGit
+                        .Cred
+                        .userpassPlaintextNew(username, password);
                     }
                 }
             });
         })
         // open the repository
         .then(() => {
-            return NodeGit.Repository.open(temporaryFolder);
+            return NodeGit
+            .Repository
+            .open(temporaryFolder);
         })
         // push the seed repository to all destination repositories
         .then((seedRepository) => {
@@ -46,7 +52,9 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                 // create and open a remote for destination
                 chain = chain
                 .then(() => {
-                    return NodeGit.Remote.create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
+                    return NodeGit
+                    .Remote
+                    .create(seedRepository, index.toString(), destinationRepositoryURLs[index]);
                 })
                 // push to the remote
                 .then((remote) => {
@@ -54,7 +62,9 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                     return remote.push([branchReference], {
                         callbacks: {
                             credentials () {
-                                return NodeGit.Cred.userpassPlaintextNew(username, password);
+                                return NodeGit
+                                .Cred
+                                .userpassPlaintextNew(username, password);
                             }
                         }
                     });

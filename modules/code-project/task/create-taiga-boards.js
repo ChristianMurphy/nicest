@@ -90,11 +90,11 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
         // for each person in each project
         for (let boardIndex = 0; boardIndex < taigaBoards.length; boardIndex += 1) {
             for (let userIndex = 0; userIndex < taigaBoards[boardIndex].emails.length; userIndex += 1) {
+                const taigaRoles = data[boardIndex].roles;
                 // setup the members permissions
                 const userMetadata = {
                     project: data[boardIndex].id,
-                    role: data[boardIndex]
-                        .roles
+                    role: taigaRoles
                         .find((element) => {
                             return element.name === 'Back';
                         })

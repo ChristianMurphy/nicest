@@ -13,7 +13,9 @@
 function selectCourse (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    request.yar.set({
+    request
+    .yar
+    .set({
         'code-project-course': request.payload.course
     });
 
