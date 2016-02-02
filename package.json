@@ -50,7 +50,7 @@
     "yar": "^6.0.0"
   },
   "devDependencies": {
-    "eslint": "^2.0.0-beta.3",
+    "eslint": "^2.0.0-rc.0",
     "pug-lint": "^2.1.3",
     "remark": "^3.2.2",
     "remark-lint": "^2.2.1",
