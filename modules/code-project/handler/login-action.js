@@ -14,11 +14,11 @@ function loginAction (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     request
-    .yar
-    .set({
-        'taiga-username': request.payload.username,
-        'taiga-password': request.payload.password
-    });
+        .yar
+        .set({
+            'taiga-username': request.payload.username,
+            'taiga-password': request.payload.password
+        });
 
     reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
 }

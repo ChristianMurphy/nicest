@@ -5,7 +5,6 @@
  */
 
 let server;
-const first = 0;
 
 /**
  * Route represents a view.
@@ -22,8 +21,11 @@ const first = 0;
  */
 function filterRecipes (route) {
     const search = new RegExp(`^${server.realm.modifiers.route.prefix}\/recipe\/[^/]+\/?$`);
+    const isRecipe = route
+        .path
+        .match(search);
 
-    return route.method === 'get' && route.path.match(search);
+    return route.method === 'get' && isRecipe;
 }
 
 /**
@@ -42,7 +44,10 @@ function setServer (serve) {
  * @returns {Array} {Array} of {Route}
  */
 function list () {
-    return server.table()[first].table.filter(filterRecipes);
+    return server
+        .table()[0]
+        .table
+        .filter(filterRecipes);
 }
 
 module.exports = {setServer, list};

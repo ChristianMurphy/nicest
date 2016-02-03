@@ -52,7 +52,9 @@ module.exports = [
             tags: ['read'],
             validate: {
                 params: {
-                    id: Joi.string().hex()
+                    id: Joi
+                        .string()
+                        .hex()
                 }
             }
         }
@@ -67,7 +69,9 @@ module.exports = [
             tags: ['update'],
             validate: {
                 params: {
-                    id: Joi.string().hex()
+                    id: Joi
+                        .string()
+                        .hex()
                 },
                 payload: teamValidation
             }
@@ -83,7 +87,9 @@ module.exports = [
             tags: ['delete'],
             validate: {
                 params: {
-                    id: Joi.string().hex()
+                    id: Joi
+                        .string()
+                        .hex()
                 }
             }
         }

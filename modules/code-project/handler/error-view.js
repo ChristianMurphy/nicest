@@ -14,8 +14,8 @@ const httpInternalServerError = 500;
  */
 function errorView (request, reply) {
     reply
-    .view('modules/code-project/view/error')
-    .code(httpInternalServerError);
+        .view('modules/code-project/view/error')
+        .code(httpInternalServerError);
 }
 
 module.exports = errorView;

@@ -14,13 +14,21 @@ const Octokat = require('octokat');
  */
 function list (request, reply) {
     const Github = new Octokat({
-        username: request.yar.get('github-username'),
-        password: request.yar.get('github-password')
+        username: request
+            .yar
+            .get('github-username'),
+        password: request
+            .yar
+            .get('github-password')
     });
 
-    Github.me.repos.fetch().then((repos) => {
-        reply.view('modules/github/view/list', {repos});
-    });
+    Github
+        .me
+        .repos
+        .fetch()
+        .then((repos) => {
+            reply.view('modules/github/view/list', {repos});
+        });
 }
 
 module.exports = list;

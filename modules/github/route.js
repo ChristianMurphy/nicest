@@ -27,7 +27,9 @@ module.exports = [
         config: {
             validate: {
                 payload: {
-                    username: Joi.string().alphanum(),
+                    username: Joi
+                        .string()
+                        .alphanum(),
                     password: Joi.string(),
                     redirect: Joi.string()
                 }

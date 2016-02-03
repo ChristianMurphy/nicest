@@ -17,7 +17,8 @@ const Course = require('../model/course');
 function view (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    Promise.all([
+    Promise
+    .all([
         Course
             .findOne({
                 _id: request.params.id

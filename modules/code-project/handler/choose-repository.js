@@ -23,12 +23,12 @@ function chooseRepository (request, reply) {
     });
 
     Github
-    .me
-    .repos
-    .fetch()
-    .then((repos) => {
-        reply.view('modules/code-project/view/choose-repository', {repos});
-    });
+        .me
+        .repos
+        .fetch()
+        .then((repos) => {
+            reply.view('modules/code-project/view/choose-repository', {repos});
+        });
 }
 
 module.exports = chooseRepository;

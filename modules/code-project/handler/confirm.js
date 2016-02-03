@@ -21,43 +21,42 @@ function confirm (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     const githubUsername = request
-    .yar
-    .get('github-username');
+        .yar
+        .get('github-username');
     const githubPassword = request
-    .yar
-    .get('github-password');
+        .yar
+        .get('github-password');
     const seedRepository = request
-    .yar
-    .get('github-project-repo');
+        .yar
+        .get('github-project-repo');
     const course = request
-    .yar
-    .get('code-project-course');
+        .yar
+        .get('code-project-course');
     const students = request
-    .yar
-    .get('code-project-students');
+        .yar
+        .get('code-project-students');
     const isPrivate = request
-    .yar
-    .get('github-project-is-private');
+        .yar
+        .get('github-project-is-private');
     const hasWiki = request
-    .yar
-    .get('github-project-has-wiki');
+        .yar
+        .get('github-project-has-wiki');
     const hasIssueTracker = request
-    .yar
-    .get('github-project-has-issue-tracker');
+        .yar
+        .get('github-project-has-issue-tracker');
     const studentType = request
-    .yar
-    .get('code-project-student-type');
+        .yar
+        .get('code-project-student-type');
     const useTaiga = request
-    .yar
-    .get('taiga-project-use-taiga');
+        .yar
+        .get('taiga-project-use-taiga');
     const useAssessment = request
-    .yar
-    .get('assessment-use-ca-dashboard');
+        .yar
+        .get('assessment-use-ca-dashboard');
     let githubRepositories;
 
     // Gather Github user information from Users/Teams
     gatherGithubUsers(seedRepository, githubUsername, studentType, students)
-
         // create repostories
         .then((temporaryGithubRepositories) => {
             githubRepositories = temporaryGithubRepositories;
@@ -73,11 +72,11 @@ function confirm (request, reply) {
         .then(() => {
             if (useTaiga) {
                 const taigaUsername = request
-                .yar
-                .get('taiga-username');
+                    .yar
+                    .get('taiga-username');
                 const taigaPassword = request
-                .yar
-                .get('taiga-password');
+                    .yar
+                    .get('taiga-password');
                 const taigaOptions = {
                     description: request
                         .yar

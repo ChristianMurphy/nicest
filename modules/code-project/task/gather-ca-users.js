@@ -65,11 +65,11 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
             // for each team
             for (const team of teams) {
                 const githubIndividualUrl = githubUrl + team
-                .name
-                .replace(/[!@#$%^&*? ]+/g, '-');
+                    .name
+                    .replace(/[!@#$%^&*? ]+/g, '-');
                 const taigaSlug = githubIndividualUrl
-                .replace(/\//, '-')
-                .toLowerCase();
+                    .replace(/\//, '-')
+                    .toLowerCase();
 
                 // add team information to Github meta data
                 const caInformation = {
@@ -84,21 +84,21 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 // for each team member
                 for (const member of team.members) {
                     caInformation
-                    .members
-                    .push({
-                        name: member.name,
-                        'github-username': member.modules.github.username,
-                        email: member.modules.taiga.email
-                    });
+                        .members
+                        .push({
+                            name: member.name,
+                            'github-username': member.modules.github.username,
+                            email: member.modules.taiga.email
+                        });
                 }
 
                 for (const instructor of course.instructors) {
                     caInformation
-                    .instructors
-                    .push({
-                        name: instructor.name,
-                        email: instructor.modules.taiga.email
-                    });
+                        .instructors
+                        .push({
+                            name: instructor.name,
+                            email: instructor.modules.taiga.email
+                        });
                 }
 
                 caDashboardProjects.push(caInformation);
@@ -133,8 +133,8 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
         for (const user of users) {
             const githubIndividualUrl = githubUrl + user.modules.github.username;
             const taigaSlug = githubIndividualUrl
-            .replace(/\//, '-')
-            .toLowerCase();
+                .replace(/\//, '-')
+                .toLowerCase();
 
             const caInformation = {
                 name: user.name,

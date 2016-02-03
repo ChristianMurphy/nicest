@@ -16,7 +16,8 @@ const User = require('../../user/model/user');
 function viewEmpty (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    Promise.all([
+    Promise
+    .all([
         User
             .find({})
             .select('_id name')

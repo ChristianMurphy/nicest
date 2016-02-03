@@ -14,10 +14,10 @@ const Course = require('../../course/model/course');
  */
 function chooseCourse (request, reply) {
     Course
-    .find({})
-    .then((courses) => {
-        reply.view('modules/code-project/view/choose-course', {courses});
-    });
+        .find({})
+        .then((courses) => {
+            reply.view('modules/code-project/view/choose-course', {courses});
+        });
 }
 
 module.exports = chooseCourse;

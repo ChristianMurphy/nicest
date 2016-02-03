@@ -13,11 +13,11 @@
 function redirect (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
     const githubUsername = request
-    .yar
-    .get('github-username');
+        .yar
+        .get('github-username');
     const githubPassword = request
-    .yar
-    .get('github-password');
+        .yar
+        .get('github-password');
 
     if (typeof githubUsername === 'string' && typeof githubPassword === 'string') {
         reply().redirect(`${prefix}/recipe/code-project/choose-course`);

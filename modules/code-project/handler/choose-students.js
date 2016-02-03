@@ -15,41 +15,41 @@ const Course = require('../../course/model/course');
 function chooseStudents (request, reply) {
     if (request.query.type === 'team') {
         request
-        .yar
-        .set({
-            'code-project-student-type': 'team'
-        });
-        Course
-        .findOne({
-            _id: request
-                .yar
-                .get('code-project-course')
-        })
-        .select('teams')
-        .populate('teams')
-        .exec()
-        .then((course) => {
-            reply.view('modules/code-project/view/choose-students', {
-                list: course.teams,
-                listType: 'team'
+            .yar
+            .set({
+                'code-project-student-type': 'team'
             });
-        });
+        Course
+            .findOne({
+                _id: request
+                    .yar
+                    .get('code-project-course')
+            })
+            .select('teams')
+            .populate('teams')
+            .exec()
+            .then((course) => {
+                reply.view('modules/code-project/view/choose-students', {
+                    list: course.teams,
+                    listType: 'team'
+                });
+            });
     } else {
         Course
-        .findOne({
-            _id: request
-                .yar
-                .get('code-project-course')
-        })
-        .select('students')
-        .populate('students')
-        .exec()
-        .then((course) => {
-            reply.view('modules/code-project/view/choose-students', {
-                list: course.students,
-                listType: 'individual'
+            .findOne({
+                _id: request
+                    .yar
+                    .get('code-project-course')
+            })
+            .select('students')
+            .populate('students')
+            .exec()
+            .then((course) => {
+                reply.view('modules/code-project/view/choose-students', {
+                    list: course.students,
+                    listType: 'individual'
+                });
             });
-        });
     }
 }
 

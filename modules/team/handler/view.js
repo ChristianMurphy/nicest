@@ -16,32 +16,33 @@ const User = require('../../user/model/user');
 function view (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    Promise.all([
-        Team
-            .findOne({
-                _id: request.params.id
-            })
-            .exec(),
-        User
-            .find({})
-            .select('_id name')
-            .exec()
-    ])
-    .then((data) => {
-        const team = data[0];
-        const users = data[1];
+    Promise
+        .all([
+            Team
+                .findOne({
+                    _id: request.params.id
+                })
+                .exec(),
+            User
+                .find({})
+                .select('_id name')
+                .exec()
+        ])
+        .then((data) => {
+            const team = data[0];
+            const users = data[1];
 
-        reply.view('modules/team/view/view', {
-            url: `${prefix}/recipe/manage-teams/edit/${team._id}`,
-            saved: request.query.saved,
-            team: {
-                name: team.name,
-                members: team.members || [],
-                modules: team.modules || {}
-            },
-            users
+            reply.view('modules/team/view/view', {
+                url: `${prefix}/recipe/manage-teams/edit/${team._id}`,
+                saved: request.query.saved,
+                team: {
+                    name: team.name,
+                    members: team.members || [],
+                    modules: team.modules || {}
+                },
+                users
+            });
         });
-    });
 }
 
 module.exports = view;
