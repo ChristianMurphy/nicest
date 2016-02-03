@@ -13,10 +13,11 @@ const Course = require('../../course/model/course');
  * @returns {Null} responds with HTML page
  */
 function chooseCourse (request, reply) {
-    Course.find({})
-    .then((courses) => {
-        reply.view('modules/code-project/view/choose-course', {courses});
-    });
+    Course
+        .find({})
+        .then((courses) => {
+            reply.view('modules/code-project/view/choose-course', {courses});
+        });
 }
 
 module.exports = chooseCourse;

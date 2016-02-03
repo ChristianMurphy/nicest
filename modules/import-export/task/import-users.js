@@ -9,21 +9,35 @@ const User = require('../../user/model/user');
  */
 function importUsers (documentAndMapping) {
     // find all the users
-    const users = documentAndMapping.document.find('//user');
+    const users = documentAndMapping
+        .document
+        .find('//user');
     const promises = [];
 
     // for each user
     for (const currentUser of users) {
+        const firstName = currentUser
+            .get('first-name')
+            .text();
+        const lastName = currentUser
+            .get('last-name')
+            .text();
+
         // create a new database object
         promises.push(
-            User.create({
-                name: `${currentUser.get('first-name').text()} ${currentUser.get('last-name').text()}`,
+            User
+            .create({
+                name: `${firstName} ${lastName}`,
                 modules: {
                     github: {
-                        username: currentUser.get('github').text()
+                        username: currentUser
+                            .get('github')
+                            .text()
                     },
                     taiga: {
-                        email: currentUser.get('email').text()
+                        email: currentUser
+                            .get('email')
+                            .text()
                     }
                 }
             })
@@ -31,17 +45,23 @@ function importUsers (documentAndMapping) {
                 // map the XML id to the Mongoose id
                 return {
                     databaseId: newUser._id,
-                    xmlId: currentUser.attr('id').value()
+                    xmlId: currentUser
+                        .attr('id')
+                        .value()
                 };
             })
         );
     }
 
     // wait for all users to be created
-    return Promise.all(promises).then((identifierMapping) => {
-        documentAndMapping.mapping = documentAndMapping.mapping.concat(identifierMapping);
-        return documentAndMapping;
-    });
+    return Promise
+        .all(promises)
+        .then((identifierMapping) => {
+            documentAndMapping.mapping = documentAndMapping
+                .mapping
+                .concat(identifierMapping);
+            return documentAndMapping;
+        });
 }
 
 module.exports = importUsers;

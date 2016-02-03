@@ -9,8 +9,10 @@ nicest.setup(configuration);
 
 database(configuration);
 
-nicest.server.start(() => {
-    console.log('Server running at:', nicest.server.info.uri + nicest.server.realm.modifiers.route.prefix);
-});
+nicest
+    .server
+    .start(() => {
+        console.log('Server running at:', nicest.server.info.uri + nicest.server.realm.modifiers.route.prefix);
+    });
 
 module.exports = nicest.server;

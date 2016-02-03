@@ -20,22 +20,43 @@ const configureCaDashboard = require('../task/configure-ca-dashboard');
 function confirm (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    const githubUsername = request.yar.get('github-username');
-    const githubPassword = request.yar.get('github-password');
-    const seedRepository = request.yar.get('github-project-repo');
-    const course = request.yar.get('code-project-course');
-    const students = request.yar.get('code-project-students');
-    const isPrivate = request.yar.get('github-project-is-private');
-    const hasWiki = request.yar.get('github-project-has-wiki');
-    const hasIssueTracker = request.yar.get('github-project-has-issue-tracker');
-    const studentType = request.yar.get('code-project-student-type');
-    const useTaiga = request.yar.get('taiga-project-use-taiga');
-    const useAssessment = request.yar.get('assessment-use-ca-dashboard');
+    const githubUsername = request
+        .yar
+        .get('github-username');
+    const githubPassword = request
+        .yar
+        .get('github-password');
+    const seedRepository = request
+        .yar
+        .get('github-project-repo');
+    const course = request
+        .yar
+        .get('code-project-course');
+    const students = request
+        .yar
+        .get('code-project-students');
+    const isPrivate = request
+        .yar
+        .get('github-project-is-private');
+    const hasWiki = request
+        .yar
+        .get('github-project-has-wiki');
+    const hasIssueTracker = request
+        .yar
+        .get('github-project-has-issue-tracker');
+    const studentType = request
+        .yar
+        .get('code-project-student-type');
+    const useTaiga = request
+        .yar
+        .get('taiga-project-use-taiga');
+    const useAssessment = request
+        .yar
+        .get('assessment-use-ca-dashboard');
     let githubRepositories;
 
     // Gather Github user information from Users/Teams
     gatherGithubUsers(seedRepository, githubUsername, studentType, students)
-
         // create repostories
         .then((temporaryGithubRepositories) => {
             githubRepositories = temporaryGithubRepositories;
@@ -50,15 +71,31 @@ function confirm (request, reply) {
         // create Taiga boards
         .then(() => {
             if (useTaiga) {
-                const taigaUsername = request.yar.get('taiga-username');
-                const taigaPassword = request.yar.get('taiga-password');
+                const taigaUsername = request
+                    .yar
+                    .get('taiga-username');
+                const taigaPassword = request
+                    .yar
+                    .get('taiga-password');
                 const taigaOptions = {
-                    description: request.yar.get('taiga-project-description'),
-                    isPrivate: request.yar.get('taiga-project-is-private'),
-                    isBacklogActived: request.yar.get('taiga-project-has-backlog'),
-                    isIssuesActived: request.yar.get('taiga-project-has-issues'),
-                    isKanbanActivated: request.yar.get('taiga-project-has-kanban'),
-                    isWikiActivated: request.yar.get('taiga-project-has-wiki')
+                    description: request
+                        .yar
+                        .get('taiga-project-description'),
+                    isPrivate: request
+                        .yar
+                        .get('taiga-project-is-private'),
+                    isBacklogActived: request
+                        .yar
+                        .get('taiga-project-has-backlog'),
+                    isIssuesActived: request
+                        .yar
+                        .get('taiga-project-has-issues'),
+                    isKanbanActivated: request
+                        .yar
+                        .get('taiga-project-has-kanban'),
+                    isWikiActivated: request
+                        .yar
+                        .get('taiga-project-has-wiki')
                 };
 
                 createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);

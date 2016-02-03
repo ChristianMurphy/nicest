@@ -9,7 +9,9 @@ const Course = require('../../course/model/course');
  */
 function importCourses (documentAndMapping) {
     // find all the teams
-    const courses = documentAndMapping.document.find('//course');
+    const courses = documentAndMapping
+    .document
+    .find('//course');
     const promises = [];
 
     // for each team
@@ -19,7 +21,9 @@ function importCourses (documentAndMapping) {
         const courseStudents = currentCourse.find('student');
         const courseTeams = currentCourse.find('group');
         const courseMetadata = {
-            name: currentCourse.get('name').text(),
+            name: currentCourse
+                .get('name')
+                .text(),
             instructors: [],
             students: [],
             teams: []
@@ -27,7 +31,9 @@ function importCourses (documentAndMapping) {
 
         // get each of the instructors' ids
         for (const instructor of courseInstructors) {
-            const memberXmlId = instructor.attr('id').value();
+            const memberXmlId = instructor
+                .attr('id')
+                .value();
             const memberMongoId = documentAndMapping
                 .mapping
                 .find((element) => {
@@ -35,12 +41,16 @@ function importCourses (documentAndMapping) {
                 })
                 .databaseId;
 
-            courseMetadata.instructors.push(memberMongoId);
+            courseMetadata
+                .instructors
+                .push(memberMongoId);
         }
 
         // get each of the students' ids
         for (const student of courseStudents) {
-            const memberXmlId = student.attr('id').value();
+            const memberXmlId = student
+                .attr('id')
+                .value();
             const memberMongoId = documentAndMapping
                 .mapping
                 .find((element) => {
@@ -48,12 +58,16 @@ function importCourses (documentAndMapping) {
                 })
                 .databaseId;
 
-            courseMetadata.students.push(memberMongoId);
+            courseMetadata
+                .students
+                .push(memberMongoId);
         }
 
         // get each of the teams' ids
         for (const team of courseTeams) {
-            const memberXmlId = team.attr('id').value();
+            const memberXmlId = team
+                .attr('id')
+                .value();
             const memberMongoId = documentAndMapping
                 .mapping
                 .find((element) => {
@@ -61,7 +75,9 @@ function importCourses (documentAndMapping) {
                 })
                 .databaseId;
 
-            courseMetadata.teams.push(memberMongoId);
+            courseMetadata
+                .teams
+                .push(memberMongoId);
         }
 
         // copy the course to Mongoose
@@ -71,9 +87,11 @@ function importCourses (documentAndMapping) {
     }
 
     // wait for all courses to be created
-    return Promise.all(promises).then(() => {
-        return documentAndMapping;
-    });
+    return Promise
+        .all(promises)
+        .then(() => {
+            return documentAndMapping;
+        });
 }
 
 module.exports = importCourses;

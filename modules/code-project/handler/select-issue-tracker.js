@@ -13,15 +13,17 @@
 function selectIssueTracker (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    request.yar.set({
-        'taiga-project-use-taiga': request.payload.useTaiga,
-        'taiga-project-description': request.payload.description,
-        'taiga-project-is-private': request.payload.isPrivate,
-        'taiga-project-has-issues': request.payload.hasIssues,
-        'taiga-project-has-backlog': request.payload.hasBacklog,
-        'taiga-project-has-kanban': request.payload.hasKanban,
-        'taiga-project-has-wiki': request.payload.hasWiki
-    });
+    request
+        .yar
+        .set({
+            'taiga-project-use-taiga': request.payload.useTaiga,
+            'taiga-project-description': request.payload.description,
+            'taiga-project-is-private': request.payload.isPrivate,
+            'taiga-project-has-issues': request.payload.hasIssues,
+            'taiga-project-has-backlog': request.payload.hasBacklog,
+            'taiga-project-has-kanban': request.payload.hasKanban,
+            'taiga-project-has-wiki': request.payload.hasWiki
+        });
 
     if (request.payload.useTaiga) {
         reply().redirect(`${prefix}/recipe/code-project/taiga-login`);

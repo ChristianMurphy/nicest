@@ -55,7 +55,9 @@ module.exports = [
         config: {
             validate: {
                 params: {
-                    id: Joi.string().hex()
+                    id: Joi
+                        .string()
+                        .hex()
                 }
             }
         }
@@ -67,7 +69,9 @@ module.exports = [
         config: {
             validate: {
                 params: {
-                    id: Joi.string().hex()
+                    id: Joi
+                        .string()
+                        .hex()
                 },
                 payload: courseValidation
             }
@@ -80,7 +84,9 @@ module.exports = [
         config: {
             validate: {
                 params: {
-                    id: Joi.string().hex()
+                    id: Joi
+                        .string()
+                        .hex()
                 }
             }
         }

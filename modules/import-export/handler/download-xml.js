@@ -18,22 +18,22 @@ const example = require('../task/example');
  */
 function downloadXML (request, reply) {
     validate(request.payload.file.path)
-    .then(importUsers)
-    .then(importTeams)
-    .then(importCourses)
-    .then(() => {
-        reply.view('modules/import-export/view/import', {example, validation: {
-            valid: true,
-            done: true
-        }});
-    })
-    .catch((err) => {
-        reply.view('modules/import-export/view/import', {example, validation: {
-            valid: false,
-            done: true,
-            errors: err
-        }});
-    });
+        .then(importUsers)
+        .then(importTeams)
+        .then(importCourses)
+        .then(() => {
+            reply.view('modules/import-export/view/import', {example, validation: {
+                valid: true,
+                done: true
+            }});
+        })
+        .catch((err) => {
+            reply.view('modules/import-export/view/import', {example, validation: {
+                valid: false,
+                done: true,
+                errors: err
+            }});
+        });
 }
 
 module.exports = downloadXML;

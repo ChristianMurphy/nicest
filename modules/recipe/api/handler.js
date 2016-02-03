@@ -20,6 +20,10 @@ function recipeMap (recipe) {
 
 module.exports = {
     list (request, reply) {
-        reply(Recipe.list().map(recipeMap));
+        reply(
+            Recipe
+                .list()
+                .map(recipeMap)
+        );
     }
 };

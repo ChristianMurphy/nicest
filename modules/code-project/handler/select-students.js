@@ -13,9 +13,11 @@
 function selectStudents (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
-    request.yar.set({
-        'code-project-students': request.payload.students
-    });
+    request
+        .yar
+        .set({
+            'code-project-students': request.payload.students
+        });
 
     reply().redirect(`${prefix}/recipe/code-project/choose-repository`);
 }

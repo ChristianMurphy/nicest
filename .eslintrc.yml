@@ -62,12 +62,13 @@ rules:
     no-case-declarations: 2
     no-div-regex: 2
     no-else-return: 2
-    no-empty-label: 0 # no-label
+    no-empty-label: 0 # no-labels
     no-empty-pattern: 2
     no-eq-null: 2
     no-eval: 2
     no-extend-native: 2
     no-extra-bind: 2
+    no-extra-label: 0 # no-labels
     no-fallthrough: 2
     no-floating-decimal: 2
     no-implicit-globals: 2
@@ -94,11 +95,13 @@ rules:
     no-redeclare: 2
     no-return-assign: 2
     no-script-url: 2
+    no-self-assign: 2
     no-self-compare: 2
     no-sequences: 2
     no-throw-literal: 2
     no-unmodified-loop-condition: 2
     no-unused-expressions: 2
+    no-unused-labels: 0 # no-labels
     no-useless-call: 2
     no-useless-concat: 2
     no-void: 2
@@ -118,7 +121,7 @@ rules:
     init-declarations: 0
     no-catch-shadow: 2
     no-delete-var: 2
-    no-label-var: 0 # no-label
+    no-label-var: 0 # no-labels
     no-shadow-restricted-names: 2
     no-shadow: 2
     no-undef: 2
@@ -182,6 +185,7 @@ rules:
     new-cap: 2
     new-parens: 2
     newline-after-var: 2
+    newline-per-chained-call: 2
     no-array-constructor: 2
     no-bitwise: 2
     no-continue: 2
@@ -262,6 +266,7 @@ rules:
     prefer-spread: 2
     prefer-template: 2
     require-yield: 2
+    template-curly-spacing: 2
     yield-star-spacing:
         - 2
         - both

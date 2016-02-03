@@ -9,7 +9,9 @@ const Team = require('../../team/model/team');
  */
 function importTeams (documentAndMapping) {
     // find all the teams
-    const teams = documentAndMapping.document.find('//team');
+    const teams = documentAndMapping
+        .document
+        .find('//team');
     const promises = [];
 
     // for each team
@@ -21,11 +23,15 @@ function importTeams (documentAndMapping) {
         };
 
         // set the team name
-        teamMetadata.name = currentTeam.get('name').text();
+        teamMetadata.name = currentTeam
+            .get('name')
+            .text();
 
         // get each of the team members' ids
         for (const member of teamMembers) {
-            const memberXmlId = member.attr('id').value();
+            const memberXmlId = member
+                .attr('id')
+                .value();
             const memberMongoId = documentAndMapping
                 .mapping
                 .find((element) => {
@@ -33,27 +39,36 @@ function importTeams (documentAndMapping) {
                 })
                 .databaseId;
 
-            teamMetadata.members.push(memberMongoId);
+            teamMetadata
+                .members
+                .push(memberMongoId);
         }
 
         // copy the team to Mongoose
         promises.push(
-            Team.create(teamMetadata)
-            .then((newTeam) => {
-                // map the XML id to the Mongoose id
-                return {
-                    databaseId: newTeam._id,
-                    xmlId: currentTeam.attr('id').value()
-                };
-            })
+            Team
+                .create(teamMetadata)
+                .then((newTeam) => {
+                    // map the XML id to the Mongoose id
+                    return {
+                        databaseId: newTeam._id,
+                        xmlId: currentTeam
+                            .attr('id')
+                            .value()
+                    };
+                })
         );
     }
 
     // wait for all teams to be created
-    return Promise.all(promises).then((newResult) => {
-        documentAndMapping.mapping = documentAndMapping.mapping.concat(newResult);
-        return documentAndMapping;
-    });
+    return Promise
+        .all(promises)
+        .then((newResult) => {
+            documentAndMapping.mapping = documentAndMapping
+                .mapping
+                .concat(newResult);
+            return documentAndMapping;
+        });
 }
 
 module.exports = importTeams;

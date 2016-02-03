@@ -13,7 +13,9 @@ const httpInternalServerError = 500;
  * @returns {Null} responds with HTML page
  */
 function errorView (request, reply) {
-    reply.view('modules/code-project/view/error').code(httpInternalServerError);
+    reply
+        .view('modules/code-project/view/error')
+        .code(httpInternalServerError);
 }
 
 module.exports = errorView;
