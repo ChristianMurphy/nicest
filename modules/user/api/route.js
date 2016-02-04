@@ -6,7 +6,7 @@ const Joi = require('joi');
 const userValidation = {
     name: Joi
         .string()
-        .regex(/[A-Za-z ]+/)
+        .regex(/^[A-Za-z ]+$/)
         .description('Full name of user'),
     role: Joi
         .string()
