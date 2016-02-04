@@ -12,7 +12,7 @@ const Joi = require('joi');
 const courseValidation = {
     name: Joi
         .string()
-        .regex(/[A-Za-z ]+/)
+        .regex(/^[A-Za-z ]+$/)
         .description('Course name'),
     students: Joi
         .array()

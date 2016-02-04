@@ -6,7 +6,7 @@ const Joi = require('joi');
 const teamValidation = {
     name: Joi
         .string()
-        .regex(/[A-Za-z ]+/)
+        .regex(/^[A-Za-z ]+$/)
         .description('Team name'),
     members: Joi
         .array()
