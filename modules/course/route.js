@@ -12,22 +12,37 @@ const Joi = require('joi');
 const courseValidation = {
     name: Joi
         .string()
-        .regex(/^[A-Za-z ]+$/)
+        .regex(/^[a-z ]+$/i, 'latin characters or space')
         .description('Course name'),
     students: Joi
         .array()
         .single()
         .unique()
+        .items(
+            Joi
+                .string()
+                .hex()
+        )
         .description('List of User ids who are participating in the course'),
     instructors: Joi
         .array()
         .single()
         .unique()
+        .items(
+            Joi
+                .string()
+                .hex()
+        )
         .description('List of User ids who are teaching or grading the course'),
     teams: Joi
         .array()
         .single()
         .unique()
+        .items(
+            Joi
+                .string()
+                .hex()
+        )
         .description('List of Team ids that are a part of the course'),
     modules: Joi
         .object()

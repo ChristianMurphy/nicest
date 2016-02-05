@@ -12,12 +12,17 @@ const Joi = require('joi');
 const teamValidation = {
     name: Joi
         .string()
-        .regex(/^[A-Za-z ]+$/)
+        .regex(/^[a-z ]+$/i, 'latin characters or space')
         .description('Team name'),
     members: Joi
         .array()
         .single()
         .unique()
+        .items(
+            Joi
+                .string()
+                .hex()
+        )
         .description('List of User ids who are a part of the team'),
     modules: Joi
         .object()

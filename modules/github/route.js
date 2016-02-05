@@ -31,7 +31,9 @@ module.exports = [
                         .string()
                         .alphanum(),
                     password: Joi.string(),
-                    redirect: Joi.string()
+                    redirect: Joi
+                        .string()
+                        .regex(/^\/[a-z0-9\/]$/i, 'internal url')
                 }
             }
         }

@@ -74,6 +74,11 @@ module.exports = [
                         .array()
                         .single()
                         .unique()
+                        .items(
+                            Joi
+                                .string()
+                                .hex()
+                        )
                 }
             }
         }
@@ -92,7 +97,7 @@ module.exports = [
                 payload: {
                     repo: Joi
                         .string()
-                        .regex(/[A-Za-z0-9\-]+/),
+                        .regex(/[a-z0-9\-]+/i, 'repository name'),
                     isPrivate: Joi
                         .boolean()
                         .default(false),
