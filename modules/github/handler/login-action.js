@@ -20,10 +20,10 @@ function loginAction (request, reply) {
             'github-password': request.payload.password
         });
 
-    if (request.payload.redirect === 'none') {
-        reply().redirect(`${prefix}/recipe/github/list`);
-    } else {
+    if (request.payload.redirect) {
         reply().redirect(request.payload.redirect);
+    } else {
+        reply().redirect(`${prefix}/recipe/github/list`);
     }
 }
 
