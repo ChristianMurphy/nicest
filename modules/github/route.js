@@ -18,7 +18,17 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/github/login',
-        handler: handleLoginView
+        handler: handleLoginView,
+        config: {
+            validate: {
+                query: {
+                    next: Joi
+                        .string()
+                        .regex(/^\/[a-z0-9\/-]+$/i, 'internal url')
+                        .empty(null)
+                }
+            }
+        }
     },
     {
         method: 'POST',
@@ -31,7 +41,10 @@ module.exports = [
                         .string()
                         .alphanum(),
                     password: Joi.string(),
-                    redirect: Joi.string()
+                    redirect: Joi
+                        .string()
+                        .regex(/^\/[a-z0-9\/-]+$/i, 'internal url')
+                        .empty(null)
                 }
             }
         }

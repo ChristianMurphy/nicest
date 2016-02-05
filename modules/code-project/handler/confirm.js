@@ -120,7 +120,7 @@ function confirm (request, reply) {
 
         // add seed code to repositories
         .then(() => {
-            const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[A-Za-z0-9\-]+$/).exec(seedRepository)}`;
+            const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[a-z0-9\-]+$/i).exec(seedRepository)}`;
             const githubUrls = githubRepositories.map((element) => {
                 return element.url;
             });
