@@ -12,6 +12,8 @@ const Joi = require('joi');
 const courseValidation = {
     name: Joi
         .string()
+        .trim()
+        .replace(/\s+/g, ' ')
         .regex(/^[a-z ]+$/i, 'latin characters or space')
         .description('Course name'),
     students: Joi

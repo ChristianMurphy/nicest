@@ -29,6 +29,7 @@ module.exports = [
                 payload: {
                     username: Joi
                         .string()
+                        .trim()
                         .alphanum(),
                     password: Joi.string(),
                     redirect: Joi
