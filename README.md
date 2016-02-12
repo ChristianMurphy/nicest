@@ -11,8 +11,8 @@ nicely integrating complex education software together
 ## About
 
 Nicest is a setup tool for software educators.
-For the alpha version the project the focus is on agile [software development tools](https://en.wikipedia.org/wiki/Agile_software_development),
-with the system currently being able to setup [Github](https://github.com/) source control, [Taiga](https://taiga.io/)
+For the alpha version of the project, the focus is on agile [software development tools](https://en.wikipedia.org/wiki/Agile_software_development).
+The system is currently being able to setup [Github](https://github.com/) source control, [Taiga](https://taiga.io/)
 taskboard, and [CIAssess](https://github.com/kgary/CIAssess) continuous project assessment.
 In the future Nicest will add support for more tools, and integrations between tools.
 
