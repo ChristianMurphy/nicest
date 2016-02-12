@@ -63,6 +63,7 @@ rules:
     no-div-regex: 2
     no-else-return: 2
     no-empty-label: 0 # no-labels
+    no-empty-function: 2
     no-empty-pattern: 2
     no-eq-null: 2
     no-eval: 2
@@ -224,8 +225,8 @@ rules:
         - 2
         - single
     require-jsdoc: 2
-    semi: 2
     semi-spacing: 2
+    semi: 2
     sort-vars: 0 # one-var
     sort-imports: 0 # none
     space-before-blocks: 2
