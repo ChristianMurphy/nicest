@@ -12,7 +12,7 @@ const viewRoute = require('./route');
  * Registers the Recipe plugin
  * @param {Object} server - Hapi Server object
  * @param {Object} options - Plugin specific options
- * @param {Fuction} next - Callback to confirm plugin registration
+ * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
 function recipe (server, options, next) {
