@@ -42,10 +42,16 @@ In the future Nicest will add support for more tools, and integrations between t
 
 1. Run `nicest start`
 
-### Stop
+## Stop
 
 1. Run `nicest stop`
 
-### Debug Start
+## Tasks
 
-1. Run `nicest dev`
+Tasks can be run from a Terminal or Command Line using `nicest <task>`
+
+* `dev` developer server start
+* `init` creates a configuration file
+* `start` production server start
+* `stop` production server stop
+* `user` creates a new user
