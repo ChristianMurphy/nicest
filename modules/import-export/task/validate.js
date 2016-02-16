@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module import-export/task/validate
+ */
+
 const libxml = require('libxmljs');
 const fs = require('fs');
 const path = require('path');

@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module import-export/task/import-courses
+ */
+
 const Course = require('../../course/model/course');
 
 /**

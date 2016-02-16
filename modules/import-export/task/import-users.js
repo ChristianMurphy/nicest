@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module import-export/task/import-users
+ */
+
 const User = require('../../user/model/user');
 
 /**

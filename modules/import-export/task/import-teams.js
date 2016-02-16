@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module import-export/task/import-teams
+ */
+
 const Team = require('../../team/model/team');
 
 /**
