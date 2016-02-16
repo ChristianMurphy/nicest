@@ -46,6 +46,11 @@ In the future Nicest will add support for more tools, and integrations between t
 
 1. Run `nicest stop`
 
+## Additional Guides
+
+* [Contributing](CONTRIBUTING.md)
+* [Plugin](PLUGIN.md)
+
 ## Tasks
 
 Tasks can be run from a Terminal or Command Line using `nicest <task>`
