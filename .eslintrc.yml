@@ -56,7 +56,7 @@ rules:
         - property
     dot-notation: 2
     eqeqeq: 2
-    guard-for-in: 2
+    guard-for-in: 0 # no-extend-native
     no-alert: 0 # env: node
     no-caller: 2
     no-case-declarations: 2
@@ -82,6 +82,7 @@ rules:
     no-magic-numbers:
         - 2
         - ignoreArrayIndexes: true
+          enforceConst: true
     no-multi-spaces: 2
     no-multi-str: 2
     no-native-reassign: 2
