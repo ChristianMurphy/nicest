@@ -48,7 +48,7 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
             let chain = Promise.resolve();
 
             // for each destination
-            for (let index = 0; index < destinationRepositoryURLs.length; index += 1) {
+            for (const index in destinationRepositoryURLs) {
                 // create and open a remote for destination
                 chain = chain
                 .then(() => {

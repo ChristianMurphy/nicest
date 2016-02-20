@@ -64,7 +64,7 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
         const promises = [];
 
         // create each board
-        for (let index = 0; index < taigaBoards.length; index += 1) {
+        for (const index in taigaBoards) {
             // set the name
             boardMetaData.name = taigaBoards[index].name;
             // create board
@@ -88,8 +88,8 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
         const promises = [];
 
         // for each person in each project
-        for (let boardIndex = 0; boardIndex < taigaBoards.length; boardIndex += 1) {
-            for (let userIndex = 0; userIndex < taigaBoards[boardIndex].emails.length; userIndex += 1) {
+        for (const boardIndex in taigaBoards) {
+            for (const userIndex in taigaBoards[boardIndex].emails) {
                 const taigaRoles = data[boardIndex].roles;
                 // setup the members permissions
                 const userMetadata = {
