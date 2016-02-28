@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
-    "bell": "^6.3.0",
+    "bell": "^7.0.0",
     "boom": "^3.1.2",
     "chalk": "^1.1.1",
     "cliui": "^3.1.0",
@@ -39,7 +39,7 @@
     "lout": "^9.0.0",
     "mongoose": "^4.4.5",
     "nodegit": "^0.11.5",
-    "octokat": "^0.4.16",
+    "octokat": "^0.4.17",
     "pm2": "^1.0.1",
     "pug": "^0.1.0",
     "read": "^1.0.7",
