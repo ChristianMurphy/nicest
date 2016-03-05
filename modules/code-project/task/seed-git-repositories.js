@@ -70,6 +70,7 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                     });
                 });
             }
+
             // wait for all pushes to complete
             return chain;
         });

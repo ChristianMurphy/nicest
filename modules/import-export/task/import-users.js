@@ -64,6 +64,7 @@ function importUsers (documentAndMapping) {
             documentAndMapping.mapping = documentAndMapping
                 .mapping
                 .concat(identifierMapping);
+
             return documentAndMapping;
         });
 }

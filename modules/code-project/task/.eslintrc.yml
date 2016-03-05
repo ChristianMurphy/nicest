@@ -1,8 +1,8 @@
 rules:
-    camelcase: 0
+    camelcase: off
     max-params:
-        - 2
+        - error
         - 5
     max-statements:
-        - 2
+        - error
         - 14

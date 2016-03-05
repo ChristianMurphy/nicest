@@ -69,10 +69,12 @@ function createRepositories (githubUsername, githubPassword, repositories, optio
                                 .add()
                         );
                     }
+
                     return Promise.all(collaboratorPromises);
                 })
         );
     }
+
     return Promise.all(promises);
 }
 

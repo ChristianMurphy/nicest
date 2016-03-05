@@ -1,5 +1,5 @@
 rules:
     max-statements:
-        - 2
+        - error
         - 21
-    no-sync: 0
+    no-sync: off
