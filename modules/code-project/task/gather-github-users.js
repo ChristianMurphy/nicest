@@ -73,6 +73,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                 return githubRepositories;
             });
     }
+
     return User
         .find({
             _id: {

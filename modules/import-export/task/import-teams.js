@@ -71,6 +71,7 @@ function importTeams (documentAndMapping) {
             documentAndMapping.mapping = documentAndMapping
                 .mapping
                 .concat(newResult);
+
             return documentAndMapping;
         });
 }

@@ -107,6 +107,7 @@ function confirm (request, reply) {
             if (useAssessment) {
                 return gatherCaUsers(seedRepository, githubUsername, studentType, students, course);
             }
+
             return null;
         })
 
@@ -115,6 +116,7 @@ function confirm (request, reply) {
             if (useAssessment) {
                 return configureCaDashboard(caConfiguration);
             }
+
             return null;
         })
 
