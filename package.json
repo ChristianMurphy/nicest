@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
   "dependencies": {
-    "bell": "^7.0.0",
+    "bell": "^7.1.0",
     "boom": "^3.1.2",
     "chalk": "^1.1.1",
     "cliui": "^3.1.0",
@@ -50,7 +50,7 @@
     "yar": "^7.0.0"
   },
   "devDependencies": {
-    "eslint": "^2.2.0",
+    "eslint": "^2.3.0",
     "pug-lint": "^2.1.6",
     "remark": "^4.1.1",
     "remark-lint": "^3.0.0",
