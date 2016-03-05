@@ -1,2 +1,2 @@
 rules:
-    no-magic-numbers: 0
+    no-magic-numbers: off

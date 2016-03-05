@@ -6,5 +6,5 @@ env:
 
 rules:
     strict:
-        - 2
+        - error
         - function
