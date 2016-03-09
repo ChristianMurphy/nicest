@@ -18,3 +18,9 @@ block body
                     i.lock.icon
                     input(type='password', name='password', placeholder='password')
             input.ui.fluid.large.teal.submit.button(type='submit', value='submit')
+        if failed
+            .ui.large.error.icon.message
+                i.warning.icon
+                .content
+                    .header Login Failed
+                    p Check that your username and password are correct.
