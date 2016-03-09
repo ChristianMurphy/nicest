@@ -11,7 +11,7 @@
  * @returns {Null} responds with a redirect
  */
 function loginView (request, reply) {
-    reply.view('modules/github/view/login', {redirect: request.query.next});
+    reply.view('modules/github/view/login', {redirect: request.query.next, failed: request.query.failed});
 }
 
 module.exports = loginView;

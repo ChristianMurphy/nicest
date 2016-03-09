@@ -22,6 +22,9 @@ module.exports = [
         config: {
             validate: {
                 query: {
+                    failed: Joi
+                        .boolean()
+                        .default(false),
                     next: Joi
                         .string()
                         .regex(/^\/[a-z0-9\/-]+$/i, 'internal url')
