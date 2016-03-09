@@ -14,7 +14,7 @@ const courseValidation = {
         .string()
         .trim()
         .replace(/\s+/g, ' ')
-        .regex(/^[a-z ]+$/i, 'latin characters or space')
+        .regex(/^[a-z0-9 -]+$/i, 'latin characters, number, hyphen or space')
         .description('Course name'),
     students: Joi
         .array()
