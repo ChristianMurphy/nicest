@@ -58,10 +58,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 .select('name instructors')
                 .exec()
         ])
-        .then((data) => {
-            const teams = data[0];
-            const course = data[1];
-
+        .then(([teams, course]) => {
             // for each team
             for (const team of teams) {
                 const githubIndividualUrl = githubUrl + team
@@ -125,10 +122,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
             .select('name instructors')
             .exec()
     ])
-    .then((data) => {
-        const users = data[0];
-        const course = data[1];
-
+    .then(([users, course]) => {
         // for each student
         for (const user of users) {
             const githubIndividualUrl = githubUrl + user.modules.github.username;

@@ -33,12 +33,7 @@ function view (request, reply) {
             .select('_id name')
             .exec()
     ])
-    .then((data) => {
-        const course = data[0];
-        const teams = data[1];
-        const users = data[2];
-
-
+    .then(([course, teams, users]) => {
         reply.view('modules/course/view/view', {
             url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
             saved: request.query.saved,
