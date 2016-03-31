@@ -21,8 +21,8 @@
 3. Get a code review
 
    * Any repository collaborator can approve a pull request
-   * A reviewer can approve a PR by writing a comment starting with `:+1:`, `LGTM`, or `:shipit:`
-   * A review can reject a PR by writing a comment starting with `:-1:`
+   * A reviewer can approve a PR by writing a comment starting with `Approved`, `LGTM`, or `:shipit:`
+   * A review can reject a PR by writing a comment starting with `Rejected`
 
 4. Merge
 

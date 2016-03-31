@@ -1,6 +1,6 @@
 approve_by_comment: true
-approve_regex: '^(LGTM|:shipit:|:+1:)'
-reject_regex: '^:-1:'
+approve_regex: '^(Approved|LGTM|:shipit:)'
+reject_value: -1
 reviewers:
     required: 1
     members: all
