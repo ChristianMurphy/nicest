@@ -13,20 +13,20 @@
 
 1. Commit code and open a [Pull Request](https://help.github.com/articles/using-pull-requests/)
 
-2. Ensure that code passes tests
+2. Ensure that code passes static analysis
 
    * Test results are reported to [PR status](https://github.com/blog/1935-see-results-from-all-pull-request-status-checks)
    * Tests can be run locally using `npm run lint`
 
 3. Get a code review
 
-   * Reviewers are listed in `.pullapprove.yml`
+   * Any repository collaborator can approve a pull request
    * A reviewer can approve a PR by writing a comment starting with `:+1:`, `LGTM`, or `:shipit:`
    * A review can reject a PR by writing a comment starting with `:-1:`
 
 4. Merge
 
-   * Any team member can merge an approved pull request
+   * Any collaborator can merge an approved pull request
    * Your code is now part of the project :smile:
 
 ## Developer Installation

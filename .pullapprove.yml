@@ -3,6 +3,4 @@ approve_regex: '^(LGTM|:shipit:|:+1:)'
 reject_regex: '^:-1:'
 reviewers:
     required: 1
-    members:
-        - ChristianMurphy
-        - kgary
+    members: all
