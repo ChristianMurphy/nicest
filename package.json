@@ -43,14 +43,14 @@
     "pm2": "^1.1.1",
     "pug": "^2.0.0-alpha1",
     "read": "^1.0.7",
-    "request": "^2.69.0",
+    "request": "^2.70.0",
     "rimraf": "^2.5.2",
     "scooter": "^2.0.1",
-    "vision": "^4.0.1",
+    "vision": "^4.1.0",
     "yar": "^7.0.0"
   },
   "devDependencies": {
-    "eslint": "^2.6.0",
+    "eslint": "^2.7.0",
     "pug-lint": "^2.1.6",
     "remark": "^4.2.0",
     "remark-lint": "^3.2.0",
