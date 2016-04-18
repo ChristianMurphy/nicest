@@ -1,28 +1,30 @@
-extends ../../shared-template/default.jade
+extends ../../shared-template/default.pug
 
 block title
-    title Choose Course
+    title Choose a Repository
     
 block script
     script(src='//code.jquery.com/jquery-2.2.3.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.8/components/transition.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.8/components/dropdown.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.1.8/components/checkbox.min.js')
+    script(src = prefix + '/recipe/code-project/static/checkbox.js')
     script(src = prefix + '/recipe/code-project/static/dropdown.js')
 
 block body
     .ui.container
         .ui.six.top.attached.steps
-            .active.step
+            .completed.step
                 i.university.icon
                 .content
                     .title Course
                     .description Choose Course for Project
-            .disabled.step
+            .completed.step
                 i.users.icon
                 .content
                     .title Students
                     .description Choose Students to Participate
-            .disabled.step
+            .active.step
                 i.git.square.icon
                 .content
                     .title Repository
@@ -42,26 +44,27 @@ block body
                 .content
                     .title Confirm
                     .description Confirm Selections
-        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-course', method='POST')
+        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-repository', method='POST')
             .ui.attached.stacked.segment
                 .field
-                    label Course
-                    select#course.ui.dropdown(name='course', required)
-                        option(selected, disabled, hidden, value='') None
-                        each course in courses
-                            option(value=course._id.toString())= course.name
+                    label Repository
+                    select.ui.search.dropdown(name='repo', required)
+                        each repo in repos
+                            option(value=repo.fullName)
+                                = repo.name
+                                |  - 
+                                = repo.description
+                .field
+                    .ui.toggle.checkbox
+                        input.hidden(type='checkbox', name='isPrivate')
+                        label Make Repository Private
+                .field
+                    .ui.toggle.checkbox
+                        input.hidden(type='checkbox', name='hasWiki')
+                        label Enable Project Wiki
+                .field
+                    .ui.toggle.checkbox
+                        input.hidden(type='checkbox', name='hasIssueTracker')
+                        label Enable Project Issue Tracker        
+                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-students') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
-        if courses.length < 1
-            .ui.large.warning.icon.message
-                i.idea.icon
-                .content
-                    .header Hey There
-                    p 
-                        | It looks like you don't have any courses. 
-                        | Would you like to 
-                        strong
-                            a(href = prefix + '/recipe/manage-courses/list') create a course 
-                        | or 
-                        strong
-                            a(href = prefix + '/recipe/import-export/import-xml') import a course
-                        | ?

@@ -1,8 +1,8 @@
-extends ../../shared-template/default.jade
+extends ../../shared-template/default.pug
 
 block title
     title Choose Issue Tracker
-    
+
 block script
     script(src='//code.jquery.com/jquery-2.2.3.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.8/components/transition.min.js')
@@ -47,6 +47,6 @@ block body
                 .field
                     .ui.toggle.checkbox
                         input.hidden(type='checkbox', name='useCADashboard')
-                        label Use CA Dashboard as an Assessment System    
+                        label Use CA Dashboard as an Assessment System
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
