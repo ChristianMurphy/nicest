@@ -54,7 +54,7 @@
     "eslint": "^2.9.0",
     "pug-lint": "^2.1.7",
     "remark": "^4.2.2",
-    "remark-lint": "^3.2.0",
+    "remark-lint": "^3.2.1",
     "remark-validate-links": "^3.0.0"
   },
   "engines": {
