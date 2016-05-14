@@ -22,17 +22,29 @@ function downloadXML (request, reply) {
         .then(importTeams)
         .then(importCourses)
         .then(() => {
-            reply.view('modules/import-export/view/import', {example, validation: {
-                valid: true,
-                done: true
-            }});
+            reply.view(
+                'modules/import-export/view/import',
+                {
+                    example,
+                    validation: {
+                        valid: true,
+                        done: true
+                    }
+                }
+            );
         })
         .catch((err) => {
-            reply.view('modules/import-export/view/import', {example, validation: {
-                valid: false,
-                done: true,
-                errors: err
-            }});
+            reply.view(
+                'modules/import-export/view/import',
+                {
+                    example,
+                    validation: {
+                        valid: false,
+                        done: true,
+                        errors: err
+                    }
+                }
+            );
         });
 }
 

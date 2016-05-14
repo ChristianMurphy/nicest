@@ -50,4 +50,7 @@ function list () {
         .filter(filterRecipes);
 }
 
-module.exports = {setServer, list};
+module.exports = {
+    setServer,
+    list
+};
