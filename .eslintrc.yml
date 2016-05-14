@@ -215,6 +215,7 @@ rules:
             - _id
     no-unneeded-ternary: off # no-ternary
     object-curly-spacing: error
+    object-property-newline: error
     one-var:
         - error
         - never
