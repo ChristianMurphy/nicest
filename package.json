@@ -7,7 +7,7 @@
     "nicest": "bin/cli.js"
   },
   "scripts": {
-    "postinstall": "jsdoc --recurse lib modules tasks --readme README.md --destination docs",
+    "postinstall": "jsdoc --recurse lib modules tasks --destination docs",
     "lint": "eslint . --inline-config=false && pug-lint modules && remark *.md modules/**/*.md"
   },
   "repository": {
@@ -69,7 +69,6 @@
     "bin",
     "lib",
     "modules",
-    "README.md",
     "tasks"
   ],
   "preferGlobal": true
