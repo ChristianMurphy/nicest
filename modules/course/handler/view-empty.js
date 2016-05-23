@@ -27,10 +27,7 @@ function viewEmpty (request, reply) {
             .select('_id name')
             .exec()
     ])
-    .then((data) => {
-        const users = data[0];
-        const teams = data[1];
-
+    .then(([users, teams]) => {
         reply.view('modules/course/view/view', {
             url: `${prefix}/recipe/manage-courses/create`,
             course: {

@@ -24,7 +24,7 @@ block body
                     label members
                     select.ui.search.dropdown(name='members', multiple, required)
                         each user in users
-                            if team.members.indexOf(user._id) > -1
+                            if team.members.includes(user._id)
                                 option(value=user._id.toString(), selected)= user.name
                             else
                                 option(value=user._id.toString())= user.name

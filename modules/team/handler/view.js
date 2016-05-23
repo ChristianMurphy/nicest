@@ -28,10 +28,7 @@ function view (request, reply) {
                 .select('_id name')
                 .exec()
         ])
-        .then((data) => {
-            const team = data[0];
-            const users = data[1];
-
+        .then(([team, users]) => {
             reply.view('modules/team/view/view', {
                 url: `${prefix}/recipe/manage-teams/edit/${team._id}`,
                 saved: request.query.saved,

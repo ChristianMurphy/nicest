@@ -24,7 +24,7 @@ block body
                     label instructors
                     select.ui.search.dropdown(name='instructors', multiple, required)
                         each user in users
-                            if course.instructors.indexOf(user._id) > -1
+                            if course.instructors.includes(user._id)
                                 option(value=user._id.toString(), selected)= user.name
                             else
                                 option(value=user._id.toString())= user.name
@@ -32,7 +32,7 @@ block body
                     label students
                     select.ui.search.dropdown(name='students', multiple, required)
                         each user in users
-                            if course.students.indexOf(user._id) > -1
+                            if course.students.includes(user._id)
                                 option(value=user._id.toString(), selected)= user.name
                             else
                                 option(value=user._id.toString())= user.name
@@ -40,7 +40,7 @@ block body
                     label teams
                     select.ui.search.dropdown(name='teams', multiple)
                         each team in teams
-                            if course.teams.indexOf(team._id) > -1
+                            if course.teams.includes(team._id)
                                 option(value=team._id.toString(), selected)= team.name
                             else
                                 option(value=team._id.toString())= team.name
