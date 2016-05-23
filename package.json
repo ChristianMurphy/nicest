@@ -69,6 +69,7 @@
     "bin",
     "lib",
     "modules",
+    "README.md",
     "tasks"
   ],
   "preferGlobal": true
