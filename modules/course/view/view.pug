@@ -2,9 +2,9 @@ extends ../../shared-template/default.pug
 
 block title
     title Edit Course
-    
+
 block script
-    script(src='//code.jquery.com/jquery-2.2.3.min.js')
+    script(src='//code.jquery.com/jquery-2.2.4.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.8/components/transition.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.8/components/dropdown.min.js')
     script(src= prefix + '/recipe/manage-courses/static/dropdown.js')
@@ -24,7 +24,7 @@ block body
                     label instructors
                     select.ui.search.dropdown(name='instructors', multiple, required)
                         each user in users
-                            if course.instructors.includes(user._id)
+                            if course.instructors.indexOf(user._id) > -1
                                 option(value=user._id.toString(), selected)= user.name
                             else
                                 option(value=user._id.toString())= user.name
@@ -32,7 +32,7 @@ block body
                     label students
                     select.ui.search.dropdown(name='students', multiple, required)
                         each user in users
-                            if course.students.includes(user._id)
+                            if course.students.indexOf(user._id) > -1
                                 option(value=user._id.toString(), selected)= user.name
                             else
                                 option(value=user._id.toString())= user.name
@@ -40,7 +40,7 @@ block body
                     label teams
                     select.ui.search.dropdown(name='teams', multiple)
                         each team in teams
-                            if course.teams.includes(team._id)
+                            if course.teams.indexOf(team._id) > -1
                                 option(value=team._id.toString(), selected)= team.name
                             else
                                 option(value=team._id.toString())= team.name
@@ -48,4 +48,4 @@ block body
                     label modules
                     textarea(name='modules', placeholder='{}', required)= JSON.stringify(course.modules, null, 4)
                 input.ui.large.primary.submit.button(type='submit', value='submit')
-                a.ui.large.red.submit.button(href = prefix + '/recipe/manage-courses/list') cancel 
+                a.ui.large.red.submit.button(href = prefix + '/recipe/manage-courses/list') cancel
