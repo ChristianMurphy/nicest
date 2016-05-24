@@ -50,18 +50,7 @@ block body
                 h4.ui.horizontal.divider.header
                     i.users.icon
                     | Students
-                if studentType === 'user'
-                    .ui.list
-                        each student in students
-                            .item
-                                i.user.icon
-                                .content
-                                    = student.name
-                                    if !student.modules.github || !student.modules.github.username
-                                        i.red.warning.sign.icon(title='missing Github username')
-                                    if !student.modules.taiga || !student.modules.taiga.email
-                                        i.red.warning.sign.icon(title='missing Tiaga email')
-                else
+                if studentType === 'team'
                     .ui.accordion
                         each team in students
                             .title
@@ -76,10 +65,17 @@ block body
                                         .item
                                             i.user.icon
                                             .content= user.name
-                                                if !user.modules.github || !user.modules.github.username
-                                                    i.red.warning.sign.icon(title='missing Github username')
-                                                if !user.modules.taiga || !user.modules.taiga.email
-                                                    i.red.warning.sign.icon(title='missing Tiaga email')
+                                                if !user.isValid
+                                                    i.red.warning.sign.icon
+                else
+                    .ui.list
+                        each student in students
+                            .item
+                                i.user.icon
+                                .content
+                                    = student.name
+                                    if !student.isValid
+                                        i.red.warning.sign.icon
                 h4.ui.horizontal.divider.header
                     i.git.square.icon
                     | Repository

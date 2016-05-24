@@ -8,6 +8,15 @@ const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 
 /**
+ * Checks if a user has all needed attributes
+ * @param {Object} user - User object to check
+ * @returns {boolean} is valid
+ */
+function isValidStudent (user) {
+    return user.modules.github && user.modules.github.username && user.modules.taiga && user.modules.taiga.email;
+}
+
+/**
  * View configuration before generating the project
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply
@@ -23,9 +32,10 @@ function confirmView (request, reply) {
     const objectIds = request
         .yar
         .get('code-project-students');
+    let chain = null;
 
     if (studentType === 'team') {
-        Team
+        chain = Team
             .find({
                 _id: {
                     $in: objectIds
@@ -35,25 +45,20 @@ function confirmView (request, reply) {
             .exec()
             .then((teams) => {
                 for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
-                    // find any invalid users
-                    for (let userIndex = 0; userIndex < teams[teamIndex].members.length; userIndex += 1) {
-                        const currentUser = teams[teamIndex].members[userIndex];
+                    for (let userIndex = 0; userIndex < teams.members.length; userIndex += 1) {
+                        const isValid = isValidStudent(teams[teamIndex].members[userIndex]);
 
-                        if (!currentUser.modules.github || !currentUser.modules.github.username || !currentUser.modules.taiga || !currentUser.modules.taiga.email) {
+                        teams[teamIndex].members[userIndex].isValid = isValid;
+                        if (!isValid) {
                             teams[teamIndex].hasInvalidMember = true;
                         }
                     }
                 }
 
-                reply.view('modules/code-project/view/confirm', {
-                    repoUrl: `https://github.com/${repo}`,
-                    repoName: (/[a-z0-9\-]+$/i).exec(repo),
-                    studentType: 'team',
-                    students: teams
-                });
+                return teams;
             });
     } else {
-        User
+        chain = User
             .find({
                 _id: {
                     $in: objectIds
@@ -62,14 +67,22 @@ function confirmView (request, reply) {
             .select('_id name modules')
             .exec()
             .then((students) => {
-                reply.view('modules/code-project/view/confirm', {
-                    repoUrl: `https://github.com/${repo}`,
-                    repoName: (/[a-z0-9\-]+$/i).exec(repo),
-                    studentType: 'user',
-                    students
-                });
+                for (let index = 0; index < students.length; index += 1) {
+                    students[index].isValid = isValidStudent(students[index]);
+                }
+
+                return students;
             });
     }
+
+    chain.then((students) => {
+        return reply.view('modules/code-project/view/confirm', {
+            repoUrl: `https://github.com/${repo}`,
+            repoName: (/[a-z0-9\-]+$/i).exec(repo),
+            studentType,
+            students
+        });
+    });
 }
 
 module.exports = confirmView;
