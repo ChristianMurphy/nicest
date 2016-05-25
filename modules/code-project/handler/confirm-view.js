@@ -33,6 +33,29 @@ function confirmView (request, reply) {
     const objectIds = request
         .yar
         .get('code-project-students');
+    const issueTracker = {};
+
+    issueTracker.enabled = request
+        .yar
+        .get('taiga-project-use-taiga');
+    issueTracker.description = request
+        .yar
+        .get('taiga-project-description');
+    issueTracker.isPrivate = request
+        .yar
+        .get('taiga-project-is-private');
+    issueTracker.hasIssues = request
+        .yar
+        .get('taiga-project-has-issues');
+    issueTracker.hasBacklog = request
+        .yar
+        .get('taiga-project-has-backlog');
+    issueTracker.hasKanban = request
+        .yar
+        .get('taiga-project-has-kanban');
+    issueTracker.hasWiki = request
+        .yar
+        .get('taiga-project-has-wiki');
     const coursePromise = Course
         .findOne({
             _id: request
@@ -91,7 +114,8 @@ function confirmView (request, reply) {
                 repoName: (/[a-z0-9\-]+$/i).exec(repo),
                 studentType,
                 students,
-                course
+                course,
+                issueTracker
             });
         });
 }

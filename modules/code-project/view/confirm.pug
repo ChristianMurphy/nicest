@@ -84,6 +84,27 @@ block body
                 h4.ui.horizontal.divider.header
                     i.columns.icon
                     | Issues
+                | Issue tracker
+                = issueTracker.enabled ? ' enabled' : ' disabled'
+                br
+                if issueTracker.enabled
+                    | description:
+                    = issueTracker.description
+                    br
+                    | private:
+                    = issueTracker.isPrivate
+                    br
+                    | has issues:
+                    = issueTracker.hasIssues
+                    br
+                    | has scrumboard:
+                    = issueTracker.hasBacklog
+                    br
+                    | has kanban board:
+                    = issueTracker.hasKanban
+                    br
+                    | has wiki:
+                    = issueTracker.hasWiki
                 h4.ui.horizontal.divider.header
                     i.exchange.icon
                     | Assessment
