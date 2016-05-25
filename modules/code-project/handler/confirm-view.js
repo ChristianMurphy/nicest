@@ -4,6 +4,7 @@
  * @module code-project/handler/confirm-view
  */
 
+const Course = require('../../course/model/course');
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 
@@ -32,10 +33,18 @@ function confirmView (request, reply) {
     const objectIds = request
         .yar
         .get('code-project-students');
-    let chain = null;
+    const coursePromise = Course
+        .findOne({
+            _id: request
+                .yar
+                .get('code-project-course')
+        })
+        .select('name')
+        .exec();
+    let studentPromise = null;
 
     if (studentType === 'team') {
-        chain = Team
+        studentPromise = Team
             .find({
                 _id: {
                     $in: objectIds
@@ -58,7 +67,7 @@ function confirmView (request, reply) {
                 return teams;
             });
     } else {
-        chain = User
+        studentPromise = User
             .find({
                 _id: {
                     $in: objectIds
@@ -75,14 +84,16 @@ function confirmView (request, reply) {
             });
     }
 
-    chain.then((students) => {
-        return reply.view('modules/code-project/view/confirm', {
-            repoUrl: `https://github.com/${repo}`,
-            repoName: (/[a-z0-9\-]+$/i).exec(repo),
-            studentType,
-            students
+    Promise.all([studentPromise, coursePromise])
+        .then(([students, course]) => {
+            return reply.view('modules/code-project/view/confirm', {
+                repoUrl: `https://github.com/${repo}`,
+                repoName: (/[a-z0-9\-]+$/i).exec(repo),
+                studentType,
+                students,
+                course
+            });
         });
-    });
 }
 
 module.exports = confirmView;
