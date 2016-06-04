@@ -4,8 +4,18 @@
  * @module code-project/handler/confirm-view
  */
 
+const Course = require('../../course/model/course');
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
+
+/**
+ * Checks if a user has all needed attributes
+ * @param {Object} user - User object to check
+ * @returns {boolean} is valid
+ */
+function isValidStudent (user) {
+    return user.modules.github && user.modules.github.username && user.modules.taiga && user.modules.taiga.email;
+}
 
 /**
  * View configuration before generating the project
@@ -23,9 +33,41 @@ function confirmView (request, reply) {
     const objectIds = request
         .yar
         .get('code-project-students');
+    const issueTracker = {};
+
+    issueTracker.enabled = request
+        .yar
+        .get('taiga-project-use-taiga');
+    issueTracker.description = request
+        .yar
+        .get('taiga-project-description');
+    issueTracker.isPrivate = request
+        .yar
+        .get('taiga-project-is-private');
+    issueTracker.hasIssues = request
+        .yar
+        .get('taiga-project-has-issues');
+    issueTracker.hasBacklog = request
+        .yar
+        .get('taiga-project-has-backlog');
+    issueTracker.hasKanban = request
+        .yar
+        .get('taiga-project-has-kanban');
+    issueTracker.hasWiki = request
+        .yar
+        .get('taiga-project-has-wiki');
+    const coursePromise = Course
+        .findOne({
+            _id: request
+                .yar
+                .get('code-project-course')
+        })
+        .select('name')
+        .exec();
+    let studentPromise = null;
 
     if (studentType === 'team') {
-        Team
+        studentPromise = Team
             .find({
                 _id: {
                     $in: objectIds
@@ -35,25 +77,20 @@ function confirmView (request, reply) {
             .exec()
             .then((teams) => {
                 for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
-                    // find any invalid users
-                    for (let userIndex = 0; userIndex < teams[teamIndex].members.length; userIndex += 1) {
-                        const currentUser = teams[teamIndex].members[userIndex];
+                    for (let userIndex = 0; userIndex < teams.members.length; userIndex += 1) {
+                        const isValid = isValidStudent(teams[teamIndex].members[userIndex]);
 
-                        if (!currentUser.modules.github || !currentUser.modules.github.username || !currentUser.modules.taiga || !currentUser.modules.taiga.email) {
+                        teams[teamIndex].members[userIndex].isValid = isValid;
+                        if (!isValid) {
                             teams[teamIndex].hasInvalidMember = true;
                         }
                     }
                 }
 
-                reply.view('modules/code-project/view/confirm', {
-                    repoUrl: `https://github.com/${repo}`,
-                    repoName: (/[a-z0-9\-]+$/i).exec(repo),
-                    studentType: 'team',
-                    students: teams
-                });
+                return teams;
             });
     } else {
-        User
+        studentPromise = User
             .find({
                 _id: {
                     $in: objectIds
@@ -62,14 +99,25 @@ function confirmView (request, reply) {
             .select('_id name modules')
             .exec()
             .then((students) => {
-                reply.view('modules/code-project/view/confirm', {
-                    repoUrl: `https://github.com/${repo}`,
-                    repoName: (/[a-z0-9\-]+$/i).exec(repo),
-                    studentType: 'user',
-                    students
-                });
+                for (let index = 0; index < students.length; index += 1) {
+                    students[index].isValid = isValidStudent(students[index]);
+                }
+
+                return students;
             });
     }
+
+    Promise.all([studentPromise, coursePromise])
+        .then(([students, course]) => {
+            return reply.view('modules/code-project/view/confirm', {
+                repoUrl: `https://github.com/${repo}`,
+                repoName: (/[a-z0-9\-]+$/i).exec(repo),
+                studentType,
+                students,
+                course,
+                issueTracker
+            });
+        });
 }
 
 module.exports = confirmView;

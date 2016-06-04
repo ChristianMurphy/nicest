@@ -2,7 +2,7 @@ extends ../../shared-template/default.pug
 
 block title
     title Confirm
-    
+
 block script
     script(src='//code.jquery.com/jquery-2.2.4.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.1.8/components/transition.min.js')
@@ -45,24 +45,13 @@ block body
         form.ui.attached.large.form(action = prefix + '/recipe/code-project/confirm', method='POST')
             .ui.attached.stacked.segment
                 h4.ui.horizontal.divider.header
-                    i.git.square.icon
-                    | Repository
-                a(href=repoUrl, target='_blank')= repoName
+                    i.university.icon
+                    | Course
+                = course.name
                 h4.ui.horizontal.divider.header
                     i.users.icon
                     | Students
-                if studentType === 'user'
-                    .ui.list
-                        each student in students
-                            .item
-                                i.user.icon
-                                .content
-                                    = student.name
-                                    if !student.modules.github || !student.modules.github.username
-                                        i.red.warning.sign.icon(title='missing Github username')
-                                    if !student.modules.taiga || !student.modules.taiga.email
-                                        i.red.warning.sign.icon(title='missing Tiaga email')
-                else
+                if studentType === 'team'
                     .ui.accordion
                         each team in students
                             .title
@@ -77,9 +66,47 @@ block body
                                         .item
                                             i.user.icon
                                             .content= user.name
-                                                if !user.modules.github || !user.modules.github.username
-                                                    i.red.warning.sign.icon(title='missing Github username')
-                                                if !user.modules.taiga || !user.modules.taiga.email
-                                                    i.red.warning.sign.icon(title='missing Tiaga email')
+                                                if !user.isValid
+                                                    i.red.warning.sign.icon
+                else
+                    .ui.list
+                        each student in students
+                            .item
+                                i.user.icon
+                                .content
+                                    = student.name
+                                    if !student.isValid
+                                        i.red.warning.sign.icon
+                h4.ui.horizontal.divider.header
+                    i.git.square.icon
+                    | Repository
+                a(href=repoUrl, target='_blank')= repoName
+                h4.ui.horizontal.divider.header
+                    i.columns.icon
+                    | Issues
+                | Issue tracker
+                = issueTracker.enabled ? ' enabled' : ' disabled'
+                br
+                if issueTracker.enabled
+                    | description:
+                    = issueTracker.description
+                    br
+                    | private:
+                    = issueTracker.isPrivate
+                    br
+                    | has issues:
+                    = issueTracker.hasIssues
+                    br
+                    | has scrumboard:
+                    = issueTracker.hasBacklog
+                    br
+                    | has kanban board:
+                    = issueTracker.hasKanban
+                    br
+                    | has wiki:
+                    = issueTracker.hasWiki
+                h4.ui.horizontal.divider.header
+                    i.exchange.icon
+                    | Assessment
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-assessment-system') previous
                 input.ui.large.teal.submit.button(type='submit', value='confirm')
