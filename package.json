@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "jsdoc --recurse lib modules tasks --destination docs",
-    "lint": "eslint . --inline-config=false && pug-lint modules && remark *.md modules/**/*.md"
+    "test": "eslint . --inline-config=false && pug-lint modules && remark *.md modules/**/*.md"
   },
   "repository": {
     "type": "git",
