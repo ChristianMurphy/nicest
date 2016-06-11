@@ -7,6 +7,24 @@
 const request = require('request');
 
 /**
+ * Promise wrapper for request, abstracts the http api
+ * @private
+ * @param {Object} data - request object
+ * @returns {Promise.<String>} promise will resolve to response body or reject with error code
+ */
+function requestPromise (data) {
+    return new Promise((resolve, reject) => {
+        request(data, (error, headers, body) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(body);
+            }
+        });
+    });
+}
+
+/**
  * TaigaBoard is meta data for creating a single board.
  * @typedef {Object} TaigaBoard
  * @property {String} name - name of the board
@@ -33,7 +51,7 @@ const request = require('request');
  * @returns {Promise} resolves when boards have been created
  */
 function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
-    let authorizationToken;
+    let authorizationToken = null;
 
     // login to Taiga
     requestPromise({
@@ -72,9 +90,7 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                 requestPromise({
                     method: 'POST',
                     uri: 'https://api.taiga.io/api/v1/projects',
-                    headers: {
-                        Authorization: `Bearer ${authorizationToken}`
-                    },
+                    headers: {Authorization: `Bearer ${authorizationToken}`},
                     json: true,
                     body: boardMetaData
                 })
@@ -95,9 +111,7 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                 const userMetadata = {
                     project: data[boardIndex].id,
                     role: taigaRoles
-                        .find((element) => {
-                            return element.name === 'Back';
-                        })
+                        .find((element) => element.name === 'Back')
                         .id,
                     email: taigaBoards[boardIndex].emails[userIndex]
                 };
@@ -107,9 +121,7 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                     requestPromise({
                         method: 'POST',
                         uri: 'https://api.taiga.io/api/v1/memberships',
-                        headers: {
-                            Authorization: `Bearer ${authorizationToken}`
-                        },
+                        headers: {Authorization: `Bearer ${authorizationToken}`},
                         json: true,
                         body: userMetadata
                     })
@@ -122,21 +134,3 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
 }
 
 module.exports = createTiagaBoards;
-
-/**
- * Promise wrapper for request, abstracts the http api
- * @private
- * @param {Object} data - request object
- * @returns {Promise.<String>} promise will resolve to response body or reject with error code
- */
-function requestPromise (data) {
-    return new Promise((resolve, reject) => {
-        request(data, (error, headers, body) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(body);
-            }
-        });
-    });
-}

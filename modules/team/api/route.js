@@ -41,9 +41,7 @@ module.exports = [
         path: '/api/team',
         handler: handler.create,
         config: {
-            validate: {
-                payload: teamValidation
-            },
+            validate: {payload: teamValidation},
             description: 'Create a new team',
             notes: 'Will respond with HTTP 201 for success and return the new team object',
             tags: ['create']

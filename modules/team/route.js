@@ -36,9 +36,7 @@ module.exports = [
         method: 'GET',
         path: '/recipe/manage-teams',
         handler: handleRedirect,
-        config: {
-            description: 'Team Management'
-        }
+        config: {description: 'Team Management'}
     },
     {
         method: 'GET',
@@ -97,19 +95,11 @@ module.exports = [
         method: 'POST',
         path: '/recipe/manage-teams/create',
         handler: handleCreate,
-        config: {
-            validate: {
-                payload: teamValidation
-            }
-        }
+        config: {validate: {payload: teamValidation}}
     },
     {
         method: 'GET',
         path: '/recipe/manage-teams/static/{param*}',
-        handler: {
-            directory: {
-                path: 'modules/team/static'
-            }
-        }
+        handler: {directory: {path: 'modules/team/static'}}
     }
 ];

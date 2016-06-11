@@ -25,9 +25,7 @@ module.exports = [
         method: 'GET',
         path: '/recipe/code-project',
         handler: handleRedirect,
-        config: {
-            description: 'Create a computer code project'
-        }
+        config: {description: 'Create a computer code project'}
     },
     {
         method: 'GET',
@@ -210,10 +208,6 @@ module.exports = [
     {
         method: 'GET',
         path: '/recipe/code-project/static/{param*}',
-        handler: {
-            directory: {
-                path: 'modules/code-project/static'
-            }
-        }
+        handler: {directory: {path: 'modules/code-project/static'}}
     }
 ];

@@ -16,9 +16,7 @@ function remove (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     Team
-        .remove({
-            _id: request.params.id
-        })
+        .remove({_id: request.params.id})
         .then(() => {
             reply().redirect(`${prefix}/recipe/manage-teams/list`);
         });

@@ -26,11 +26,7 @@ function confirmView (request, reply) {
 
     if (studentType === 'team') {
         Team
-            .find({
-                _id: {
-                    $in: objectIds
-                }
-            })
+            .find({_id: {$in: objectIds}})
             .populate('members')
             .exec()
             .then((teams) => {
@@ -54,11 +50,7 @@ function confirmView (request, reply) {
             });
     } else {
         User
-            .find({
-                _id: {
-                    $in: objectIds
-                }
-            })
+            .find({_id: {$in: objectIds}})
             .select('_id name modules')
             .exec()
             .then((students) => {

@@ -19,9 +19,7 @@ module.exports = {
     },
     read (request, reply) {
         User
-            .findOne({
-                _id: request.params.id
-            })
+            .findOne({_id: request.params.id})
             .exec()
             .then((user) => {
                 if (user) {
@@ -51,9 +49,7 @@ module.exports = {
     },
     delete (request, reply) {
         User
-            .remove({
-                _id: request.params.id
-            })
+            .remove({_id: request.params.id})
             .then(() => {
                 reply().code(httpNoContent);
             })
@@ -67,9 +63,7 @@ module.exports = {
             .select('_id')
             .exec()
             .then((userIds) => {
-                reply(userIds.map((element) => {
-                    return element._id;
-                }));
+                reply(userIds.map((element) => element._id));
             })
             .catch(() => {
                 reply(boom.notFound());

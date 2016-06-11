@@ -22,9 +22,7 @@ function importTeams (documentAndMapping) {
     for (const currentTeam of teams) {
         // gather all team members for current team
         const teamMembers = currentTeam.find('member');
-        const teamMetadata = {
-            members: []
-        };
+        const teamMetadata = {members: []};
 
         // set the team name
         teamMetadata.name = currentTeam
@@ -38,9 +36,7 @@ function importTeams (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => {
-                    return element.xmlId === memberXmlId;
-                })
+                .find((element) => element.xmlId === memberXmlId)
                 .databaseId;
 
             teamMetadata
@@ -52,15 +48,12 @@ function importTeams (documentAndMapping) {
         promises.push(
             Team
                 .create(teamMetadata)
-                .then((newTeam) => {
-                    // map the XML id to the Mongoose id
-                    return {
-                        databaseId: newTeam._id,
-                        xmlId: currentTeam
-                            .attr('id')
-                            .value()
-                    };
-                })
+                .then((newTeam) => ({
+                    databaseId: newTeam._id,
+                    xmlId: currentTeam
+                        .attr('id')
+                        .value()
+                }))
         );
     }
 

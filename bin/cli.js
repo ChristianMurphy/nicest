@@ -21,9 +21,7 @@ const tasks = [
     nicestDev
 ];
 
-const selectedTask = tasks.find((element) => {
-    return element.name === command;
-});
+const selectedTask = tasks.find((element) => element.name === command);
 
 if (selectedTask) {
     selectedTask();

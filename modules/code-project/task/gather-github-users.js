@@ -31,11 +31,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
 
     if (studentType === 'team') {
         return Team
-            .find({
-                _id: {
-                    $in: students
-                }
-            })
+            .find({_id: {$in: students}})
             .populate('members')
             .exec()
             .then((teams) => {
@@ -75,11 +71,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
     }
 
     return User
-        .find({
-            _id: {
-                $in: students
-            }
-        })
+        .find({_id: {$in: students}})
         .exec()
         .then((users) => {
             // for each student

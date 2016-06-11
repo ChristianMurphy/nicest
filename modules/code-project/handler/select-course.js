@@ -15,9 +15,7 @@ function selectCourse (request, reply) {
 
     request
         .yar
-        .set({
-            'code-project-course': request.payload.course
-        });
+        .set({'code-project-course': request.payload.course});
 
     reply().redirect(`${prefix}/recipe/code-project/choose-students`);
 }

@@ -4,29 +4,19 @@ module.exports = [
     {
         method: 'GET',
         path: '/',
-        handler: {
-            view: 'modules/welcome/view/welcome'
-        },
+        handler: {view: 'modules/welcome/view/welcome'},
         config: {
             auth: false,
-            plugins: {
-                lout: false
-            }
+            plugins: {lout: false}
         }
     },
     {
         method: 'GET',
         path: '/welcome/static/{param*}',
-        handler: {
-            directory: {
-                path: 'modules/welcome/static'
-            }
-        },
+        handler: {directory: {path: 'modules/welcome/static'}},
         config: {
             auth: false,
-            plugins: {
-                lout: false
-            }
+            plugins: {lout: false}
         }
     }
 ];

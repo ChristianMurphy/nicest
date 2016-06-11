@@ -7,10 +7,6 @@ module.exports = [
         method: 'GET',
         path: '/recipes',
         handler: handleList,
-        config: {
-            plugins: {
-                lout: false
-            }
-        }
+        config: {plugins: {lout: false}}
     }
 ];

@@ -56,9 +56,7 @@ module.exports = [
         method: 'GET',
         path: '/recipe/manage-courses',
         handler: handleRedirect,
-        config: {
-            description: 'Course Management'
-        }
+        config: {description: 'Course Management'}
     },
     {
         method: 'GET',
@@ -117,19 +115,11 @@ module.exports = [
         method: 'POST',
         path: '/recipe/manage-courses/create',
         handler: handleCreate,
-        config: {
-            validate: {
-                payload: courseValidation
-            }
-        }
+        config: {validate: {payload: courseValidation}}
     },
     {
         method: 'GET',
         path: '/recipe/manage-courses/static/{param*}',
-        handler: {
-            directory: {
-                path: 'modules/course/static'
-            }
-        }
+        handler: {directory: {path: 'modules/course/static'}}
     }
 ];
