@@ -16,7 +16,7 @@
 2. Ensure that code passes static analysis
 
    * Test results are reported to [PR status](https://github.com/blog/1935-see-results-from-all-pull-request-status-checks)
-   * Tests can be run locally using `npm run lint`
+   * Tests can be run locally using `npm test`
 
 3. Get a code review
 
