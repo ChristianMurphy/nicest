@@ -23,9 +23,7 @@ function user () {
 
     const newUser = {};
 
-    read({
-        prompt: 'name:'
-    })
+    read({prompt: 'name:'})
     .then((userName) => {
         newUser.name = userName;
 
@@ -37,9 +35,7 @@ function user () {
     .then((role) => {
         newUser.role = role;
 
-        return read({
-            prompt: 'github username:'
-        });
+        return read({prompt: 'github username:'});
     })
     .then((username) => {
         newUser.modules = {};

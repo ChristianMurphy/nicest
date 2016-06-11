@@ -4,7 +4,7 @@
  * @module recipe/model
  */
 
-let server;
+let server = null;
 
 /**
  * Route represents a view.

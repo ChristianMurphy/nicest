@@ -19,9 +19,7 @@ module.exports = {
     },
     read (request, reply) {
         Team
-            .findOne({
-                _id: request.params.id
-            })
+            .findOne({_id: request.params.id})
             .exec()
             .then((team) => {
                 if (team) {
@@ -51,9 +49,7 @@ module.exports = {
     },
     delete (request, reply) {
         Team
-            .remove({
-                _id: request.params.id
-            })
+            .remove({_id: request.params.id})
             .then(() => {
                 reply().code(httpNoContent);
             })
@@ -66,9 +62,7 @@ module.exports = {
             .find({})
             .exec()
             .then((teamIds) => {
-                reply(teamIds.map((element) => {
-                    return element._id;
-                }));
+                reply(teamIds.map((element) => element._id));
             })
             .catch(() => {
                 reply(boom.notFound());

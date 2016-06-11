@@ -19,9 +19,7 @@ function view (request, reply) {
     Promise
         .all([
             Team
-                .findOne({
-                    _id: request.params.id
-                })
+                .findOne({_id: request.params.id})
                 .exec(),
             User
                 .find({})

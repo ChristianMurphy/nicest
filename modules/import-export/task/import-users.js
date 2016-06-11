@@ -45,15 +45,12 @@ function importUsers (documentAndMapping) {
                     }
                 }
             })
-            .then((newUser) => {
-                // map the XML id to the Mongoose id
-                return {
-                    databaseId: newUser._id,
-                    xmlId: currentUser
-                        .attr('id')
-                        .value()
-                };
-            })
+            .then((newUser) => ({
+                databaseId: newUser._id,
+                xmlId: currentUser
+                    .attr('id')
+                    .value()
+            }))
         );
     }
 

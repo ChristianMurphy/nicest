@@ -30,9 +30,7 @@ module.exports = [
         method: 'GET',
         path: '/recipe/manage-users',
         handler: handleRedirect,
-        config: {
-            description: 'User Management'
-        }
+        config: {description: 'User Management'}
     },
     {
         method: 'GET',
@@ -91,19 +89,11 @@ module.exports = [
         method: 'POST',
         path: '/recipe/manage-users/create',
         handler: handleCreate,
-        config: {
-            validate: {
-                payload: userValidation
-            }
-        }
+        config: {validate: {payload: userValidation}}
     },
     {
         method: 'GET',
         path: '/recipe/manage-users/static/{param*}',
-        handler: {
-            directory: {
-                path: 'modules/user/static'
-            }
-        }
+        handler: {directory: {path: 'modules/user/static'}}
     }
 ];

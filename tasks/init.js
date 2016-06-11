@@ -91,17 +91,13 @@ function init () {
     .then((authenticationHttpsProxy) => {
         config.authentication.https = authenticationHttpsProxy === 'true';
 
-        return read({
-            prompt: 'Github Client ID:'
-        });
+        return read({prompt: 'Github Client ID:'});
     })
     .then((authenticationGithubClientId) => {
         config.authentication.github = {};
         config.authentication.github.client = authenticationGithubClientId;
 
-        return read({
-            prompt: 'Github Client Secret:'
-        });
+        return read({prompt: 'Github Client Secret:'});
     })
     .then((authenticationGithubClientSecret) => {
         config.authentication.github.secret = authenticationGithubClientSecret;

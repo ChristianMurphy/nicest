@@ -35,9 +35,7 @@ module.exports = [
         path: '/api/user',
         handler: handler.create,
         config: {
-            validate: {
-                payload: userValidation
-            },
+            validate: {payload: userValidation},
             description: 'Create a new user',
             notes: 'Will respond with HTTP 201 for success and return the new user object',
             tags: ['create']

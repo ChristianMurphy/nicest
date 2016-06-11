@@ -53,7 +53,7 @@ function confirm (request, reply) {
     const useAssessment = request
         .yar
         .get('assessment-use-ca-dashboard');
-    let githubRepositories;
+    let githubRepositories = null;
 
     // Gather Github user information from Users/Teams
     gatherGithubUsers(seedRepository, githubUsername, studentType, students)
@@ -123,9 +123,7 @@ function confirm (request, reply) {
         // add seed code to repositories
         .then(() => {
             const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[a-z0-9\-]+$/i).exec(seedRepository)}`;
-            const githubUrls = githubRepositories.map((element) => {
-                return element.url;
-            });
+            const githubUrls = githubRepositories.map((element) => element.url);
 
             return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
         })

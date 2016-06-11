@@ -15,9 +15,7 @@ function selectAssessmentSystem (request, reply) {
 
     request
         .yar
-        .set({
-            'assessment-use-ca-dashboard': request.payload.useCADashboard
-        });
+        .set({'assessment-use-ca-dashboard': request.payload.useCADashboard});
 
     reply().redirect(`${prefix}/recipe/code-project/confirm`);
 }

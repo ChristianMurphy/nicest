@@ -10,9 +10,7 @@ module.exports = [
         method: 'GET',
         path: '/recipe/import-export',
         handler: handleRedirect,
-        config: {
-            description: 'Import and Export Teams and Users'
-        }
+        config: {description: 'Import and Export Teams and Users'}
     },
     {
         method: 'GET',

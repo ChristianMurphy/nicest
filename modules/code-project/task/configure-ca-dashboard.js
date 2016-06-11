@@ -59,9 +59,7 @@ const integration = connection.model('integration', Project);
 function configureCaDashboard (metaData) {
     integration
         .collection
-        .insert(metaData, () => {
-            return;
-        });
+        .insert(metaData, () => null);
 }
 
 module.exports = configureCaDashboard;

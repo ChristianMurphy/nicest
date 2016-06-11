@@ -43,17 +43,11 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
         return Promise
         .all([
             Team
-                .find({
-                    _id: {
-                        $in: students
-                    }
-                })
+                .find({_id: {$in: students}})
                 .populate('members')
                 .exec(),
             Course
-                .findOne({
-                    _id: courseId
-                })
+                .findOne({_id: courseId})
                 .populate('instructors')
                 .select('name instructors')
                 .exec()
@@ -108,16 +102,10 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
     return Promise
     .all([
         User
-            .find({
-                _id: {
-                    $in: students
-                }
-            })
+            .find({_id: {$in: students}})
             .exec(),
         Course
-            .findOne({
-                _id: courseId
-            })
+            .findOne({_id: courseId})
             .populate('instructors')
             .select('name instructors')
             .exec()

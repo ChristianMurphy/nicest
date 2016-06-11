@@ -16,9 +16,7 @@ function chooseStudents (request, reply) {
     if (request.query.type === 'team') {
         request
             .yar
-            .set({
-                'code-project-student-type': 'team'
-            });
+            .set({'code-project-student-type': 'team'});
         Course
             .findOne({
                 _id: request

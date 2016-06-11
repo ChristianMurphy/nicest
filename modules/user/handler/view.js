@@ -16,9 +16,7 @@ function view (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     User
-        .findOne({
-            _id: request.params.id
-        })
+        .findOne({_id: request.params.id})
         .exec()
         .then((user) => {
             reply.view('modules/user/view/view', {

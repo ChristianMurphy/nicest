@@ -20,9 +20,7 @@ function view (request, reply) {
     Promise
     .all([
         Course
-            .findOne({
-                _id: request.params.id
-            })
+            .findOne({_id: request.params.id})
             .exec(),
         Team
             .find({})

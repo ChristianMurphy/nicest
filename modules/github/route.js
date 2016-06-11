@@ -11,9 +11,7 @@ module.exports = [
         method: 'GET',
         path: '/recipe/github',
         handler: handleRedirect,
-        config: {
-            description: 'Manage Github Users, Teams and Repos'
-        }
+        config: {description: 'Manage Github Users, Teams and Repos'}
     },
     {
         method: 'GET',

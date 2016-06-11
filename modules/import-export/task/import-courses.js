@@ -40,9 +40,7 @@ function importCourses (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => {
-                    return element.xmlId === memberXmlId;
-                })
+                .find((element) => element.xmlId === memberXmlId)
                 .databaseId;
 
             courseMetadata
@@ -57,9 +55,7 @@ function importCourses (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => {
-                    return element.xmlId === memberXmlId;
-                })
+                .find((element) => element.xmlId === memberXmlId)
                 .databaseId;
 
             courseMetadata
@@ -74,9 +70,7 @@ function importCourses (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => {
-                    return element.xmlId === memberXmlId;
-                })
+                .find((element) => element.xmlId === memberXmlId)
                 .databaseId;
 
             courseMetadata
@@ -93,9 +87,7 @@ function importCourses (documentAndMapping) {
     // wait for all courses to be created
     return Promise
         .all(promises)
-        .then(() => {
-            return documentAndMapping;
-        });
+        .then(() => documentAndMapping);
 }
 
 module.exports = importCourses;
