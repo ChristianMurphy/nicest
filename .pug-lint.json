@@ -1,6 +1,7 @@
 {
     "disallowAttributeConcatenation": null,
     "disallowAttributeInterpolation": true,
+    "disallowAttributeTemplateString": "all",
     "disallowBlockExpansion": true,
     "disallowClassAttributeWithStaticValue": true,
     "disallowClassLiteralsBeforeAttributes": null,
@@ -11,6 +12,7 @@
     "disallowIdAttributeWithStaticValue": true,
     "disallowIdLiteralsBeforeAttributes": null,
     "disallowIdLiterals": null,
+    "disallowLegacyMixinCall": true,
     "disallowMultipleLineBreaks": true,
     "disallowSpaceAfterCodeOperator": null,
     "disallowSpacesInsideAttributeBrackets": true,
@@ -33,6 +35,7 @@
     "disallowStringConcatenation": true,
     "disallowStringInterpolation": true,
     "disallowTagInterpolation": true,
+    "disallowTemplateString": true,
     "maximumNumberOfLines": 150,
     "requireClassLiteralsBeforeAttributes": true,
     "requireClassLiteralsBeforeIdLiterals": null,
@@ -47,6 +50,9 @@
     "validateAttributeQuoteMarks": "'",
     "validateAttributeSeparator": ", ",
     "validateDivTags": true,
+    "validateExtensions": true,
     "validateIndentation": 4,
-    "validateSelfClosingTags": true
+    "validateLineBreaks": "LF",
+    "validateSelfClosingTags": true,
+    "validateTemplateString": true
 }
