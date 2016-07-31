@@ -24,32 +24,32 @@ function user () {
     const newUser = {};
 
     read({prompt: 'name:'})
-    .then((userName) => {
-        newUser.name = userName;
+        .then((userName) => {
+            newUser.name = userName;
 
-        return read({
-            prompt: 'user role:',
-            default: 'admin'
+            return read({
+                prompt: 'user role:',
+                default: 'admin'
+            });
+        })
+        .then((role) => {
+            newUser.role = role;
+
+            return read({prompt: 'github username:'});
+        })
+        .then((username) => {
+            newUser.modules = {};
+            newUser.modules.github = {username};
+
+            return userModel.create(newUser);
+        })
+        .then(() => {
+            mongoose.disconnect();
+        })
+        .catch((err) => {
+            console.error(err);
+            mongoose.disconnect();
         });
-    })
-    .then((role) => {
-        newUser.role = role;
-
-        return read({prompt: 'github username:'});
-    })
-    .then((username) => {
-        newUser.modules = {};
-        newUser.modules.github = {username};
-
-        return userModel.create(newUser);
-    })
-    .then(() => {
-        mongoose.disconnect();
-    })
-    .catch((err) => {
-        console.error(err);
-        mongoose.disconnect();
-    });
 }
 
 user.description = 'Creates a new user.';

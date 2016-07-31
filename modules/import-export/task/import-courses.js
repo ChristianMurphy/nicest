@@ -14,8 +14,8 @@ const Course = require('../../course/model/course');
 function importCourses (documentAndMapping) {
     // find all the teams
     const courses = documentAndMapping
-    .document
-    .find('//course');
+        .document
+        .find('//course');
     const promises = [];
 
     // for each team

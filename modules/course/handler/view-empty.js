@@ -17,30 +17,30 @@ function viewEmpty (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     Promise
-    .all([
-        User
-            .find({})
-            .select('_id name')
-            .exec(),
-        Team
-            .find({})
-            .select('_id name')
-            .exec()
-    ])
-    .then(([users, teams]) => {
-        reply.view('modules/course/view/view', {
-            url: `${prefix}/recipe/manage-courses/create`,
-            course: {
-                name: '',
-                students: [],
-                instructors: [],
-                teams: [],
-                modules: {}
-            },
-            users,
-            teams
+        .all([
+            User
+                .find({})
+                .select('_id name')
+                .exec(),
+            Team
+                .find({})
+                .select('_id name')
+                .exec()
+        ])
+        .then(([users, teams]) => {
+            reply.view('modules/course/view/view', {
+                url: `${prefix}/recipe/manage-courses/create`,
+                course: {
+                    name: '',
+                    students: [],
+                    instructors: [],
+                    teams: [],
+                    modules: {}
+                },
+                users,
+                teams
+            });
         });
-    });
 }
 
 module.exports = viewEmpty;

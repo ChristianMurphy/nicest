@@ -16,10 +16,10 @@ function remove (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     Course
-    .remove({_id: request.params.id})
-    .then(() => {
-        reply().redirect(`${prefix}/recipe/manage-courses/list`);
-    });
+        .remove({_id: request.params.id})
+        .then(() => {
+            reply().redirect(`${prefix}/recipe/manage-courses/list`);
+        });
 }
 
 module.exports = remove;
