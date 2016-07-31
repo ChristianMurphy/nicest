@@ -52,13 +52,13 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                     // for each team member
                     for (const member of team.members) {
                         githubInformation
-                        .collaborators
-                        .push(
+                            .collaborators
+                            .push(
                             member.modules.github.username
                         );
                         githubInformation
-                        .emails
-                        .push(
+                            .emails
+                            .push(
                             member.modules.taiga.email
                         );
                     }

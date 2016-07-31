@@ -41,10 +41,68 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
 
     if (studentType === 'team') {
         return Promise
+            .all([
+                Team
+                    .find({_id: {$in: students}})
+                    .populate('members')
+                    .exec(),
+                Course
+                    .findOne({_id: courseId})
+                    .populate('instructors')
+                    .select('name instructors')
+                    .exec()
+            ])
+            .then(([teams, course]) => {
+            // for each team
+                for (const team of teams) {
+                    const githubIndividualUrl = githubUrl + team
+                        .name
+                        .replace(/[!@#$%^&*? ]+/g, '-');
+                    const taigaSlug = githubIndividualUrl
+                        .replace(/\//, '-')
+                        .toLowerCase();
+
+                // add team information to Github meta data
+                    const caInformation = {
+                        name: team.name,
+                        course: course.name,
+                        'github-url': githubIndividualUrl,
+                        'taiga-slug': taigaSlug,
+                        instructors: [],
+                        members: []
+                    };
+
+                // for each team member
+                    for (const member of team.members) {
+                        caInformation
+                            .members
+                            .push({
+                                name: member.name,
+                                'github-username': member.modules.github.username,
+                                email: member.modules.taiga.email
+                            });
+                    }
+
+                    for (const instructor of course.instructors) {
+                        caInformation
+                            .instructors
+                            .push({
+                                name: instructor.name,
+                                email: instructor.modules.taiga.email
+                            });
+                    }
+
+                    caDashboardProjects.push(caInformation);
+                }
+
+                return caDashboardProjects;
+            });
+    }
+
+    return Promise
         .all([
-            Team
+            User
                 .find({_id: {$in: students}})
-                .populate('members')
                 .exec(),
             Course
                 .findOne({_id: courseId})
@@ -52,36 +110,26 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 .select('name instructors')
                 .exec()
         ])
-        .then(([teams, course]) => {
-            // for each team
-            for (const team of teams) {
-                const githubIndividualUrl = githubUrl + team
-                    .name
-                    .replace(/[!@#$%^&*? ]+/g, '-');
+        .then(([users, course]) => {
+        // for each student
+            for (const user of users) {
+                const githubIndividualUrl = githubUrl + user.modules.github.username;
                 const taigaSlug = githubIndividualUrl
                     .replace(/\//, '-')
                     .toLowerCase();
 
-                // add team information to Github meta data
                 const caInformation = {
-                    name: team.name,
+                    name: user.name,
                     course: course.name,
                     'github-url': githubIndividualUrl,
-                    'taiga-slug': taigaSlug,
-                    instructors: [],
-                    members: []
+                    'tiaga-slug': taigaSlug,
+                    members: [{
+                        name: user.name,
+                        'github-username': user.modules.github.username,
+                        email: user.modules.taiga.email
+                    }],
+                    instructors: []
                 };
-
-                // for each team member
-                for (const member of team.members) {
-                    caInformation
-                        .members
-                        .push({
-                            name: member.name,
-                            'github-username': member.modules.github.username,
-                            email: member.modules.taiga.email
-                        });
-                }
 
                 for (const instructor of course.instructors) {
                     caInformation
@@ -92,60 +140,12 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         });
                 }
 
+            // create the Repository meta data
                 caDashboardProjects.push(caInformation);
             }
 
             return caDashboardProjects;
         });
-    }
-
-    return Promise
-    .all([
-        User
-            .find({_id: {$in: students}})
-            .exec(),
-        Course
-            .findOne({_id: courseId})
-            .populate('instructors')
-            .select('name instructors')
-            .exec()
-    ])
-    .then(([users, course]) => {
-        // for each student
-        for (const user of users) {
-            const githubIndividualUrl = githubUrl + user.modules.github.username;
-            const taigaSlug = githubIndividualUrl
-                .replace(/\//, '-')
-                .toLowerCase();
-
-            const caInformation = {
-                name: user.name,
-                course: course.name,
-                'github-url': githubIndividualUrl,
-                'tiaga-slug': taigaSlug,
-                members: [{
-                    name: user.name,
-                    'github-username': user.modules.github.username,
-                    email: user.modules.taiga.email
-                }],
-                instructors: []
-            };
-
-            for (const instructor of course.instructors) {
-                caInformation
-                .instructors
-                .push({
-                    name: instructor.name,
-                    email: instructor.modules.taiga.email
-                });
-            }
-
-            // create the Repository meta data
-            caDashboardProjects.push(caInformation);
-        }
-
-        return caDashboardProjects;
-    });
 }
 
 module.exports = gatherCaUsers;

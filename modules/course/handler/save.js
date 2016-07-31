@@ -16,11 +16,11 @@ function save (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     Course
-    .findOneAndUpdate({_id: request.params.id}, request.payload)
-    .exec()
-    .then(() => {
-        reply().redirect(`${prefix}/recipe/manage-courses/edit/${request.params.id}?saved=true`);
-    });
+        .findOneAndUpdate({_id: request.params.id}, request.payload)
+        .exec()
+        .then(() => {
+            reply().redirect(`${prefix}/recipe/manage-courses/edit/${request.params.id}?saved=true`);
+        });
 }
 
 module.exports = save;

@@ -64,29 +64,29 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
             password: taigaPassword
         }
     })
-    .then((data) => {
+        .then((data) => {
         // store authorization token for later
-        authorizationToken = data.auth_token;
+            authorizationToken = data.auth_token;
 
         // setup shared meta for boards
-        const boardMetaData = {
-            description: taigaOptions.description,
-            is_private: taigaOptions.isPrivate,
-            is_backlog_activated: taigaOptions.isBacklogActived,
-            is_issues_activated: taigaOptions.isIssuesActived,
-            is_kanban_activated: taigaOptions.isKanbanActivated,
-            is_wiki_activated: taigaOptions.isWikiActivated
-        };
+            const boardMetaData = {
+                description: taigaOptions.description,
+                is_private: taigaOptions.isPrivate,
+                is_backlog_activated: taigaOptions.isBacklogActived,
+                is_issues_activated: taigaOptions.isIssuesActived,
+                is_kanban_activated: taigaOptions.isKanbanActivated,
+                is_wiki_activated: taigaOptions.isWikiActivated
+            };
 
         // collect promises for all boards
-        const promises = [];
+            const promises = [];
 
         // create each board
-        for (const index in taigaBoards) {
+            for (const index in taigaBoards) {
             // set the name
-            boardMetaData.name = taigaBoards[index].name;
+                boardMetaData.name = taigaBoards[index].name;
             // create board
-            promises.push(
+                promises.push(
                 requestPromise({
                     method: 'POST',
                     uri: 'https://api.taiga.io/api/v1/projects',
@@ -95,29 +95,29 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                     body: boardMetaData
                 })
             );
-        }
+            }
 
         // wait for all boards to be created
-        return Promise.all(promises);
-    })
-    .then((data) => {
-        const promises = [];
+            return Promise.all(promises);
+        })
+        .then((data) => {
+            const promises = [];
 
         // for each person in each project
-        for (const boardIndex in taigaBoards) {
-            for (const userIndex in taigaBoards[boardIndex].emails) {
-                const taigaRoles = data[boardIndex].roles;
+            for (const boardIndex in taigaBoards) {
+                for (const userIndex in taigaBoards[boardIndex].emails) {
+                    const taigaRoles = data[boardIndex].roles;
                 // setup the members permissions
-                const userMetadata = {
-                    project: data[boardIndex].id,
-                    role: taigaRoles
-                        .find((element) => element.name === 'Back')
-                        .id,
-                    email: taigaBoards[boardIndex].emails[userIndex]
-                };
+                    const userMetadata = {
+                        project: data[boardIndex].id,
+                        role: taigaRoles
+                            .find((element) => element.name === 'Back')
+                            .id,
+                        email: taigaBoards[boardIndex].emails[userIndex]
+                    };
 
                 // add them to the taiga board
-                promises.push(
+                    promises.push(
                     requestPromise({
                         method: 'POST',
                         uri: 'https://api.taiga.io/api/v1/memberships',
@@ -126,11 +126,11 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                         body: userMetadata
                     })
                 );
+                }
             }
-        }
 
-        return Promise.all(promises);
-    });
+            return Promise.all(promises);
+        });
 }
 
 module.exports = createTiagaBoards;

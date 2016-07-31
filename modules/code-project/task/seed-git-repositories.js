@@ -50,8 +50,8 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                 callbacks: {
                     credentials () {
                         return NodeGit
-                        .Cred
-                        .userpassPlaintextNew(username, password);
+                            .Cred
+                            .userpassPlaintextNew(username, password);
                     }
                 }
             })
@@ -69,20 +69,20 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
             for (const index in destinationRepositoryURLs) {
                 // create and open a remote for destination
                 chain = chain
-                .then(() => NodeGit
-                    .Remote
-                    .create(seedRepository, index.toString(), destinationRepositoryURLs[index])
+                    .then(() => NodeGit
+                        .Remote
+                        .create(seedRepository, index.toString(), destinationRepositoryURLs[index])
                 )
                 // push to the remote
-                .then((remote) => remote.push([branchReference], {
-                    callbacks: {
-                        credentials () {
-                            return NodeGit
-                            .Cred
-                            .userpassPlaintextNew(username, password);
+                    .then((remote) => remote.push([branchReference], {
+                        callbacks: {
+                            credentials () {
+                                return NodeGit
+                                    .Cred
+                                    .userpassPlaintextNew(username, password);
+                            }
                         }
-                    }
-                }));
+                    }));
             }
 
             // wait for all pushes to complete

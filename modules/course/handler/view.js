@@ -18,34 +18,34 @@ function view (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     Promise
-    .all([
-        Course
-            .findOne({_id: request.params.id})
-            .exec(),
-        Team
-            .find({})
-            .select('_id name')
-            .exec(),
-        User
-            .find({})
-            .select('_id name')
-            .exec()
-    ])
-    .then(([course, teams, users]) => {
-        reply.view('modules/course/view/view', {
-            url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
-            saved: request.query.saved,
-            course: {
-                name: course.name,
-                students: course.students || [],
-                instructors: course.instructors || [],
-                teams: course.teams || [],
-                modules: course.modules || {}
-            },
-            users,
-            teams
+        .all([
+            Course
+                .findOne({_id: request.params.id})
+                .exec(),
+            Team
+                .find({})
+                .select('_id name')
+                .exec(),
+            User
+                .find({})
+                .select('_id name')
+                .exec()
+        ])
+        .then(([course, teams, users]) => {
+            reply.view('modules/course/view/view', {
+                url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
+                saved: request.query.saved,
+                course: {
+                    name: course.name,
+                    students: course.students || [],
+                    instructors: course.instructors || [],
+                    teams: course.teams || [],
+                    modules: course.modules || {}
+                },
+                users,
+                teams
+            });
         });
-    });
 }
 
 module.exports = view;
