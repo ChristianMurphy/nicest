@@ -33,17 +33,17 @@ function view (request, reply) {
         ])
         .then(([course, teams, users]) => {
             reply.view('modules/course/view/view', {
-                url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
-                saved: request.query.saved,
                 course: {
+                    instructors: course.instructors || [],
+                    modules: course.modules || {},
                     name: course.name,
                     students: course.students || [],
-                    instructors: course.instructors || [],
-                    teams: course.teams || [],
-                    modules: course.modules || {}
+                    teams: course.teams || []
                 },
-                users,
-                teams
+                saved: request.query.saved,
+                teams,
+                url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
+                users
             });
         });
 }

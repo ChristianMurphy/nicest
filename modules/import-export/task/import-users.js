@@ -31,7 +31,6 @@ function importUsers (documentAndMapping) {
         promises.push(
             User
                 .create({
-                    name: `${firstName} ${lastName}`,
                     modules: {
                         github: {
                             username: currentUser
@@ -43,7 +42,8 @@ function importUsers (documentAndMapping) {
                                 .get('email')
                                 .text()
                         }
-                    }
+                    },
+                    name: `${firstName} ${lastName}`
                 })
                 .then((newUser) => ({
                     databaseId: newUser._id,

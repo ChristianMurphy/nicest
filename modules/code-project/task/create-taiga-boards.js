@@ -55,14 +55,14 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
 
     // login to Taiga
     requestPromise({
-        method: 'POST',
-        uri: 'https://api.taiga.io/api/v1/auth',
-        json: true,
         body: {
+            password: taigaPassword,
             type: 'normal',
-            username: taigaUsername,
-            password: taigaPassword
-        }
+            username: taigaUsername
+        },
+        json: true,
+        method: 'POST',
+        uri: 'https://api.taiga.io/api/v1/auth'
     })
         .then((data) => {
         // store authorization token for later
@@ -71,10 +71,10 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
         // setup shared meta for boards
             const boardMetaData = {
                 description: taigaOptions.description,
-                is_private: taigaOptions.isPrivate,
                 is_backlog_activated: taigaOptions.isBacklogActived,
                 is_issues_activated: taigaOptions.isIssuesActived,
                 is_kanban_activated: taigaOptions.isKanbanActivated,
+                is_private: taigaOptions.isPrivate,
                 is_wiki_activated: taigaOptions.isWikiActivated
             };
 
@@ -88,11 +88,11 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
             // create board
                 promises.push(
                 requestPromise({
-                    method: 'POST',
-                    uri: 'https://api.taiga.io/api/v1/projects',
+                    body: boardMetaData,
                     headers: {Authorization: `Bearer ${authorizationToken}`},
                     json: true,
-                    body: boardMetaData
+                    method: 'POST',
+                    uri: 'https://api.taiga.io/api/v1/projects'
                 })
             );
             }
@@ -109,21 +109,21 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                     const taigaRoles = data[boardIndex].roles;
                 // setup the members permissions
                     const userMetadata = {
+                        email: taigaBoards[boardIndex].emails[userIndex],
                         project: data[boardIndex].id,
                         role: taigaRoles
                             .find((element) => element.name === 'Back')
-                            .id,
-                        email: taigaBoards[boardIndex].emails[userIndex]
+                            .id
                     };
 
                 // add them to the taiga board
                     promises.push(
                     requestPromise({
-                        method: 'POST',
-                        uri: 'https://api.taiga.io/api/v1/memberships',
+                        body: userMetadata,
                         headers: {Authorization: `Bearer ${authorizationToken}`},
                         json: true,
-                        body: userMetadata
+                        method: 'POST',
+                        uri: 'https://api.taiga.io/api/v1/memberships'
                     })
                 );
                 }

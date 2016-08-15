@@ -22,20 +22,17 @@ const handleErrorView = require('./handler/error-view');
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/recipe/code-project',
+        config: {description: 'Create a computer code project'},
         handler: handleRedirect,
-        config: {description: 'Create a computer code project'}
-    },
-    {
         method: 'GET',
-        path: '/recipe/code-project/choose-course',
-        handler: handleChooseCourse
+        path: '/recipe/code-project'
     },
     {
-        method: 'POST',
-        path: '/recipe/code-project/choose-course',
-        handler: handleSelectCourse,
+        handler: handleChooseCourse,
+        method: 'GET',
+        path: '/recipe/code-project/choose-course'
+    },
+    {
         config: {
             validate: {
                 payload: {
@@ -44,12 +41,12 @@ module.exports = [
                         .hex()
                 }
             }
-        }
+        },
+        handler: handleSelectCourse,
+        method: 'POST',
+        path: '/recipe/code-project/choose-course'
     },
     {
-        method: 'GET',
-        path: '/recipe/code-project/choose-students',
-        handler: handleChooseStudents,
         config: {
             validate: {
                 query: {
@@ -59,81 +56,75 @@ module.exports = [
                         .default('individual')
                 }
             }
-        }
+        },
+        handler: handleChooseStudents,
+        method: 'GET',
+        path: '/recipe/code-project/choose-students'
     },
     {
-        method: 'POST',
-        path: '/recipe/code-project/choose-students',
-        handler: handleSelectStudents,
         config: {
             validate: {
                 payload: {
                     students: Joi
-                        .array()
-                        .single()
-                        .unique()
-                        .items(
-                            Joi
-                                .string()
-                                .hex()
-                        )
+                    .array()
+                    .single()
+                    .unique()
+                    .items(
+                        Joi
+                        .string()
+                        .hex()
+                    )
                 }
             }
-        }
-    },
-    {
-        method: 'GET',
-        path: '/recipe/code-project/choose-repository',
-        handler: handleChooseRepository
-    },
-    {
+        },
+        handler: handleSelectStudents,
         method: 'POST',
-        path: '/recipe/code-project/choose-repository',
-        handler: handleSelectRepository,
+        path: '/recipe/code-project/choose-students'
+    },
+    {
+        handler: handleChooseRepository,
+        method: 'GET',
+        path: '/recipe/code-project/choose-repository'
+    },
+    {
         config: {
             validate: {
                 payload: {
-                    repo: Joi
-                        .string()
-                        .regex(/[a-z0-9\-]+/i, 'repository name'),
-                    isPrivate: Joi
-                        .boolean()
-                        .default(false),
                     hasIssueTracker: Joi
                         .boolean()
                         .default(false),
                     hasWiki: Joi
                         .boolean()
-                        .default(false)
-                }
-            }
-        }
-    },
-    {
-        method: 'GET',
-        path: '/recipe/code-project/choose-issue-tracker',
-        handler: handleChooseIssueTracker
-    },
-    {
-        method: 'POST',
-        path: '/recipe/code-project/choose-issue-tracker',
-        handler: handleSelectIssueTracker,
-        config: {
-            validate: {
-                payload: {
-                    useTaiga: Joi
-                        .boolean()
                         .default(false),
-                    description: Joi
-                        .string()
-                        .empty(''),
                     isPrivate: Joi
                         .boolean()
                         .default(false),
-                    hasIssues: Joi
+                    repo: Joi
+                        .string()
+                        .regex(/[a-z0-9\-]+/i, 'repository name')
+                }
+            }
+        },
+        handler: handleSelectRepository,
+        method: 'POST',
+        path: '/recipe/code-project/choose-repository'
+    },
+    {
+        handler: handleChooseIssueTracker,
+        method: 'GET',
+        path: '/recipe/code-project/choose-issue-tracker'
+    },
+    {
+        config: {
+            validate: {
+                payload: {
+                    description: Joi
+                        .string()
+                        .empty(''),
+                    hasBacklog: Joi
                         .boolean()
                         .default(false),
-                    hasBacklog: Joi
+                    hasIssues: Joi
                         .boolean()
                         .default(false),
                     hasKanban: Joi
@@ -141,40 +132,46 @@ module.exports = [
                         .default(false),
                     hasWiki: Joi
                         .boolean()
+                        .default(false),
+                    isPrivate: Joi
+                        .boolean()
+                        .default(false),
+                    useTaiga: Joi
+                        .boolean()
                         .default(false)
                 }
             }
-        }
-    },
-    {
-        method: 'GET',
-        path: '/recipe/code-project/taiga-login',
-        handler: handleLoginView
-    },
-    {
+        },
+        handler: handleSelectIssueTracker,
         method: 'POST',
-        path: '/recipe/code-project/taiga-login',
-        handler: handleLoginAction,
+        path: '/recipe/code-project/choose-issue-tracker'
+    },
+    {
+        handler: handleLoginView,
+        method: 'GET',
+        path: '/recipe/code-project/taiga-login'
+    },
+    {
         config: {
             validate: {
                 payload: {
+                    password: Joi.string(),
                     username: Joi
                         .string()
-                        .alphanum(),
-                    password: Joi.string()
+                        .alphanum()
                 }
             }
-        }
-    },
-    {
-        method: 'GET',
-        path: '/recipe/code-project/choose-assessment-system',
-        handler: handleChooseAssessmentSystem
-    },
-    {
+        },
+        handler: handleLoginAction,
         method: 'POST',
-        path: '/recipe/code-project/choose-assessment-system',
-        handler: handleSelectAssessmentSystem,
+        path: '/recipe/code-project/taiga-login'
+    },
+    {
+        handler: handleChooseAssessmentSystem,
+        method: 'GET',
+        path: '/recipe/code-project/choose-assessment-system'
+    },
+    {
         config: {
             validate: {
                 payload: {
@@ -183,31 +180,34 @@ module.exports = [
                         .default(false)
                 }
             }
-        }
-    },
-    {
-        method: 'GET',
-        path: '/recipe/code-project/confirm',
-        handler: handleConfirmView
-    },
-    {
+        },
+        handler: handleSelectAssessmentSystem,
         method: 'POST',
-        path: '/recipe/code-project/confirm',
-        handler: handleConfirm
+        path: '/recipe/code-project/choose-assessment-system'
     },
     {
+        handler: handleConfirmView,
         method: 'GET',
-        path: '/recipe/code-project/success',
-        handler: handleSuccessView
+        path: '/recipe/code-project/confirm'
     },
     {
-        method: 'GET',
-        path: '/recipe/code-project/error',
-        handler: handleErrorView
+        handler: handleConfirm,
+        method: 'POST',
+        path: '/recipe/code-project/confirm'
     },
     {
+        handler: handleSuccessView,
         method: 'GET',
-        path: '/recipe/code-project/static/{param*}',
-        handler: {directory: {path: 'modules/code-project/static'}}
+        path: '/recipe/code-project/success'
+    },
+    {
+        handler: handleErrorView,
+        method: 'GET',
+        path: '/recipe/code-project/error'
+    },
+    {
+        handler: {directory: {path: 'modules/code-project/static'}},
+        method: 'GET',
+        path: '/recipe/code-project/static/{param*}'
     }
 ];

@@ -4,9 +4,9 @@ const handleList = require('./handler/list');
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/recipes',
+        config: {plugins: {lout: false}},
         handler: handleList,
-        config: {plugins: {lout: false}}
+        method: 'GET',
+        path: '/recipes'
     }
 ];

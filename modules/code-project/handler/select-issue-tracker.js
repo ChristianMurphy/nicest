@@ -16,13 +16,13 @@ function selectIssueTracker (request, reply) {
     request
         .yar
         .set({
-            'taiga-project-use-taiga': request.payload.useTaiga,
             'taiga-project-description': request.payload.description,
-            'taiga-project-is-private': request.payload.isPrivate,
-            'taiga-project-has-issues': request.payload.hasIssues,
             'taiga-project-has-backlog': request.payload.hasBacklog,
+            'taiga-project-has-issues': request.payload.hasIssues,
             'taiga-project-has-kanban': request.payload.hasKanban,
-            'taiga-project-has-wiki': request.payload.hasWiki
+            'taiga-project-has-wiki': request.payload.hasWiki,
+            'taiga-project-is-private': request.payload.isPrivate,
+            'taiga-project-use-taiga': request.payload.useTaiga
         });
 
     if (request.payload.useTaiga) {

@@ -24,7 +24,7 @@ function team (server, options, next) {
 exports.register = team;
 
 exports.register.attributes = {
+    dependencies: ['user'],
     name: 'team',
-    version: '0.1.0',
-    dependencies: ['user']
+    version: '0.1.0'
 };

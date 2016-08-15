@@ -21,12 +21,12 @@ function viewEmpty (request, reply) {
         .exec()
         .then((users) => {
             reply.view('modules/team/view/view', {
-                url: `${prefix}/recipe/manage-teams/create`,
                 team: {
-                    name: '',
                     members: [],
-                    modules: {}
+                    modules: {},
+                    name: ''
                 },
+                url: `${prefix}/recipe/manage-teams/create`,
                 users
             });
         });

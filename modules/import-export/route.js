@@ -7,26 +7,26 @@ const handleRedirect = require('./handler/redirect');
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/recipe/import-export',
+        config: {description: 'Import and Export Teams and Users'},
         handler: handleRedirect,
-        config: {description: 'Import and Export Teams and Users'}
-    },
-    {
         method: 'GET',
-        path: '/recipe/import-export/import-xml',
-        handler: handleImportXML
+        path: '/recipe/import-export'
     },
     {
-        method: 'POST',
-        path: '/recipe/import-export/import-xml',
-        handler: handleDownloadXML,
+        handler: handleImportXML,
+        method: 'GET',
+        path: '/recipe/import-export/import-xml'
+    },
+    {
         config: {
             payload: {
-                output: 'file',
                 allow: ['multipart/form-data'],
+                output: 'file',
                 uploads: path.join(__dirname, 'temp')
             }
-        }
+        },
+        handler: handleDownloadXML,
+        method: 'POST',
+        path: '/recipe/import-export/import-xml'
     }
 ];

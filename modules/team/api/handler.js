@@ -17,6 +17,27 @@ module.exports = {
                 reply(boom.badRequest());
             });
     },
+    delete (request, reply) {
+        Team
+            .remove({_id: request.params.id})
+            .then(() => {
+                reply().code(httpNoContent);
+            })
+            .catch(() => {
+                reply().code(httpNoContent);
+            });
+    },
+    list (request, reply) {
+        Team
+            .find({})
+            .exec()
+            .then((teamIds) => {
+                reply(teamIds.map((element) => element._id));
+            })
+            .catch(() => {
+                reply(boom.notFound());
+            });
+    },
     read (request, reply) {
         Team
             .findOne({_id: request.params.id})
@@ -45,27 +66,6 @@ module.exports = {
             })
             .catch(() => {
                 reply(boom.badRequest());
-            });
-    },
-    delete (request, reply) {
-        Team
-            .remove({_id: request.params.id})
-            .then(() => {
-                reply().code(httpNoContent);
-            })
-            .catch(() => {
-                reply().code(httpNoContent);
-            });
-    },
-    list (request, reply) {
-        Team
-            .find({})
-            .exec()
-            .then((teamIds) => {
-                reply(teamIds.map((element) => element._id));
-            })
-            .catch(() => {
-                reply(boom.notFound());
             });
     }
 };

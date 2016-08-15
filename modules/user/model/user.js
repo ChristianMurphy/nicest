@@ -14,17 +14,17 @@ const mongoose = require('mongoose');
  * @property {Object} modules - area where external modules can register attributes.
  */
 const schema = new mongoose.Schema({
+    modules: mongoose.Schema.Types.Mixed,
     name: String,
     role: {
-        type: String,
+        default: 'student',
         enum: [
             'admin',
             'instructor',
             'student'
         ],
-        default: 'student'
-    },
-    modules: mongoose.Schema.Types.Mixed
+        type: String
+    }
 });
 
 module.exports = mongoose.model('User', schema);

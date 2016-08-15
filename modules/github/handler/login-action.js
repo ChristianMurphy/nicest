@@ -16,8 +16,8 @@ function loginAction (request, reply) {
     const prefix = request.route.realm.modifiers.route.prefix;
 
     const Github = new Octokat({
-        username: request.payload.username,
-        password: request.payload.password
+        password: request.payload.password,
+        username: request.payload.username
     });
 
     Github.zen
@@ -26,8 +26,8 @@ function loginAction (request, reply) {
             request
                 .yar
                 .set({
-                    'github-username': request.payload.username,
-                    'github-password': request.payload.password
+                    'github-password': request.payload.password,
+                    'github-username': request.payload.username
                 });
 
             if (request.payload.redirect) {

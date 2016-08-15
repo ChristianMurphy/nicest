@@ -29,16 +29,16 @@ function viewEmpty (request, reply) {
         ])
         .then(([users, teams]) => {
             reply.view('modules/course/view/view', {
-                url: `${prefix}/recipe/manage-courses/create`,
                 course: {
+                    instructors: [],
+                    modules: {},
                     name: '',
                     students: [],
-                    instructors: [],
-                    teams: [],
-                    modules: {}
+                    teams: []
                 },
-                users,
-                teams
+                teams,
+                url: `${prefix}/recipe/manage-courses/create`,
+                users
             });
         });
 }

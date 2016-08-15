@@ -14,12 +14,12 @@ const Octokat = require('octokat');
  */
 function chooseRepository (request, reply) {
     const Github = new Octokat({
-        username: request
-            .yar
-            .get('github-username'),
         password: request
             .yar
-            .get('github-password')
+            .get('github-password'),
+        username: request
+            .yar
+            .get('github-username')
     });
 
     Github

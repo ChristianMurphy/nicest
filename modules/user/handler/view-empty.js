@@ -16,9 +16,9 @@ function viewEmpty (request, reply) {
     reply.view('modules/user/view/view', {
         url: `${prefix}/recipe/manage-users/create`,
         user: {
+            modules: {},
             name: '',
-            role: 'student',
-            modules: {}
+            role: 'student'
         }
     });
 }

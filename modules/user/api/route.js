@@ -4,6 +4,9 @@ const handler = require('./handler');
 const Joi = require('joi');
 
 const userValidation = {
+    modules: Joi
+        .object()
+        .description('Assorted information for Nicest plugins'),
     name: Joi
         .string()
         .trim()
@@ -13,38 +16,32 @@ const userValidation = {
     role: Joi
         .string()
         .valid('student', 'instructor', 'admin')
-        .description('Role user fulfills, and permissions for what user can view'),
-    modules: Joi
-        .object()
-        .description('Assorted information for Nicest plugins')
+        .description('Role user fulfills, and permissions for what user can view')
 };
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/api/users',
-        handler: handler.list,
         config: {
             description: 'List of all users',
             notes: 'Returns {Array} of {String} with User ids',
             tags: ['list']
-        }
+        },
+        handler: handler.list,
+        method: 'GET',
+        path: '/api/users'
     },
     {
-        method: 'POST',
-        path: '/api/user',
-        handler: handler.create,
         config: {
-            validate: {payload: userValidation},
             description: 'Create a new user',
             notes: 'Will respond with HTTP 201 for success and return the new user object',
-            tags: ['create']
-        }
+            tags: ['create'],
+            validate: {payload: userValidation}
+        },
+        handler: handler.create,
+        method: 'POST',
+        path: '/api/user'
     },
     {
-        method: 'GET',
-        path: '/api/user/{id}',
-        handler: handler.read,
         config: {
             description: 'Get a single User\'s information',
             notes: 'Returns {Object} with all user information',
@@ -56,12 +53,12 @@ module.exports = [
                         .hex()
                 }
             }
-        }
+        },
+        handler: handler.read,
+        method: 'GET',
+        path: '/api/user/{id}'
     },
     {
-        method: 'PUT',
-        path: '/api/user/{id}',
-        handler: handler.update,
         config: {
             description: 'Update a single User\'s information',
             notes: 'Returns {Object} with all the updated user information',
@@ -74,12 +71,12 @@ module.exports = [
                 },
                 payload: userValidation
             }
-        }
+        },
+        handler: handler.update,
+        method: 'PUT',
+        path: '/api/user/{id}'
     },
     {
-        method: 'DELETE',
-        path: '/api/user/{id}',
-        handler: handler.delete,
         config: {
             description: 'Delete a user',
             notes: 'Return HTTP 204 for success',
@@ -87,10 +84,13 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi
-                        .string()
-                        .hex()
+                    .string()
+                    .hex()
                 }
             }
-        }
+        },
+        handler: handler.delete,
+        method: 'DELETE',
+        path: '/api/user/{id}'
     }
 ];

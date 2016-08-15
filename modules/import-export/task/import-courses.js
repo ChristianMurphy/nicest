@@ -25,10 +25,10 @@ function importCourses (documentAndMapping) {
         const courseStudents = currentCourse.find('student');
         const courseTeams = currentCourse.find('group');
         const courseMetadata = {
+            instructors: [],
             name: currentCourse
                 .get('name')
                 .text(),
-            instructors: [],
             students: [],
             teams: []
         };
