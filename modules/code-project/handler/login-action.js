@@ -16,8 +16,8 @@ function loginAction (request, reply) {
     request
         .yar
         .set({
-            'taiga-username': request.payload.username,
-            'taiga-password': request.payload.password
+            'taiga-password': request.payload.password,
+            'taiga-username': request.payload.username
         });
 
     reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);

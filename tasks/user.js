@@ -28,8 +28,8 @@ function user () {
             newUser.name = userName;
 
             return read({
-                prompt: 'user role:',
-                default: 'admin'
+                default: 'admin',
+                prompt: 'user role:'
             });
         })
         .then((role) => {

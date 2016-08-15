@@ -16,8 +16,8 @@ function importXML (request, reply) {
     reply.view('modules/import-export/view/import', {
         example,
         validation: {
-            valid: true,
-            done: false
+            done: false,
+            valid: true
         }
     });
 }

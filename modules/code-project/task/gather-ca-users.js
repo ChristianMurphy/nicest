@@ -64,12 +64,12 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
 
                 // add team information to Github meta data
                     const caInformation = {
-                        name: team.name,
                         course: course.name,
                         'github-url': githubIndividualUrl,
-                        'taiga-slug': taigaSlug,
                         instructors: [],
-                        members: []
+                        members: [],
+                        name: team.name,
+                        'taiga-slug': taigaSlug
                     };
 
                 // for each team member
@@ -77,9 +77,9 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         caInformation
                             .members
                             .push({
-                                name: member.name,
+                                email: member.modules.taiga.email,
                                 'github-username': member.modules.github.username,
-                                email: member.modules.taiga.email
+                                name: member.name
                             });
                     }
 
@@ -87,8 +87,8 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         caInformation
                             .instructors
                             .push({
-                                name: instructor.name,
-                                email: instructor.modules.taiga.email
+                                email: instructor.modules.taiga.email,
+                                name: instructor.name
                             });
                     }
 
@@ -119,24 +119,24 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                     .toLowerCase();
 
                 const caInformation = {
-                    name: user.name,
                     course: course.name,
                     'github-url': githubIndividualUrl,
-                    'tiaga-slug': taigaSlug,
+                    instructors: [],
                     members: [{
-                        name: user.name,
+                        email: user.modules.taiga.email,
                         'github-username': user.modules.github.username,
-                        email: user.modules.taiga.email
+                        name: user.name
                     }],
-                    instructors: []
+                    name: user.name,
+                    'tiaga-slug': taigaSlug
                 };
 
                 for (const instructor of course.instructors) {
                     caInformation
                         .instructors
                         .push({
-                            name: instructor.name,
-                            email: instructor.modules.taiga.email
+                            email: instructor.modules.taiga.email,
+                            name: instructor.name
                         });
                 }
 

@@ -28,13 +28,13 @@ function view (request, reply) {
         ])
         .then(([team, users]) => {
             reply.view('modules/team/view/view', {
-                url: `${prefix}/recipe/manage-teams/edit/${team._id}`,
                 saved: request.query.saved,
                 team: {
-                    name: team.name,
                     members: team.members || [],
-                    modules: team.modules || {}
+                    modules: team.modules || {},
+                    name: team.name
                 },
+                url: `${prefix}/recipe/manage-teams/edit/${team._id}`,
                 users
             });
         });

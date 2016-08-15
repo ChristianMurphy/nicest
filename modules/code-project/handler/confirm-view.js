@@ -42,8 +42,8 @@ function confirmView (request, reply) {
                 }
 
                 reply.view('modules/code-project/view/confirm', {
-                    repoUrl: `https://github.com/${repo}`,
                     repoName: (/[a-z0-9\-]+$/i).exec(repo),
+                    repoUrl: `https://github.com/${repo}`,
                     studentType: 'team',
                     students: teams
                 });
@@ -55,8 +55,8 @@ function confirmView (request, reply) {
             .exec()
             .then((students) => {
                 reply.view('modules/code-project/view/confirm', {
-                    repoUrl: `https://github.com/${repo}`,
                     repoName: (/[a-z0-9\-]+$/i).exec(repo),
+                    repoUrl: `https://github.com/${repo}`,
                     studentType: 'user',
                     students
                 });

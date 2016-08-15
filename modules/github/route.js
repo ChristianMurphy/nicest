@@ -8,15 +8,12 @@ const Joi = require('joi');
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/recipe/github',
+        config: {description: 'Manage Github Users, Teams and Repos'},
         handler: handleRedirect,
-        config: {description: 'Manage Github Users, Teams and Repos'}
+        method: 'GET',
+        path: '/recipe/github'
     },
     {
-        method: 'GET',
-        path: '/recipe/github/login',
-        handler: handleLoginView,
         config: {
             validate: {
                 query: {
@@ -29,30 +26,33 @@ module.exports = [
                         .empty(null)
                 }
             }
-        }
+        },
+        handler: handleLoginView,
+        method: 'GET',
+        path: '/recipe/github/login'
     },
     {
-        method: 'POST',
-        path: '/recipe/github/login',
-        handler: handleLoginAction,
         config: {
             validate: {
                 payload: {
-                    username: Joi
-                        .string()
-                        .alphanum(),
                     password: Joi.string(),
                     redirect: Joi
                         .string()
                         .regex(/^\/[a-z0-9\/-]+$/i, 'internal url')
-                        .empty(null)
+                        .empty(null),
+                    username: Joi
+                        .string()
+                        .alphanum()
                 }
             }
-        }
+        },
+        handler: handleLoginAction,
+        method: 'POST',
+        path: '/recipe/github/login'
     },
     {
+        handler: handleList,
         method: 'GET',
-        path: '/recipe/github/list',
-        handler: handleList
+        path: '/recipe/github/list'
     }
 ];

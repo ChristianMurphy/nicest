@@ -14,8 +14,8 @@ function loginView (request, reply) {
     reply.view(
         'modules/github/view/login',
         {
-            redirect: request.query.next,
-            failed: request.query.failed
+            failed: request.query.failed,
+            redirect: request.query.next
         }
     );
 }

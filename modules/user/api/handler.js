@@ -17,6 +17,28 @@ module.exports = {
                 reply(boom.badRequest());
             });
     },
+    delete (request, reply) {
+        User
+            .remove({_id: request.params.id})
+            .then(() => {
+                reply().code(httpNoContent);
+            })
+            .catch(() => {
+                reply().code(httpNoContent);
+            });
+    },
+    list (request, reply) {
+        User
+            .find({})
+            .select('_id')
+            .exec()
+            .then((userIds) => {
+                reply(userIds.map((element) => element._id));
+            })
+            .catch(() => {
+                reply(boom.notFound());
+            });
+    },
     read (request, reply) {
         User
             .findOne({_id: request.params.id})
@@ -45,28 +67,6 @@ module.exports = {
             })
             .catch(() => {
                 reply(boom.badRequest());
-            });
-    },
-    delete (request, reply) {
-        User
-            .remove({_id: request.params.id})
-            .then(() => {
-                reply().code(httpNoContent);
-            })
-            .catch(() => {
-                reply().code(httpNoContent);
-            });
-    },
-    list (request, reply) {
-        User
-            .find({})
-            .select('_id')
-            .exec()
-            .then((userIds) => {
-                reply(userIds.map((element) => element._id));
-            })
-            .catch(() => {
-                reply(boom.notFound());
             });
     }
 };

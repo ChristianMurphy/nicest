@@ -2,9 +2,9 @@
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/docs/{param*}',
+        config: {plugins: {lout: false}},
         handler: {directory: {path: 'docs'}},
-        config: {plugins: {lout: false}}
+        method: 'GET',
+        path: '/docs/{param*}'
     }
 ];

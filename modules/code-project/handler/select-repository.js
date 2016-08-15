@@ -16,10 +16,10 @@ function selectRepository (request, reply) {
     request
         .yar
         .set({
-            'github-project-repo': request.payload.repo,
-            'github-project-is-private': request.payload.isPrivate,
+            'github-project-has-issue-tracker': request.payload.hasIssueTracker,
             'github-project-has-wiki': request.payload.hasWiki,
-            'github-project-has-issue-tracker': request.payload.hasIssueTracker
+            'github-project-is-private': request.payload.isPrivate,
+            'github-project-repo': request.payload.repo
         });
 
     reply().redirect(`${prefix}/recipe/code-project/choose-issue-tracker`);

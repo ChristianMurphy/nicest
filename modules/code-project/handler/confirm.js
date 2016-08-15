@@ -62,9 +62,9 @@ function confirm (request, reply) {
             githubRepositories = temporaryGithubRepositories;
 
             return createGithubRepositories(githubUsername, githubPassword, githubRepositories, {
-                private: isPrivate,
+                has_issues: hasIssueTracker,
                 has_wiki: hasWiki,
-                has_issues: hasIssueTracker
+                private: isPrivate
             });
         })
 
@@ -81,9 +81,6 @@ function confirm (request, reply) {
                     description: request
                         .yar
                         .get('taiga-project-description'),
-                    isPrivate: request
-                        .yar
-                        .get('taiga-project-is-private'),
                     isBacklogActived: request
                         .yar
                         .get('taiga-project-has-backlog'),
@@ -93,6 +90,9 @@ function confirm (request, reply) {
                     isKanbanActivated: request
                         .yar
                         .get('taiga-project-has-kanban'),
+                    isPrivate: request
+                        .yar
+                        .get('taiga-project-is-private'),
                     isWikiActivated: request
                         .yar
                         .get('taiga-project-has-wiki')

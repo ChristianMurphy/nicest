@@ -13,8 +13,8 @@ const Recipe = require('../model/recipe');
  */
 function recipeMap (recipe) {
     return {
-        path: recipe.path,
-        description: recipe.settings.description
+        description: recipe.settings.description,
+        path: recipe.path
     };
 }
 

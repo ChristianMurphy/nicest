@@ -35,8 +35,8 @@ function createRepositories (githubUsername, githubPassword, repositories, optio
     const promises = [];
 
     const Github = new Octokat({
-        username: githubUsername,
-        password: githubPassword
+        password: githubPassword,
+        username: githubUsername
     });
 
     // for each student
@@ -48,10 +48,10 @@ function createRepositories (githubUsername, githubPassword, repositories, optio
                 .me
                 .repos
                 .create({
-                    name: repositories[index].name,
-                    private: options.private,
                     has_issues: options.has_issues,
-                    has_wiki: options.has_wiki
+                    has_wiki: options.has_wiki,
+                    name: repositories[index].name,
+                    private: options.private
                 })
                 // Add student as collaborator
                 .then(() => {

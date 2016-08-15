@@ -22,24 +22,24 @@ function init () {
     console.log(chalk.bold('configuration for the nicest server\n'));
 
     read({
-        prompt: 'hostname:',
-        default: 'localhost'
+        default: 'localhost',
+        prompt: 'hostname:'
     })
         .then((serverHostname) => {
             config.server = {};
             config.server.hostname = serverHostname;
 
             return read({
-                prompt: 'port number:',
-                default: 80
+                default: 80,
+                prompt: 'port number:'
             });
         })
         .then((serverPort) => {
             config.server.port = parseInt(serverPort, 10);
 
             return read({
-                prompt: 'url prefix: ()',
-                default: ''
+                default: '',
+                prompt: 'url prefix: ()'
             });
         })
         .then((prefix) => {
@@ -48,8 +48,8 @@ function init () {
             console.log(chalk.bold('\nconfiguration for nicest database\n'));
 
             return read({
-                prompt: 'hostname:',
-                default: 'localhost'
+                default: 'localhost',
+                prompt: 'hostname:'
             });
         })
         .then((databaseHostname) => {
@@ -57,16 +57,16 @@ function init () {
             config.database.hostname = databaseHostname;
 
             return read({
-                prompt: 'database name:',
-                default: 'nicest'
+                default: 'nicest',
+                prompt: 'database name:'
             });
         })
         .then((databaseName) => {
             config.database.name = databaseName;
 
             return read({
-                prompt: 'database port:',
-                default: 27017
+                default: 27017,
+                prompt: 'database port:'
             });
         })
         .then((databasePort) => {
@@ -75,8 +75,8 @@ function init () {
             console.log(chalk.bold('\nconfiguration for nicest security and authentication\n'));
 
             return read({
-                prompt: 'cookie encryption token:',
-                default: 'AReallyReallyLongSuperSecretEncryptionToken'
+                default: 'AReallyReallyLongSuperSecretEncryptionToken',
+                prompt: 'cookie encryption token:'
             });
         })
         .then((authenticationSecret) => {
@@ -84,8 +84,8 @@ function init () {
             config.authentication.token = authenticationSecret;
 
             return read({
-                prompt: 'is there an https proxy?:',
-                default: 'false'
+                default: 'false',
+                prompt: 'is there an https proxy?:'
             });
         })
         .then((authenticationHttpsProxy) => {

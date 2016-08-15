@@ -14,9 +14,9 @@ const mongoose = require('mongoose');
  * @property {String} email - Email that Taiga invite will be sent to
  */
 const Member = new mongoose.Schema({
-    name: String,
+    email: String,
     'github-username': String,
-    email: String
+    name: String
 });
 
 /**
@@ -26,8 +26,8 @@ const Member = new mongoose.Schema({
  * @property {String} email - Email address
  */
 const Instructor = new mongoose.Schema({
-    name: String,
-    email: String
+    email: String,
+    name: String
 });
 
 /**
@@ -40,11 +40,11 @@ const Instructor = new mongoose.Schema({
  * @property {Array<String>} instructors - {Array} of {String} with instructor ids
  */
 const Project = new mongoose.Schema({
-    name: String,
     'github-url': String,
-    'taiga-slug': String,
+    instructors: [Instructor],
     members: [Member],
-    instructors: [Instructor]
+    name: String,
+    'taiga-slug': String
 });
 
 const connection = mongoose.createConnection('mongodb://localhost/NicestDashboard');

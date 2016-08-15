@@ -29,16 +29,6 @@ function filterRecipes (route) {
 }
 
 /**
- * Stores a reference to the Hapi Server
- * @function setServer
- * @param {Object} serve - Hapi JS server object
- * @returns {Undefined} undefined
- */
-function setServer (serve) {
-    server = serve;
-}
-
-/**
  * Finds all of the Recipe routes
  * @function list
  * @returns {Array} {Array} of {Route}
@@ -50,7 +40,17 @@ function list () {
         .filter(filterRecipes);
 }
 
+/**
+ * Stores a reference to the Hapi Server
+ * @function setServer
+ * @param {Object} serve - Hapi JS server object
+ * @returns {Undefined} undefined
+ */
+function setServer (serve) {
+    server = serve;
+}
+
 module.exports = {
-    setServer,
-    list
+    list,
+    setServer
 };

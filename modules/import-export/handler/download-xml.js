@@ -27,8 +27,8 @@ function downloadXML (request, reply) {
                 {
                     example,
                     validation: {
-                        valid: true,
-                        done: true
+                        done: true,
+                        valid: true
                     }
                 }
             );
@@ -39,9 +39,9 @@ function downloadXML (request, reply) {
                 {
                     example,
                     validation: {
-                        valid: false,
                         done: true,
-                        errors: err
+                        errors: err,
+                        valid: false
                     }
                 }
             );

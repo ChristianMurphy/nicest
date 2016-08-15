@@ -20,12 +20,12 @@ function view (request, reply) {
         .exec()
         .then((user) => {
             reply.view('modules/user/view/view', {
-                url: `${prefix}/recipe/manage-users/edit/${user._id}`,
                 saved: request.query.saved,
+                url: `${prefix}/recipe/manage-users/edit/${user._id}`,
                 user: {
+                    modules: user.modules || {},
                     name: user.name,
-                    role: user.role,
-                    modules: user.modules || {}
+                    role: user.role
                 }
             });
         });

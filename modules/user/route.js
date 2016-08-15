@@ -10,6 +10,9 @@ const handleView = require('./handler/view');
 const Joi = require('joi');
 
 const userValidation = {
+    modules: Joi
+        .object()
+        .description('Assorted information for Nicest plugins'),
     name: Joi
         .string()
         .trim()
@@ -19,81 +22,78 @@ const userValidation = {
     role: Joi
         .string()
         .valid('student', 'instructor', 'admin')
-        .description('Role user fulfills, and permissions for what user can view'),
-    modules: Joi
-        .object()
-        .description('Assorted information for Nicest plugins')
+        .description('Role user fulfills, and permissions for what user can view')
 };
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/recipe/manage-users',
+        config: {description: 'User Management'},
         handler: handleRedirect,
-        config: {description: 'User Management'}
+        method: 'GET',
+        path: '/recipe/manage-users'
     },
     {
+        handler: handleList,
         method: 'GET',
-        path: '/recipe/manage-users/list',
-        handler: handleList
+        path: '/recipe/manage-users/list'
     },
     {
-        method: 'GET',
-        path: '/recipe/manage-users/edit/{id}',
-        handler: handleView,
         config: {
             validate: {
                 params: {
                     id: Joi
-                        .string()
-                        .hex()
+                    .string()
+                    .hex()
                 }
             }
-        }
+        },
+        handler: handleView,
+        method: 'GET',
+        path: '/recipe/manage-users/edit/{id}'
     },
     {
-        method: 'POST',
-        path: '/recipe/manage-users/edit/{id}',
-        handler: handleSave,
         config: {
             validate: {
                 params: {
                     id: Joi
-                        .string()
-                        .hex()
+                    .string()
+                    .hex()
                 },
                 payload: userValidation
             }
-        }
+        },
+        handler: handleSave,
+        method: 'POST',
+        path: '/recipe/manage-users/edit/{id}'
     },
     {
-        method: 'GET',
-        path: '/recipe/manage-users/delete/{id}',
-        handler: handleRemove,
         config: {
             validate: {
                 params: {
                     id: Joi
-                        .string()
-                        .hex()
+                    .string()
+                    .hex()
                 }
             }
-        }
-    },
-    {
+        },
+        handler: handleRemove,
         method: 'GET',
-        path: '/recipe/manage-users/create',
-        handler: handleViewEmpty
+        path: '/recipe/manage-users/delete/{id}'
     },
     {
-        method: 'POST',
-        path: '/recipe/manage-users/create',
+        handler: handleViewEmpty,
+        method: 'GET',
+        path: '/recipe/manage-users/create'
+    },
+    {
+        config: {validate: {payload: userValidation}},
         handler: handleCreate,
-        config: {validate: {payload: userValidation}}
+        method: 'POST',
+        path: '/recipe/manage-users/create'
     },
     {
+        handler: {directory: {path: 'modules/user/static'}},
         method: 'GET',
-        path: '/recipe/manage-users/static/{param*}',
-        handler: {directory: {path: 'modules/user/static'}}
+        path: '/recipe/manage-users/static/{param*}'
     }
 ];

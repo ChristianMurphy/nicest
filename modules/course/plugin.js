@@ -24,7 +24,7 @@ function course (server, options, next) {
 exports.register = course;
 
 exports.register.attributes = {
+    dependencies: ['user', 'team'],
     name: 'course',
-    version: '0.1.0',
-    dependencies: ['user', 'team']
+    version: '0.1.0'
 };

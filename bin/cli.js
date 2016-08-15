@@ -27,23 +27,23 @@ if (selectedTask) {
     selectedTask();
 } else {
     ui.div({
-        text: chalk.bold('Nicest Command Line Interface'),
-        padding: [1, 0, 1, 0]
+        padding: [1, 0, 1, 0],
+        text: chalk.bold('Nicest Command Line Interface')
     });
     ui.div({
-        text: `${chalk.bold('usage:')} nicest <command>`,
-        padding: [0, 0, 1, 0]
+        padding: [0, 0, 1, 0],
+        text: `${chalk.bold('usage:')} nicest <command>`
     });
     ui.div({
-        text: chalk.bold('commands'),
-        padding: [0, 0, 1, 0]
+        padding: [0, 0, 1, 0],
+        text: chalk.bold('commands')
     });
 
     for (const task of tasks) {
         ui.div(
             {
-                text: task.name,
-                padding: [0, 4, 0, 4]
+                padding: [0, 4, 0, 4],
+                text: task.name
             },
             {
                 text: task.description,

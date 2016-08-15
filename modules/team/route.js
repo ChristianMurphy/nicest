@@ -10,12 +10,6 @@ const handleView = require('./handler/view');
 const Joi = require('joi');
 
 const teamValidation = {
-    name: Joi
-        .string()
-        .trim()
-        .replace(/\s+/g, ' ')
-        .regex(/^[a-z0-9 -]+$/i, 'latin characters, number, hyphen or space')
-        .description('Team name'),
     members: Joi
         .array()
         .single()
@@ -28,78 +22,84 @@ const teamValidation = {
         .description('List of User ids who are a part of the team'),
     modules: Joi
         .object()
-        .description('Assorted information for Nicest plugins')
+        .description('Assorted information for Nicest plugins'),
+    name: Joi
+        .string()
+        .trim()
+        .replace(/\s+/g, ' ')
+        .regex(/^[a-z0-9 -]+$/i, 'latin characters, number, hyphen or space')
+        .description('Team name')
 };
 
 module.exports = [
     {
-        method: 'GET',
-        path: '/recipe/manage-teams',
+        config: {description: 'Team Management'},
         handler: handleRedirect,
-        config: {description: 'Team Management'}
+        method: 'GET',
+        path: '/recipe/manage-teams'
     },
     {
+        handler: handleList,
         method: 'GET',
-        path: '/recipe/manage-teams/list',
-        handler: handleList
+        path: '/recipe/manage-teams/list'
     },
     {
-        method: 'GET',
-        path: '/recipe/manage-teams/edit/{id}',
-        handler: handleView,
         config: {
             validate: {
                 params: {
                     id: Joi
-                        .string()
-                        .hex()
+                    .string()
+                    .hex()
                 }
             }
-        }
+        },
+        handler: handleView,
+        method: 'GET',
+        path: '/recipe/manage-teams/edit/{id}'
     },
     {
-        method: 'POST',
-        path: '/recipe/manage-teams/edit/{id}',
-        handler: handleSave,
         config: {
             validate: {
                 params: {
                     id: Joi
-                        .string()
-                        .hex()
+                    .string()
+                    .hex()
                 },
                 payload: teamValidation
             }
-        }
+        },
+        handler: handleSave,
+        method: 'POST',
+        path: '/recipe/manage-teams/edit/{id}'
     },
     {
-        method: 'GET',
-        path: '/recipe/manage-teams/delete/{id}',
-        handler: handleRemove,
         config: {
             validate: {
                 params: {
                     id: Joi
-                        .string()
-                        .hex()
+                    .string()
+                    .hex()
                 }
             }
-        }
-    },
-    {
+        },
+        handler: handleRemove,
         method: 'GET',
-        path: '/recipe/manage-teams/create',
-        handler: handleViewEmpty
+        path: '/recipe/manage-teams/delete/{id}'
     },
     {
-        method: 'POST',
-        path: '/recipe/manage-teams/create',
+        handler: handleViewEmpty,
+        method: 'GET',
+        path: '/recipe/manage-teams/create'
+    },
+    {
+        config: {validate: {payload: teamValidation}},
         handler: handleCreate,
-        config: {validate: {payload: teamValidation}}
+        method: 'POST',
+        path: '/recipe/manage-teams/create'
     },
     {
+        handler: {directory: {path: 'modules/team/static'}},
         method: 'GET',
-        path: '/recipe/manage-teams/static/{param*}',
-        handler: {directory: {path: 'modules/team/static'}}
+        path: '/recipe/manage-teams/static/{param*}'
     }
 ];
