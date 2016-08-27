@@ -1,0 +1,6 @@
+presets:
+    - remark-preset-lint-recommended
+    - remark-preset-lint-consistent
+plugins:
+    validate-links:
+        repository: ChristianMurphy/nicest

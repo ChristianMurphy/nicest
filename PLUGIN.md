@@ -6,11 +6,11 @@ Nicest plugins are built on [Hapi Plugins](http://hapijs.com/tutorials/plugins).
 
 ## Suggested Structure
 
-* `plugin.js` entry point file of the plugin
-* `model` folder mongoose models.
-* `api` folder for restful endpoints
-* `handler` folder for view business logic
-* `view` folder for view templates
+*   `plugin.js` entry point file of the plugin
+*   `model` folder mongoose models.
+*   `api` folder for restful endpoints
+*   `handler` folder for view business logic
+*   `view` folder for view templates
 
 ## Example plugin.js
 
