@@ -18,45 +18,45 @@ In the future Nicest will add support for more tools, and integrations between t
 
 ## Installation
 
-1. Install [Node JS](https://nodejs.org/)
-2. Install [Mongo Db](https://www.mongodb.org/)
-3. Install [Node Gyp](https://github.com/nodejs/node-gyp#installation) dependencies
-4. Run `npm install -g nicest`
+1.  Install [Node JS](https://nodejs.org/)
+2.  Install [Mongo Db](https://www.mongodb.org/)
+3.  Install [Node Gyp](https://github.com/nodejs/node-gyp#installation) dependencies
+4.  Run `npm install -g nicest`
 
 ## Setup
 
-1. Create a [Github account](https://github.com/) (an existing account can also be used)
+1.  Create a [Github account](https://github.com/) (an existing account can also be used)
 
-2. [Register nicest](https://github.com/settings/applications/new) as an application
+2.  [Register nicest](https://github.com/settings/applications/new) as an application
 
-   * 'Application Name', 'Homepage URL', and 'Application Description' can be anything
-   * 'Authorization callback URL' must be the Host name or IP address of your computer/server
-   * E.G. 'Authorization callback URL' could be 'example.com/login', 'localhost:3000/login' or '11.11.11.11/login'
-   * After creating the application be sure to copy down the client id and secret token
+    *   'Application Name', 'Homepage URL', and 'Application Description' can be anything
+    *   'Authorization callback URL' must be the Host name or IP address of your computer/server
+    *   E.G. 'Authorization callback URL' could be 'example.com/login', 'localhost:3000/login' or '11.11.11.11/login'
+    *   After creating the application be sure to copy down the client id and secret token
 
-3. Run `nicest init` to configure nicest
+3.  Run `nicest init` to configure nicest
 
-4. Run `nicest user` to create an admin
+4.  Run `nicest user` to create an admin
 
 ## Start
 
-1. Run `nicest start`
+1.  Run `nicest start`
 
 ## Stop
 
-1. Run `nicest stop`
+1.  Run `nicest stop`
 
 ## Additional Guides
 
-* [Contributing](CONTRIBUTING.md)
-* [Plugin](PLUGIN.md)
+*   [Contributing](CONTRIBUTING.md)
+*   [Plugin](PLUGIN.md)
 
 ## Tasks
 
 Tasks can be run from a Terminal or Command Line using `nicest <task>`
 
-* `dev` developer server start
-* `init` creates a configuration file
-* `start` production server start
-* `stop` production server stop
-* `user` creates a new user
+*   `dev` developer server start
+*   `init` creates a configuration file
+*   `start` production server start
+*   `stop` production server stop
+*   `user` creates a new user
