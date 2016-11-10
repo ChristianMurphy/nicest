@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function onPageLoad () {
     'use strict';
+
     $('.shape').shape('flip up');
 
     setInterval(function displayNextText () {

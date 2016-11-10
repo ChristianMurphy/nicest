@@ -26,8 +26,8 @@ const Team = require('../../team/model/team');
 function gatherGithubUsers (seedRepository, githubUsername, studentType, students) {
     // create empty repos for each student on github
     const githubRepositories = [];
-    const githubName = `${(/[a-z0-9\-]+$/i).exec(seedRepository)}-`;
-    const githubUrl = `https://github.com/${githubUsername}/${(/[a-z0-9\-]+$/i).exec(seedRepository)}-`;
+    const githubName = `${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
+    const githubUrl = `https://github.com/${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
 
     if (studentType === 'team') {
         return Team

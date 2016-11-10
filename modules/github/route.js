@@ -22,7 +22,7 @@ module.exports = [
                         .default(false),
                     next: Joi
                         .string()
-                        .regex(/^\/[a-z0-9\/-]+$/i, 'internal url')
+                        .regex(/^\/[a-z0-9/-]+$/i, 'internal url')
                         .empty(null)
                 }
             }
@@ -38,7 +38,7 @@ module.exports = [
                     password: Joi.string(),
                     redirect: Joi
                         .string()
-                        .regex(/^\/[a-z0-9\/-]+$/i, 'internal url')
+                        .regex(/^\/[a-z0-9/-]+$/i, 'internal url')
                         .empty(null),
                     username: Joi
                         .string()

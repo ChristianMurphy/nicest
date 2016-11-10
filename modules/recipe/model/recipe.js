@@ -20,7 +20,7 @@ let server = null;
  * @returns {Boolean} recipe home will return true
  */
 function filterRecipes (route) {
-    const search = new RegExp(`^${server.realm.modifiers.route.prefix}\/recipe\/[^/]+\/?$`);
+    const search = new RegExp(`^${server.realm.modifiers.route.prefix || ''}/recipe/[^/]+/?$`);
     const isRecipe = route
         .path
         .match(search);
