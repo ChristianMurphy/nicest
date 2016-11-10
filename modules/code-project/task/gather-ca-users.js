@@ -37,7 +37,7 @@ const Course = require('../../course/model/course');
 function gatherCaUsers (seedRepository, githubUsername, studentType, students, courseId) {
     // create empty repos for each student on github
     const caDashboardProjects = [];
-    const githubUrl = `${githubUsername}/${(/[a-z0-9\-]+$/i).exec(seedRepository)}-`;
+    const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
 
     if (studentType === 'team') {
         return Promise

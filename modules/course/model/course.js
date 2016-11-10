@@ -1,6 +1,7 @@
 /**
  * @module course/model
  */
+
 'use strict';
 
 const mongoose = require('mongoose');

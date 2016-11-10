@@ -101,7 +101,7 @@ module.exports = [
                         .default(false),
                     repo: Joi
                         .string()
-                        .regex(/[a-z0-9\-]+/i, 'repository name')
+                        .regex(/[a-z0-9-]+/i, 'repository name')
                 }
             }
         },
