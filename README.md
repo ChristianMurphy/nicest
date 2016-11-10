@@ -18,9 +18,9 @@ In the future Nicest will add support for more tools, and integrations between t
 
 ## Installation
 
-1.  Install [Node JS](https://nodejs.org/)
-2.  Install [Mongo Db](https://www.mongodb.org/)
-3.  Install [Node Gyp](https://github.com/nodejs/node-gyp#installation) dependencies
+1.  Install [Node JS](https://nodejs.org/) version 6
+2.  Install [Mongo Db](https://www.mongodb.org/) version 3
+3.  Install [Node Gyp](https://github.com/nodejs/node-gyp#installation)
 4.  Run `npm install -g nicest`
 
 ## Setup
