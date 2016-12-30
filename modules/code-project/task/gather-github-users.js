@@ -24,7 +24,7 @@ const Team = require('../../team/model/team');
   * @returns {Promise.<Array>} resolves to {Array} of {GithubRepository}
   */
 function gatherGithubUsers (seedRepository, githubUsername, studentType, students) {
-    // create empty repos for each student on github
+    // Create empty repos for each student on github
     const githubRepositories = [];
     const githubName = `${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
     const githubUrl = `https://github.com/${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
@@ -35,9 +35,9 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
             .populate('members')
             .exec()
             .then((teams) => {
-                // for each team
+                // For each team
                 for (const team of teams) {
-                    // add team information to Github meta data
+                    // Add team information to Github meta data
                     const githubInformation = {
                         collaborators: [],
                         emails: [],
@@ -49,7 +49,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                             .replace(/[!@#$%^&*? ]+/g, '-')
                     };
 
-                    // for each team member
+                    // For each team member
                     for (const member of team.members) {
                         githubInformation
                             .collaborators
@@ -74,11 +74,11 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
         .find({_id: {$in: students}})
         .exec()
         .then((users) => {
-            // for each student
+            // For each student
             for (const user of users) {
                 const currentGithubUsername = user.modules.github.username;
 
-                // create the Repository meta data
+                // Create the Repository meta data
                 githubRepositories.push({
                     collaborators: [currentGithubUsername],
                     emails: [user.modules.taiga.email],

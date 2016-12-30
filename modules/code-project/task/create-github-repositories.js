@@ -39,11 +39,11 @@ function createRepositories (githubUsername, githubPassword, repositories, optio
         username: githubUsername
     });
 
-    // for each student
+    // For each student
     for (const index in repositories) {
-        // gather the promises
+        // Gather the promises
         promises.push(
-            // create a repository
+            // Create a repository
             Github
                 .me
                 .repos
@@ -58,11 +58,11 @@ function createRepositories (githubUsername, githubPassword, repositories, optio
                     const collaboratorPromises = [];
                     const collaborators = repositories[index].collaborators;
 
-                    // for each student
+                    // For each student
                     for (const collaboratorIndex in collaborators) {
-                        // gather the promises
+                        // Gather the promises
                         collaboratorPromises.push(
-                            // create a repository
+                            // Create a repository
                             Github
                                 .repos(githubUsername, repositories[index].name)
                                 .collaborators(collaborators[collaboratorIndex])

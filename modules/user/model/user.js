@@ -7,7 +7,7 @@
 const mongoose = require('mongoose');
 
 /**
- * a User is a person.
+ * A User is a person.
  * @typedef {Object} User
  * @property {String} name - user's name.
  * @property {String} role - role and permissions a user has

@@ -35,7 +35,7 @@ const Course = require('../../course/model/course');
   * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
   */
 function gatherCaUsers (seedRepository, githubUsername, studentType, students, courseId) {
-    // create empty repos for each student on github
+    // Create empty repos for each student on github
     const caDashboardProjects = [];
     const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
 
@@ -53,7 +53,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                     .exec()
             ])
             .then(([teams, course]) => {
-            // for each team
+                // For each team
                 for (const team of teams) {
                     const githubIndividualUrl = githubUrl + team
                         .name
@@ -62,7 +62,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         .replace(/\//, '-')
                         .toLowerCase();
 
-                // add team information to Github meta data
+                    // Add team information to Github meta data
                     const caInformation = {
                         course: course.name,
                         'github-url': githubIndividualUrl,
@@ -72,7 +72,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         'taiga-slug': taigaSlug
                     };
 
-                // for each team member
+                    // For each team member
                     for (const member of team.members) {
                         caInformation
                             .members
@@ -111,7 +111,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 .exec()
         ])
         .then(([users, course]) => {
-        // for each student
+            // For each student
             for (const user of users) {
                 const githubIndividualUrl = githubUrl + user.modules.github.username;
                 const taigaSlug = githubIndividualUrl
@@ -140,7 +140,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         });
                 }
 
-            // create the Repository meta data
+                // Create the Repository meta data
                 caDashboardProjects.push(caInformation);
             }
 

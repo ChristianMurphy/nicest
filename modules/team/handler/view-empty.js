@@ -7,7 +7,7 @@
 const User = require('../../user/model/user');
 
 /**
- * view to create a new Team
+ * View to create a new Team
  * @param {Request} request - Hapi request
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page

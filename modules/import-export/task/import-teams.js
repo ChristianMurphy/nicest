@@ -12,24 +12,24 @@ const Team = require('../../team/model/team');
  * @returns {Object} XML Document, User ObjectId mapping, and Team ObjectId mapping
  */
 function importTeams (documentAndMapping) {
-    // find all the teams
+    // Find all the teams
     const teams = documentAndMapping
         .document
         .find('//team');
     const promises = [];
 
-    // for each team
+    // For each team
     for (const currentTeam of teams) {
-        // gather all team members for current team
+        // Gather all team members for current team
         const teamMembers = currentTeam.find('member');
         const teamMetadata = {members: []};
 
-        // set the team name
+        // Set the team name
         teamMetadata.name = currentTeam
             .get('name')
             .text();
 
-        // get each of the team members' ids
+        // Get each of the team members' ids
         for (const member of teamMembers) {
             const memberXmlId = member
                 .attr('id')
@@ -44,7 +44,7 @@ function importTeams (documentAndMapping) {
                 .push(memberMongoId);
         }
 
-        // copy the team to Mongoose
+        // Copy the team to Mongoose
         promises.push(
             Team
                 .create(teamMetadata)
@@ -57,7 +57,7 @@ function importTeams (documentAndMapping) {
         );
     }
 
-    // wait for all teams to be created
+    // Wait for all teams to be created
     return Promise
         .all(promises)
         .then((newResult) => {

@@ -41,9 +41,9 @@ function rmrf (folder) {
  * @returns {Promise} promise will resolve when all repos have been seeded
  */
 function seedGitRepository (username, password, seedRepositoryURL, destinationRepositoryURLs) {
-    // clear temporary folder
+    // Clear temporary folder
     return rmrf(temporaryFolder)
-        // clone repository to temporary folder
+        // Clone repository to temporary folder
         .then(() => NodeGit
             .Clone
             .clone(seedRepositoryURL, temporaryFolder, {
@@ -56,24 +56,24 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                 }
             })
         )
-        // open the repository
+        // Open the repository
         .then(() => NodeGit
             .Repository
             .open(temporaryFolder)
         )
-        // push the seed repository to all destination repositories
+        // Push the seed repository to all destination repositories
         .then((seedRepository) => {
             let chain = Promise.resolve();
 
-            // for each destination
+            // For each destination
             for (const index in destinationRepositoryURLs) {
-                // create and open a remote for destination
+                // Create and open a remote for destination
                 chain = chain
                     .then(() => NodeGit
                         .Remote
                         .create(seedRepository, index.toString(), destinationRepositoryURLs[index])
-                )
-                // push to the remote
+                    )
+                    // Push to the remote
                     .then((remote) => remote.push([branchReference], {
                         callbacks: {
                             credentials () {
@@ -85,7 +85,7 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                     }));
             }
 
-            // wait for all pushes to complete
+            // Wait for all pushes to complete
             return chain;
         });
 }
