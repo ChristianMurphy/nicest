@@ -27,6 +27,17 @@
     "url": "https://github.com/ChristianMurphy/nicest/issues"
   },
   "homepage": "https://github.com/ChristianMurphy/nicest#readme",
+  "engines": {
+    "node": "^6.0.0",
+    "npm": ">=3.8.0"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "modules",
+    "tasks"
+  ],
+  "preferGlobal": true,
   "dependencies": {
     "bell": "^8.4.0",
     "boom": "^4.2.0",
@@ -62,15 +73,164 @@
     "remark-preset-lint-recommended": "^1.0.0",
     "remark-validate-links": "^5.0.0"
   },
-  "engines": {
-    "node": "^6.0.0",
-    "npm": ">=3.8.0"
+  "eslintConfig": {
+    "extends": "eslint:all",
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "complexity": [
+        "warn",
+        10
+      ],
+      "dot-location": [
+        "error",
+        "property"
+      ],
+      "func-style": [
+        "error",
+        "declaration"
+      ],
+      "guard-for-in": "off",
+      "id-match": [
+        "error",
+        "^[a-zA-Z]+$"
+      ],
+      "indent": [
+        "error",
+        4,
+        {
+          "MemberExpression": 1,
+          "SwitchCase": 1
+        }
+      ],
+      "max-len": [
+        "error",
+        120
+      ],
+      "max-nested-callbacks": [
+        "error",
+        2
+      ],
+      "no-console": "off",
+      "no-magic-numbers": [
+        "error",
+        {
+          "ignoreArrayIndexes": true,
+          "enforceConst": true
+        }
+      ],
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allow": [
+            "_id"
+          ]
+        }
+      ],
+      "one-var": [
+        "error",
+        "never"
+      ],
+      "padded-blocks": [
+        "error",
+        "never"
+      ],
+      "quote-props": [
+        "error",
+        "as-needed"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "spaced-comment": [
+        "error",
+        "always",
+        {
+          "markers": [
+            "*"
+          ]
+        }
+      ],
+      "valid-jsdoc": [
+        "error",
+        {
+          "prefer": {
+            "return": "returns",
+            "method": "function",
+            "func": "function",
+            "arg": "param",
+            "argument": "param",
+            "prop": "property"
+          }
+        }
+      ]
+    }
   },
-  "files": [
-    "bin",
-    "lib",
-    "modules",
-    "tasks"
-  ],
-  "preferGlobal": true
+  "pugLintConfig": {
+    "disallowAttributeConcatenation": null,
+    "disallowAttributeInterpolation": true,
+    "disallowAttributeTemplateString": "all",
+    "disallowBlockExpansion": true,
+    "disallowClassAttributeWithStaticValue": true,
+    "disallowClassLiteralsBeforeAttributes": null,
+    "disallowClassLiteralsBeforeIdLiterals": true,
+    "disallowClassLiterals": null,
+    "disallowDuplicateAttributes": true,
+    "disallowHtmlText": true,
+    "disallowIdAttributeWithStaticValue": true,
+    "disallowIdLiteralsBeforeAttributes": null,
+    "disallowIdLiterals": null,
+    "disallowLegacyMixinCall": true,
+    "disallowMultipleLineBreaks": true,
+    "disallowSpaceAfterCodeOperator": null,
+    "disallowSpacesInsideAttributeBrackets": true,
+    "disallowSpecificAttributes": null,
+    "disallowSpecificTags": [
+      "acronym",
+      "applet",
+      "b",
+      "basefont",
+      "big",
+      "center",
+      "dir",
+      "font",
+      "frame",
+      "frameset",
+      "noframes",
+      "strike",
+      "tt"
+    ],
+    "disallowStringConcatenation": true,
+    "disallowStringInterpolation": true,
+    "disallowTagInterpolation": true,
+    "disallowTemplateString": true,
+    "maximumNumberOfLines": 150,
+    "requireClassLiteralsBeforeAttributes": true,
+    "requireClassLiteralsBeforeIdLiterals": null,
+    "requireIdLiteralsBeforeAttributes": true,
+    "requireLineFeedAtFileEnd": true,
+    "requireLowerCaseAttributes": true,
+    "requireLowerCaseTags": true,
+    "requireSpaceAfterCodeOperator": true,
+    "requireSpacesInsideAttributeBrackets": null,
+    "requireSpecificAttributes": null,
+    "requireStrictEqualityOperators": true,
+    "validateAttributeQuoteMarks": "'",
+    "validateAttributeSeparator": ", ",
+    "validateDivTags": true,
+    "validateExtensions": true,
+    "validateIndentation": 4,
+    "validateLineBreaks": "LF",
+    "validateSelfClosingTags": true,
+    "validateTemplateString": true
+  },
+  "remarkConfig": {
+    "presets": [
+      "remark-preset-lint-recommended",
+      "remark-preset-lint-consistent"
+    ]
+  }
 }
