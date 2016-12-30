@@ -53,7 +53,7 @@ function requestPromise (data) {
 function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
     let authorizationToken = null;
 
-    // login to Taiga
+    // Login to Taiga
     requestPromise({
         body: {
             password: taigaPassword,
@@ -65,10 +65,10 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
         uri: 'https://api.taiga.io/api/v1/auth'
     })
         .then((data) => {
-        // store authorization token for later
+            // Store authorization token for later
             authorizationToken = data.auth_token;
 
-        // setup shared meta for boards
+            // Setup shared meta for boards
             const boardMetaData = {
                 description: taigaOptions.description,
                 is_backlog_activated: taigaOptions.isBacklogActived,
@@ -78,14 +78,14 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                 is_wiki_activated: taigaOptions.isWikiActivated
             };
 
-        // collect promises for all boards
+            // Collect promises for all boards
             const promises = [];
 
-        // create each board
+            // Create each board
             for (const index in taigaBoards) {
-            // set the name
+                // Set the name
                 boardMetaData.name = taigaBoards[index].name;
-            // create board
+                // Create board
                 promises.push(
                 requestPromise({
                     body: boardMetaData,
@@ -97,17 +97,17 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
             );
             }
 
-        // wait for all boards to be created
+            // Wait for all boards to be created
             return Promise.all(promises);
         })
         .then((data) => {
             const promises = [];
 
-        // for each person in each project
+            // For each person in each project
             for (const boardIndex in taigaBoards) {
                 for (const userIndex in taigaBoards[boardIndex].emails) {
                     const taigaRoles = data[boardIndex].roles;
-                // setup the members permissions
+                    // Setup the members permissions
                     const userMetadata = {
                         email: taigaBoards[boardIndex].emails[userIndex],
                         project: data[boardIndex].id,
@@ -116,7 +116,7 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                             .id
                     };
 
-                // add them to the taiga board
+                    // Add them to the taiga board
                     promises.push(
                     requestPromise({
                         body: userMetadata,

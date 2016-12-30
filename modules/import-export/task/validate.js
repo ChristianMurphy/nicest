@@ -36,9 +36,9 @@ function readFilePromise (location) {
  */
 function validate (location) {
     return readFilePromise(location).then((dataset) => {
-        // parse the new file
+        // Parse the new file
         const parsedDateset = libxml.parseXmlString(dataset);
-        // validate the file
+        // Validate the file
         const isValid = parsedDateset.validate(parsedSchema);
 
         return new Promise((resolve, reject) => {

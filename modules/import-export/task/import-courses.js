@@ -12,15 +12,15 @@ const Course = require('../../course/model/course');
  * @returns {Object} XML Document, User ObjectId mapping, and Team ObjectId mapping
  */
 function importCourses (documentAndMapping) {
-    // find all the teams
+    // Find all the teams
     const courses = documentAndMapping
         .document
         .find('//course');
     const promises = [];
 
-    // for each team
+    // For each team
     for (const currentCourse of courses) {
-        // gather all instructors, students and teams for course
+        // Gather all instructors, students and teams for course
         const courseInstructors = currentCourse.find('instructor');
         const courseStudents = currentCourse.find('student');
         const courseTeams = currentCourse.find('group');
@@ -33,7 +33,7 @@ function importCourses (documentAndMapping) {
             teams: []
         };
 
-        // get each of the instructors' ids
+        // Get each of the instructors' ids
         for (const instructor of courseInstructors) {
             const memberXmlId = instructor
                 .attr('id')
@@ -48,7 +48,7 @@ function importCourses (documentAndMapping) {
                 .push(memberMongoId);
         }
 
-        // get each of the students' ids
+        // Get each of the students' ids
         for (const student of courseStudents) {
             const memberXmlId = student
                 .attr('id')
@@ -63,7 +63,7 @@ function importCourses (documentAndMapping) {
                 .push(memberMongoId);
         }
 
-        // get each of the teams' ids
+        // Get each of the teams' ids
         for (const team of courseTeams) {
             const memberXmlId = team
                 .attr('id')
@@ -78,13 +78,13 @@ function importCourses (documentAndMapping) {
                 .push(memberMongoId);
         }
 
-        // copy the course to Mongoose
+        // Copy the course to Mongoose
         promises.push(
             Course.create(courseMetadata)
         );
     }
 
-    // wait for all courses to be created
+    // Wait for all courses to be created
     return Promise
         .all(promises)
         .then(() => documentAndMapping);

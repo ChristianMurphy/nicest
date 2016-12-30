@@ -12,13 +12,13 @@ const User = require('../../user/model/user');
  * @returns {Object} XML document and User ObjectId mappings
  */
 function importUsers (documentAndMapping) {
-    // find all the users
+    // Find all the users
     const users = documentAndMapping
         .document
         .find('//user');
     const promises = [];
 
-    // for each user
+    // For each user
     for (const currentUser of users) {
         const firstName = currentUser
             .get('first-name')
@@ -27,7 +27,7 @@ function importUsers (documentAndMapping) {
             .get('last-name')
             .text();
 
-        // create a new database object
+        // Create a new database object
         promises.push(
             User
                 .create({
@@ -54,7 +54,7 @@ function importUsers (documentAndMapping) {
         );
     }
 
-    // wait for all users to be created
+    // Wait for all users to be created
     return Promise
         .all(promises)
         .then((identifierMapping) => {

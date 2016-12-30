@@ -57,7 +57,7 @@ function confirm (request, reply) {
 
     // Gather Github user information from Users/Teams
     gatherGithubUsers(seedRepository, githubUsername, studentType, students)
-        // create repostories
+        // Create repostories
         .then((temporaryGithubRepositories) => {
             githubRepositories = temporaryGithubRepositories;
 
@@ -68,7 +68,7 @@ function confirm (request, reply) {
             });
         })
 
-        // create Taiga boards
+        // Create Taiga boards
         .then(() => {
             if (useTaiga) {
                 const taigaUsername = request
@@ -102,7 +102,7 @@ function confirm (request, reply) {
             }
         })
 
-        // gather CA Dashboard users
+        // Gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
                 return gatherCaUsers(seedRepository, githubUsername, studentType, students, course);
@@ -111,7 +111,7 @@ function confirm (request, reply) {
             return null;
         })
 
-        // setup CA Dashboard
+        // Setup CA Dashboard
         .then((caConfiguration) => {
             if (useAssessment) {
                 return configureCaDashboard(caConfiguration);
@@ -120,7 +120,7 @@ function confirm (request, reply) {
             return null;
         })
 
-        // add seed code to repositories
+        // Add seed code to repositories
         .then(() => {
             const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}`;
             const githubUrls = githubRepositories.map((element) => element.url);
@@ -128,12 +128,12 @@ function confirm (request, reply) {
             return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
         })
 
-        // sucess redirect
+        // Sucess redirect
         .then(() => {
             reply().redirect(`${prefix}/recipe/code-project/success`);
         })
 
-        // failure redirect
+        // Failure redirect
         .catch((err) => {
             request.log('error', err.toString());
             reply().redirect(`${prefix}/recipe/code-project/error`);

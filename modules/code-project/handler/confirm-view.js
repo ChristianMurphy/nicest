@@ -31,7 +31,7 @@ function confirmView (request, reply) {
             .exec()
             .then((teams) => {
                 for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
-                    // find any invalid users
+                    // Find any invalid users
                     for (let userIndex = 0; userIndex < teams[teamIndex].members.length; userIndex += 1) {
                         const currentUser = teams[teamIndex].members[userIndex];
 
