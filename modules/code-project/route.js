@@ -92,12 +92,15 @@ module.exports = [
                 payload: {
                     hasIssueTracker: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     hasWiki: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     isPrivate: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     repo: Joi
                         .string()
@@ -123,21 +126,27 @@ module.exports = [
                         .empty(''),
                     hasBacklog: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     hasIssues: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     hasKanban: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     hasWiki: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     isPrivate: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false),
                     useTaiga: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false)
                 }
             }
@@ -177,6 +186,7 @@ module.exports = [
                 payload: {
                     useCADashboard: Joi
                         .boolean()
+                        .truthy('on')
                         .default(false)
                 }
             }
