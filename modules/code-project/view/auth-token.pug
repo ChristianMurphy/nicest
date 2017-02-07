@@ -1,0 +1,14 @@
+extends ../../shared-template/default.pug
+
+block title
+    title Enter Slack Authentication Token
+
+block body
+    .ui.container
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/code-project/choose-assessment-system', method='POST')
+            h1.ui.header Enter Slack Authentication Token
+            .field
+                .ui.left.icon.input
+                    i.lock.icon
+                    input(type='text', name='token', placeholder='token')
+            input.ui.large.teal.submit.button(type='submit', value='submit')
