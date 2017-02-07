@@ -11,7 +11,7 @@
  * @returns {Null} responds with HTML page
  */
 function viewEmpty (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     reply.view('modules/user/view/view', {
         url: `${prefix}/recipe/manage-users/create`,

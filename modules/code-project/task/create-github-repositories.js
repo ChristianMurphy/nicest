@@ -56,7 +56,7 @@ function createRepositories (githubUsername, githubPassword, repositories, optio
                 // Add student as collaborator
                 .then(() => {
                     const collaboratorPromises = [];
-                    const collaborators = repositories[index].collaborators;
+                    const {collaborators} = repositories[index];
 
                     // For each student
                     for (const collaboratorIndex in collaborators) {

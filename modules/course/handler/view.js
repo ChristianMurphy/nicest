@@ -15,7 +15,7 @@ const Course = require('../model/course');
  * @returns {Null} responds with HTML page
  */
 function view (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     Promise
         .all([
