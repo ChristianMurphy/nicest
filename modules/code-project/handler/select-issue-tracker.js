@@ -11,7 +11,7 @@
  * @returns {Null} responds with a redirect
  */
 function selectIssueTracker (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     request
         .yar

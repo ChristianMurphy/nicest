@@ -13,7 +13,7 @@ const Team = require('../model/team');
  * @returns {Null} responds with redirect to Team view
  */
 function save (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     Team
         .findOneAndUpdate({_id: request.params.id}, request.payload)

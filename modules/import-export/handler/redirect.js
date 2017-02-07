@@ -11,7 +11,7 @@
  * @returns {Null} responds with a redirect
  */
 function redirect (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     reply().redirect(`${prefix}/recipe/import-export/import-xml`);
 }

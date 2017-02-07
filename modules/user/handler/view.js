@@ -13,7 +13,7 @@ const User = require('../model/user');
  * @returns {Null} responds with HTML page
  */
 function view (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     User
         .findOne({_id: request.params.id})

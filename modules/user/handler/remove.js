@@ -13,7 +13,7 @@ const User = require('../model/user');
  * @returns {Null} responds with a redirect to User list
  */
 function remove (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     User
         .remove({_id: request.params.id})

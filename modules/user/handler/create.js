@@ -13,7 +13,7 @@ const User = require('../model/user');
  * @returns {Null} responds with a redirect to view User
  */
 function create (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     User
         .create(request.payload)

@@ -14,7 +14,7 @@ const User = require('../../user/model/user');
  * @returns {Null} responds with HTML page
  */
 function viewEmpty (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     Promise
         .all([

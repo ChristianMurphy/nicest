@@ -11,7 +11,7 @@
  * @returns {Null} responds with a redirect to User list
  */
 function redirect (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     reply().redirect(`${prefix}/recipe/manage-users/list`);
 }

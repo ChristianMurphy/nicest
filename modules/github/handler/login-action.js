@@ -13,7 +13,7 @@ const Octokat = require('octokat');
  * @returns {Null} responds with a redirect
  */
 function loginAction (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     const Github = new Octokat({
         password: request.payload.password,

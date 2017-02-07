@@ -18,7 +18,7 @@ const configureCaDashboard = require('../task/configure-ca-dashboard');
  * @returns {Null} responds with a redirect
  */
 function confirm (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     const githubUsername = request
         .yar

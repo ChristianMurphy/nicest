@@ -13,7 +13,7 @@ const Course = require('../model/course');
  * @returns {Null} responds with HTML page
  */
 function create (request, reply) {
-    const prefix = request.route.realm.modifiers.route.prefix;
+    const {prefix} = request.route.realm.modifiers.route;
 
     Course
         .create(request.payload)
