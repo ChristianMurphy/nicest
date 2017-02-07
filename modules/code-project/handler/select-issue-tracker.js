@@ -28,7 +28,7 @@ function selectIssueTracker (request, reply) {
     if (request.payload.useTaiga) {
         reply().redirect(`${prefix}/recipe/code-project/taiga-login`);
     } else {
-        reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
+        reply().redirect(`${prefix}/recipe/code-project/choose-messaging-platform`);
     }
 }
 

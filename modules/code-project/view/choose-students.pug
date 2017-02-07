@@ -2,7 +2,7 @@ extends ../../shared-template/default.pug
 
 block title
     title Choose Students
-    
+
 block script
     script(src='//code.jquery.com/jquery-3.0.0.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/transition.min.js')
@@ -11,7 +11,7 @@ block script
 
 block body
     .ui.container
-        .ui.six.top.attached.steps
+        .ui.seven.top.attached.steps
             .completed.step
                 i.university.icon
                 .content
@@ -32,6 +32,11 @@ block body
                 .content
                     .title Issues
                     .description Choose Issue Tracker
+            .disabled.step
+                i.talk.icon
+                .content
+                    .title Messaging
+                    .description Choose Team Messaging
             .disabled.step
                 i.exchange.icon
                 .content
@@ -65,29 +70,29 @@ block body
                             option(value=item._id.toString())= item.name
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-course') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
-                    
+
         if list.length < 1
             .ui.large.warning.icon.message
                 i.idea.icon
                 .content
                     .header Hey There
                     if listType === 'team'
-                        p 
-                            | It looks like you don't have any teams. 
-                            | Would you like to 
+                        p
+                            | It looks like you don't have any teams.
+                            | Would you like to
                             strong
-                                a(href = prefix + '/recipe/manage-teams/list') create some teams 
-                            | or 
+                                a(href = prefix + '/recipe/manage-teams/list') create some teams
+                            | or
                             strong
                                 a(href = prefix + '/recipe/import-export/import-xml') import some teams
                             | ?
                     else
-                        p 
-                            | It looks like you don't have any users. 
-                            | Would you like to 
+                        p
+                            | It looks like you don't have any users.
+                            | Would you like to
                             strong
-                                a(href = prefix + '/recipe/manage-users/list') create some users 
-                            | or 
-                            strong 
+                                a(href = prefix + '/recipe/manage-users/list') create some users
+                            | or
+                            strong
                                 a(href = prefix + '/recipe/import-export/import-xml') import some users
                             | ?
