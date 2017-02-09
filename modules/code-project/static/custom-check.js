@@ -18,7 +18,7 @@ window
     });
 
 window.slackCheckbox = $('input[name=useSlack]');
-window.slackAccessToken = $('input[name=accessToken');
+window.slackAccessToken = $('input[name=accessToken]');
 
 window
     .slackCheckbox
