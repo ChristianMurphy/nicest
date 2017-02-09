@@ -16,9 +16,10 @@ function selectMessagingPlatform (request, reply) {
     request
         .yar
         .set({
-            'slack-team-access-token': request.payload.accessToken,
-            'slack-team-course-channel-names': request.payload.courseChannelNames,
-            'slack-team-team-channel-names': request.payload.teamChannelNames
+            'slack-project-access-token': request.payload.accessToken,
+            'slack-project-course-channel-names': request.payload.courseChannelNames,
+            'slack-project-team-channel-names': request.payload.teamChannelNames,
+            'slack-project-use-slack': request.payload.useSlack
         });
 
     reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
