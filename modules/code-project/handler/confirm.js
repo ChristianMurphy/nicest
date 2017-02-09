@@ -7,6 +7,8 @@
 const gatherGithubUsers = require('../task/gather-github-users');
 const createGithubRepositories = require('../task/create-github-repositories');
 const createTaigaBoards = require('../task/create-taiga-boards');
+const gatherSlackMetadata = require('../task/gather-slack-metadata');
+const createSlackChannels = require('../task/create-slack-channels');
 const seedGitRepositories = require('../task/seed-git-repositories');
 const gatherCaUsers = require('../task/gather-ca-users');
 const configureCaDashboard = require('../task/configure-ca-dashboard');
@@ -50,6 +52,9 @@ function confirm (request, reply) {
     const useTaiga = request
         .yar
         .get('taiga-project-use-taiga');
+    const useSlack = request
+        .yar
+        .get('slack-project-use-slack');
     const useAssessment = request
         .yar
         .get('assessment-use-ca-dashboard');
@@ -102,6 +107,33 @@ function confirm (request, reply) {
             }
         })
 
+        // Create Slack channels
+        .then(() => {
+            if (useSlack) {
+                const accessToken = request
+                    .yar
+                    .get('slack-project-access-token');
+                const courseChannelNames = request
+                    .yar
+                    .get('slack-project-course-channel-names');
+                const teamChannelNames = request
+                    .yar
+                    .get('slack-project-team-channel-names');
+
+                // Gather Slack user information from Users/Teams
+                gatherSlackMetadata(courseChannelNames, teamChannelNames, students)
+                    // Create the channels
+                    .then((slackMetadata) => {
+                        const {channels} = slackMetadata;
+                        const {users} = slackMetadata;
+
+                        return createSlackChannels(accessToken, channels, users);
+                    });
+            }
+
+            return null;
+        })
+
         // Gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
@@ -128,7 +160,7 @@ function confirm (request, reply) {
             return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
         })
 
-        // Sucess redirect
+        // Success redirect
         .then(() => {
             reply().redirect(`${prefix}/recipe/code-project/success`);
         })
