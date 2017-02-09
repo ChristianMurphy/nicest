@@ -79,7 +79,64 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
     // Wait for all channels to be created
     Promise.all(promises)
         .then((data) => {
-            // TODO Invite users to the Slack team
+            // Collect promises for all channels
+            const promisesInvite = [];
+
+            // Creates a key/value pair for channel name to channel id
+            const channelMapping = {};
+
+            // Creates a key/value pair for public channel id
+            const publicMapping = {};
+
+            data.forEach((dataItem) => {
+                if ('channel' in dataItem) {
+                    const {name} = dataItem.channel;
+                    const {id} = dataItem.channel;
+
+                    publicMapping[name] = id;
+                } else if ('group' in dataItem) {
+                    const {name} = dataItem.group;
+                    const {id} = dataItem.group;
+
+                    channelMapping[name] = id;
+                }
+            });
+
+            // Uri for inviting slack users
+            const inviteUserURI = 'https://slack.com/api/users.admin.invite';
+
+
+            slackUsers.forEach((student) => {
+                // Creates an array of channel ids for the user
+                let studentChannelIDs = [];
+
+
+                student.channels.forEach((channel) => {
+                    studentChannelIDs.push(channelMapping[channel]);
+                });
+
+                studentChannelIDs = studentChannelIDs.concat(Object.keys(publicMapping).map((key) => {
+                    return publicMapping[key];
+                }));
+
+                // Pass API method parameters via query string
+                const qs = querystring.stringify({
+                    channels: studentChannelIDs.join(),
+                    email: student.email,
+                    token: accessToken
+                });
+
+                // Invites the user to team and respective channels
+                promises.push(
+                requestPromise({
+                    json: true,
+                    method: 'POST',
+                    uri: `${inviteUserURI}?${qs}`
+                })
+            );
+            });
+
+            return Promise.all(promisesInvite);
         });
 }
 
