@@ -55,13 +55,13 @@ block body
                         label Enable Slack
                 .field
                     label Slack Team API Access Token
-                    input(type='text', name='accessToken', placeholder='Slack API Access Token', required)
+                    input(type='text', name='accessToken', pattern='xoxp-[0-9]{11,12}-[0-9]{11,12}-[0-9]{12}-[0-9a-f]{32}', title='Token does not match pattern', placeholder='Slack API Access Token', required)
                 .field
                     label Course Slack Channels (comma-delimited)
-                    input(type='text', name='courseChannelNames', placeholder='general, announcements, random')
+                    input(type='text', name='courseChannelNames', pattern='^([a-z0-9-]+,? *)+$', title='Names must be lowercase with no spaces or special characters', placeholder='general, announcements, random')
                 .field
                     label Team Slack Channels (comma-delimited)
-                    input(type='text', name='teamChannelNames', placeholder='general, develop, standup')
+                    input(type='text', name='teamChannelNames', pattern='^([a-z0-9-]+,? *)+$', title='Names must be lowercase with no spaces or special characters', placeholder='general, develop, standup')
 
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
