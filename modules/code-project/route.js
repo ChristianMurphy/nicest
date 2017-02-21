@@ -188,7 +188,7 @@ module.exports = [
                 payload: {
                     accessToken: Joi
                         .string()
-                        .regex(/xoxp-\d{12}-\d{12}-\d{12}-[0-9a-f]{32}/)
+                        .regex(/xoxp-\d{11,12}-\d{11,12}-\d{12}-[0-9a-f]{32}/)
                         .empty(''),
                     courseChannelNames: Joi
                         .string()
