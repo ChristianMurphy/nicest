@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module
+ * @module manage-code-project/task/remove-slack-user
  */
 
 const request = require('request');
