@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module manage-code-project/handler/removeUser
+ * @module manage-code-project/handler/remove-user
  */
 
  /**
