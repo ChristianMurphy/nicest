@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module team/handler/manage-code-project
+ * @module manage-code-project/handler/redirect
  */
 
 /**
