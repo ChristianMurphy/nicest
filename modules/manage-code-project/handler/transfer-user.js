@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module manage-code-project/handler/transferUser
+ * @module manage-code-project/handler/transfer-user
  */
 
  /**
@@ -10,8 +10,8 @@
   * @param {Reply} reply - Hapi Reply
   * @returns {Null} responds with HTML page
   */
-function chooseUserToRemove (request, reply) {
+function chooseUserToTransfer (request, reply) {
     reply.view('modules/manage-code-project/view/transfer-user');
 }
 
-module.exports = chooseUserToRemove;
+module.exports = chooseUserToTransfer;
