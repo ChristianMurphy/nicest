@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @module manage-code-project/handler/addUser
+ * @module manage-code-project/handler/add-user
  */
 
  /**
@@ -10,8 +10,8 @@
   * @param {Reply} reply - Hapi Reply
   * @returns {Null} responds with HTML page
   */
-function chooseUserToRemove (request, reply) {
+function chooseUserToAdd (request, reply) {
     reply.view('modules/manage-code-project/view/add-user');
 }
 
-module.exports = chooseUserToRemove;
+module.exports = chooseUserToAdd;
