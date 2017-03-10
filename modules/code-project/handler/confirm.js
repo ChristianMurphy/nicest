@@ -10,8 +10,8 @@ const createTaigaBoards = require('../task/create-taiga-boards');
 const gatherSlackMetadata = require('../task/gather-slack-metadata');
 const createSlackChannels = require('../task/create-slack-channels');
 const seedGitRepositories = require('../task/seed-git-repositories');
-const gatherCaUsers = require('../task/gather-ca-users');
 const configureCaDashboard = require('../task/configure-ca-dashboard');
+const gatherProjectMetadata = require('../task/gather-project-metadata');
 
 /**
  * Actually generates the project across all the services
@@ -55,10 +55,14 @@ function confirm (request, reply) {
     const useSlack = request
         .yar
         .get('slack-project-use-slack');
+    const slackToken = request
+        .yar
+        .get('slack-project-access-token');
     const useAssessment = request
         .yar
         .get('assessment-use-ca-dashboard');
     let githubRepositories = null;
+    let slackChannels = null;
 
     // Gather Github user information from Users/Teams
     gatherGithubUsers(seedRepository, githubUsername, studentType, students)
@@ -121,13 +125,18 @@ function confirm (request, reply) {
                     .get('slack-project-team-channel-names');
 
                 // Gather Slack user information from Users/Teams
-                gatherSlackMetadata(courseChannelNames, teamChannelNames, students)
+                return gatherSlackMetadata(courseChannelNames, teamChannelNames, students)
                     // Create the channels
                     .then((slackMetadata) => {
                         const {channels} = slackMetadata;
                         const {users} = slackMetadata;
 
-                        return createSlackChannels(accessToken, channels, users);
+                        return createSlackChannels(accessToken, channels, users)
+                            .then((slackChannelMap) => {
+                                slackChannels = slackChannelMap;
+
+                                return null;
+                            });
                     });
             }
 
@@ -137,7 +146,7 @@ function confirm (request, reply) {
         // Gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
-                return gatherCaUsers(seedRepository, githubUsername, studentType, students, course);
+                return gatherProjectMetadata(seedRepository, githubUsername, studentType, students, course, slackToken, slackChannels);
             }
 
             return null;

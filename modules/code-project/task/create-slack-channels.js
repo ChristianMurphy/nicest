@@ -44,7 +44,7 @@ function requestPromise (data) {
  * @param {String} accessToken - Slack API access token
  * @param {Array} slackChannels - {Array} of {SlackChannel}
  * @param {Array} slackUsers - {Array} of {SlackUser}
- * @returns {Promise} resolves when channels have been created
+ * @returns {Promise.<Object>} resolves to map of Slack channel names to IDs
  */
 function createSlackChannels (accessToken, slackChannels, slackUsers) {
     // Collect promises for all channels
@@ -77,7 +77,7 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
     });
 
     // Wait for all channels to be created
-    Promise.all(promises)
+    return Promise.all(promises)
         .then((data) => {
             // Collect promises for all channels
             const promisesInvite = [];
@@ -110,14 +110,13 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
                 // Creates an array of channel ids for the user
                 let studentChannelIDs = [];
 
-
                 student.channels.forEach((channel) => {
                     studentChannelIDs.push(channelMapping[channel]);
                 });
 
-                studentChannelIDs = studentChannelIDs.concat(Object.keys(publicMapping).map((key) => {
-                    return publicMapping[key];
-                }));
+                studentChannelIDs = studentChannelIDs.concat(
+                    Object.keys(publicMapping).map((key) => publicMapping[key])
+                );
 
                 // Pass API method parameters via query string
                 const qs = querystring.stringify({
@@ -127,7 +126,7 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
                 });
 
                 // Invites the user to team and respective channels
-                promises.push(
+                promisesInvite.push(
                 requestPromise({
                     json: true,
                     method: 'POST',
@@ -136,7 +135,8 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
             );
             });
 
-            return Promise.all(promisesInvite);
+            return Promise.all(promisesInvite)
+                .then(() => channelMapping);
         });
 }
 
