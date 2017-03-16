@@ -218,6 +218,8 @@ module.exports = [
         config: {
             validate: {
                 payload: {
+                    cassessUrl: Joi
+                        .string(),
                     useCADashboard: Joi
                         .boolean()
                         .truthy('on')

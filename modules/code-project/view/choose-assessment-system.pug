@@ -53,5 +53,8 @@ block body
                     .ui.toggle.checkbox
                         input.hidden(type='checkbox', name='useCADashboard')
                         label Use CA Dashboard as an Assessment System
+                .field
+                    label CAssess POST endpoint
+                    input(type='text', name='cassessUrl', placeholder='Endpoint URL')
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-messaging-platform') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
