@@ -20,6 +20,10 @@ const mongoose = require('mongoose');
  * @property {ObjectId[]} instructors - {User}s teaching or grading code project.
  */
 const schema = new mongoose.Schema({
+    course: {
+        ref: 'Course',
+        type: mongoose.Schema.Types.ObjectId
+    },
     'github-url': String,
     instructors: [{
         ref: 'User',
