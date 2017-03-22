@@ -7,6 +7,7 @@
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 const Course = require('../../course/model/course');
+const Project = require('../model/project');
 
 /**
  * CodeProjectMeta is meta data for a code project.
@@ -35,7 +36,6 @@ const Course = require('../../course/model/course');
  */
 function gatherProjectMetadata (seedRepository, githubUsername, studentType, students,
         courseId, slackToken, slackChannels) {
-    const caDashboardProjects = [];
     const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
 
     if (studentType === 'team') {
@@ -52,6 +52,9 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                     .exec()
             ])
             .then(([teams, course]) => {
+                // Collect promises for all Projects
+                const promises = [];
+
                 // For each team
                 for (const team of teams) {
                     const githubIndividualUrl = githubUrl + team
@@ -71,7 +74,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                     }
 
                     // Construct object to store metadata
-                    const caInformation = {
+                    const projectMetadata = {
                         course: course._id,
                         'github-url': githubIndividualUrl,
                         instructors: [],
@@ -85,22 +88,25 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
 
                     // For each team member
                     for (const member of team.members) {
-                        caInformation
+                        projectMetadata
                             .members
                             .push(member._id);
                     }
 
                     // For each instructor
                     for (const instructor of course.instructors) {
-                        caInformation
+                        projectMetadata
                             .instructors
                             .push(instructor._id);
                     }
 
-                    caDashboardProjects.push(caInformation);
+                    // Store the Project metadata in the database
+                    promises.push(
+                        Project.create(projectMetadata)
+                    );
                 }
 
-                return caDashboardProjects;
+                return Promise.all(promises);
             });
     }
 
@@ -116,6 +122,9 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                 .exec()
         ])
         .then(([users, course]) => {
+            // Collect promises for all Projects
+            const promises = [];
+
             // For each student
             for (const user of users) {
                 const githubIndividualUrl = githubUrl + user.modules.github.username;
@@ -123,26 +132,34 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                     .replace(/\//, '-')
                     .toLowerCase();
 
-                const caInformation = {
+                const projectMetadata = {
                     course: course._id,
                     'github-url': githubIndividualUrl,
                     instructors: [],
                     members: user._id,
                     name: user.name,
-                    'taiga-slug': taigaSlug
+                    'slack-groups': null,
+                    'slack-token': null,
+                    'taiga-slug': taigaSlug,
+                    team: null
                 };
 
                 // For each instructor
                 for (const instructor of course.instructors) {
-                    caInformation
+                    projectMetadata
                         .instructors
                         .push(instructor._id);
                 }
 
-                caDashboardProjects.push(caInformation);
+                console.log(projectMetadata);
+
+                // Store the Project metadata in the database
+                promises.push(
+                    Project.create(projectMetadata)
+                );
             }
 
-            return caDashboardProjects;
+            return Promise.all(promises);
         });
 }
 
