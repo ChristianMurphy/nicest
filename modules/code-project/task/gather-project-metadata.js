@@ -27,16 +27,19 @@ const Project = require('../model/project');
  * Takes in information about provisioned code projects and generates metadata that can be persisted in MongoDB.
  * @param {String} seedRepository - name of seed repository
  * @param {String} githubUsername - username of logged in and hosting user
+ * @param {String} githubToken - GitHub API access token
  * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
  * @param {Array<ObjectId>} students - either user ids or team ids
  * @param {String} courseId - Course that project is being generated for
  * @param {String} slackToken - Slack API access token
  * @param {Object} slackChannels - String:String mapping of channel names to ids
+ * @param {String} taigaToken - Taiga API access token
  * @returns {Promise.<Array>} resolves to {Array} of {CodeProjectMeta}
  */
-function gatherProjectMetadata (seedRepository, githubUsername, studentType, students,
-        courseId, slackToken, slackChannels) {
+function gatherProjectMetadata (seedRepository, githubUsername, githubToken, studentType,
+        students, courseId, slackToken, slackChannels, taigaToken) {
     const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
+    let projectMetadata = null;
 
     if (studentType === 'team') {
         return Promise
@@ -74,8 +77,9 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                     }
 
                     // Construct object to store metadata
-                    const projectMetadata = {
+                    projectMetadata = {
                         course: course._id,
+                        'github-token': githubToken,
                         'github-url': githubIndividualUrl,
                         instructors: [],
                         members: [],
@@ -83,6 +87,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                         'slack-groups': slackGroups,
                         'slack-token': slackToken,
                         'taiga-slug': taigaSlug,
+                        'taiga-token': taigaToken,
                         team: team._id
                     };
 
@@ -132,8 +137,9 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                     .replace(/\//, '-')
                     .toLowerCase();
 
-                const projectMetadata = {
+                projectMetadata = {
                     course: course._id,
+                    'github-token': githubToken,
                     'github-url': githubIndividualUrl,
                     instructors: [],
                     members: user._id,
@@ -141,6 +147,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                     'slack-groups': null,
                     'slack-token': null,
                     'taiga-slug': taigaSlug,
+                    'taiga-token': taigaToken,
                     team: null
                 };
 
@@ -151,15 +158,14 @@ function gatherProjectMetadata (seedRepository, githubUsername, studentType, stu
                         .push(instructor._id);
                 }
 
-                console.log(projectMetadata);
-
                 // Store the Project metadata in the database
                 promises.push(
                     Project.create(projectMetadata)
                 );
             }
 
-            return Promise.all(promises);
+            return Promise.all(promises)
+                .then(() => projectMetadata);
         });
 }
 

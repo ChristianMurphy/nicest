@@ -63,6 +63,7 @@ function confirm (request, reply) {
         .get('assessment-use-ca-dashboard');
     let githubRepositories = null;
     let slackChannels = null;
+    let taigaToken = null;
 
     // Gather Github user information from Users/Teams
     gatherGithubUsers(seedRepository, githubUsername, studentType, students)
@@ -107,7 +108,7 @@ function confirm (request, reply) {
                         .get('taiga-project-has-wiki')
                 };
 
-                createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);
+                taigaToken = createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);
             }
         })
 
@@ -146,7 +147,19 @@ function confirm (request, reply) {
         // Gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
-                return gatherProjectMetadata(seedRepository, githubUsername, studentType, students, course, slackToken, slackChannels);
+                const githubToken = request
+                    .yar
+                    .get('github-access-token');
+
+                return gatherProjectMetadata(seedRepository,
+                                             githubUsername,
+                                             githubToken,
+                                             studentType,
+                                             students,
+                                             course,
+                                             slackToken,
+                                             slackChannels,
+                                             taigaToken);
             }
 
             return null;

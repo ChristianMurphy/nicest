@@ -220,6 +220,8 @@ module.exports = [
                 payload: {
                     cassessUrl: Joi
                         .string(),
+                    githubToken: Joi
+                        .string(),
                     useCADashboard: Joi
                         .boolean()
                         .truthy('on')

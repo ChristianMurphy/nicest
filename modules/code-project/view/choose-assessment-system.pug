@@ -56,5 +56,9 @@ block body
                 .field
                     label CAssess POST endpoint
                     input(type='text', name='cassessUrl', placeholder='Endpoint URL')
+                .field
+                    label
+                        a(href='https://github.com/settings/tokens', target='_blank') GitHub Token (Click to generate)
+                    input(type='text', name='githubToken', placeholder='GitHub token')
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-messaging-platform') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')

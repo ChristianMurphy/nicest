@@ -24,6 +24,7 @@ const schema = new mongoose.Schema({
         ref: 'Course',
         type: mongoose.Schema.Types.ObjectId
     },
+    'github-token': String,
     'github-url': String,
     instructors: [{
         ref: 'User',
@@ -37,6 +38,7 @@ const schema = new mongoose.Schema({
     'slack-groups': [String],
     'slack-token': String,
     'taiga-slug': String,
+    'taiga-token': String,
     team: {
         ref: 'Team',
         type: mongoose.Schema.Types.ObjectId
