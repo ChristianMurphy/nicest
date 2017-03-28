@@ -168,7 +168,17 @@ function confirm (request, reply) {
         // Setup CA Dashboard
         .then((caConfiguration) => {
             if (useAssessment) {
-                return configureCaDashboard(caConfiguration);
+                const cassessUsername = request
+                    .yar
+                    .get('cassess-username');
+                const cassessPassword = request
+                    .yar
+                    .get('cassess-password');
+                const cassessUrl = request
+                    .yar
+                    .get('cassess-endpoint');
+
+                return configureCaDashboard(cassessUsername, cassessPassword, cassessUrl, caConfiguration);
             }
 
             return null;

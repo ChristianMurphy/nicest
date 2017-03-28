@@ -1,0 +1,18 @@
+extends ../../shared-template/default.pug
+
+block title
+    title Login to CAssess
+
+block body
+    .ui.container
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/code-project/cassess-login', method='POST')
+            h1.ui.header Login to CAssess
+            .field
+                .ui.left.icon.input
+                    i.user.icon
+                    input(type='text', name='username', placeholder='username')
+            .field
+                .ui.left.icon.input
+                    i.lock.icon
+                    input(type='password', name='password', placeholder='password')
+            input.ui.fluid.large.teal.submit.button(type='submit', value='submit')

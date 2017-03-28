@@ -17,6 +17,8 @@ const handleChooseMessagingPlatform = require('./handler/choose-messaging-platfo
 const handleSelectMessagingPlatform = require('./handler/select-messaging-platform');
 const handleChooseAssessmentSystem = require('./handler/choose-assessment-system');
 const handleSelectAssessmentSystem = require('./handler/select-assessment-system');
+const handleCAssessLoginView = require('./handler/cassess-login-view');
+const handleCAssessLoginAction = require('./handler/cassess-login-action');
 const handleConfirmView = require('./handler/confirm-view');
 const handleConfirm = require('./handler/confirm');
 const handleSuccessView = require('./handler/success-view');
@@ -232,6 +234,26 @@ module.exports = [
         handler: handleSelectAssessmentSystem,
         method: 'POST',
         path: '/recipe/code-project/choose-assessment-system'
+    },
+    {
+        handler: handleCAssessLoginView,
+        method: 'GET',
+        path: '/recipe/code-project/cassess-login'
+    },
+    {
+        config: {
+            validate: {
+                payload: {
+                    password: Joi.string(),
+                    username: Joi
+                        .string()
+                        .alphanum()
+                }
+            }
+        },
+        handler: handleCAssessLoginAction,
+        method: 'POST',
+        path: '/recipe/code-project/cassess-login'
     },
     {
         handler: handleConfirmView,
