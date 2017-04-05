@@ -4,6 +4,9 @@
  * @module code-project/task/configure-ca-dashboard
  */
 
+const request = require('request');
+const querystring = require('querystring');
+
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 const Course = require('../../course/model/course');
@@ -26,111 +29,128 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
     const teams = [];
     const admins = [];
 
-    Course
-        .findOne({_id: project.course})
-        .exec()
-        .then((course) => {
-            courseName = course.name;
-            endDate = course.modules['end-date'];
+    // Login to CAssess.
+    const qs = querystring.stringify({
+        username: cassessUsername,
+        password: cassessPassword,
+        rememberme: true
+    });
 
-            const promises = [];
+    requestPromise({
+        json: 'true',
+        method: 'POST',
+        uri: `${cassessUrl}/authenticate?${qs}`
+    })
 
-            // Query metadata for each team.
-            for (let teamIndex = 0; teamIndex < metaData.length; teamIndex += 1) {
-                const teamMetadata = {};
-                const studentMetadata = [];
+    // Construct the JSON payload.
+    .then((response) => {
+        Course
+            .findOne({_id: project.course})
+            .exec()
+            .then((course) => {
+                courseName = course.name;
+                endDate = course.modules['end-date'];
 
-                promises.push(
-                Team
-                    .findOne({_id: metaData[teamIndex].team})
-                    .exec()
-                    .then((team) => {
-                        teamMetadata['team-name'] = team.name;
+                const promises = [];
 
-                        // Collect promises for all user queries.
-                        const userPromises = [];
+                // Query metadata for each team.
+                for (let teamIndex = 0; teamIndex < metaData.length; teamIndex += 1) {
+                    const teamMetadata = {};
+                    const studentMetadata = [];
 
-                        // Get list of student metadata for each member in team.
-                        for (let userIndex = 0; userIndex < metaData[teamIndex].members.length; userIndex += 1) {
-                            userPromises.push(
-                            User
-                                .findOne({_id: metaData[teamIndex].members[userIndex]})
-                                .exec()
-                                .then((student) => {
-                                    studentMetadata.push({
-                                        email: student.modules.cassess.email,
-                                        full_name: student.name,
-                                        password: student.modules.cassess.password
-                                    });
-                                })
-                            );
-                        }
+                    promises.push(
+                    Team
+                        .findOne({_id: metaData[teamIndex].team})
+                        .exec()
+                        .then((team) => {
+                            teamMetadata['team-name'] = team.name;
 
-                        // Get instructor metadata.
-                        for (let userIndex = 0; userIndex < metaData[teamIndex].instructors.length; userIndex += 1) {
-                            userPromises.push(
-                            User
-                                .findOne({_id: metaData[teamIndex].instructors[userIndex]})
-                                .exec()
-                                .then((instructor) => {
-                                    // Instructors are the same for all teams.
-                                    if (teamIndex === 0) {
-                                        admins.push({
-                                            email: instructor.modules.cassess.email,
-                                            full_name: instructor.name,
-                                            password: instructor.modules.cassess.password
+                            // Collect promises for all user queries.
+                            const userPromises = [];
+
+                            // Get list of student metadata for each member in team.
+                            for (let userIndex = 0; userIndex < metaData[teamIndex].members.length; userIndex += 1) {
+                                userPromises.push(
+                                User
+                                    .findOne({_id: metaData[teamIndex].members[userIndex]})
+                                    .exec()
+                                    .then((student) => {
+                                        studentMetadata.push({
+                                            email: student.modules.cassess.email,
+                                            full_name: student.name
                                         });
-                                    }
-                                })
-                            );
-                        }
+                                    })
+                                );
+                            }
 
-                        return Promise.all(userPromises).then(() => {
+                            // Get instructor metadata.
+                            for (let userIndex = 0; userIndex < metaData[teamIndex].instructors.length; userIndex += 1) {
+                                userPromises.push(
+                                User
+                                    .findOne({_id: metaData[teamIndex].instructors[userIndex]})
+                                    .exec()
+                                    .then((instructor) => {
+                                        // Instructors are the same for all teams.
+                                        if (teamIndex === 0) {
+                                            admins.push({
+                                                email: instructor.modules.cassess.email,
+                                                full_name: instructor.name
+                                            });
+                                        }
+                                    })
+                                );
+                            }
+
+                            return Promise.all(userPromises).then(() => {
+                                teamMetadata.students = studentMetadata;
+                            });
+                        })
+                        .then(() => {
+                            const team = metaData[teamIndex];
+
+                            // Get only the repository name.
+                            const url = team['github-url'];
+                            const githubRepo = url.substr(url.indexOf('/') + 1, url.length);
+
+                            // Get slack channel IDs for a team.
+                            const channels = [];
+
+                            for (let userIndex = 0; userIndex < team['slack-groups'].length; userIndex += 1) {
+                                channels.push({id: team['slack-groups'][userIndex]});
+                            }
+
                             teamMetadata.students = studentMetadata;
-                        });
-                    })
-                    .then(() => {
-                        const team = metaData[teamIndex];
+                            teamMetadata.channels = channels;
+                            teamMetadata.taiga_project_slug = team['taiga-slug'];
+                            teamMetadata.github_repo = githubRepo;
 
-                        // Get only the repository name.
-                        const url = team['github-url'];
-                        const githubRepo = url.substr(url.indexOf('/') + 1, url.length);
+                            teams.push(teamMetadata);
+                            return null;
+                        })
+                    );
+                }
 
-                        // Get slack channel IDs for a team.
-                        const channels = [];
+                return Promise.all(promises);
+            })
 
-                        for (let userIndex = 0; userIndex < team['slack-groups'].length; userIndex += 1) {
-                            channels.push({id: team['slack-groups'][userIndex]});
-                        }
-
-                        teamMetadata.students = studentMetadata;
-                        teamMetadata.channels = channels;
-                        teamMetadata.taiga_project_slug = team['taiga-slug'];
-                        teamMetadata.github_repo = githubRepo;
-
-                        teams.push(teamMetadata);
-                    })
-                );
-            }
-
-            return Promise.all(promises);
-        })
-
-        // Send POST request to CAssess.
-        .then(() => {
-            const payload = {
-                admins,
-                course: courseName,
-                'end-date': endDate,
-                'github-owner': githubOwner,
-                'github-token': project['github-token'],
-                'slack-token': project['slack-token'],
-                'taiga-token': project['taiga-token'],
-                teams
-            };
-
-            console.log(payload);
-        });
+            // Send POST request to CAssess.
+            .then(() => {
+                console.log("Taiga Token: " + project['taiga-token']);
+                const payload = {
+                    admins,
+                    course: courseName,
+                    'end-date': endDate,
+                    'github-owner': githubOwner,
+                    'github-token': project['github-token'],
+                    'slack-token': `?token=${project['slack-token']}`,
+                    'taiga-token': project['taiga-token'],
+                    teams
+                };
+            });
+    })
+    .catch((err) => {
+        request.log('error', err.toString());
+    });
 }
 
 module.exports = configureCaDashboard;
