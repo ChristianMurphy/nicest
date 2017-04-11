@@ -5,11 +5,30 @@
  */
 
 const request = require('request');
+const requestWithCookies = request.defaults({jar: true});
 const querystring = require('querystring');
 
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 const Course = require('../../course/model/course');
+
+/**
+ * Promise wrapper for request, abstracts the http api
+ * @private
+ * @param {Object} data - request object
+ * @returns {Promise.<String>} promise will resolve to response body or reject with error code
+ */
+function requestPromise (data) {
+    return new Promise((resolve, reject) => {
+        requestWithCookies(data, (error, headers, body) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(body);
+            }
+        });
+    });
+}
 
 /**
  * Send project metadata to CAssess via an HTTP POST method.
@@ -36,7 +55,11 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
         rememberme: true
     });
 
+    // Store the authentication cookie in a cookie jar.
+    let cookieJar = requestWithCookies.jar();
+
     requestPromise({
+        jar: cookieJar,
         json: 'true',
         method: 'POST',
         uri: `${cassessUrl}/authenticate?${qs}`
@@ -146,6 +169,10 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                     'taiga-token': project['taiga-token'],
                     teams
                 };
+
+                // Output JSON payload for debugging purposes.
+                console.log(JSON.stringify(payload));
+
             });
     })
     .catch((err) => {
