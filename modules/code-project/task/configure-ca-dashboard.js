@@ -173,6 +173,21 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                 // Output JSON payload for debugging purposes.
                 console.log(JSON.stringify(payload));
 
+
+                // Send the JSON payload to CAssess.
+                requestPromise({
+                    body: payload,
+                    jar: cookieJar,
+                    json: 'true',
+                    method: 'POST',
+                    uri: `${url}/rest/coursePackage`
+                })
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             });
     })
     .catch((err) => {
