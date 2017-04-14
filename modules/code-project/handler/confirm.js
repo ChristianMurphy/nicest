@@ -108,8 +108,14 @@ function confirm (request, reply) {
                         .get('taiga-project-has-wiki')
                 };
 
-                taigaToken = createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);
+                return createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions)
+                    .then((token) => {
+                        taigaToken = token;
+                        return null;
+                    });
             }
+
+            return null;
         })
 
         // Create Slack channels

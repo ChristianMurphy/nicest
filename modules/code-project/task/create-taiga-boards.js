@@ -50,11 +50,11 @@ function requestPromise (data) {
  * @param {TaigaOptions} taigaOptions - shared options for all boards
  * @returns {Promise} resolves when boards have been created
  */
-function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
+function createTaigaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
     let authorizationToken = null;
 
     // Login to Taiga
-    requestPromise({
+    return requestPromise({
         body: {
             password: taigaPassword,
             type: 'normal',
@@ -134,4 +134,4 @@ function createTiagaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
         });
 }
 
-module.exports = createTiagaBoards;
+module.exports = createTaigaBoards;
