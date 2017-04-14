@@ -247,7 +247,6 @@ module.exports = [
                     password: Joi.string(),
                     username: Joi
                         .string()
-                        .alphanum()
                 }
             }
         },
