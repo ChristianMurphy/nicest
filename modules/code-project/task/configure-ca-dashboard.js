@@ -145,7 +145,7 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                             teamMetadata.students = studentMetadata;
                             teamMetadata.channels = channels;
                             teamMetadata.taiga_project_slug = team['taiga-slug'];
-                            teamMetadata.github_repo = githubRepo;
+                            teamMetadata.github_repo_id = githubRepo;
 
                             teams.push(teamMetadata);
                             return null;

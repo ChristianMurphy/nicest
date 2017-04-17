@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
  * @typedef {Object} Project
  * @property {String} name - team's name.
  * @property {String} github-url - Short hand link to the GitHub repos
+ * @property {String} slack-team-id - Slack team id
  * @property {String} slack-token - Slack token for API access
  * @property {String} taiga-slug - Shorthand link to Taiga board
  * @property {Array<String>} slack-groups - {Array} of {String} with slack channel ids
@@ -36,6 +37,7 @@ const schema = new mongoose.Schema({
     }],
     name: String,
     'slack-groups': [String],
+    'slack-team-id': String,
     'slack-token': String,
     'taiga-slug': String,
     'taiga-token': String,
