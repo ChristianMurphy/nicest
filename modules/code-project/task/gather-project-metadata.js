@@ -4,16 +4,38 @@
  * @module code-project/task/gather-project-metadata
  */
 
+const request = require('request');
+const querystring = require('querystring');
+
 const User = require('../../user/model/user');
 const Team = require('../../team/model/team');
 const Course = require('../../course/model/course');
 const Project = require('../model/project');
 
 /**
+ * Promise wrapper for request, abstracts the http api
+ * @private
+ * @param {Object} data - request object
+ * @returns {Promise.<String>} promise will resolve to response body or reject with error code
+ */
+function requestPromise (data) {
+    return new Promise((resolve, reject) => {
+        request(data, (error, headers, body) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(body);
+            }
+        });
+    });
+}
+
+/**
  * CodeProjectMeta is meta data for a code project.
  * @typedef {Object} CodeProjectMeta
  * @property {String} name - team's name.
  * @property {String} github-url - Short hand link to the GitHub repos
+ * @property {String} slack-team-id - Slack team id
  * @property {String} slack-token - Slack token for API access
  * @property {String} taiga-slug - Shorthand link to Taiga board
  * @property {Array<String>} slack-groups - {Array} of {String} with slack channel ids
@@ -42,77 +64,92 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
     let projectMetadata = null;
 
     if (studentType === 'team') {
-        return Promise
-            .all([
-                Team
-                    .find({_id: {$in: students}})
-                    .populate('members')
-                    .exec(),
-                Course
-                    .findOne({_id: courseId})
-                    .populate('instructors')
-                    .select('name instructors')
-                    .exec()
-            ])
-            .then(([teams, course]) => {
-                // Collect promises for all Projects
-                const promises = [];
+        // Get Slack Team Id for the course
+        let slackTeamId = null;
+        let getTeamInfo = 'https://slack.com/api/team.info';
 
-                // For each team
-                for (const team of teams) {
-                    const githubIndividualUrl = githubUrl + team
-                        .name
-                        .replace(/[!@#$%^&*? ]+/g, '-');
-                    const taigaSlug = githubIndividualUrl
-                        .replace(/\//, '-')
-                        .toLowerCase();
+        return requestPromise({
+            json: true,
+            method: 'POST',
+            uri: `${getTeamInfo}?token=${slackToken}`
+        })
+        .then((data) => {
+            // Store Slack Team Id for the course
+            slackTeamId = data.team.domain;
 
-                    // Get list of the IDs of the team's Slack channels
-                    const slackGroups = [];
+            return Promise
+                .all([
+                    Team
+                        .find({_id: {$in: students}})
+                        .populate('members')
+                        .exec(),
+                    Course
+                        .findOne({_id: courseId})
+                        .populate('instructors')
+                        .select('name instructors')
+                        .exec()
+                ])
+                .then(([teams, course]) => {
+                    // Collect promises for all Projects
+                    const promises = [];
 
-                    for (const channelName in slackChannels) {
-                        if (channelName.startsWith(`${team.name.toLowerCase()}-`)) {
-                            slackGroups.push(slackChannels[channelName]);
+                    // For each team
+                    for (const team of teams) {
+                        const githubIndividualUrl = githubUrl + team
+                            .name
+                            .replace(/[!@#$%^&*? ]+/g, '-');
+                        const taigaSlug = githubIndividualUrl
+                            .replace(/\//, '-')
+                            .toLowerCase();
+
+                        // Get list of the IDs of the team's Slack channels
+                        const slackGroups = [];
+
+                        for (const channelName in slackChannels) {
+                            if (channelName.startsWith(`${team.name.toLowerCase()}-`)) {
+                                slackGroups.push(slackChannels[channelName]);
+                            }
                         }
+
+                        // Construct object to store metadata
+                        projectMetadata = {
+                            course: course._id,
+                            'github-token': githubToken,
+                            'github-url': githubIndividualUrl,
+                            instructors: [],
+                            members: [],
+                            name: team.name,
+                            'slack-team-id': slackTeamId,
+                            'slack-groups': slackGroups,
+                            'slack-token': slackToken,
+                            'taiga-slug': taigaSlug,
+                            'taiga-token': taigaToken,
+                            team: team._id
+                        };
+
+                        // For each team member
+                        for (const member of team.members) {
+                            projectMetadata
+                                .members
+                                .push(member._id);
+                        }
+
+                        // For each instructor
+                        for (const instructor of course.instructors) {
+                            projectMetadata
+                                .instructors
+                                .push(instructor._id);
+                        }
+
+                        // Store the Project metadata in the database
+                        promises.push(
+                            Project.create(projectMetadata)
+                        );
                     }
 
-                    // Construct object to store metadata
-                    projectMetadata = {
-                        course: course._id,
-                        'github-token': githubToken,
-                        'github-url': githubIndividualUrl,
-                        instructors: [],
-                        members: [],
-                        name: team.name,
-                        'slack-groups': slackGroups,
-                        'slack-token': slackToken,
-                        'taiga-slug': taigaSlug,
-                        'taiga-token': taigaToken,
-                        team: team._id
-                    };
-
-                    // For each team member
-                    for (const member of team.members) {
-                        projectMetadata
-                            .members
-                            .push(member._id);
-                    }
-
-                    // For each instructor
-                    for (const instructor of course.instructors) {
-                        projectMetadata
-                            .instructors
-                            .push(instructor._id);
-                    }
-
-                    // Store the Project metadata in the database
-                    promises.push(
-                        Project.create(projectMetadata)
-                    );
-                }
-
-                return Promise.all(promises);
-            });
+                    return Promise.all(promises);
+                });
+        });
     }
 
     return Promise
@@ -144,6 +181,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                     instructors: [],
                     members: user._id,
                     name: user.name,
+                    'slack-team-id': null,
                     'slack-groups': null,
                     'slack-token': null,
                     'taiga-slug': taigaSlug,

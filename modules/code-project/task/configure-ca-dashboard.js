@@ -158,13 +158,13 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
 
             // Send POST request to CAssess.
             .then(() => {
-                console.log("Taiga Token: " + project['taiga-token']);
                 const payload = {
                     admins,
                     course: courseName,
                     'end-date': endDate,
                     'github-owner': githubOwner,
                     'github-token': project['github-token'],
+                    'slack-team-id': project['slack-team-id'],
                     'slack-token': `?token=${project['slack-token']}`,
                     'taiga-token': project['taiga-token'],
                     teams
@@ -172,7 +172,6 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
 
                 // Output JSON payload for debugging purposes.
                 console.log(JSON.stringify(payload));
-
 
                 // Send the JSON payload to CAssess.
                 requestPromise({
