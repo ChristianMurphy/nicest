@@ -86,7 +86,7 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                         .findOne({_id: metaData[teamIndex].team})
                         .exec()
                         .then((team) => {
-                            teamMetadata['team-name'] = team.name;
+                            teamMetadata['team_name'] = team.name;
 
                             // Collect promises for all user queries.
                             const userPromises = [];
@@ -161,12 +161,12 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                 const payload = {
                     admins,
                     course: courseName,
-                    'end-date': endDate,
-                    'github-owner': githubOwner,
-                    'github-token': project['github-token'],
-                    'slack-team-id': project['slack-team-id'],
-                    'slack-token': `?token=${project['slack-token']}`,
-                    'taiga-token': project['taiga-token'],
+                    'end_date': endDate,
+                    'github_owner': githubOwner,
+                    'github_token': project['github-token'],
+                    'slack_team_id': project['slack-team-id'],
+                    'slack_token': `?token=${project['slack-token']}`,
+                    'taiga_token': project['taiga-token'],
                     teams
                 };
 
