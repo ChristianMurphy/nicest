@@ -9,7 +9,6 @@ block script
     script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/dropdown.min.js')
     script(src = prefix + '/recipe/code-project/static/dropdown.js')
 
-
 block body
     .ui.container
         form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/add-choose-user', method='GET')
@@ -21,5 +20,5 @@ block body
                     select#course.ui.dropdown(name='_id', required)
                         option(selected, disabled, hidden, value='') None
                         each project in projects
-                            option(value= project._id)=project.name
+                            option(value= project._id) = project.name
                 input.ui.large.teal.submit.button(type='submit', value='ok')

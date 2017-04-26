@@ -19,5 +19,5 @@ block body
                     select.ui.search.dropdown(name='_id', required)
                         option(selected, disabled, hidden, value='') None
                         each project in projects
-                            option(value= project._id)=project.name
+                            option(value= project._id) = project.name
                 input.ui.large.teal.submit.button(type='submit', value='next')

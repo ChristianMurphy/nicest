@@ -20,5 +20,5 @@ block body
                     select#course.ui.dropdown(name='course', required)
                         option(selected, disabled, hidden, value='') None
                         each course in courses
-                            option(value=course._id)=course.name
+                            option(value=course._id) = course.name
                 input.ui.large.teal.submit.button(type='submit', value='ok')

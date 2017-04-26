@@ -20,6 +20,6 @@ block body
                     select#students.ui.dropdown(name='student', required)
                         option(selected, disabled, hidden, value='') None
                         each user in users
-                            option(value=user._id)=user.name
+                            option(value=user._id) = user.name
 
                 input.ui.large.teal.submit.button(type='submit', value='ok')
