@@ -1,0 +1,7 @@
+rules:
+    camelcase: off
+    max-len: off
+    max-statements:
+        - error
+        - 14
+    no-magic-numbers: off

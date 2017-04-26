@@ -11,7 +11,13 @@
   * @returns {Null} responds with HTML page
   */
 function chooseUserToRemove (request, reply) {
-    reply.view('modules/manage-code-project/view/remove-user');
+    const {prefix} = request.route.realm.modifiers.route;
+
+    request
+        .yar
+        .set({action: 'Remove'});
+
+    reply().redirect(`${prefix}/recipe/manage-code-project/remove-choose-course`);
 }
 
 module.exports = chooseUserToRemove;

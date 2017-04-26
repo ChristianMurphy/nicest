@@ -5,13 +5,19 @@
  */
 
  /**
-  * Allows user to remove a member from a code project
+  * Allows user to add a member to a code project
   * @param {Request} request - Hapi request
   * @param {Reply} reply - Hapi Reply
   * @returns {Null} responds with HTML page
   */
-function chooseUserToAdd (request, reply) {
-    reply.view('modules/manage-code-project/view/add-user');
+function chooseUserToRemove (request, reply) {
+    const {prefix} = request.route.realm.modifiers.route;
+
+    request
+        .yar
+        .set({action: 'Add'});
+
+    reply().redirect(`${prefix}/recipe/manage-code-project/add-choose-course`);
 }
 
-module.exports = chooseUserToAdd;
+module.exports = chooseUserToRemove;

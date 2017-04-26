@@ -11,11 +11,13 @@ block script
 
 block body
     .ui.container
-        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/github-login', method='GET')
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/remove-choose-user', method='GET')
             h1.ui.header Remove User
             .ui.attached.stacked.segment
                 .field
                     label Choose Student's Team
-                    select.ui.search.dropdown(name='team', required)
+                    select.ui.search.dropdown(name='_id', required)
                         option(selected, disabled, hidden, value='') None
+                        each project in projects
+                            option(value= project._id)=project.name
                 input.ui.large.teal.submit.button(type='submit', value='next')

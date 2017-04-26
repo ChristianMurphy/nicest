@@ -16,6 +16,8 @@ block body
             .ui.attached.stacked.segment
                 .field
                     label Choose Destination Team
-                    select.ui.search.dropdown(name='team', required)
+                    select.ui.search.dropdown(name='_id', required)
                         option(selected, disabled, hidden, value='') None
+                        each project in projects
+                            option(value= project._id)=project.name
                 input.ui.large.teal.submit.button(type='submit', value='transfer student')

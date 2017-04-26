@@ -11,13 +11,13 @@ block script
 
 block body
     .ui.container
-        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/transfer-choose-oldteam', method='GET')
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/transfer-choose-newteam', method='GET')
             h1.ui.header Transfer Student
             .ui.attached.stacked.segment
                 .field
-                    label Choose Student's Course
-                    select.ui.search.dropdown(name='course', required)
+                    label Choose Student
+                    select.ui.search.dropdown(name='student', required)
                         option(selected, disabled, hidden, value='') None
-                        each course in courses
-                            option(value=course._id)=course.name
+                        each user in users
+                            option(value=user._id)=user.name
                 input.ui.large.teal.submit.button(type='submit', value='next')

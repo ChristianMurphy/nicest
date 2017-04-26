@@ -1,7 +1,7 @@
 extends ../../shared-template/default.pug
 
 block title
-    title Remove Student
+    title Add Student
 
 block script
     script(src='//code.jquery.com/jquery-3.0.0.min.js')
@@ -11,11 +11,14 @@ block script
 
 block body
     .ui.container
-        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/github-login', method='GET')
-            h1.ui.header Remove User
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/add-choose-team', method='GET')
+            h1.ui.header Add User
             .ui.attached.stacked.segment
+                h3.ui.header Choose existing course
                 .field
-                    label Choose Student
-                    select.ui.search.dropdown(name='student', required)
+                    label Course
+                    select#course.ui.dropdown(name='course', required)
                         option(selected, disabled, hidden, value='') None
-                input.ui.large.teal.submit.button(type='submit', value='remove')
+                        each course in courses
+                            option(value=course._id)=course.name
+                input.ui.large.teal.submit.button(type='submit', value='ok')

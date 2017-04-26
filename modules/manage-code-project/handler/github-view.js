@@ -16,6 +16,7 @@ function githubLogin (request, reply) {
     const githubUsername = request
         .yar
         .get('github-username');
+
     const githubPassword = request
         .yar
         .get('github-password');

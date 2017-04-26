@@ -1,7 +1,7 @@
 extends ../../shared-template/default.pug
 
 block title
-    title Transfer Student
+    title Add Student
 
 block script
     script(src='//code.jquery.com/jquery-3.0.0.min.js')
@@ -9,13 +9,17 @@ block script
     script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/dropdown.min.js')
     script(src = prefix + '/recipe/code-project/static/dropdown.js')
 
+
 block body
     .ui.container
-        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/github-login', method='GET')
-            h1.ui.header Transfer Student
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/add-choose-user', method='GET')
+            h1.ui.header Add User
             .ui.attached.stacked.segment
+                h3.ui.header Choose a team
                 .field
-                    label Choose Student's Team
-                    select.ui.search.dropdown(name='team', required)
+                    label Team
+                    select#course.ui.dropdown(name='_id', required)
                         option(selected, disabled, hidden, value='') None
-                input.ui.large.teal.submit.button(type='submit', value='next')
+                        each project in projects
+                            option(value= project._id)=project.name
+                input.ui.large.teal.submit.button(type='submit', value='ok')
