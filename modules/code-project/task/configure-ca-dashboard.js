@@ -4,6 +4,7 @@
  * @module code-project/task/configure-ca-dashboard
  */
 
+const http = require('http');
 const request = require('request');
 const requestWithCookies = request.defaults({jar: true});
 const querystring = require('querystring');
@@ -171,28 +172,45 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                         github_owner: githubOwner,
                         github_token: project['github-token'],
                         slack_team_id: project['slack-team-id'],
-                        slack_token: `?token=${project['slack-token']}`,
+                        slack_token: project['slack-token'],
                         taiga_token: project['taiga-token'],
                         teams
                     };
 
                     // Output JSON payload for debugging purposes.
+                    console.log();
                     console.log(JSON.stringify(payload));
+                    console.log(`POST request made to ${cassessUrl}/rest/coursePackage\n`);
 
                     // Send the JSON payload to CAssess.
-                    requestPromise({
-                        body: payload,
-                        jar: cookieJar,
-                        json: 'true',
+                    const options = {
+                        headers: {
+                            'cache-control': 'no-cache',
+                            'content-type': 'application/json',
+                            cookie: cookieJar.getCookieString(cassessUrl)
+                        },
+                        hostname: 'cassess.fulton.asu.edu',
                         method: 'POST',
-                        uri: `${cassessUrl}/rest/coursePackage`
-                    })
-                        .then((response) => {
-                            console.log(response);
-                        })
-                        .catch((error) => {
-                            console.log(error);
+                        path: '/cassess/rest/coursePackage',
+                        port: '8080'
+                    };
+
+                    const req = http.request(options, (res) => {
+                        const chunks = [];
+
+                        res.on('data', (chunk) => {
+                            chunks.push(chunk);
                         });
+
+                        res.on('end', () => {
+                            const body = Buffer.concat(chunks);
+
+                            console.log(body.toString());
+                        });
+                    });
+
+                    req.write(JSON.stringify(payload));
+                    req.end();
                 });
         })
         .catch((err) => {
