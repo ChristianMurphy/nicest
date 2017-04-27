@@ -102,7 +102,8 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                                         .then((student) => {
                                             studentMetadata.push({
                                                 email: student.modules.cassess.email,
-                                                full_name: student.name
+                                                full_name: student.name,
+                                                password: student.modules.cassess.password
                                             });
                                         })
                                     );
@@ -121,7 +122,8 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                                             if (teamIndex === 0) {
                                                 admins.push({
                                                     email: instructor.modules.cassess.email,
-                                                    full_name: instructor.name
+                                                    full_name: instructor.name,
+                                                    password: instructor.modules.cassess.password
                                                 });
                                             }
                                         })
