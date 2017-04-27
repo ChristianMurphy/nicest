@@ -111,6 +111,7 @@ function confirm (request, reply) {
                 return createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions)
                     .then((token) => {
                         taigaToken = token;
+
                         return null;
                     });
             }
