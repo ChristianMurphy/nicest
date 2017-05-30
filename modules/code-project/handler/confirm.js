@@ -20,12 +20,8 @@ const configureCaDashboard = require('../task/configure-ca-dashboard');
 function confirm (request, reply) {
     const {prefix} = request.route.realm.modifiers.route;
 
-    const githubUsername = request
-        .yar
-        .get('github-username');
-    const githubPassword = request
-        .yar
-        .get('github-password');
+    const githubUsername = request.auth.credentials.profile.username;
+    const githubToken = request.auth.credentials.token;
     const seedRepository = request
         .yar
         .get('github-project-repo');
@@ -61,7 +57,7 @@ function confirm (request, reply) {
         .then((temporaryGithubRepositories) => {
             githubRepositories = temporaryGithubRepositories;
 
-            return createGithubRepositories(githubUsername, githubPassword, githubRepositories, {
+            return createGithubRepositories(githubUsername, githubToken, githubRepositories, {
                 has_issues: hasIssueTracker,
                 has_wiki: hasWiki,
                 private: isPrivate
@@ -125,7 +121,7 @@ function confirm (request, reply) {
             const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}`;
             const githubUrls = githubRepositories.map((element) => element.url);
 
-            return seedGitRepositories(githubUsername, githubPassword, seedRepositoryURL, githubUrls);
+            return seedGitRepositories(githubUsername, githubToken, seedRepositoryURL, githubUrls);
         })
 
         // Sucess redirect
