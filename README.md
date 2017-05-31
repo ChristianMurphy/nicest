@@ -1,5 +1,7 @@
 # nicest
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ChristianMurphy/nicest.svg)](https://greenkeeper.io/)
+
 [![npm version](https://img.shields.io/npm/v/nicest.svg)](https://www.npmjs.com/package/nicest)
 [![Build Status](https://travis-ci.org/ChristianMurphy/nicest.svg?branch=master)](https://travis-ci.org/ChristianMurphy/nicest)
 [![bitHound Code](https://www.bithound.io/github/ChristianMurphy/nicest/badges/code.svg)](https://www.bithound.io/github/ChristianMurphy/nicest)
