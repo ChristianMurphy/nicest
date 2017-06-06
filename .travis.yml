@@ -2,7 +2,7 @@ language: node_js
 node_js: 8
 
 before_install: npm i -g greenkeeper-lockfile@1
-install: npm install --only=dev --ignore-scripts
+install: npm install --ignore-scripts
 
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
