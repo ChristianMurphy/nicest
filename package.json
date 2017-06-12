@@ -67,7 +67,7 @@
     "yar": "^8.1.2"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^4.0.0",
     "husky": "^0.13.4",
     "pug-lint": "^2.4.0",
     "remark-cli": "^3.0.0",
