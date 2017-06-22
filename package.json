@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "eslint": "^3.19.0",
-    "husky": "^0.13.4",
+    "husky": "^0.14.0",
     "pug-lint": "^2.4.0",
     "remark-cli": "^3.0.0",
     "remark-preset-lint-consistent": "^2.0.0",
