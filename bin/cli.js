@@ -28,22 +28,42 @@ if (selectedTask) {
     selectedTask();
 } else {
     ui.div({
-        padding: [1, 0, 1, 0],
+        padding: [
+            1,
+            0,
+            1,
+            0
+        ],
         text: chalk.bold('Nicest Command Line Interface')
     });
     ui.div({
-        padding: [0, 0, 1, 0],
+        padding: [
+            0,
+            0,
+            1,
+            0
+        ],
         text: `${chalk.bold('usage:')} nicest <command>`
     });
     ui.div({
-        padding: [0, 0, 1, 0],
+        padding: [
+            0,
+            0,
+            1,
+            0
+        ],
         text: chalk.bold('commands')
     });
 
     for (const task of tasks) {
         ui.div(
             {
-                padding: [0, 4, 0, 4],
+                padding: [
+                    0,
+                    4,
+                    0,
+                    4
+                ],
                 text: task.name
             },
             {

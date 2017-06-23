@@ -15,7 +15,7 @@ const Team = require('../../team/model/team');
  * @property {Array} collaborators - {Array} of {String} with Github usernames
  */
 
- /**
+/**
   * Takes in basic information and generates Github metadata
   * @param {String} seedRepository - name of seed repository
   * @param {String} githubUsername - username of logged in and hosting user
@@ -54,13 +54,13 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                         githubInformation
                             .collaborators
                             .push(
-                            member.modules.github.username
-                        );
+                                member.modules.github.username
+                            );
                         githubInformation
                             .emails
                             .push(
-                            member.modules.taiga.email
-                        );
+                                member.modules.taiga.email
+                            );
                     }
 
                     githubRepositories.push(githubInformation);

@@ -25,7 +25,7 @@ const Course = require('../../course/model/course');
  * @property {String} email - Email that Taiga invite will be sent to
  */
 
- /**
+/**
   * Takes in basic information and generates Github metadata
   * @param {String} seedRepository - name of seed repository
   * @param {String} githubUsername - username of logged in and hosting user
@@ -52,7 +52,10 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                     .select('name instructors')
                     .exec()
             ])
-            .then(([teams, course]) => {
+            .then(([
+                teams,
+                course
+            ]) => {
                 // For each team
                 for (const team of teams) {
                     const githubIndividualUrl = githubUrl + team
@@ -110,7 +113,10 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                 .select('name instructors')
                 .exec()
         ])
-        .then(([users, course]) => {
+        .then(([
+            users,
+            course
+        ]) => {
             // For each student
             for (const user of users) {
                 const githubIndividualUrl = githubUrl + user.modules.github.username;
@@ -122,11 +128,13 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                     course: course.name,
                     'github-url': githubIndividualUrl,
                     instructors: [],
-                    members: [{
-                        email: user.modules.taiga.email,
-                        'github-username': user.modules.github.username,
-                        name: user.name
-                    }],
+                    members: [
+                        {
+                            email: user.modules.taiga.email,
+                            'github-username': user.modules.github.username,
+                            name: user.name
+                        }
+                    ],
                     name: user.name,
                     'tiaga-slug': taigaSlug
                 };
