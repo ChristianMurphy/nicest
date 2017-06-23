@@ -26,7 +26,10 @@ function view (request, reply) {
                 .select('_id name')
                 .exec()
         ])
-        .then(([team, users]) => {
+        .then(([
+            team,
+            users
+        ]) => {
             reply.view('modules/team/view/view', {
                 saved: request.query.saved,
                 team: {

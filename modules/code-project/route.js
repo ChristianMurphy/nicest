@@ -52,7 +52,10 @@ module.exports = [
                 query: {
                     type: Joi
                         .string()
-                        .valid(['individual', 'team'])
+                        .valid([
+                            'individual',
+                            'team'
+                        ])
                         .default('individual')
                 }
             }
@@ -66,14 +69,14 @@ module.exports = [
             validate: {
                 payload: {
                     students: Joi
-                    .array()
-                    .single()
-                    .unique()
-                    .items(
-                        Joi
-                        .string()
-                        .hex()
-                    )
+                        .array()
+                        .single()
+                        .unique()
+                        .items(
+                            Joi
+                                .string()
+                                .hex()
+                        )
                 }
             }
         },

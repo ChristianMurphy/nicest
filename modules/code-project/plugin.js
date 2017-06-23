@@ -22,7 +22,11 @@ function codeProject (server, options, next) {
 module.exports.register = codeProject;
 
 module.exports.register.attributes = {
-    dependencies: ['user', 'team', 'github'],
+    dependencies: [
+        'user',
+        'team',
+        'github'
+    ],
     name: 'code-project',
     version: '0.1.0'
 };

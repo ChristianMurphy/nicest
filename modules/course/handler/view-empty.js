@@ -27,7 +27,10 @@ function viewEmpty (request, reply) {
                 .select('_id name')
                 .exec()
         ])
-        .then(([users, teams]) => {
+        .then(([
+            users,
+            teams
+        ]) => {
             reply.view('modules/course/view/view', {
                 course: {
                     instructors: [],
