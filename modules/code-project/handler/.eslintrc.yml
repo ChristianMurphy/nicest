@@ -1,7 +1,10 @@
 rules:
     camelcase: off
     max-len: off
+    max-nested-callbacks:
+        - error
+        - 3
     max-statements:
         - error
-        - 14
+        - 20
     no-magic-numbers: off

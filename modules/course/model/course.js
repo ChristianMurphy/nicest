@@ -16,20 +16,26 @@ const mongoose = require('mongoose');
  * @property {Object} modules - area where external modules can register attributes.
  */
 const schema = new mongoose.Schema({
-    instructors: [{
-        ref: 'User',
-        type: mongoose.Schema.Types.ObjectId
-    }],
+    instructors: [
+        {
+            ref: 'User',
+            type: mongoose.Schema.Types.ObjectId
+        }
+    ],
     modules: mongoose.Schema.Types.Mixed,
     name: String,
-    students: [{
-        ref: 'User',
-        type: mongoose.Schema.Types.ObjectId
-    }],
-    teams: [{
-        ref: 'Team',
-        type: mongoose.Schema.Types.ObjectId
-    }]
+    students: [
+        {
+            ref: 'User',
+            type: mongoose.Schema.Types.ObjectId
+        }
+    ],
+    teams: [
+        {
+            ref: 'Team',
+            type: mongoose.Schema.Types.ObjectId
+        }
+    ]
 });
 
 module.exports = mongoose.model('Course', schema);

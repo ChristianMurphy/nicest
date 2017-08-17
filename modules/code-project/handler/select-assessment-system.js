@@ -15,9 +15,17 @@ function selectAssessmentSystem (request, reply) {
 
     request
         .yar
-        .set({'assessment-use-ca-dashboard': request.payload.useCADashboard});
+        .set({
+            'assessment-use-ca-dashboard': request.payload.useCADashboard,
+            'cassess-endpoint': request.payload.cassessUrl,
+            'github-access-token': request.payload.githubToken
+        });
 
-    reply().redirect(`${prefix}/recipe/code-project/confirm`);
+    if (request.payload.useCADashboard) {
+        reply().redirect(`${prefix}/recipe/code-project/cassess-login`);
+    } else {
+        reply().redirect(`${prefix}/recipe/code-project/confirm`);
+    }
 }
 
 module.exports = selectAssessmentSystem;

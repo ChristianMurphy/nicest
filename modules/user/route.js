@@ -42,8 +42,8 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi
-                    .string()
-                    .hex()
+                        .string()
+                        .hex()
                 }
             }
         },
@@ -56,8 +56,8 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi
-                    .string()
-                    .hex()
+                        .string()
+                        .hex()
                 },
                 payload: userValidation
             }
@@ -71,8 +71,8 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi
-                    .string()
-                    .hex()
+                        .string()
+                        .hex()
                 }
             }
         },

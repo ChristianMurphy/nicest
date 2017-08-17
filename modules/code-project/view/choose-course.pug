@@ -2,7 +2,7 @@ extends ../../shared-template/default.pug
 
 block title
     title Choose Course
-    
+
 block script
     script(src='//code.jquery.com/jquery-3.0.0.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/transition.min.js')
@@ -11,7 +11,7 @@ block script
 
 block body
     .ui.container
-        .ui.six.top.attached.steps
+        .ui.seven.top.attached.steps
             .active.step
                 i.university.icon
                 .content
@@ -32,6 +32,11 @@ block body
                 .content
                     .title Issues
                     .description Choose Issue Tracker
+            .disabled.step
+                i.talk.icon
+                .content
+                    .title Messaging
+                    .description Choose Team Messaging
             .disabled.step
                 i.exchange.icon
                 .content
@@ -56,12 +61,12 @@ block body
                 i.idea.icon
                 .content
                     .header Hey There
-                    p 
-                        | It looks like you don't have any courses. 
-                        | Would you like to 
+                    p
+                        | It looks like you don't have any courses.
+                        | Would you like to
                         strong
-                            a(href = prefix + '/recipe/manage-courses/list') create a course 
-                        | or 
+                            a(href = prefix + '/recipe/manage-courses/list') create a course
+                        | or
                         strong
                             a(href = prefix + '/recipe/import-export/import-xml') import a course
                         | ?

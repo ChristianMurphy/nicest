@@ -1,15 +1,13 @@
 extends ../../shared-template/default.pug
 
 block title
-    title Choose a Repository
+    title Choose Team Messaging
 
 block script
     script(src='//code.jquery.com/jquery-3.0.0.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/transition.min.js')
-    script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/dropdown.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/checkbox.min.js')
-    script(src = prefix + '/recipe/code-project/static/checkbox.js')
-    script(src = prefix + '/recipe/code-project/static/dropdown.js')
+    script(src = prefix + '/recipe/code-project/static/custom-check.js')
 
 block body
     .ui.container
@@ -24,17 +22,17 @@ block body
                 .content
                     .title Students
                     .description Choose Students to Participate
-            .active.step
+            .completed.step
                 i.git.square.icon
                 .content
                     .title Repository
                     .description Choose a Seed Repository
-            .disabled.step
+            .completed.step
                 i.columns.icon
                 .content
                     .title Issues
                     .description Choose Issue Tracker
-            .disabled.step
+            .active.step
                 i.talk.icon
                 .content
                     .title Messaging
@@ -49,28 +47,21 @@ block body
                 .content
                     .title Confirm
                     .description Confirm Selections
-        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-repository', method='POST')
+        form.ui.attached.large.form(action = prefix + '/recipe/code-project/choose-messaging-platform', method='POST')
             .ui.attached.stacked.segment
                 .field
-                    label Repository
-                    select.ui.search.dropdown(name='repo', required)
-                        option(value='') Select Repository
-                        each repo in repos
-                            option(value=repo.fullName)
-                                = repo.name
-                                |  -
-                                = repo.description
-                .field
                     .ui.toggle.checkbox
-                        input.hidden(type='checkbox', name='isPrivate')
-                        label Make Repository Private
+                        input.hidden(type='checkbox', name='useSlack', checked)
+                        label Enable Slack
                 .field
-                    .ui.toggle.checkbox
-                        input.hidden(type='checkbox', name='hasWiki')
-                        label Enable Project Wiki
+                    label Slack Team API Access Token
+                    input(type='text', name='accessToken', pattern='xoxp-[0-9]{11,12}-[0-9]{11,12}-[0-9]{12}-[0-9a-f]{32}', title='Token does not match pattern', placeholder='Slack API Access Token', required)
                 .field
-                    .ui.toggle.checkbox
-                        input.hidden(type='checkbox', name='hasIssueTracker')
-                        label Enable Project Issue Tracker
-                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-students') previous
+                    label Course Slack Channels (comma-delimited)
+                    input(type='text', name='courseChannelNames', pattern='^([a-z0-9-]+,? *)+$', title='Names must be lowercase with no spaces or special characters', placeholder='general, announcements, random')
+                .field
+                    label Team Slack Channels (comma-delimited)
+                    input(type='text', name='teamChannelNames', pattern='^([a-z0-9-]+,? *)+$', title='Names must be lowercase with no spaces or special characters', placeholder='general, develop, standup')
+
+                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')

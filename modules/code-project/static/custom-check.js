@@ -16,3 +16,21 @@ window
                     .is(':checked')
             );
     });
+
+window.slackCheckbox = $('input[name=useSlack]');
+window.slackAccessToken = $('input[name=accessToken]');
+
+window
+    .slackCheckbox
+    .change(function changeListener () {
+        'use strict';
+
+        window
+            .slackAccessToken
+            .prop(
+                'required',
+                window
+                    .slackCheckbox
+                    .is(':checked')
+            );
+    });

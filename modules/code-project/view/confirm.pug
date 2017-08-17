@@ -2,7 +2,7 @@ extends ../../shared-template/default.pug
 
 block title
     title Confirm
-    
+
 block script
     script(src='//code.jquery.com/jquery-3.0.0.min.js')
     script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/transition.min.js')
@@ -11,7 +11,7 @@ block script
 
 block body
     .ui.container
-        .ui.six.top.attached.steps
+        .ui.seven.top.attached.steps
             .completed.step
                 i.university.icon
                 .content
@@ -32,6 +32,11 @@ block body
                 .content
                     .title Issues
                     .description Choose Issue Tracker
+            .completed.step
+                i.talk.icon
+                .content
+                    .title Messaging
+                    .description Choose Team Messaging
             .completed.step
                 i.exchange.icon
                 .content

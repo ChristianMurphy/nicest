@@ -84,8 +84,8 @@ module.exports = [
             validate: {
                 params: {
                     id: Joi
-                    .string()
-                    .hex()
+                        .string()
+                        .hex()
                 }
             }
         },
