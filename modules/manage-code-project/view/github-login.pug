@@ -1,0 +1,26 @@
+extends ../../shared-template/default.pug
+
+block title
+    title Login to Github
+
+block body
+    .ui.container
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/github-login', method='POST')
+            if redirect
+                input(type='hidden', name='redirect', value=redirect)
+            h1.ui.header Login to Github
+            .field
+                .ui.left.icon.input
+                    i.user.icon
+                    input(type='text', name='username', placeholder='username')
+            .field
+                .ui.left.icon.input
+                    i.lock.icon
+                    input(type='password', name='password', placeholder='password')
+            input.ui.fluid.large.teal.submit.button(type='submit', value='submit')
+        if failed
+            .ui.large.error.icon.message
+                i.warning.icon
+                .content
+                    .header Login Failed
+                    p Check that your username and password are correct.

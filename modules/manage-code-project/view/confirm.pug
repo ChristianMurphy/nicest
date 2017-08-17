@@ -1,0 +1,11 @@
+extends ../../shared-template/default.pug
+
+block title
+    title Confirm Add User
+
+block body
+    .ui.container
+        h1.ui.center.aligned.header #{action} User
+        .ui.segment
+            .ui.vertical.segment
+                a.ui.fluid.large.teal.submit.button(href = prefix + '/recipe/manage-code-project/confirmAction', method='GET') Confirm

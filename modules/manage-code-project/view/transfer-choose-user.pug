@@ -1,0 +1,23 @@
+extends ../../shared-template/default.pug
+
+block title
+    title Transfer Student
+
+block script
+    script(src='//code.jquery.com/jquery-3.0.0.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/transition.min.js')
+    script(src='//oss.maxcdn.com/semantic-ui/2.2.2/components/dropdown.min.js')
+    script(src = prefix + '/recipe/code-project/static/dropdown.js')
+
+block body
+    .ui.container
+        form.ui.large.form.stacked.segment(action = prefix + '/recipe/manage-code-project/transfer-choose-newteam', method='GET')
+            h1.ui.header Transfer Student
+            .ui.attached.stacked.segment
+                .field
+                    label Choose Student
+                    select.ui.search.dropdown(name='student', required)
+                        option(selected, disabled, hidden, value='') None
+                        each user in users
+                            option(value=user._id) = user.name
+                input.ui.large.teal.submit.button(type='submit', value='next')

@@ -1,0 +1,32 @@
+extends ../../shared-template/default.pug
+
+block title
+    title Transfer Student
+
+block body
+    .ui.container
+        form.ui.large.form.stacked.segment
+            h1.ui.header Transfer Student
+            .ui.attached.stacked.segment
+                h3.ui.header Choose existing team
+                .field
+                    label Course
+                    select.ui.search.dropdown(name='course', required)
+                        option(selected, disabled, hidden, value='') None
+                .field
+                    label Team
+                    select.ui.search.dropdown(name='team', required)
+                        option(selected, disabled, hidden, value='') None
+            .ui.attached.stacked.segment
+                h3.ui.header Choose student to transfer
+                .field
+                    label Student
+                    select.ui.search.dropdown(name='student', required)
+                        option(selected, disabled, hidden, value='') None
+            .ui.attached.stacked.segment
+                h3.ui.header Choose destination team
+                .field
+                    label Destination team
+                    select.ui.search.dropdown(name='newTeam', required)
+                        option(selected, disabled, hidden, value='') None
+                input.ui.large.teal.submit.button(type='add student', value='transfer student')   

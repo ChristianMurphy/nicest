@@ -1,0 +1,15 @@
+extends ../../shared-template/default.pug
+
+block title
+    title Code Project Management
+
+block body
+    .ui.container
+        h1.ui.center.aligned.header Manage Code Project
+        .ui.segment
+            .ui.vertical.segment
+                a.ui.fluid.large.teal.submit.button(href = prefix + '/recipe/manage-code-project/add') add student to existing code project
+            .ui.vertical.segment
+                a.ui.fluid.large.teal.submit.button(href = prefix + '/recipe/manage-code-project/remove') remove student from existing code project
+            .ui.vertical.segment
+                a.ui.fluid.large.teal.submit.button(href = prefix + '/recipe/manage-code-project/transfer') transfer student to existing code project
