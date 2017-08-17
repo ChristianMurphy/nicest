@@ -58,7 +58,7 @@ function requestPromise (data) {
  * @returns {Promise.<Array>} resolves to {Array} of {CodeProjectMeta}
  */
 function gatherProjectMetadata (seedRepository, githubUsername, githubToken, studentType,
-        students, courseId, slackToken, slackChannels, taigaToken) {
+    students, courseId, slackToken, slackChannels, taigaToken) {
     const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
     let projectMetadata = null;
 
@@ -88,7 +88,10 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                             .select('name instructors')
                             .exec()
                     ])
-                    .then(([teams, course]) => {
+                    .then(([
+                        teams,
+                        course
+                    ]) => {
                         // Collect promises for all Projects
                         const promises = [];
 
@@ -162,7 +165,10 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                 .select('name instructors')
                 .exec()
         ])
-        .then(([users, course]) => {
+        .then(([
+            users,
+            course
+        ]) => {
             // Collect promises for all Projects
             const promises = [];
 

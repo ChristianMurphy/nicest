@@ -155,14 +155,14 @@ function confirm (request, reply) {
                     .get('github-access-token');
 
                 return gatherProjectMetadata(seedRepository,
-                                             githubUsername,
-                                             githubToken,
-                                             studentType,
-                                             students,
-                                             course,
-                                             slackToken,
-                                             slackChannels,
-                                             taigaToken);
+                    githubUsername,
+                    githubToken,
+                    studentType,
+                    students,
+                    course,
+                    slackToken,
+                    slackChannels,
+                    taigaToken);
             }
 
             return null;

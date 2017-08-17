@@ -68,12 +68,12 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
 
         // Create channel
         promises.push(
-        requestPromise({
-            json: true,
-            method: 'POST',
-            uri: `${createChannelURI}?${qs}`
-        })
-    );
+            requestPromise({
+                json: true,
+                method: 'POST',
+                uri: `${createChannelURI}?${qs}`
+            })
+        );
     });
 
     // Wait for all channels to be created
@@ -127,12 +127,12 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
 
                 // Invites the user to team and respective channels
                 promisesInvite.push(
-                requestPromise({
-                    json: true,
-                    method: 'POST',
-                    uri: `${inviteUserURI}?${qs}`
-                })
-            );
+                    requestPromise({
+                        json: true,
+                        method: 'POST',
+                        uri: `${inviteUserURI}?${qs}`
+                    })
+                );
             });
 
             return Promise.all(promisesInvite)

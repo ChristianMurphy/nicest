@@ -27,14 +27,18 @@ const schema = new mongoose.Schema({
     },
     'github-token': String,
     'github-url': String,
-    instructors: [{
-        ref: 'User',
-        type: mongoose.Schema.Types.ObjectId
-    }],
-    members: [{
-        ref: 'User',
-        type: mongoose.Schema.Types.ObjectId
-    }],
+    instructors: [
+        {
+            ref: 'User',
+            type: mongoose.Schema.Types.ObjectId
+        }
+    ],
+    members: [
+        {
+            ref: 'User',
+            type: mongoose.Schema.Types.ObjectId
+        }
+    ],
     name: String,
     'slack-groups': [String],
     'slack-team-id': String,
