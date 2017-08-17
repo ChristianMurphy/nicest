@@ -26,18 +26,15 @@ const Octokat = require('octokat');
  * Takes in a list of names, and creates an empty repo for each name.
  * @function CreateRepositories
  * @param {String} githubUsername - Github username
- * @param {String} githubPassword - Github password
+ * @param {String} githubToken - Github auth token
  * @param {Array} repositories - {Array} of {GithubRepository}
  * @param {GithubRepositoryOptions} options - options to be used with repository
  * @returns {Promise} promise will resolve when all repos have been created
  */
-function createRepositories (githubUsername, githubPassword, repositories, options) {
+function createRepositories (githubUsername, githubToken, repositories, options) {
     const promises = [];
 
-    const Github = new Octokat({
-        password: githubPassword,
-        username: githubUsername
-    });
+    const Github = new Octokat({token: githubToken});
 
     // For each student
     for (const index in repositories) {

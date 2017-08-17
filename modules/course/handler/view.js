@@ -31,7 +31,11 @@ function view (request, reply) {
                 .select('_id name')
                 .exec()
         ])
-        .then(([course, teams, users]) => {
+        .then(([
+            course,
+            teams,
+            users
+        ]) => {
             reply.view('modules/course/view/view', {
                 course: {
                     instructors: course.instructors || [],

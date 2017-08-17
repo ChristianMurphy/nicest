@@ -13,7 +13,7 @@
 function redirect (request, reply) {
     const {prefix} = request.route.realm.modifiers.route;
 
-    reply().redirect(`${prefix}/recipe/github/login`);
+    reply().redirect(`${prefix}/recipe/github/list`);
 }
 
 module.exports = redirect;
