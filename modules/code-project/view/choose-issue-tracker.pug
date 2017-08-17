@@ -11,7 +11,7 @@ block script
 
 block body
     .ui.container
-        .ui.six.top.attached.steps
+        .ui.seven.top.attached.steps
             .completed.step
                 i.university.icon
                 .content
@@ -32,6 +32,11 @@ block body
                 .content
                     .title Issues
                     .description Choose Issue Tracker
+            .disabled.step
+                i.talk.icon
+                .content
+                    .title Messaging
+                    .description Choose Team Messaging
             .disabled.step
                 i.exchange.icon
                 .content
@@ -71,6 +76,6 @@ block body
                     .ui.toggle.checkbox
                         input.hidden(type='checkbox', name='hasWiki')
                         label Enable Wiki
-                        
+
                 a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-repository') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')

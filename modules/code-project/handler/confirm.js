@@ -7,9 +7,11 @@
 const gatherGithubUsers = require('../task/gather-github-users');
 const createGithubRepositories = require('../task/create-github-repositories');
 const createTaigaBoards = require('../task/create-taiga-boards');
+const gatherSlackMetadata = require('../task/gather-slack-metadata');
+const createSlackChannels = require('../task/create-slack-channels');
 const seedGitRepositories = require('../task/seed-git-repositories');
-const gatherCaUsers = require('../task/gather-ca-users');
 const configureCaDashboard = require('../task/configure-ca-dashboard');
+const gatherProjectMetadata = require('../task/gather-project-metadata');
 
 /**
  * Actually generates the project across all the services
@@ -46,10 +48,18 @@ function confirm (request, reply) {
     const useTaiga = request
         .yar
         .get('taiga-project-use-taiga');
+    const useSlack = request
+        .yar
+        .get('slack-project-use-slack');
+    const slackToken = request
+        .yar
+        .get('slack-project-access-token');
     const useAssessment = request
         .yar
         .get('assessment-use-ca-dashboard');
     let githubRepositories = null;
+    let slackChannels = null;
+    let taigaToken = null;
 
     // Gather Github user information from Users/Teams
     gatherGithubUsers(seedRepository, githubUsername, studentType, students)
@@ -94,14 +104,61 @@ function confirm (request, reply) {
                         .get('taiga-project-has-wiki')
                 };
 
-                createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions);
+                return createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions)
+                    .then((token) => {
+                        taigaToken = token;
+
+                        return null;
+                    });
             }
+
+            return null;
+        })
+
+        // Create Slack channels
+        .then(() => {
+            if (useSlack) {
+                const accessToken = request
+                    .yar
+                    .get('slack-project-access-token');
+                const courseChannelNames = request
+                    .yar
+                    .get('slack-project-course-channel-names');
+                const teamChannelNames = request
+                    .yar
+                    .get('slack-project-team-channel-names');
+
+                // Gather Slack user information from Users/Teams
+                return gatherSlackMetadata(courseChannelNames, teamChannelNames, students)
+                    // Create the channels
+                    .then((slackMetadata) => {
+                        const {channels} = slackMetadata;
+                        const {users} = slackMetadata;
+
+                        return createSlackChannels(accessToken, channels, users)
+                            .then((slackChannelMap) => {
+                                slackChannels = slackChannelMap;
+
+                                return null;
+                            });
+                    });
+            }
+
+            return null;
         })
 
         // Gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
-                return gatherCaUsers(seedRepository, githubUsername, studentType, students, course);
+                return gatherProjectMetadata(seedRepository,
+                    githubUsername,
+                    githubToken,
+                    studentType,
+                    students,
+                    course,
+                    slackToken,
+                    slackChannels,
+                    taigaToken);
             }
 
             return null;
@@ -110,7 +167,17 @@ function confirm (request, reply) {
         // Setup CA Dashboard
         .then((caConfiguration) => {
             if (useAssessment) {
-                return configureCaDashboard(caConfiguration);
+                const cassessUsername = request
+                    .yar
+                    .get('cassess-username');
+                const cassessPassword = request
+                    .yar
+                    .get('cassess-password');
+                const cassessUrl = request
+                    .yar
+                    .get('cassess-endpoint');
+
+                return configureCaDashboard(cassessUsername, cassessPassword, cassessUrl, caConfiguration);
             }
 
             return null;
@@ -124,7 +191,7 @@ function confirm (request, reply) {
             return seedGitRepositories(githubUsername, githubToken, seedRepositoryURL, githubUrls);
         })
 
-        // Sucess redirect
+        // Success redirect
         .then(() => {
             reply().redirect(`${prefix}/recipe/code-project/success`);
         })

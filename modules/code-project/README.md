@@ -31,12 +31,14 @@ as Agile project management systems.
     *   optionally `login-view.js`
     *   optionally `login-action.js`
 
-8.  `choose-assessment-system.js`
+8.  `select-team-messaging.js`
 
-9.  `select-assessment-system.js`
+9.  `choose-assessment-system.js`
 
-10. `confirm-view.js`
+10. `select-assessment-system.js`
 
-11. `confirm.js`
+11. `confirm-view.js`
 
-12. Either `success.view.js` or `error-view.js`
+12. `confirm.js`
+
+13. Either `success.view.js` or `error-view.js`

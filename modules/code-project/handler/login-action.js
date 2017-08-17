@@ -20,7 +20,7 @@ function loginAction (request, reply) {
             'taiga-username': request.payload.username
         });
 
-    reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);
+    reply().redirect(`${prefix}/recipe/code-project/choose-messaging-platform`);
 }
 
 module.exports = loginAction;

@@ -11,7 +11,7 @@ block script
 
 block body
     .ui.container
-        .ui.six.top.attached.steps
+        .ui.seven.top.attached.steps
             .completed.step
                 i.university.icon
                 .content
@@ -32,6 +32,11 @@ block body
                 .content
                     .title Issues
                     .description Choose Issue Tracker
+            .completed.step
+                i.talk.icon
+                .content
+                    .title Messaging
+                    .description Choose Team Messaging
             .active.step
                 i.exchange.icon
                 .content
@@ -48,5 +53,12 @@ block body
                     .ui.toggle.checkbox
                         input.hidden(type='checkbox', name='useCADashboard')
                         label Use CA Dashboard as an Assessment System
-                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-issue-tracker') previous
+                .field
+                    label CAssess URL
+                    input(type='text', name='cassessUrl', placeholder='CAssess URL')
+                .field
+                    label
+                        a(href='https://github.com/settings/tokens', target='_blank') GitHub Token (Click to generate)
+                    input(type='text', name='githubToken', placeholder='GitHub token')
+                a.ui.large.secondary.submit.button(href = prefix + '/recipe/code-project/choose-messaging-platform') previous
                 input.ui.large.teal.submit.button(type='submit', value='next')
