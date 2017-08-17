@@ -150,10 +150,6 @@ function confirm (request, reply) {
         // Gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
-                const githubToken = request
-                    .yar
-                    .get('github-access-token');
-
                 return gatherProjectMetadata(seedRepository,
                     githubUsername,
                     githubToken,
