@@ -7,6 +7,7 @@
     "nicest": "bin/cli.js"
   },
   "scripts": {
+    "commitmsg": "commitlint -e",
     "precommit": "npm test",
     "postinstall": "jsdoc --recurse lib modules tasks --destination docs",
     "test": "eslint . --inline-config=false --ignore-path=.gitignore && pug-lint modules && remark *.md modules/**/*.md"
@@ -67,6 +68,8 @@
     "yar": "^8.1.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^3.1.2",
+    "@commitlint/config-angular": "^3.1.1",
     "eslint": "~4.5.0",
     "husky": "^0.14.3",
     "pug-lint": "~2.4.0",
@@ -234,5 +237,10 @@
       "preset-lint-recommended",
       "preset-lint-consistent"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
