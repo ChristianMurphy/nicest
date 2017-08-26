@@ -42,6 +42,7 @@
   ],
   "preferGlobal": true,
   "dependencies": {
+    "@std/esm": "^0.5.1",
     "bell": "^8.7.0",
     "boom": "^5.2.0",
     "chalk": "^2.1.0",
