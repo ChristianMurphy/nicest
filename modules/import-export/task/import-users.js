@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module import-export/task/import-users
  */
@@ -11,7 +9,7 @@ const User = require('../../user/model/user');
  * @param {Object} documentAndMapping - XML document and Array of ObjectId mappings
  * @returns {Object} XML document and User ObjectId mappings
  */
-function importUsers (documentAndMapping) {
+function importUsers(documentAndMapping) {
     // Find all the users
     const users = documentAndMapping
         .document
@@ -35,22 +33,22 @@ function importUsers (documentAndMapping) {
                         github: {
                             username: currentUser
                                 .get('github')
-                                .text()
+                                .text(),
                         },
                         taiga: {
                             email: currentUser
                                 .get('email')
-                                .text()
-                        }
+                                .text(),
+                        },
                     },
-                    name: `${firstName} ${lastName}`
+                    name: `${firstName} ${lastName}`,
                 })
-                .then((newUser) => ({
+                .then(newUser => ({
                     databaseId: newUser._id,
                     xmlId: currentUser
                         .attr('id')
-                        .value()
-                }))
+                        .value(),
+                })),
         );
     }
 

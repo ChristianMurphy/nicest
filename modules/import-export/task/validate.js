@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module import-export/task/validate
  */
@@ -17,7 +15,7 @@ const parsedSchema = libxml.parseXmlString(schema);
  * @param {String} location - path to file
  * @returns {Promise.<String>} resolves with data or rejects with error
  */
-function readFilePromise (location) {
+function readFilePromise(location) {
     return new Promise((resolve, reject) => {
         fs.readFile(location, 'utf-8', (err, data) => {
             if (err) {
@@ -34,7 +32,7 @@ function readFilePromise (location) {
  * @param {String} location - path to file to load
  * @returns {Promise.<Object, String[]>} processed XML document
  */
-function validate (location) {
+function validate(location) {
     return readFilePromise(location).then((dataset) => {
         // Parse the new file
         const parsedDateset = libxml.parseXmlString(dataset);
@@ -45,7 +43,7 @@ function validate (location) {
             if (isValid) {
                 resolve({
                     document: parsedDateset,
-                    mapping: []
+                    mapping: [],
                 });
             } else {
                 reject(parsedDateset.validationErrors);

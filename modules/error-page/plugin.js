@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module error-page
  */
@@ -13,7 +11,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function errorPage (server, options, next) {
+function errorPage(server, options, next) {
     server.route(viewRoute);
 
     next();
@@ -23,5 +21,5 @@ exports.register = errorPage;
 
 exports.register.attributes = {
     name: 'error-page',
-    version: '0.1.0'
+    version: '0.1.0',
 };

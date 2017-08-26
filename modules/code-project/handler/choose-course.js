@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/choose-course
  */
@@ -12,11 +10,11 @@ const Course = require('../../course/model/course');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function chooseCourse (request, reply) {
+function chooseCourse(request, reply) {
     Course
         .find({})
         .then((courses) => {
-            reply.view('modules/code-project/view/choose-course', {courses});
+            reply.view('modules/code-project/view/choose-course', { courses });
         });
 }
 

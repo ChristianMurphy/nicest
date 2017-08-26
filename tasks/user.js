@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module core/tasks/user
  */
@@ -8,7 +6,7 @@
  * Creates a new user.
  * @returns {Null} nothing
  */
-function user () {
+function user() {
     const chalk = require('chalk');
     const read = require('./helpers/read-promise');
     const database = require('../lib/database');
@@ -23,23 +21,23 @@ function user () {
 
     const newUser = {};
 
-    read({prompt: 'name:'})
+    read({ prompt: 'name:' })
         .then((userName) => {
             newUser.name = userName;
 
             return read({
                 default: 'admin',
-                prompt: 'user role:'
+                prompt: 'user role:',
             });
         })
         .then((role) => {
             newUser.role = role;
 
-            return read({prompt: 'github username:'});
+            return read({ prompt: 'github username:' });
         })
         .then((username) => {
             newUser.modules = {};
-            newUser.modules.github = {username};
+            newUser.modules.github = { username };
 
             return userModel.create(newUser);
         })

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module user/handler/view
  */
@@ -12,11 +10,11 @@ const User = require('../model/user');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function view (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function view(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     User
-        .findOne({_id: request.params.id})
+        .findOne({ _id: request.params.id })
         .exec()
         .then((user) => {
             reply.view('modules/user/view/view', {
@@ -25,8 +23,8 @@ function view (request, reply) {
                 user: {
                     modules: user.modules || {},
                     name: user.name,
-                    role: user.role
-                }
+                    role: user.role,
+                },
             });
         });
 }

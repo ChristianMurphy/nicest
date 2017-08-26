@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
-
 const chalk = require('chalk');
 const ui = require('cliui')();
 
@@ -19,10 +17,10 @@ const tasks = [
     nicestUser,
     nicestStart,
     nicestStop,
-    nicestDev
+    nicestDev,
 ];
 
-const selectedTask = tasks.find((element) => element.name === command);
+const selectedTask = tasks.find(element => element.name === command);
 
 if (selectedTask) {
     selectedTask();
@@ -32,27 +30,27 @@ if (selectedTask) {
             1,
             0,
             1,
-            0
+            0,
         ],
-        text: chalk.bold('Nicest Command Line Interface')
+        text: chalk.bold('Nicest Command Line Interface'),
     });
     ui.div({
         padding: [
             0,
             0,
             1,
-            0
+            0,
         ],
-        text: `${chalk.bold('usage:')} nicest <command>`
+        text: `${chalk.bold('usage:')} nicest <command>`,
     });
     ui.div({
         padding: [
             0,
             0,
             1,
-            0
+            0,
         ],
-        text: chalk.bold('commands')
+        text: chalk.bold('commands'),
     });
 
     for (const task of tasks) {
@@ -62,14 +60,14 @@ if (selectedTask) {
                     0,
                     4,
                     0,
-                    4
+                    4,
                 ],
-                text: task.name
+                text: task.name,
             },
             {
                 text: task.description,
-                width: 60
-            }
+                width: 60,
+            },
         );
     }
 

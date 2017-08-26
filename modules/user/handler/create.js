@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module user/handler/create
  */
@@ -12,8 +10,8 @@ const User = require('../model/user');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with a redirect to view User
  */
-function create (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function create(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     User
         .create(request.payload)

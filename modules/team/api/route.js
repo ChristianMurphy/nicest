@@ -1,5 +1,3 @@
-'use strict';
-
 const handler = require('./handler');
 const Joi = require('joi');
 
@@ -11,7 +9,7 @@ const teamValidation = {
         .items(
             Joi
                 .string()
-                .hex()
+                .hex(),
         )
         .description('List of User ids, for Users who are a part of the team'),
     modules: Joi
@@ -22,7 +20,7 @@ const teamValidation = {
         .trim()
         .replace(/\s+/g, ' ')
         .regex(/^[a-z ]+$/i, 'latin characters or space')
-        .description('Team name')
+        .description('Team name'),
 };
 
 module.exports = [
@@ -30,22 +28,22 @@ module.exports = [
         config: {
             description: 'List of all teams',
             notes: 'Returns {Array} of {String} with Team ids',
-            tags: ['list']
+            tags: ['list'],
         },
         handler: handler.list,
         method: 'GET',
-        path: '/api/teams'
+        path: '/api/teams',
     },
     {
         config: {
             description: 'Create a new team',
             notes: 'Will respond with HTTP 201 for success and return the new team object',
             tags: ['create'],
-            validate: {payload: teamValidation}
+            validate: { payload: teamValidation },
         },
         handler: handler.create,
         method: 'POST',
-        path: '/api/team'
+        path: '/api/team',
     },
     {
         config: {
@@ -56,13 +54,13 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handler.read,
         method: 'GET',
-        path: '/api/team/{id}'
+        path: '/api/team/{id}',
     },
     {
         config: {
@@ -73,14 +71,14 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
+                        .hex(),
                 },
-                payload: teamValidation
-            }
+                payload: teamValidation,
+            },
         },
         handler: handler.update,
         method: 'PUT',
-        path: '/api/team/{id}'
+        path: '/api/team/{id}',
     },
     {
         config: {
@@ -91,12 +89,12 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handler.delete,
         method: 'DELETE',
-        path: '/api/team/{id}'
-    }
+        path: '/api/team/{id}',
+    },
 ];

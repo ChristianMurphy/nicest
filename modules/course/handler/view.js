@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module course/handler/view
  */
@@ -14,13 +12,13 @@ const Course = require('../model/course');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function view (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function view(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     Promise
         .all([
             Course
-                .findOne({_id: request.params.id})
+                .findOne({ _id: request.params.id })
                 .exec(),
             Team
                 .find({})
@@ -29,12 +27,12 @@ function view (request, reply) {
             User
                 .find({})
                 .select('_id name')
-                .exec()
+                .exec(),
         ])
         .then(([
             course,
             teams,
-            users
+            users,
         ]) => {
             reply.view('modules/course/view/view', {
                 course: {
@@ -42,12 +40,12 @@ function view (request, reply) {
                     modules: course.modules || {},
                     name: course.name,
                     students: course.students || [],
-                    teams: course.teams || []
+                    teams: course.teams || [],
                 },
                 saved: request.query.saved,
                 teams,
                 url: `${prefix}/recipe/manage-courses/edit/${course._id}`,
-                users
+                users,
             });
         });
 }

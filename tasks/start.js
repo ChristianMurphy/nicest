@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module core/tasks/start
  */
@@ -9,7 +7,7 @@
  * This allows for running on a production server.
  * @returns {Null} nothing
  */
-function start () {
+function start() {
     const processManager = require('pm2');
     const path = require('path');
 
@@ -17,11 +15,11 @@ function start () {
         processManager.start(
             {
                 name: 'nicest',
-                script: path.resolve(__dirname, 'helpers', 'start-server.js')
+                script: path.resolve(__dirname, 'helpers', 'start-server.js'),
             },
             () => {
                 processManager.disconnect();
-            }
+            },
         );
     });
 }

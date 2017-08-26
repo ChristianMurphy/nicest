@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module user/model
  */
@@ -21,10 +19,10 @@ const schema = new mongoose.Schema({
         enum: [
             'admin',
             'instructor',
-            'student'
+            'student',
         ],
-        type: String
-    }
+        type: String,
+    },
 });
 
 module.exports = mongoose.model('User', schema);

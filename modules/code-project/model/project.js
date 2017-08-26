@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/model/project
  */
@@ -23,21 +21,21 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     course: {
         ref: 'Course',
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
     },
     'github-token': String,
     'github-url': String,
     instructors: [
         {
             ref: 'User',
-            type: mongoose.Schema.Types.ObjectId
-        }
+            type: mongoose.Schema.Types.ObjectId,
+        },
     ],
     members: [
         {
             ref: 'User',
-            type: mongoose.Schema.Types.ObjectId
-        }
+            type: mongoose.Schema.Types.ObjectId,
+        },
     ],
     name: String,
     'slack-groups': [String],
@@ -47,8 +45,8 @@ const schema = new mongoose.Schema({
     'taiga-token': String,
     team: {
         ref: 'Team',
-        type: mongoose.Schema.Types.ObjectId
-    }
+        type: mongoose.Schema.Types.ObjectId,
+    },
 });
 
 module.exports = mongoose.model('Project', schema);

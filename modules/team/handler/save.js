@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module team/handler/save
  */
@@ -12,11 +10,11 @@ const Team = require('../model/team');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with redirect to Team view
  */
-function save (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function save(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     Team
-        .findOneAndUpdate({_id: request.params.id}, request.payload)
+        .findOneAndUpdate({ _id: request.params.id }, request.payload)
         .exec()
         .then(() => {
             reply().redirect(`${prefix}/recipe/manage-teams/edit/${request.params.id}?saved=true`);

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module import-export/task/import-teams
  */
@@ -11,7 +9,7 @@ const Team = require('../../team/model/team');
  * @param {Object} documentAndMapping - XML document and User ObjectId mappings
  * @returns {Object} XML Document, User ObjectId mapping, and Team ObjectId mapping
  */
-function importTeams (documentAndMapping) {
+function importTeams(documentAndMapping) {
     // Find all the teams
     const teams = documentAndMapping
         .document
@@ -22,7 +20,7 @@ function importTeams (documentAndMapping) {
     for (const currentTeam of teams) {
         // Gather all team members for current team
         const teamMembers = currentTeam.find('member');
-        const teamMetadata = {members: []};
+        const teamMetadata = { members: [] };
 
         // Set the team name
         teamMetadata.name = currentTeam
@@ -36,7 +34,7 @@ function importTeams (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => element.xmlId === memberXmlId)
+                .find(element => element.xmlId === memberXmlId)
                 .databaseId;
 
             teamMetadata
@@ -48,12 +46,12 @@ function importTeams (documentAndMapping) {
         promises.push(
             Team
                 .create(teamMetadata)
-                .then((newTeam) => ({
+                .then(newTeam => ({
                     databaseId: newTeam._id,
                     xmlId: currentTeam
                         .attr('id')
-                        .value()
-                }))
+                        .value(),
+                })),
         );
     }
 

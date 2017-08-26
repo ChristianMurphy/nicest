@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/select-messaging-platform
  */
@@ -10,8 +8,8 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with a redirect
  */
-function selectMessagingPlatform (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function selectMessagingPlatform(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     request
         .yar
@@ -19,7 +17,7 @@ function selectMessagingPlatform (request, reply) {
             'slack-project-access-token': request.payload.accessToken,
             'slack-project-course-channel-names': request.payload.courseChannelNames,
             'slack-project-team-channel-names': request.payload.teamChannelNames,
-            'slack-project-use-slack': request.payload.useSlack
+            'slack-project-use-slack': request.payload.useSlack,
         });
 
     reply().redirect(`${prefix}/recipe/code-project/choose-assessment-system`);

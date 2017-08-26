@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/gather-project-metadata
  */
@@ -17,7 +15,7 @@ const Project = require('../model/project');
  * @param {Object} data - request object
  * @returns {Promise.<String>} promise will resolve to response body or reject with error code
  */
-function requestPromise (data) {
+function requestPromise(data) {
     return new Promise((resolve, reject) => {
         request(data, (error, headers, body) => {
             if (error) {
@@ -57,7 +55,7 @@ function requestPromise (data) {
  * @param {String} taigaToken - Taiga API access token
  * @returns {Promise.<Array>} resolves to {Array} of {CodeProjectMeta}
  */
-function gatherProjectMetadata (seedRepository, githubUsername, githubToken, studentType,
+function gatherProjectMetadata(seedRepository, githubUsername, githubToken, studentType,
     students, courseId, slackToken, slackChannels, taigaToken) {
     const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
     let projectMetadata = null;
@@ -70,7 +68,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
         return requestPromise({
             json: true,
             method: 'POST',
-            uri: `${getTeamInfo}?token=${slackToken}`
+            uri: `${getTeamInfo}?token=${slackToken}`,
         })
             .then((data) => {
                 // Store Slack Team Id for the course
@@ -79,18 +77,18 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                 return Promise
                     .all([
                         Team
-                            .find({_id: {$in: students}})
+                            .find({ _id: { $in: students } })
                             .populate('members')
                             .exec(),
                         Course
-                            .findOne({_id: courseId})
+                            .findOne({ _id: courseId })
                             .populate('instructors')
                             .select('name instructors')
-                            .exec()
+                            .exec(),
                     ])
                     .then(([
                         teams,
-                        course
+                        course,
                     ]) => {
                         // Collect promises for all Projects
                         const promises = [];
@@ -126,7 +124,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                                 'slack-token': slackToken,
                                 'taiga-slug': taigaSlug,
                                 'taiga-token': taigaToken,
-                                team: team._id
+                                team: team._id,
                             };
 
                             // For each team member
@@ -145,7 +143,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
 
                             // Store the Project metadata in the database
                             promises.push(
-                                Project.create(projectMetadata)
+                                Project.create(projectMetadata),
                             );
                         }
 
@@ -157,17 +155,17 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
     return Promise
         .all([
             User
-                .find({_id: {$in: students}})
+                .find({ _id: { $in: students } })
                 .exec(),
             Course
-                .findOne({_id: courseId})
+                .findOne({ _id: courseId })
                 .populate('instructors')
                 .select('name instructors')
-                .exec()
+                .exec(),
         ])
         .then(([
             users,
-            course
+            course,
         ]) => {
             // Collect promises for all Projects
             const promises = [];
@@ -191,7 +189,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                     'slack-token': null,
                     'taiga-slug': taigaSlug,
                     'taiga-token': taigaToken,
-                    team: null
+                    team: null,
                 };
 
                 // For each instructor
@@ -203,7 +201,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
 
                 // Store the Project metadata in the database
                 promises.push(
-                    Project.create(projectMetadata)
+                    Project.create(projectMetadata),
                 );
             }
 

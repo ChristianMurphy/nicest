@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/success-view
  */
@@ -10,7 +8,7 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function successView (request, reply) {
+function successView(request, reply) {
     reply.view('modules/code-project/view/success');
 }
 

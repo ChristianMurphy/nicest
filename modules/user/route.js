@@ -1,5 +1,3 @@
-'use strict';
-
 const handleCreate = require('./handler/create');
 const handleList = require('./handler/list');
 const handleRedirect = require('./handler/redirect');
@@ -22,20 +20,20 @@ const userValidation = {
     role: Joi
         .string()
         .valid('student', 'instructor', 'admin')
-        .description('Role user fulfills, and permissions for what user can view')
+        .description('Role user fulfills, and permissions for what user can view'),
 };
 
 module.exports = [
     {
-        config: {description: 'User Management'},
+        config: { description: 'User Management' },
         handler: handleRedirect,
         method: 'GET',
-        path: '/recipe/manage-users'
+        path: '/recipe/manage-users',
     },
     {
         handler: handleList,
         method: 'GET',
-        path: '/recipe/manage-users/list'
+        path: '/recipe/manage-users/list',
     },
     {
         config: {
@@ -43,13 +41,13 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handleView,
         method: 'GET',
-        path: '/recipe/manage-users/edit/{id}'
+        path: '/recipe/manage-users/edit/{id}',
     },
     {
         config: {
@@ -57,14 +55,14 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
+                        .hex(),
                 },
-                payload: userValidation
-            }
+                payload: userValidation,
+            },
         },
         handler: handleSave,
         method: 'POST',
-        path: '/recipe/manage-users/edit/{id}'
+        path: '/recipe/manage-users/edit/{id}',
     },
     {
         config: {
@@ -72,28 +70,28 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handleRemove,
         method: 'GET',
-        path: '/recipe/manage-users/delete/{id}'
+        path: '/recipe/manage-users/delete/{id}',
     },
     {
         handler: handleViewEmpty,
         method: 'GET',
-        path: '/recipe/manage-users/create'
+        path: '/recipe/manage-users/create',
     },
     {
-        config: {validate: {payload: userValidation}},
+        config: { validate: { payload: userValidation } },
         handler: handleCreate,
         method: 'POST',
-        path: '/recipe/manage-users/create'
+        path: '/recipe/manage-users/create',
     },
     {
-        handler: {directory: {path: 'modules/user/static'}},
+        handler: { directory: { path: 'modules/user/static' } },
         method: 'GET',
-        path: '/recipe/manage-users/static/{param*}'
-    }
+        path: '/recipe/manage-users/static/{param*}',
+    },
 ];

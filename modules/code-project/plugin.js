@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project
  */
@@ -13,7 +11,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function codeProject (server, options, next) {
+function codeProject(server, options, next) {
     server.route(viewRoute);
 
     next();
@@ -25,8 +23,8 @@ module.exports.register.attributes = {
     dependencies: [
         'user',
         'team',
-        'github'
+        'github',
     ],
     name: 'code-project',
-    version: '0.1.0'
+    version: '0.1.0',
 };

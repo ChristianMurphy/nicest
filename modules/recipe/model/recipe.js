@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module recipe/model
  */
@@ -19,7 +17,7 @@ let server = null;
  * @param {String} route - route path
  * @returns {Boolean} recipe home will return true
  */
-function filterRecipes (route) {
+function filterRecipes(route) {
     const search = new RegExp(`^${server.realm.modifiers.route.prefix || ''}/recipe/[^/]+/?$`);
     const isRecipe = route
         .path
@@ -33,7 +31,7 @@ function filterRecipes (route) {
  * @function list
  * @returns {Array} {Array} of {Route}
  */
-function list () {
+function list() {
     return server
         .table()[0]
         .table
@@ -46,11 +44,11 @@ function list () {
  * @param {Object} serve - Hapi JS server object
  * @returns {Undefined} undefined
  */
-function setServer (serve) {
+function setServer(serve) {
     server = serve;
 }
 
 module.exports = {
     list,
-    setServer
+    setServer,
 };

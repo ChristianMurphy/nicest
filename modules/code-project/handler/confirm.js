@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/confirm
  */
@@ -19,8 +17,8 @@ const gatherProjectMetadata = require('../task/gather-project-metadata');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with a redirect
  */
-function confirm (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function confirm(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     const githubUsername = request.auth.credentials.profile.username;
     const githubToken = request.auth.credentials.token;
@@ -70,7 +68,7 @@ function confirm (request, reply) {
             return createGithubRepositories(githubUsername, githubToken, githubRepositories, {
                 has_issues: hasIssueTracker,
                 has_wiki: hasWiki,
-                private: isPrivate
+                private: isPrivate,
             });
         })
 
@@ -101,7 +99,7 @@ function confirm (request, reply) {
                         .get('taiga-project-is-private'),
                     isWikiActivated: request
                         .yar
-                        .get('taiga-project-has-wiki')
+                        .get('taiga-project-has-wiki'),
                 };
 
                 return createTaigaBoards(taigaUsername, taigaPassword, githubRepositories, taigaOptions)
@@ -132,8 +130,8 @@ function confirm (request, reply) {
                 return gatherSlackMetadata(courseChannelNames, teamChannelNames, students)
                     // Create the channels
                     .then((slackMetadata) => {
-                        const {channels} = slackMetadata;
-                        const {users} = slackMetadata;
+                        const { channels } = slackMetadata;
+                        const { users } = slackMetadata;
 
                         return createSlackChannels(accessToken, channels, users)
                             .then((slackChannelMap) => {
@@ -186,7 +184,7 @@ function confirm (request, reply) {
         // Add seed code to repositories
         .then(() => {
             const seedRepositoryURL = `https://github.com/${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}`;
-            const githubUrls = githubRepositories.map((element) => element.url);
+            const githubUrls = githubRepositories.map(element => element.url);
 
             return seedGitRepositories(githubUsername, githubToken, seedRepositoryURL, githubUrls);
         })

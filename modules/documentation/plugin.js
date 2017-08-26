@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module documentation
  */
@@ -13,7 +11,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function documentation (server, options, next) {
+function documentation(server, options, next) {
     server.route(viewRoute);
 
     next();
@@ -23,5 +21,5 @@ exports.register = documentation;
 
 exports.register.attributes = {
     name: 'documentation',
-    version: '0.1.0'
+    version: '0.1.0',
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 const Joi = require('joi');
 
 const handleRedirect = require('./handler/redirect');
@@ -26,15 +24,15 @@ const handleErrorView = require('./handler/error-view');
 
 module.exports = [
     {
-        config: {description: 'Create a computer code project'},
+        config: { description: 'Create a computer code project' },
         handler: handleRedirect,
         method: 'GET',
-        path: '/recipe/code-project'
+        path: '/recipe/code-project',
     },
     {
         handler: handleChooseCourse,
         method: 'GET',
-        path: '/recipe/code-project/choose-course'
+        path: '/recipe/code-project/choose-course',
     },
     {
         config: {
@@ -42,13 +40,13 @@ module.exports = [
                 payload: {
                     course: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handleSelectCourse,
         method: 'POST',
-        path: '/recipe/code-project/choose-course'
+        path: '/recipe/code-project/choose-course',
     },
     {
         config: {
@@ -58,15 +56,15 @@ module.exports = [
                         .string()
                         .valid([
                             'individual',
-                            'team'
+                            'team',
                         ])
-                        .default('individual')
-                }
-            }
+                        .default('individual'),
+                },
+            },
         },
         handler: handleChooseStudents,
         method: 'GET',
-        path: '/recipe/code-project/choose-students'
+        path: '/recipe/code-project/choose-students',
     },
     {
         config: {
@@ -79,19 +77,19 @@ module.exports = [
                         .items(
                             Joi
                                 .string()
-                                .hex()
-                        )
-                }
-            }
+                                .hex(),
+                        ),
+                },
+            },
         },
         handler: handleSelectStudents,
         method: 'POST',
-        path: '/recipe/code-project/choose-students'
+        path: '/recipe/code-project/choose-students',
     },
     {
         handler: handleChooseRepository,
         method: 'GET',
-        path: '/recipe/code-project/choose-repository'
+        path: '/recipe/code-project/choose-repository',
     },
     {
         config: {
@@ -111,18 +109,18 @@ module.exports = [
                         .default(false),
                     repo: Joi
                         .string()
-                        .regex(/[a-z0-9-]+/i, 'repository name')
-                }
-            }
+                        .regex(/[a-z0-9-]+/i, 'repository name'),
+                },
+            },
         },
         handler: handleSelectRepository,
         method: 'POST',
-        path: '/recipe/code-project/choose-repository'
+        path: '/recipe/code-project/choose-repository',
     },
     {
         handler: handleChooseIssueTracker,
         method: 'GET',
-        path: '/recipe/code-project/choose-issue-tracker'
+        path: '/recipe/code-project/choose-issue-tracker',
     },
     {
         config: {
@@ -154,18 +152,18 @@ module.exports = [
                     useTaiga: Joi
                         .boolean()
                         .truthy('on')
-                        .default(false)
-                }
-            }
+                        .default(false),
+                },
+            },
         },
         handler: handleSelectIssueTracker,
         method: 'POST',
-        path: '/recipe/code-project/choose-issue-tracker'
+        path: '/recipe/code-project/choose-issue-tracker',
     },
     {
         handler: handleLoginView,
         method: 'GET',
-        path: '/recipe/code-project/taiga-login'
+        path: '/recipe/code-project/taiga-login',
     },
     {
         config: {
@@ -174,18 +172,18 @@ module.exports = [
                     password: Joi.string(),
                     username: Joi
                         .string()
-                        .alphanum()
-                }
-            }
+                        .alphanum(),
+                },
+            },
         },
         handler: handleLoginAction,
         method: 'POST',
-        path: '/recipe/code-project/taiga-login'
+        path: '/recipe/code-project/taiga-login',
     },
     {
         handler: handleChooseMessagingPlatform,
         method: 'GET',
-        path: '/recipe/code-project/choose-messaging-platform'
+        path: '/recipe/code-project/choose-messaging-platform',
     },
     {
         config: {
@@ -206,18 +204,18 @@ module.exports = [
                     useSlack: Joi
                         .boolean()
                         .truthy('on')
-                        .default(false)
-                }
-            }
+                        .default(false),
+                },
+            },
         },
         handler: handleSelectMessagingPlatform,
         method: 'POST',
-        path: '/recipe/code-project/choose-messaging-platform'
+        path: '/recipe/code-project/choose-messaging-platform',
     },
     {
         handler: handleChooseAssessmentSystem,
         method: 'GET',
-        path: '/recipe/code-project/choose-assessment-system'
+        path: '/recipe/code-project/choose-assessment-system',
     },
     {
         config: {
@@ -230,18 +228,18 @@ module.exports = [
                     useCADashboard: Joi
                         .boolean()
                         .truthy('on')
-                        .default(false)
-                }
-            }
+                        .default(false),
+                },
+            },
         },
         handler: handleSelectAssessmentSystem,
         method: 'POST',
-        path: '/recipe/code-project/choose-assessment-system'
+        path: '/recipe/code-project/choose-assessment-system',
     },
     {
         handler: handleCAssessLoginView,
         method: 'GET',
-        path: '/recipe/code-project/cassess-login'
+        path: '/recipe/code-project/cassess-login',
     },
     {
         config: {
@@ -249,37 +247,37 @@ module.exports = [
                 payload: {
                     password: Joi.string(),
                     username: Joi
-                        .string()
-                }
-            }
+                        .string(),
+                },
+            },
         },
         handler: handleCAssessLoginAction,
         method: 'POST',
-        path: '/recipe/code-project/cassess-login'
+        path: '/recipe/code-project/cassess-login',
     },
     {
         handler: handleConfirmView,
         method: 'GET',
-        path: '/recipe/code-project/confirm'
+        path: '/recipe/code-project/confirm',
     },
     {
         handler: handleConfirm,
         method: 'POST',
-        path: '/recipe/code-project/confirm'
+        path: '/recipe/code-project/confirm',
     },
     {
         handler: handleSuccessView,
         method: 'GET',
-        path: '/recipe/code-project/success'
+        path: '/recipe/code-project/success',
     },
     {
         handler: handleErrorView,
         method: 'GET',
-        path: '/recipe/code-project/error'
+        path: '/recipe/code-project/error',
     },
     {
-        handler: {directory: {path: 'modules/code-project/static'}},
+        handler: { directory: { path: 'modules/code-project/static' } },
         method: 'GET',
-        path: '/recipe/code-project/static/{param*}'
-    }
+        path: '/recipe/code-project/static/{param*}',
+    },
 ];

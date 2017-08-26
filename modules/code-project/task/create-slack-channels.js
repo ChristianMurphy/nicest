@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/create-slack-channels
  */
@@ -13,7 +11,7 @@ const querystring = require('querystring');
  * @param {Object} data - request object
  * @returns {Promise.<String>} promise will resolve to response body or reject with error code
  */
-function requestPromise (data) {
+function requestPromise(data) {
     return new Promise((resolve, reject) => {
         request(data, (error, headers, body) => {
             if (error) {
@@ -46,7 +44,7 @@ function requestPromise (data) {
  * @param {Array} slackUsers - {Array} of {SlackUser}
  * @returns {Promise.<Object>} resolves to map of Slack channel names to IDs
  */
-function createSlackChannels (accessToken, slackChannels, slackUsers) {
+function createSlackChannels(accessToken, slackChannels, slackUsers) {
     // Collect promises for all channels
     const promises = [];
 
@@ -63,7 +61,7 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
         // Pass API method parameters via query string
         const qs = querystring.stringify({
             name: channel.name,
-            token: accessToken
+            token: accessToken,
         });
 
         // Create channel
@@ -71,8 +69,8 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
             requestPromise({
                 json: true,
                 method: 'POST',
-                uri: `${createChannelURI}?${qs}`
-            })
+                uri: `${createChannelURI}?${qs}`,
+            }),
         );
     });
 
@@ -90,13 +88,13 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
 
             data.forEach((dataItem) => {
                 if ('channel' in dataItem) {
-                    const {name} = dataItem.channel;
-                    const {id} = dataItem.channel;
+                    const { name } = dataItem.channel;
+                    const { id } = dataItem.channel;
 
                     publicMapping[name] = id;
                 } else if ('group' in dataItem) {
-                    const {name} = dataItem.group;
-                    const {id} = dataItem.group;
+                    const { name } = dataItem.group;
+                    const { id } = dataItem.group;
 
                     channelMapping[name] = id;
                 }
@@ -115,14 +113,14 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
                 });
 
                 studentChannelIDs = studentChannelIDs.concat(
-                    Object.keys(publicMapping).map((key) => publicMapping[key])
+                    Object.keys(publicMapping).map(key => publicMapping[key]),
                 );
 
                 // Pass API method parameters via query string
                 const qs = querystring.stringify({
                     channels: studentChannelIDs.join(),
                     email: student.email,
-                    token: accessToken
+                    token: accessToken,
                 });
 
                 // Invites the user to team and respective channels
@@ -130,8 +128,8 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
                     requestPromise({
                         json: true,
                         method: 'POST',
-                        uri: `${inviteUserURI}?${qs}`
-                    })
+                        uri: `${inviteUserURI}?${qs}`,
+                    }),
                 );
             });
 

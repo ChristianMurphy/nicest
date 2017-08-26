@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/gather-slack-metadata
  */
@@ -34,11 +32,11 @@ const Team = require('../../team/model/team');
  * @param {Array<ObjectId>} teamNames - an {Array} of {ObjectId} with team names
  * @returns {Promise.<SlackMetadata>} resolves to {SlackMetadata}
  */
-function gatherSlackMetadata (courseChannelNames, teamChannelNames, teamNames) {
+function gatherSlackMetadata(courseChannelNames, teamChannelNames, teamNames) {
     // Gather Slack metadata
     const slackMetadata = {
         channels: [],
-        users: []
+        users: [],
     };
 
     // Parse comma-delimited lists into arrays
@@ -50,13 +48,13 @@ function gatherSlackMetadata (courseChannelNames, teamChannelNames, teamNames) {
         courseChannelNamesArray.forEach((channelName) => {
             slackMetadata.channels.push({
                 isPrivate: false,
-                name: channelName
+                name: channelName,
             });
         });
     }
 
     return Team
-        .find({_id: {$in: teamNames}})
+        .find({ _id: { $in: teamNames } })
         .populate('members')
         .exec()
         .then((teams) => {
@@ -76,7 +74,7 @@ function gatherSlackMetadata (courseChannelNames, teamChannelNames, teamNames) {
                     teamChannelNamesArray.forEach((channelName) => {
                         slackMetadata.channels.push({
                             isPrivate: true,
-                            name: `${prefix}-${channelName}`
+                            name: `${prefix}-${channelName}`,
                         });
 
                         userChannels.push(`${prefix}-${channelName}`);
@@ -88,7 +86,7 @@ function gatherSlackMetadata (courseChannelNames, teamChannelNames, teamNames) {
                     // Create meta data for member
                     slackMetadata.users.push({
                         channels: userChannels,
-                        email: member.modules.slack.email
+                        email: member.modules.slack.email,
                     });
                 }
             }

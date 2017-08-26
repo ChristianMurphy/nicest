@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/gather-github-users
  */
@@ -23,7 +21,7 @@ const Team = require('../../team/model/team');
   * @param {Array<ObjectId>} students - an {Array} of {ObjectId} with names, either usernames or team names
   * @returns {Promise.<Array>} resolves to {Array} of {GithubRepository}
   */
-function gatherGithubUsers (seedRepository, githubUsername, studentType, students) {
+function gatherGithubUsers(seedRepository, githubUsername, studentType, students) {
     // Create empty repos for each student on github
     const githubRepositories = [];
     const githubName = `${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
@@ -31,7 +29,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
 
     if (studentType === 'team') {
         return Team
-            .find({_id: {$in: students}})
+            .find({ _id: { $in: students } })
             .populate('members')
             .exec()
             .then((teams) => {
@@ -46,7 +44,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                             .replace(/[!@#$%^&*? ]+/g, '-'),
                         url: githubUrl + team
                             .name
-                            .replace(/[!@#$%^&*? ]+/g, '-')
+                            .replace(/[!@#$%^&*? ]+/g, '-'),
                     };
 
                     // For each team member
@@ -54,12 +52,12 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                         githubInformation
                             .collaborators
                             .push(
-                                member.modules.github.username
+                                member.modules.github.username,
                             );
                         githubInformation
                             .emails
                             .push(
-                                member.modules.taiga.email
+                                member.modules.taiga.email,
                             );
                     }
 
@@ -71,7 +69,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
     }
 
     return User
-        .find({_id: {$in: students}})
+        .find({ _id: { $in: students } })
         .exec()
         .then((users) => {
             // For each student
@@ -83,7 +81,7 @@ function gatherGithubUsers (seedRepository, githubUsername, studentType, student
                     collaborators: [currentGithubUsername],
                     emails: [user.modules.taiga.email],
                     name: githubName + currentGithubUsername,
-                    url: githubUrl + currentGithubUsername
+                    url: githubUrl + currentGithubUsername,
                 });
             }
 
