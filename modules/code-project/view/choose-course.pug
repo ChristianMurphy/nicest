@@ -51,7 +51,7 @@ block body
             .ui.attached.stacked.segment
                 .field
                     label Course
-                    select#course.ui.dropdown(name='course', required)
+                    select.ui.dropdown(id='course', name='course', required)
                         option(selected, disabled, hidden, value='') None
                         each course in courses
                             option(value=course._id.toString())= course.name
