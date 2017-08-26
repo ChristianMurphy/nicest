@@ -11,7 +11,7 @@
     "cz": "git-cz",
     "precommit": "npm test",
     "postinstall": "jsdoc --recurse lib modules tasks --destination docs",
-    "test": "eslint . --inline-config=false --ignore-path=.gitignore && pug-lint modules && remark *.md modules/**/*.md"
+    "test": "eslint . --ignore-path=.gitignore && pug-lint modules && remark *.md modules/**/*.md"
   },
   "repository": {
     "type": "git",
@@ -75,166 +75,34 @@
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "~4.5.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.7.0",
     "husky": "^0.14.3",
     "pug-lint": "~2.4.0",
+    "pug-lint-config-clock": "^2.0.0",
     "remark-cli": "^4.0.0",
     "remark-preset-lint-consistent": "^2.0.1",
     "remark-preset-lint-recommended": "^3.0.1"
   },
   "eslintConfig": {
     "root": true,
-    "extends": "eslint:all",
-    "env": {
-      "node": true,
-      "es6": true
-    },
+    "extends": "airbnb-base",
     "rules": {
-      "complexity": [
-        "warn",
-        10
-      ],
-      "dot-location": [
-        "error",
-        "property"
-      ],
-      "func-style": [
-        "error",
-        "declaration"
-      ],
-      "guard-for-in": "off",
-      "id-match": [
-        "error",
-        "^[a-zA-Z]+$"
-      ],
       "indent": [
         "error",
-        4,
-        {
-          "MemberExpression": 1,
-          "SwitchCase": 1
-        }
+        4
       ],
       "max-len": [
         "error",
         120
       ],
-      "max-nested-callbacks": [
-        "error",
-        2
-      ],
-      "no-console": "off",
-      "no-magic-numbers": [
-        "error",
-        {
-          "ignoreArrayIndexes": true,
-          "enforceConst": true
-        }
-      ],
-      "no-underscore-dangle": [
-        "error",
-        {
-          "allow": [
-            "_id"
-          ]
-        }
-      ],
-      "one-var": [
-        "error",
-        "never"
-      ],
-      "padded-blocks": [
-        "error",
-        "never"
-      ],
-      "quote-props": [
-        "error",
-        "as-needed"
-      ],
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "spaced-comment": [
-        "error",
-        "always",
-        {
-          "markers": [
-            "*"
-          ]
-        }
-      ],
-      "valid-jsdoc": [
-        "error",
-        {
-          "prefer": {
-            "return": "returns",
-            "method": "function",
-            "func": "function",
-            "arg": "param",
-            "argument": "param",
-            "prop": "property"
-          }
-        }
-      ]
+      "no-underscore-dangle": "off",
+      "no-restricted-syntax": "off"
     }
   },
   "pugLintConfig": {
-    "disallowAttributeConcatenation": null,
-    "disallowAttributeInterpolation": true,
-    "disallowAttributeTemplateString": "all",
-    "disallowBlockExpansion": true,
-    "disallowClassAttributeWithStaticValue": true,
-    "disallowClassLiteralsBeforeAttributes": null,
-    "disallowClassLiteralsBeforeIdLiterals": true,
-    "disallowClassLiterals": null,
-    "disallowDuplicateAttributes": true,
-    "disallowHtmlText": true,
-    "disallowIdAttributeWithStaticValue": true,
-    "disallowIdLiteralsBeforeAttributes": null,
-    "disallowIdLiterals": null,
-    "disallowLegacyMixinCall": true,
-    "disallowMultipleLineBreaks": true,
-    "disallowSpaceAfterCodeOperator": null,
-    "disallowSpacesInsideAttributeBrackets": true,
-    "disallowSpecificAttributes": null,
-    "disallowSpecificTags": [
-      "acronym",
-      "applet",
-      "b",
-      "basefont",
-      "big",
-      "center",
-      "dir",
-      "font",
-      "frame",
-      "frameset",
-      "noframes",
-      "strike",
-      "tt"
-    ],
-    "disallowStringConcatenation": true,
-    "disallowStringInterpolation": true,
-    "disallowTagInterpolation": true,
-    "disallowTemplateString": true,
-    "maximumNumberOfLines": 150,
-    "requireClassLiteralsBeforeAttributes": true,
-    "requireClassLiteralsBeforeIdLiterals": null,
-    "requireIdLiteralsBeforeAttributes": true,
-    "requireLineFeedAtFileEnd": true,
-    "requireLowerCaseAttributes": true,
-    "requireLowerCaseTags": true,
-    "requireSpaceAfterCodeOperator": true,
-    "requireSpacesInsideAttributeBrackets": null,
-    "requireSpecificAttributes": null,
-    "requireStrictEqualityOperators": true,
-    "validateAttributeQuoteMarks": "'",
-    "validateAttributeSeparator": ", ",
-    "validateDivTags": true,
-    "validateExtensions": true,
-    "validateIndentation": 4,
-    "validateLineBreaks": "LF",
-    "validateSelfClosingTags": true,
-    "validateTemplateString": true
+    "extends": "clock",
+    "validateIndentation": 4
   },
   "remarkConfig": {
     "plugins": [
