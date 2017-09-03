@@ -67,13 +67,11 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
         });
 
         // Create channel
-        promises.push(
-            requestPromise({
-                json: true,
-                method: 'POST',
-                uri: `${createChannelURI}?${qs}`
-            })
-        );
+        promises.push(requestPromise({
+            json: true,
+            method: 'POST',
+            uri: `${createChannelURI}?${qs}`
+        }));
     });
 
     // Wait for all channels to be created
@@ -114,9 +112,9 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
                     studentChannelIDs.push(channelMapping[channel]);
                 });
 
-                studentChannelIDs = studentChannelIDs.concat(
-                    Object.keys(publicMapping).map((key) => publicMapping[key])
-                );
+                studentChannelIDs = studentChannelIDs
+                    .concat(Object.keys(publicMapping)
+                        .map((key) => publicMapping[key]));
 
                 // Pass API method parameters via query string
                 const qs = querystring.stringify({
@@ -126,13 +124,11 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
                 });
 
                 // Invites the user to team and respective channels
-                promisesInvite.push(
-                    requestPromise({
-                        json: true,
-                        method: 'POST',
-                        uri: `${inviteUserURI}?${qs}`
-                    })
-                );
+                promisesInvite.push(requestPromise({
+                    json: true,
+                    method: 'POST',
+                    uri: `${inviteUserURI}?${qs}`
+                }));
             });
 
             return Promise.all(promisesInvite)

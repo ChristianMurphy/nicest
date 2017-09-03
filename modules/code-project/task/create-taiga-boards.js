@@ -86,15 +86,13 @@ function createTaigaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                 // Set the name
                 boardMetaData.name = taigaBoards[index].name;
                 // Create board
-                promises.push(
-                    requestPromise({
-                        body: boardMetaData,
-                        headers: {Authorization: `Bearer ${authorizationToken}`},
-                        json: true,
-                        method: 'POST',
-                        uri: 'https://api.taiga.io/api/v1/projects'
-                    })
-                );
+                promises.push(requestPromise({
+                    body: boardMetaData,
+                    headers: {Authorization: `Bearer ${authorizationToken}`},
+                    json: true,
+                    method: 'POST',
+                    uri: 'https://api.taiga.io/api/v1/projects'
+                }));
             }
 
             // Wait for all boards to be created
@@ -117,15 +115,13 @@ function createTaigaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                     };
 
                     // Add them to the taiga board
-                    promises.push(
-                        requestPromise({
-                            body: userMetadata,
-                            headers: {Authorization: `Bearer ${authorizationToken}`},
-                            json: true,
-                            method: 'POST',
-                            uri: 'https://api.taiga.io/api/v1/memberships'
-                        })
-                    );
+                    promises.push(requestPromise({
+                        body: userMetadata,
+                        headers: {Authorization: `Bearer ${authorizationToken}`},
+                        json: true,
+                        method: 'POST',
+                        uri: 'https://api.taiga.io/api/v1/memberships'
+                    }));
                 }
             }
 

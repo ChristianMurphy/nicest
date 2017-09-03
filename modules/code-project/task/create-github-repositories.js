@@ -39,37 +39,33 @@ function createRepositories (githubUsername, githubToken, repositories, options)
     // For each student
     for (const index in repositories) {
         // Gather the promises
-        promises.push(
+        promises.push(Github
+            .me
+            .repos
             // Create a repository
-            Github
-                .me
-                .repos
-                .create({
-                    has_issues: options.has_issues,
-                    has_wiki: options.has_wiki,
-                    name: repositories[index].name,
-                    private: options.private
-                })
-                // Add student as collaborator
-                .then(() => {
-                    const collaboratorPromises = [];
-                    const {collaborators} = repositories[index];
+            .create({
+                has_issues: options.has_issues,
+                has_wiki: options.has_wiki,
+                name: repositories[index].name,
+                private: options.private
+            })
+            // Add student as collaborator
+            .then(() => {
+                const collaboratorPromises = [];
+                const {collaborators} = repositories[index];
 
-                    // For each student
-                    for (const collaboratorIndex in collaborators) {
-                        // Gather the promises
-                        collaboratorPromises.push(
-                            // Create a repository
-                            Github
-                                .repos(githubUsername, repositories[index].name)
-                                .collaborators(collaborators[collaboratorIndex])
-                                .add()
-                        );
-                    }
+                // For each student
+                for (const collaboratorIndex in collaborators) {
+                    // Gather the promises
+                    collaboratorPromises.push(Github
+                        // Create a repository
+                        .repos(githubUsername, repositories[index].name)
+                        .collaborators(collaborators[collaboratorIndex])
+                        .add());
+                }
 
-                    return Promise.all(collaboratorPromises);
-                })
-        );
+                return Promise.all(collaboratorPromises);
+            }));
     }
 
     return Promise.all(promises);

@@ -45,16 +45,14 @@ function importTeams (documentAndMapping) {
         }
 
         // Copy the team to Mongoose
-        promises.push(
-            Team
-                .create(teamMetadata)
-                .then((newTeam) => ({
-                    databaseId: newTeam._id,
-                    xmlId: currentTeam
-                        .attr('id')
-                        .value()
-                }))
-        );
+        promises.push(Team
+            .create(teamMetadata)
+            .then((newTeam) => ({
+                databaseId: newTeam._id,
+                xmlId: currentTeam
+                    .attr('id')
+                    .value()
+            })));
     }
 
     // Wait for all teams to be created

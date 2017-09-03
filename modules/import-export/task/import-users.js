@@ -28,30 +28,28 @@ function importUsers (documentAndMapping) {
             .text();
 
         // Create a new database object
-        promises.push(
-            User
-                .create({
-                    modules: {
-                        github: {
-                            username: currentUser
-                                .get('github')
-                                .text()
-                        },
-                        taiga: {
-                            email: currentUser
-                                .get('email')
-                                .text()
-                        }
+        promises.push(User
+            .create({
+                modules: {
+                    github: {
+                        username: currentUser
+                            .get('github')
+                            .text()
                     },
-                    name: `${firstName} ${lastName}`
-                })
-                .then((newUser) => ({
-                    databaseId: newUser._id,
-                    xmlId: currentUser
-                        .attr('id')
-                        .value()
-                }))
-        );
+                    taiga: {
+                        email: currentUser
+                            .get('email')
+                            .text()
+                    }
+                },
+                name: `${firstName} ${lastName}`
+            })
+            .then((newUser) => ({
+                databaseId: newUser._id,
+                xmlId: currentUser
+                    .attr('id')
+                    .value()
+            })));
     }
 
     // Wait for all users to be created

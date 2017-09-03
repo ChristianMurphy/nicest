@@ -54,13 +54,11 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                             .userpassPlaintextNew(username, password);
                     }
                 }
-            })
-        )
+            }))
         // Open the repository
         .then(() => NodeGit
             .Repository
-            .open(temporaryFolder)
-        )
+            .open(temporaryFolder))
         // Push the seed repository to all destination repositories
         .then((seedRepository) => {
             let chain = Promise.resolve();
@@ -71,8 +69,7 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                 chain = chain
                     .then(() => NodeGit
                         .Remote
-                        .create(seedRepository, index.toString(), destinationRepositoryURLs[index])
-                    )
+                        .create(seedRepository, index.toString(), destinationRepositoryURLs[index]))
                     // Push to the remote
                     .then((remote) => remote.push([branchReference], {
                         callbacks: {
