@@ -76,11 +76,9 @@ module.exports = [
                         .array()
                         .single()
                         .unique()
-                        .items(
-                            Joi
-                                .string()
-                                .hex()
-                        )
+                        .items(Joi
+                            .string()
+                            .hex())
                 }
             }
         },

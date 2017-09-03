@@ -57,8 +57,10 @@ function requestPromise (data) {
  * @param {String} taigaToken - Taiga API access token
  * @returns {Promise.<Array>} resolves to {Array} of {CodeProjectMeta}
  */
-function gatherProjectMetadata (seedRepository, githubUsername, githubToken, studentType,
-    students, courseId, slackToken, slackChannels, taigaToken) {
+function gatherProjectMetadata (
+    seedRepository, githubUsername, githubToken, studentType,
+    students, courseId, slackToken, slackChannels, taigaToken
+) {
     const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
     let projectMetadata = null;
 
@@ -144,9 +146,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                             }
 
                             // Store the Project metadata in the database
-                            promises.push(
-                                Project.create(projectMetadata)
-                            );
+                            promises.push(Project.create(projectMetadata));
                         }
 
                         return Promise.all(promises);
@@ -202,9 +202,7 @@ function gatherProjectMetadata (seedRepository, githubUsername, githubToken, stu
                 }
 
                 // Store the Project metadata in the database
-                promises.push(
-                    Project.create(projectMetadata)
-                );
+                promises.push(Project.create(projectMetadata));
             }
 
             return Promise.all(promises)
