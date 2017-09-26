@@ -43,7 +43,7 @@
   "preferGlobal": true,
   "dependencies": {
     "bell": "^8.7.0",
-    "boom": "^5.2.0",
+    "boom": "^6.0.0",
     "chalk": "^2.1.0",
     "cliui": "^3.2.0",
     "good": "^7.2.0",
