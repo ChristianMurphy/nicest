@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module team/handler/remove
  */
@@ -12,11 +10,11 @@ const Team = require('../model/team');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with redirect to Team list
  */
-function remove (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function remove(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     Team
-        .remove({_id: request.params.id})
+        .remove({ _id: request.params.id })
         .then(() => {
             reply().redirect(`${prefix}/recipe/manage-teams/list`);
         });

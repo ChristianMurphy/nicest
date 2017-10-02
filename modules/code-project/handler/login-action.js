@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/login-action
  */
@@ -10,14 +8,14 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function loginAction (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function loginAction(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     request
         .yar
         .set({
             'taiga-password': request.payload.password,
-            'taiga-username': request.payload.username
+            'taiga-username': request.payload.username,
         });
 
     reply().redirect(`${prefix}/recipe/code-project/choose-messaging-platform`);

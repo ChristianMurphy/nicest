@@ -1,15 +1,13 @@
-'use strict';
-
 /**
  * @module core/tasks/stop
  */
-
 
 /**
  * Stops the server system service.
  * @returns {Null} nothing
  */
-function stop () {
+function stop() {
+    // eslint-disable-next-line global-require
     const processManager = require('pm2');
 
     processManager.connect(() => {

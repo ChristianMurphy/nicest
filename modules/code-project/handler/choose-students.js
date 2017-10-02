@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/choose-students
  */
@@ -12,16 +10,16 @@ const Course = require('../../course/model/course');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function chooseStudents (request, reply) {
+function chooseStudents(request, reply) {
     if (request.query.type === 'team') {
         request
             .yar
-            .set({'code-project-student-type': 'team'});
+            .set({ 'code-project-student-type': 'team' });
         Course
             .findOne({
                 _id: request
                     .yar
-                    .get('code-project-course')
+                    .get('code-project-course'),
             })
             .select('teams')
             .populate('teams')
@@ -29,7 +27,7 @@ function chooseStudents (request, reply) {
             .then((course) => {
                 reply.view('modules/code-project/view/choose-students', {
                     list: course.teams,
-                    listType: 'team'
+                    listType: 'team',
                 });
             });
     } else {
@@ -37,7 +35,7 @@ function chooseStudents (request, reply) {
             .findOne({
                 _id: request
                     .yar
-                    .get('code-project-course')
+                    .get('code-project-course'),
             })
             .select('students')
             .populate('students')
@@ -45,7 +43,7 @@ function chooseStudents (request, reply) {
             .then((course) => {
                 reply.view('modules/code-project/view/choose-students', {
                     list: course.students,
-                    listType: 'individual'
+                    listType: 'individual',
                 });
             });
     }

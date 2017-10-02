@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module course/handler/view-empty
  */
@@ -13,8 +11,8 @@ const User = require('../../user/model/user');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function viewEmpty (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function viewEmpty(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     Promise
         .all([
@@ -25,11 +23,11 @@ function viewEmpty (request, reply) {
             Team
                 .find({})
                 .select('_id name')
-                .exec()
+                .exec(),
         ])
         .then(([
             users,
-            teams
+            teams,
         ]) => {
             reply.view('modules/course/view/view', {
                 course: {
@@ -37,11 +35,11 @@ function viewEmpty (request, reply) {
                     modules: {},
                     name: '',
                     students: [],
-                    teams: []
+                    teams: [],
                 },
                 teams,
                 url: `${prefix}/recipe/manage-courses/create`,
-                users
+                users,
             });
         });
 }

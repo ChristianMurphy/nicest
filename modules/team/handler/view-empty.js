@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module team/handler/view-empty
  */
@@ -12,8 +10,8 @@ const User = require('../../user/model/user');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function viewEmpty (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function viewEmpty(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     User
         .find({})
@@ -24,10 +22,10 @@ function viewEmpty (request, reply) {
                 team: {
                     members: [],
                     modules: {},
-                    name: ''
+                    name: '',
                 },
                 url: `${prefix}/recipe/manage-teams/create`,
-                users
+                users,
             });
         });
 }

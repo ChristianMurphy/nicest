@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module course
  */
@@ -14,7 +12,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function course (server, options, next) {
+function course(server, options, next) {
     server.route(apiRoute);
     server.route(viewRoute);
 
@@ -26,8 +24,8 @@ exports.register = course;
 exports.register.attributes = {
     dependencies: [
         'user',
-        'team'
+        'team',
     ],
     name: 'course',
-    version: '0.1.0'
+    version: '0.1.0',
 };

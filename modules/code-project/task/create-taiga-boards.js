@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/create-taiga-boards
  */
@@ -12,7 +10,7 @@ const request = require('request');
  * @param {Object} data - request object
  * @returns {Promise.<String>} promise will resolve to response body or reject with error code
  */
-function requestPromise (data) {
+function requestPromise(data) {
     return new Promise((resolve, reject) => {
         request(data, (error, headers, body) => {
             if (error) {
@@ -50,7 +48,7 @@ function requestPromise (data) {
  * @param {TaigaOptions} taigaOptions - shared options for all boards
  * @returns {Promise} resolves when boards have been created
  */
-function createTaigaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
+function createTaigaBoards(taigaUsername, taigaPassword, taigaBoards, taigaOptions) {
     let authorizationToken = null;
 
     // Login to Taiga
@@ -58,11 +56,11 @@ function createTaigaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
         body: {
             password: taigaPassword,
             type: 'normal',
-            username: taigaUsername
+            username: taigaUsername,
         },
         json: true,
         method: 'POST',
-        uri: 'https://api.taiga.io/api/v1/auth'
+        uri: 'https://api.taiga.io/api/v1/auth',
     })
         .then((data) => {
             // Store authorization token for later
@@ -75,24 +73,26 @@ function createTaigaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
                 is_issues_activated: taigaOptions.isIssuesActived,
                 is_kanban_activated: taigaOptions.isKanbanActivated,
                 is_private: taigaOptions.isPrivate,
-                is_wiki_activated: taigaOptions.isWikiActivated
+                is_wiki_activated: taigaOptions.isWikiActivated,
             };
 
             // Collect promises for all boards
             const promises = [];
 
             // Create each board
-            for (const index in taigaBoards) {
+            for (const board of taigaBoards) {
                 // Set the name
-                boardMetaData.name = taigaBoards[index].name;
+                boardMetaData.name = board.name;
                 // Create board
-                promises.push(requestPromise({
-                    body: boardMetaData,
-                    headers: {Authorization: `Bearer ${authorizationToken}`},
-                    json: true,
-                    method: 'POST',
-                    uri: 'https://api.taiga.io/api/v1/projects'
-                }));
+                promises.push(
+                    requestPromise({
+                        body: boardMetaData,
+                        headers: { Authorization: `Bearer ${authorizationToken}` },
+                        json: true,
+                        method: 'POST',
+                        uri: 'https://api.taiga.io/api/v1/projects',
+                    }),
+                );
             }
 
             // Wait for all boards to be created
@@ -102,28 +102,30 @@ function createTaigaBoards (taigaUsername, taigaPassword, taigaBoards, taigaOpti
             const promises = [];
 
             // For each person in each project
-            for (const boardIndex in taigaBoards) {
-                for (const userIndex in taigaBoards[boardIndex].emails) {
+            taigaBoards.forEach((board, boardIndex) => {
+                board.emails.forEach((email) => {
                     const taigaRoles = data[boardIndex].roles;
                     // Setup the members permissions
                     const userMetadata = {
-                        email: taigaBoards[boardIndex].emails[userIndex],
+                        email,
                         project: data[boardIndex].id,
                         role: taigaRoles
-                            .find((element) => element.name === 'Back')
-                            .id
+                            .find(element => element.name === 'Back')
+                            .id,
                     };
 
                     // Add them to the taiga board
-                    promises.push(requestPromise({
-                        body: userMetadata,
-                        headers: {Authorization: `Bearer ${authorizationToken}`},
-                        json: true,
-                        method: 'POST',
-                        uri: 'https://api.taiga.io/api/v1/memberships'
-                    }));
-                }
-            }
+                    promises.push(
+                        requestPromise({
+                            body: userMetadata,
+                            headers: { Authorization: `Bearer ${authorizationToken}` },
+                            json: true,
+                            method: 'POST',
+                            uri: 'https://api.taiga.io/api/v1/memberships',
+                        }),
+                    );
+                });
+            });
 
             return Promise.all(promises)
                 .then(() => authorizationToken);

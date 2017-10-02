@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module import-export
  */
@@ -13,7 +11,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function importExport (server, options, next) {
+function importExport(server, options, next) {
     server.route(viewRoute);
 
     next();
@@ -23,5 +21,5 @@ exports.register = importExport;
 
 exports.register.attributes = {
     name: 'import-export',
-    version: '0.1.0'
+    version: '0.1.0',
 };

@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * @module team
@@ -14,7 +14,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function team (server, options, next) {
+function team(server, options, next) {
     server.route(apiRoute);
     server.route(viewRoute);
 
@@ -26,5 +26,5 @@ exports.register = team;
 exports.register.attributes = {
     dependencies: ['user'],
     name: 'team',
-    version: '0.1.0'
+    version: '0.1.0',
 };

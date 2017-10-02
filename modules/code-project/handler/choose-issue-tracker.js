@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/choose-issue-tracker
  */
@@ -10,7 +8,7 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function chooseIssueTracker (request, reply) {
+function chooseIssueTracker(request, reply) {
     reply.view('modules/code-project/view/choose-issue-tracker');
 }
 

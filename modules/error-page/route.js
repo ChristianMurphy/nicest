@@ -1,13 +1,11 @@
-'use strict';
-
 module.exports = [
     {
         config: {
             auth: false,
-            plugins: {lout: false}
+            plugins: { lout: false },
         },
-        handler: {view: 'modules/error-page/view/401'},
+        handler: { view: 'modules/error-page/view/401' },
         method: 'GET',
-        path: '/401'
-    }
+        path: '/401',
+    },
 ];

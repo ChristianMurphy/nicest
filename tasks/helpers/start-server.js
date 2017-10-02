@@ -1,5 +1,3 @@
-'use strict';
-
 const database = require('../../lib/database');
 const nicest = require('../../lib/server');
 const configuration = require('../../nicest.json');

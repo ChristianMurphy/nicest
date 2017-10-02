@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module github
  */
@@ -13,7 +11,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function github (server, options, next) {
+function github(server, options, next) {
     server.route(viewRoute);
 
     next();
@@ -23,5 +21,5 @@ exports.register = github;
 
 exports.register.attributes = {
     name: 'github',
-    version: '0.1.0'
+    version: '0.1.0',
 };

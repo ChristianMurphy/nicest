@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module user
  */
@@ -14,7 +12,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function user (server, options, next) {
+function user(server, options, next) {
     server.route(apiRoute);
     server.route(viewRoute);
 
@@ -25,5 +23,5 @@ exports.register = user;
 
 exports.register.attributes = {
     name: 'user',
-    version: '0.1.0'
+    version: '0.1.0',
 };

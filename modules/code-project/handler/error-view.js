@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/error-view
  */
@@ -12,7 +10,7 @@ const httpInternalServerError = 500;
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function errorView (request, reply) {
+function errorView(request, reply) {
     reply
         .view('modules/code-project/view/error')
         .code(httpInternalServerError);

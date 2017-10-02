@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module recipe
  */
@@ -15,7 +13,7 @@ const viewRoute = require('./route');
  * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function recipe (server, options, next) {
+function recipe(server, options, next) {
     recipes.setServer(server);
 
     server.route(apiRoute);
@@ -30,5 +28,5 @@ exports.register = recipe;
 
 exports.register.attributes = {
     name: 'recipe',
-    version: '0.1.0'
+    version: '0.1.0',
 };

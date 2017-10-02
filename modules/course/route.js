@@ -1,5 +1,3 @@
-'use strict';
-
 const handleRedirect = require('./handler/redirect');
 const handleList = require('./handler/list');
 const handleView = require('./handler/view');
@@ -14,9 +12,11 @@ const courseValidation = {
         .array()
         .single()
         .unique()
-        .items(Joi
-            .string()
-            .hex())
+        .items(
+            Joi
+                .string()
+                .hex(),
+        )
         .description('List of User ids who are teaching or grading the course'),
     modules: Joi
         .object()
@@ -42,20 +42,20 @@ const courseValidation = {
         .items(Joi
             .string()
             .hex())
-        .description('List of Team ids that are a part of the course')
+        .description('List of Team ids that are a part of the course'),
 };
 
 module.exports = [
     {
-        config: {description: 'Course Management'},
+        config: { description: 'Course Management' },
         handler: handleRedirect,
         method: 'GET',
-        path: '/recipe/manage-courses'
+        path: '/recipe/manage-courses',
     },
     {
         handler: handleList,
         method: 'GET',
-        path: '/recipe/manage-courses/list'
+        path: '/recipe/manage-courses/list',
     },
     {
         config: {
@@ -63,13 +63,13 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handleView,
         method: 'GET',
-        path: '/recipe/manage-courses/edit/{id}'
+        path: '/recipe/manage-courses/edit/{id}',
     },
     {
         config: {
@@ -77,14 +77,14 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
+                        .hex(),
                 },
-                payload: courseValidation
-            }
+                payload: courseValidation,
+            },
         },
         handler: handleSave,
         method: 'POST',
-        path: '/recipe/manage-courses/edit/{id}'
+        path: '/recipe/manage-courses/edit/{id}',
     },
     {
         config: {
@@ -92,28 +92,28 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handleRemove,
         method: 'GET',
-        path: '/recipe/manage-courses/delete/{id}'
+        path: '/recipe/manage-courses/delete/{id}',
     },
     {
         handler: handleViewEmpty,
         method: 'GET',
-        path: '/recipe/manage-courses/create'
+        path: '/recipe/manage-courses/create',
     },
     {
-        config: {validate: {payload: courseValidation}},
+        config: { validate: { payload: courseValidation } },
         handler: handleCreate,
         method: 'POST',
-        path: '/recipe/manage-courses/create'
+        path: '/recipe/manage-courses/create',
     },
     {
-        handler: {directory: {path: 'modules/course/static'}},
+        handler: { directory: { path: 'modules/course/static' } },
         method: 'GET',
-        path: '/recipe/manage-courses/static/{param*}'
-    }
+        path: '/recipe/manage-courses/static/{param*}',
+    },
 ];

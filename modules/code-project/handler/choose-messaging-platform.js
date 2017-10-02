@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/choose-messaging
  */
@@ -10,7 +8,7 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function chooseMessagingPlatform (request, reply) {
+function chooseMessagingPlatform(request, reply) {
     reply.view('modules/code-project/view/choose-messaging-platform');
 }
 

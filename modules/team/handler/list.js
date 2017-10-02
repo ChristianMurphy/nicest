@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module team/handler/list
  */
@@ -12,13 +10,13 @@ const Team = require('../model/team');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function list (request, reply) {
+function list(request, reply) {
     Team
         .find({})
         .select('_id name')
         .exec()
         .then((teams) => {
-            reply.view('modules/team/view/list', {teams});
+            reply.view('modules/team/view/list', { teams });
         });
 }
 

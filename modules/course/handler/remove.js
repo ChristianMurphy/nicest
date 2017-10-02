@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module course/handler/remove
  */
@@ -12,11 +10,11 @@ const Course = require('../model/course');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function remove (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function remove(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     Course
-        .remove({_id: request.params.id})
+        .remove({ _id: request.params.id })
         .then(() => {
             reply().redirect(`${prefix}/recipe/manage-courses/list`);
         });

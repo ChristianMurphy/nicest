@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module recipe/handler/list
  */
@@ -12,8 +10,8 @@ const Recipe = require('../model/recipe');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function list (request, reply) {
-    reply.view('modules/recipe/view/list', {recipes: Recipe.list()});
+function list(request, reply) {
+    reply.view('modules/recipe/view/list', { recipes: Recipe.list() });
 }
 
 module.exports = list;

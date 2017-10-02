@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module team/handler/create
  */
@@ -12,8 +10,8 @@ const Team = require('../model/team');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with redirect to Team view
  */
-function create (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function create(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     Team
         .create(request.payload)

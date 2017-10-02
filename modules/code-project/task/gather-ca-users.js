@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/gather-ca-users
  */
@@ -34,7 +32,7 @@ const Course = require('../../course/model/course');
   * @param {String} courseId - Course that project is being generated for
   * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
   */
-function gatherCaUsers (seedRepository, githubUsername, studentType, students, courseId) {
+function gatherCaUsers(seedRepository, githubUsername, studentType, students, courseId) {
     // Create empty repos for each student on github
     const caDashboardProjects = [];
     const githubUrl = `${githubUsername}/${(/[a-z0-9-]+$/i).exec(seedRepository)}-`;
@@ -43,18 +41,18 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
         return Promise
             .all([
                 Team
-                    .find({_id: {$in: students}})
+                    .find({ _id: { $in: students } })
                     .populate('members')
                     .exec(),
                 Course
-                    .findOne({_id: courseId})
+                    .findOne({ _id: courseId })
                     .populate('instructors')
                     .select('name instructors')
-                    .exec()
+                    .exec(),
             ])
             .then(([
                 teams,
-                course
+                course,
             ]) => {
                 // For each team
                 for (const team of teams) {
@@ -72,7 +70,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         instructors: [],
                         members: [],
                         name: team.name,
-                        'taiga-slug': taigaSlug
+                        'taiga-slug': taigaSlug,
                     };
 
                     // For each team member
@@ -82,7 +80,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                             .push({
                                 email: member.modules.taiga.email,
                                 'github-username': member.modules.github.username,
-                                name: member.name
+                                name: member.name,
                             });
                     }
 
@@ -91,7 +89,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                             .instructors
                             .push({
                                 email: instructor.modules.taiga.email,
-                                name: instructor.name
+                                name: instructor.name,
                             });
                     }
 
@@ -105,17 +103,17 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
     return Promise
         .all([
             User
-                .find({_id: {$in: students}})
+                .find({ _id: { $in: students } })
                 .exec(),
             Course
-                .findOne({_id: courseId})
+                .findOne({ _id: courseId })
                 .populate('instructors')
                 .select('name instructors')
-                .exec()
+                .exec(),
         ])
         .then(([
             users,
-            course
+            course,
         ]) => {
             // For each student
             for (const user of users) {
@@ -132,11 +130,11 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         {
                             email: user.modules.taiga.email,
                             'github-username': user.modules.github.username,
-                            name: user.name
-                        }
+                            name: user.name,
+                        },
                     ],
                     name: user.name,
-                    'tiaga-slug': taigaSlug
+                    'tiaga-slug': taigaSlug,
                 };
 
                 for (const instructor of course.instructors) {
@@ -144,7 +142,7 @@ function gatherCaUsers (seedRepository, githubUsername, studentType, students, c
                         .instructors
                         .push({
                             email: instructor.modules.taiga.email,
-                            name: instructor.name
+                            name: instructor.name,
                         });
                 }
 

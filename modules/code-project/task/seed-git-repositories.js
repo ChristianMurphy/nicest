@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/seed-git-repositories
  */
@@ -20,7 +18,7 @@ const branchReference = 'refs/heads/master:refs/heads/master';
  * @param {String} folder - folder to recursively remove
  * @returns {Promise} promise will resolve when folder has been deleted
  */
-function rmrf (folder) {
+function rmrf(folder) {
     return new Promise((resolve, reject) => {
         rimraf(folder, (err) => {
             if (err) {
@@ -40,7 +38,7 @@ function rmrf (folder) {
  * @param {Array} destinationRepositoryURLs - {Array} of {String} with repository URLs
  * @returns {Promise} promise will resolve when all repos have been seeded
  */
-function seedGitRepository (username, password, seedRepositoryURL, destinationRepositoryURLs) {
+function seedGitRepository(username, password, seedRepositoryURL, destinationRepositoryURLs) {
     // Clear temporary folder
     return rmrf(temporaryFolder)
         // Clone repository to temporary folder
@@ -48,12 +46,12 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
             .Clone
             .clone(seedRepositoryURL, temporaryFolder, {
                 callbacks: {
-                    credentials () {
+                    credentials() {
                         return NodeGit
                             .Cred
                             .userpassPlaintextNew(username, password);
-                    }
-                }
+                    },
+                },
             }))
         // Open the repository
         .then(() => NodeGit
@@ -64,6 +62,7 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
             let chain = Promise.resolve();
 
             // For each destination
+            // eslint-disable-next-line guard-for-in
             for (const index in destinationRepositoryURLs) {
                 // Create and open a remote for destination
                 chain = chain
@@ -71,14 +70,14 @@ function seedGitRepository (username, password, seedRepositoryURL, destinationRe
                         .Remote
                         .create(seedRepository, index.toString(), destinationRepositoryURLs[index]))
                     // Push to the remote
-                    .then((remote) => remote.push([branchReference], {
+                    .then(remote => remote.push([branchReference], {
                         callbacks: {
-                            credentials () {
+                            credentials() {
                                 return NodeGit
                                     .Cred
                                     .userpassPlaintextNew(username, password);
-                            }
-                        }
+                            },
+                        },
                     }));
             }
 

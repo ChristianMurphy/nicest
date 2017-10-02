@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/task/create-github-repositories
  */
@@ -31,41 +29,44 @@ const Octokat = require('octokat');
  * @param {GithubRepositoryOptions} options - options to be used with repository
  * @returns {Promise} promise will resolve when all repos have been created
  */
-function createRepositories (githubUsername, githubToken, repositories, options) {
+function createRepositories(githubUsername, githubToken, repositories, options) {
     const promises = [];
 
-    const Github = new Octokat({token: githubToken});
+    const Github = new Octokat({ token: githubToken });
 
     // For each student
-    for (const index in repositories) {
+    for (const repo of repositories) {
         // Gather the promises
-        promises.push(Github
-            .me
-            .repos
-            // Create a repository
-            .create({
-                has_issues: options.has_issues,
-                has_wiki: options.has_wiki,
-                name: repositories[index].name,
-                private: options.private
-            })
-            // Add student as collaborator
-            .then(() => {
-                const collaboratorPromises = [];
-                const {collaborators} = repositories[index];
+        promises.push(
+            Github
+                .me
+                .repos
+                .create({
+                    has_issues: options.has_issues,
+                    has_wiki: options.has_wiki,
+                    name: repo.name,
+                    private: options.private,
+                })
+                // Add student as collaborator
+                .then(() => {
+                    const collaboratorPromises = [];
+                    const { collaborators } = repo;
 
-                // For each student
-                for (const collaboratorIndex in collaborators) {
-                    // Gather the promises
-                    collaboratorPromises.push(Github
-                        // Create a repository
-                        .repos(githubUsername, repositories[index].name)
-                        .collaborators(collaborators[collaboratorIndex])
-                        .add());
-                }
+                    // For each student
+                    for (const collaborator of collaborators) {
+                        // Gather the promises
+                        collaboratorPromises.push(
+                            // Create a repository
+                            Github
+                                .repos(githubUsername, repo.name)
+                                .collaborators(collaborator)
+                                .add(),
+                        );
+                    }
 
-                return Promise.all(collaboratorPromises);
-            }));
+                    return Promise.all(collaboratorPromises);
+                }),
+        );
     }
 
     return Promise.all(promises);

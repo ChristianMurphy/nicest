@@ -1,5 +1,3 @@
-'use strict';
-
 const boom = require('boom');
 const Team = require('../model/team');
 
@@ -7,7 +5,7 @@ const httpCreated = 201;
 const httpNoContent = 204;
 
 module.exports = {
-    create (request, reply) {
+    create(request, reply) {
         Team
             .create(request.payload)
             .then((newTeam) => {
@@ -17,9 +15,9 @@ module.exports = {
                 reply(boom.badRequest());
             });
     },
-    delete (request, reply) {
+    delete(request, reply) {
         Team
-            .remove({_id: request.params.id})
+            .remove({ _id: request.params.id })
             .then(() => {
                 reply().code(httpNoContent);
             })
@@ -27,20 +25,20 @@ module.exports = {
                 reply().code(httpNoContent);
             });
     },
-    list (request, reply) {
+    list(request, reply) {
         Team
             .find({})
             .exec()
             .then((teamIds) => {
-                reply(teamIds.map((element) => element._id));
+                reply(teamIds.map(element => element._id));
             })
             .catch(() => {
                 reply(boom.notFound());
             });
     },
-    read (request, reply) {
+    read(request, reply) {
         Team
-            .findOne({_id: request.params.id})
+            .findOne({ _id: request.params.id })
             .exec()
             .then((team) => {
                 if (team) {
@@ -53,9 +51,9 @@ module.exports = {
                 reply(boom.notFound());
             });
     },
-    update (request, reply) {
+    update(request, reply) {
         Team
-            .findOneAndUpdate({_id: request.params.id}, request.payload)
+            .findOneAndUpdate({ _id: request.params.id }, request.payload)
             .exec()
             .then((team) => {
                 if (team) {
@@ -67,5 +65,5 @@ module.exports = {
             .catch(() => {
                 reply(boom.badRequest());
             });
-    }
+    },
 };

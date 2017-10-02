@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/cassess-login-view
  */
@@ -10,7 +8,7 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function cassessLoginView (request, reply) {
+function cassessLoginView(request, reply) {
     reply.view('modules/code-project/view/cassess-login');
 }
 

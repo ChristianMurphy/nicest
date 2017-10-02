@@ -1,5 +1,3 @@
-'use strict';
-
 const handler = require('./handler');
 const Joi = require('joi');
 
@@ -16,7 +14,7 @@ const userValidation = {
     role: Joi
         .string()
         .valid('student', 'instructor', 'admin')
-        .description('Role user fulfills, and permissions for what user can view')
+        .description('Role user fulfills, and permissions for what user can view'),
 };
 
 module.exports = [
@@ -24,22 +22,22 @@ module.exports = [
         config: {
             description: 'List of all users',
             notes: 'Returns {Array} of {String} with User ids',
-            tags: ['list']
+            tags: ['list'],
         },
         handler: handler.list,
         method: 'GET',
-        path: '/api/users'
+        path: '/api/users',
     },
     {
         config: {
             description: 'Create a new user',
             notes: 'Will respond with HTTP 201 for success and return the new user object',
             tags: ['create'],
-            validate: {payload: userValidation}
+            validate: { payload: userValidation },
         },
         handler: handler.create,
         method: 'POST',
-        path: '/api/user'
+        path: '/api/user',
     },
     {
         config: {
@@ -50,13 +48,13 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handler.read,
         method: 'GET',
-        path: '/api/user/{id}'
+        path: '/api/user/{id}',
     },
     {
         config: {
@@ -67,14 +65,14 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
+                        .hex(),
                 },
-                payload: userValidation
-            }
+                payload: userValidation,
+            },
         },
         handler: handler.update,
         method: 'PUT',
-        path: '/api/user/{id}'
+        path: '/api/user/{id}',
     },
     {
         config: {
@@ -85,12 +83,12 @@ module.exports = [
                 params: {
                     id: Joi
                         .string()
-                        .hex()
-                }
-            }
+                        .hex(),
+                },
+            },
         },
         handler: handler.delete,
         method: 'DELETE',
-        path: '/api/user/{id}'
-    }
+        path: '/api/user/{id}',
+    },
 ];

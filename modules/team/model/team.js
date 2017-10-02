@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module team/model
  */
@@ -17,11 +15,11 @@ const schema = new mongoose.Schema({
     members: [
         {
             ref: 'User',
-            type: mongoose.Schema.Types.ObjectId
-        }
+            type: mongoose.Schema.Types.ObjectId,
+        },
     ],
     modules: mongoose.Schema.Types.Mixed,
-    name: String
+    name: String,
 });
 
 module.exports = mongoose.model('Team', schema);

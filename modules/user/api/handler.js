@@ -1,5 +1,3 @@
-'use strict';
-
 const boom = require('boom');
 const User = require('../model/user');
 
@@ -7,7 +5,7 @@ const httpCreated = 201;
 const httpNoContent = 204;
 
 module.exports = {
-    create (request, reply) {
+    create(request, reply) {
         User
             .create(request.payload)
             .then((newUser) => {
@@ -17,9 +15,9 @@ module.exports = {
                 reply(boom.badRequest());
             });
     },
-    delete (request, reply) {
+    delete(request, reply) {
         User
-            .remove({_id: request.params.id})
+            .remove({ _id: request.params.id })
             .then(() => {
                 reply().code(httpNoContent);
             })
@@ -27,21 +25,21 @@ module.exports = {
                 reply().code(httpNoContent);
             });
     },
-    list (request, reply) {
+    list(request, reply) {
         User
             .find({})
             .select('_id')
             .exec()
             .then((userIds) => {
-                reply(userIds.map((element) => element._id));
+                reply(userIds.map(element => element._id));
             })
             .catch(() => {
                 reply(boom.notFound());
             });
     },
-    read (request, reply) {
+    read(request, reply) {
         User
-            .findOne({_id: request.params.id})
+            .findOne({ _id: request.params.id })
             .exec()
             .then((user) => {
                 if (user) {
@@ -54,9 +52,9 @@ module.exports = {
                 reply(boom.notFound());
             });
     },
-    update (request, reply) {
+    update(request, reply) {
         User
-            .findOneAndUpdate({_id: request.params.id}, request.payload)
+            .findOneAndUpdate({ _id: request.params.id }, request.payload)
             .exec()
             .then((user) => {
                 if (user) {
@@ -68,5 +66,5 @@ module.exports = {
             .catch(() => {
                 reply(boom.badRequest());
             });
-    }
+    },
 };

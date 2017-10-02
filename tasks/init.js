@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module core/tasks/init
  */
@@ -8,10 +6,14 @@
  * Writes a server configuration file.
  * @returns {Null} nothing
  */
-function init () {
+function init() {
+    // eslint-disable-next-line global-require
     const path = require('path');
+    // eslint-disable-next-line global-require
     const chalk = require('chalk');
+    // eslint-disable-next-line global-require
     const read = require('./helpers/read-promise');
+    // eslint-disable-next-line global-require
     const writeFile = require('./helpers/write-file-promise');
 
     const config = {};
@@ -23,7 +25,7 @@ function init () {
 
     read({
         default: 'localhost',
-        prompt: 'hostname:'
+        prompt: 'hostname:',
     })
         .then((serverHostname) => {
             config.server = {};
@@ -31,7 +33,7 @@ function init () {
 
             return read({
                 default: 80,
-                prompt: 'port number:'
+                prompt: 'port number:',
             });
         })
         .then((serverPort) => {
@@ -39,7 +41,7 @@ function init () {
 
             return read({
                 default: '',
-                prompt: 'url prefix: ()'
+                prompt: 'url prefix: ()',
             });
         })
         .then((prefix) => {
@@ -49,7 +51,7 @@ function init () {
 
             return read({
                 default: 'localhost',
-                prompt: 'hostname:'
+                prompt: 'hostname:',
             });
         })
         .then((databaseHostname) => {
@@ -58,7 +60,7 @@ function init () {
 
             return read({
                 default: 'nicest',
-                prompt: 'database name:'
+                prompt: 'database name:',
             });
         })
         .then((databaseName) => {
@@ -66,7 +68,7 @@ function init () {
 
             return read({
                 default: 27017,
-                prompt: 'database port:'
+                prompt: 'database port:',
             });
         })
         .then((databasePort) => {
@@ -76,7 +78,7 @@ function init () {
 
             return read({
                 default: 'AReallyReallyLongSuperSecretEncryptionToken',
-                prompt: 'cookie encryption token:'
+                prompt: 'cookie encryption token:',
             });
         })
         .then((authenticationSecret) => {
@@ -85,19 +87,19 @@ function init () {
 
             return read({
                 default: 'false',
-                prompt: 'is there an https proxy?:'
+                prompt: 'is there an https proxy?:',
             });
         })
         .then((authenticationHttpsProxy) => {
             config.authentication.https = authenticationHttpsProxy === 'true';
 
-            return read({prompt: 'Github Client ID:'});
+            return read({ prompt: 'Github Client ID:' });
         })
         .then((authenticationGithubClientId) => {
             config.authentication.github = {};
             config.authentication.github.client = authenticationGithubClientId;
 
-            return read({prompt: 'Github Client Secret:'});
+            return read({ prompt: 'Github Client Secret:' });
         })
         .then((authenticationGithubClientSecret) => {
             config.authentication.github.secret = authenticationGithubClientSecret;

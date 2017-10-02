@@ -1,22 +1,20 @@
-'use strict';
-
 module.exports = [
     {
         config: {
             auth: false,
-            plugins: {lout: false}
+            plugins: { lout: false },
         },
-        handler: {view: 'modules/welcome/view/welcome'},
+        handler: { view: 'modules/welcome/view/welcome' },
         method: 'GET',
-        path: '/'
+        path: '/',
     },
     {
         config: {
             auth: false,
-            plugins: {lout: false}
+            plugins: { lout: false },
         },
-        handler: {directory: {path: 'modules/welcome/static'}},
+        handler: { directory: { path: 'modules/welcome/static' } },
         method: 'GET',
-        path: '/welcome/static/{param*}'
-    }
+        path: '/welcome/static/{param*}',
+    },
 ];

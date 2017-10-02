@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module code-project/handler/select-issue-tracker
  */
@@ -10,8 +8,8 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with a redirect
  */
-function selectIssueTracker (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function selectIssueTracker(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     request
         .yar
@@ -22,7 +20,7 @@ function selectIssueTracker (request, reply) {
             'taiga-project-has-kanban': request.payload.hasKanban,
             'taiga-project-has-wiki': request.payload.hasWiki,
             'taiga-project-is-private': request.payload.isPrivate,
-            'taiga-project-use-taiga': request.payload.useTaiga
+            'taiga-project-use-taiga': request.payload.useTaiga,
         });
 
     if (request.payload.useTaiga) {

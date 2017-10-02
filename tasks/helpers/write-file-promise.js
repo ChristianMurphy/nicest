@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module core/tasks/helper/write-file-promise
  */
@@ -13,7 +11,7 @@ const fs = require('fs');
  * @param {Object} options - additional options
  * @returns {Promise} resolves when file is written
  */
-function writeFile (filename, data, options) {
+function writeFile(filename, data, options) {
     return new Promise((resolve, reject) => {
         fs.writeFile(filename, data, options, (err) => {
             if (err) {

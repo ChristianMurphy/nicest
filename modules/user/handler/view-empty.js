@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module user/handler/view-empty
  */
@@ -10,16 +8,16 @@
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function viewEmpty (request, reply) {
-    const {prefix} = request.route.realm.modifiers.route;
+function viewEmpty(request, reply) {
+    const { prefix } = request.route.realm.modifiers.route;
 
     reply.view('modules/user/view/view', {
         url: `${prefix}/recipe/manage-users/create`,
         user: {
             modules: {},
             name: '',
-            role: 'student'
-        }
+            role: 'student',
+        },
     });
 }
 

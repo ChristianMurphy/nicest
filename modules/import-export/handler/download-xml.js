@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module import-export/handler/download-xml
  */
@@ -16,7 +14,7 @@ const example = require('../task/example');
  * @param {Reply} reply - Hapi Reply
  * @returns {Null} responds with HTML page
  */
-function downloadXML (request, reply) {
+function downloadXML(request, reply) {
     validate(request.payload.file.path)
         .then(importUsers)
         .then(importTeams)
@@ -28,9 +26,9 @@ function downloadXML (request, reply) {
                     example,
                     validation: {
                         done: true,
-                        valid: true
-                    }
-                }
+                        valid: true,
+                    },
+                },
             );
         })
         .catch((err) => {
@@ -41,9 +39,9 @@ function downloadXML (request, reply) {
                     validation: {
                         done: true,
                         errors: err,
-                        valid: false
-                    }
-                }
+                        valid: false,
+                    },
+                },
             );
         });
 }

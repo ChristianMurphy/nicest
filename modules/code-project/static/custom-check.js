@@ -4,9 +4,7 @@ window.taigaDescription = $('input[name=description]');
 
 window
     .taigaCheckbox
-    .change(function changeListener () {
-        'use strict';
-
+    .change(function changeListener() {
         window
             .taigaDescription
             .prop(
@@ -22,9 +20,7 @@ window.slackAccessToken = $('input[name=accessToken]');
 
 window
     .slackCheckbox
-    .change(function changeListener () {
-        'use strict';
-
+    .change(function changeListener() {
         window
             .slackAccessToken
             .prop(

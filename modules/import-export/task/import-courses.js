@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @module import-export/task/import-courses
  */
@@ -11,7 +9,7 @@ const Course = require('../../course/model/course');
  * @param {Object} documentAndMapping - XML document, User ObjectId mappings, and Team ObjectId mappings
  * @returns {Object} XML Document, User ObjectId mapping, and Team ObjectId mapping
  */
-function importCourses (documentAndMapping) {
+function importCourses(documentAndMapping) {
     // Find all the teams
     const courses = documentAndMapping
         .document
@@ -30,7 +28,7 @@ function importCourses (documentAndMapping) {
                 .get('name')
                 .text(),
             students: [],
-            teams: []
+            teams: [],
         };
 
         // Get each of the instructors' ids
@@ -40,7 +38,7 @@ function importCourses (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => element.xmlId === memberXmlId)
+                .find(element => element.xmlId === memberXmlId)
                 .databaseId;
 
             courseMetadata
@@ -55,7 +53,7 @@ function importCourses (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => element.xmlId === memberXmlId)
+                .find(element => element.xmlId === memberXmlId)
                 .databaseId;
 
             courseMetadata
@@ -70,7 +68,7 @@ function importCourses (documentAndMapping) {
                 .value();
             const memberMongoId = documentAndMapping
                 .mapping
-                .find((element) => element.xmlId === memberXmlId)
+                .find(element => element.xmlId === memberXmlId)
                 .databaseId;
 
             courseMetadata
