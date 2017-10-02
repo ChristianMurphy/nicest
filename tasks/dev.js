@@ -7,6 +7,7 @@
  * @returns {Null} nothing
  */
 function dev() {
+    // eslint-disable-next-line global-require
     require('./helpers/start-server');
 }
 

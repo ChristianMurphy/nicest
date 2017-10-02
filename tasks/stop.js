@@ -7,6 +7,7 @@
  * @returns {Null} nothing
  */
 function stop() {
+    // eslint-disable-next-line global-require
     const processManager = require('pm2');
 
     processManager.connect(() => {

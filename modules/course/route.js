@@ -31,21 +31,17 @@ const courseValidation = {
         .array()
         .single()
         .unique()
-        .items(
-            Joi
-                .string()
-                .hex(),
-        )
+        .items(Joi
+            .string()
+            .hex())
         .description('List of User ids who are participating in the course'),
     teams: Joi
         .array()
         .single()
         .unique()
-        .items(
-            Joi
-                .string()
-                .hex(),
-        )
+        .items(Joi
+            .string()
+            .hex())
         .description('List of Team ids that are a part of the course'),
 };
 

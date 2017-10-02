@@ -148,7 +148,8 @@ function confirm(request, reply) {
         // Gather CA Dashboard users
         .then(() => {
             if (useAssessment) {
-                return gatherProjectMetadata(seedRepository,
+                return gatherProjectMetadata(
+                    seedRepository,
                     githubUsername,
                     githubToken,
                     studentType,
@@ -156,7 +157,8 @@ function confirm(request, reply) {
                     course,
                     slackToken,
                     slackChannels,
-                    taigaToken);
+                    taigaToken,
+                );
             }
 
             return null;

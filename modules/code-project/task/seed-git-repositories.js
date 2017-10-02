@@ -52,25 +52,23 @@ function seedGitRepository(username, password, seedRepositoryURL, destinationRep
                             .userpassPlaintextNew(username, password);
                     },
                 },
-            }),
-        )
+            }))
         // Open the repository
         .then(() => NodeGit
             .Repository
-            .open(temporaryFolder),
-        )
+            .open(temporaryFolder))
         // Push the seed repository to all destination repositories
         .then((seedRepository) => {
             let chain = Promise.resolve();
 
             // For each destination
+            // eslint-disable-next-line guard-for-in
             for (const index in destinationRepositoryURLs) {
                 // Create and open a remote for destination
                 chain = chain
                     .then(() => NodeGit
                         .Remote
-                        .create(seedRepository, index.toString(), destinationRepositoryURLs[index]),
-                    )
+                        .create(seedRepository, index.toString(), destinationRepositoryURLs[index]))
                     // Push to the remote
                     .then(remote => remote.push([branchReference], {
                         callbacks: {

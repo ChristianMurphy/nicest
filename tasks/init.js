@@ -7,9 +7,13 @@
  * @returns {Null} nothing
  */
 function init() {
+    // eslint-disable-next-line global-require
     const path = require('path');
+    // eslint-disable-next-line global-require
     const chalk = require('chalk');
+    // eslint-disable-next-line global-require
     const read = require('./helpers/read-promise');
+    // eslint-disable-next-line global-require
     const writeFile = require('./helpers/write-file-promise');
 
     const config = {};

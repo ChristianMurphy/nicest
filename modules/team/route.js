@@ -12,11 +12,9 @@ const teamValidation = {
         .array()
         .single()
         .unique()
-        .items(
-            Joi
-                .string()
-                .hex(),
-        )
+        .items(Joi
+            .string()
+            .hex())
         .description('List of User ids who are a part of the team'),
     modules: Joi
         .object()

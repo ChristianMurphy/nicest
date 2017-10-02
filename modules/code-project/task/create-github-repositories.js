@@ -38,7 +38,6 @@ function createRepositories(githubUsername, githubToken, repositories, options) 
     for (const repo of repositories) {
         // Gather the promises
         promises.push(
-            // Create a repository
             Github
                 .me
                 .repos

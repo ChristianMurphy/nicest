@@ -77,9 +77,7 @@ function importCourses(documentAndMapping) {
         }
 
         // Copy the course to Mongoose
-        promises.push(
-            Course.create(courseMetadata),
-        );
+        promises.push(Course.create(courseMetadata));
     }
 
     // Wait for all courses to be created

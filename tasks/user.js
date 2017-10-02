@@ -7,14 +7,20 @@
  * @returns {Null} nothing
  */
 function user() {
+    // eslint-disable-next-line global-require
     const chalk = require('chalk');
+    // eslint-disable-next-line global-require
     const read = require('./helpers/read-promise');
+    // eslint-disable-next-line global-require
     const database = require('../lib/database');
+    // eslint-disable-next-line global-require
     const mongoose = require('mongoose');
+    // eslint-disable-next-line global-require
     const configuration = require('../nicest.json');
 
     database(configuration);
 
+    // eslint-disable-next-line global-require
     const userModel = require('../modules/user/model/user');
 
     console.log(chalk.bold('\nCreate a new user\n'));

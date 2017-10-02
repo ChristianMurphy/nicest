@@ -8,7 +8,9 @@
  * @returns {Null} nothing
  */
 function start() {
+    // eslint-disable-next-line global-require
     const processManager = require('pm2');
+    // eslint-disable-next-line global-require
     const path = require('path');
 
     processManager.connect(() => {
