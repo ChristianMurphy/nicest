@@ -52,8 +52,7 @@ function createSlackChannels (accessToken, slackChannels, slackUsers) {
 
     // Create all channels
     slackChannels.forEach((channel) => {
-        // The Slack API defines different endpoints for creating a
-        // Slack channel depending on whether it is public or private.
+        // The Slack API defines different endpoints for creating public or private a Slack channel.
         let createChannelURI = 'https://slack.com/api/channels.create';
 
         if (channel.isPrivate) {
