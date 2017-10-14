@@ -16,13 +16,13 @@ const Team = require('../../team/model/team');
  */
 
 /**
-  * Takes in basic information and generates Github metadata
-  * @param {String} seedRepository - name of seed repository
-  * @param {String} githubUsername - username of logged in and hosting user
-  * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
-  * @param {Array<ObjectId>} students - an {Array} of {ObjectId} with names, either usernames or team names
-  * @returns {Promise.<Array>} resolves to {Array} of {GithubRepository}
-  */
+ * Takes in basic information and generates Github metadata
+ * @param {String} seedRepository - name of seed repository
+ * @param {String} githubUsername - username of logged in and hosting user
+ * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
+ * @param {Array<ObjectId>} students - an {Array} of {ObjectId} with names, either usernames or team names
+ * @returns {Promise.<Array>} resolves to {Array} of {GithubRepository}
+ */
 function gatherGithubUsers (seedRepository, githubUsername, studentType, students) {
     // Create empty repos for each student on github
     const githubRepositories = [];

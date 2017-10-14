@@ -26,14 +26,14 @@ const Course = require('../../course/model/course');
  */
 
 /**
-  * Takes in basic information and generates Github metadata
-  * @param {String} seedRepository - name of seed repository
-  * @param {String} githubUsername - username of logged in and hosting user
-  * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
-  * @param {Array<ObjectId>} students - either user ids or team ids
-  * @param {String} courseId - Course that project is being generated for
-  * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
-  */
+ * Takes in basic information and generates Github metadata
+ * @param {String} seedRepository - name of seed repository
+ * @param {String} githubUsername - username of logged in and hosting user
+ * @param {String} studentType - Either 'individual' or 'team', defaults to 'individual'
+ * @param {Array<ObjectId>} students - either user ids or team ids
+ * @param {String} courseId - Course that project is being generated for
+ * @returns {Promise.<Array>} resolves to {Array} of {CaMeta}
+ */
 function gatherCaUsers (seedRepository, githubUsername, studentType, students, courseId) {
     // Create empty repos for each student on github
     const caDashboardProjects = [];
