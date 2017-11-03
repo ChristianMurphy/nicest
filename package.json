@@ -65,7 +65,7 @@
     "request": "^2.81.0",
     "rimraf": "^2.6.1",
     "scooter": "^4.0.0",
-    "vision": "^4.1.1",
+    "vision": "^5.0.0",
     "yar": "^8.1.2"
   },
   "devDependencies": {
