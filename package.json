@@ -51,7 +51,7 @@
     "good-squeeze": "^5.0.2",
     "hapi": "^17.0.0",
     "hapi-auth-cookie": "^7.0.0",
-    "inert": "^4.2.1",
+    "inert": "^5.0.1",
     "joi": "^13.0.1",
     "jsdoc": "^3.5.4",
     "libxmljs": "^0.18.7",
