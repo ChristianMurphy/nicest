@@ -83,11 +83,15 @@
   "eslintConfig": {
     "root": true,
     "extends": "eslint:all",
+    "parserOptions": {
+       "ecmaVersion": 2017
+   },
     "env": {
       "node": true,
       "es6": true
     },
     "rules": {
+      "max-statements": "warn",
       "complexity": [
         "warn",
         10

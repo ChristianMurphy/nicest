@@ -5,14 +5,14 @@ const nicest = require('../../lib/server');
 const configuration = require('../../nicest.json');
 
 
-nicest.setup(configuration);
+module.exports = async () => {
+    database(configuration);
 
-database(configuration);
+    const server = await nicest(configuration);
 
-nicest
-    .server
-    .start(() => {
-        console.log('Server running at:', nicest.server.info.uri + nicest.server.realm.modifiers.route.prefix);
-    });
+    await server.start();
+};
 
-module.exports = nicest.server;
+if (require.main === module) {
+    module.exports();
+}
