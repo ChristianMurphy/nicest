@@ -73,7 +73,7 @@
     "@commitlint/config-angular": "^4.2.1",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "~4.10.0",
+    "eslint": "~4.11.0",
     "husky": "^0.14.3",
     "pug-lint": "~2.5.0",
     "remark-cli": "^4.0.0",
@@ -84,8 +84,8 @@
     "root": true,
     "extends": "eslint:all",
     "parserOptions": {
-       "ecmaVersion": 2017
-   },
+      "ecmaVersion": 2017
+    },
     "env": {
       "node": true,
       "es6": true
