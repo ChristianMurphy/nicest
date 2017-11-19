@@ -6,7 +6,4 @@ rules:
     max-params:
         - error
         - 10
-    max-statements:
-        - error
-        - 15
     no-magic-numbers: off

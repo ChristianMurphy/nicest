@@ -1,5 +1,2 @@
 rules:
-    max-statements:
-        - error
-        - 21
     no-sync: off
