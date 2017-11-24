@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^4.0.0",
-    "@commitlint/config-angular": "^4.2.0",
+    "@commitlint/config-angular": "^5.1.1",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "~4.9.0",
