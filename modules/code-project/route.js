@@ -195,11 +195,11 @@ module.exports = [
                         .empty(''),
                     courseChannelNames: Joi
                         .string()
-                        .regex(/^([a-z0-9-]+,?\s*)+$/)
+                        .regex(/^([a-z0-9-]+,?\s?)+$/)
                         .allow(''),
                     teamChannelNames: Joi
                         .string()
-                        .regex(/^([a-z0-9-]+,?\s*)+$/)
+                        .regex(/^([a-z0-9-]+,?\s?)+$/)
                         .allow(''),
                     useSlack: Joi
                         .boolean()
