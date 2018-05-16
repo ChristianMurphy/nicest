@@ -9,19 +9,14 @@ const viewRoute = require('./route');
 /**
  * Registers the User plugin
  * @param {Object} server - Hapi Server object
- * @param {Object} options - Plugin specific options
- * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function welcome (server, options, next) {
+function welcome (server) {
     server.route(viewRoute);
-
-    next();
 }
 
-exports.register = welcome;
-
-exports.register.attributes = {
+exports.plugin = {
     name: 'welcome',
+    register: welcome,
     version: '0.1.0'
 };

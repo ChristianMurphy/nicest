@@ -9,19 +9,14 @@ const viewRoute = require('./route');
 /**
  * Registers the Import Export plugin
  * @param {Object} server - Hapi Server object
- * @param {Object} options - Plugin specific options
- * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function importExport (server, options, next) {
+function importExport (server) {
     server.route(viewRoute);
-
-    next();
 }
 
-exports.register = importExport;
-
-exports.register.attributes = {
+exports.plugin = {
     name: 'import-export',
+    register: importExport,
     version: '0.1.0'
 };
