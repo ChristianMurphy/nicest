@@ -1,18 +1,18 @@
 # nicest
 
 <!-- current project status -->
+
 [![npm version](https://img.shields.io/npm/v/nicest.svg)](https://www.npmjs.com/package/nicest)
 [![Build Status](https://travis-ci.org/ChristianMurphy/nicest.svg?branch=master)](https://travis-ci.org/ChristianMurphy/nicest)
-[![bitHound Code](https://www.bithound.io/github/ChristianMurphy/nicest/badges/code.svg)](https://www.bithound.io/github/ChristianMurphy/nicest)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ChristianMurphy/nicest.svg)](https://greenkeeper.io/)
 [![Dependency Status](https://david-dm.org/ChristianMurphy/nicest.svg)](https://david-dm.org/ChristianMurphy/nicest)
 [![devDependency Status](https://david-dm.org/ChristianMurphy/nicest/dev-status.svg)](https://david-dm.org/ChristianMurphy/nicest?type=dev)
 
 <!-- standards and technologies used in project -->
+
 [![Built with Hapi](https://img.shields.io/badge/built_with-hapi-blue.svg)](https://hapijs.com/)
 [![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ChristianMurphy/nicest/master/LICENSE)
 
 nicely integrating complex education software together
