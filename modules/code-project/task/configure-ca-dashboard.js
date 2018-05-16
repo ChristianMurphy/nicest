@@ -4,7 +4,6 @@
  * @module code-project/task/configure-ca-dashboard
  */
 
-const http = require('http');
 const request = require('request');
 const requestWithCookies = request.defaults({jar: true});
 const querystring = require('querystring');
@@ -65,11 +64,9 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
         method: 'POST',
         uri: `${cassessUrl}/authenticate?${qs}`
     })
-
         // Construct the JSON payload.
         .then(() => {
-            Course
-                .findOne({_id: project.course})
+            Course.findOne({_id: project.course})
                 .exec()
                 .then((course) => {
                     courseName = course.name;
@@ -82,8 +79,7 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                         const teamMetadata = {};
                         const studentMetadata = [];
 
-                        promises.push(Team
-                            .findOne({_id: metaData[teamIndex].team})
+                        promises.push(Team.findOne({_id: metaData[teamIndex].team})
                             .exec()
                             .then((team) => {
                                 teamMetadata.team_name = team.name;
@@ -95,8 +91,7 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                                 const studentCount = metaData[teamIndex].members.length;
 
                                 for (let userIndex = 0; userIndex < studentCount; userIndex += 1) {
-                                    userPromises.push(User
-                                        .findOne({_id: metaData[teamIndex].members[userIndex]})
+                                    userPromises.push(User.findOne({_id: metaData[teamIndex].members[userIndex]})
                                         .exec()
                                         .then((student) => {
                                             studentMetadata.push({
@@ -111,8 +106,7 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                                 const instructorCount = metaData[teamIndex].instructors.length;
 
                                 for (let userIndex = 0; userIndex < instructorCount; userIndex += 1) {
-                                    userPromises.push(User
-                                        .findOne({_id: metaData[teamIndex].instructors[userIndex]})
+                                    userPromises.push(User.findOne({_id: metaData[teamIndex].instructors[userIndex]})
                                         .exec()
                                         .then((instructor) => {
                                             // Instructors are the same for all teams.
@@ -177,37 +171,24 @@ function configureCaDashboard (cassessUsername, cassessPassword, cassessUrl, met
                     console.log(`POST request made to ${cassessUrl}/rest/coursePackage\n`);
 
                     // Send the JSON payload to CAssess.
-                    const options = {
+
+                    return requestPromise({
+                        body: payload,
                         headers: {
                             'cache-control': 'no-cache',
                             'content-type': 'application/json',
                             cookie: cookieJar.getCookieString(cassessUrl)
                         },
-                        hostname: 'cassess.fulton.asu.edu',
+                        json: true,
                         method: 'POST',
-                        path: '/cassess/rest/coursePackage',
-                        port: '8080'
-                    };
-
-                    const req = http.request(options, (res) => {
-                        const chunks = [];
-
-                        res.on('data', (chunk) => {
-                            chunks.push(chunk);
-                        });
-
-                        res.on('end', () => {
-                            const body = Buffer.concat(chunks);
-
-                            console.log(body.toString());
-                        });
+                        uri: `${cassessUrl}/rest/coursePackage`
+                    }).then((data) => {
+                        console.log(JSON.stringify(data));
                     });
-
-                    req.write(JSON.stringify(payload));
-                    req.end();
                 });
         })
         .catch((err) => {
+            console.log('CASSESS Error', err.toString());
             request.log('error', err.toString());
         });
 }
