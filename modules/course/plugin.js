@@ -10,24 +10,19 @@ const viewRoute = require('./route');
 /**
  * Registers the Course plugin
  * @param {Object} server - Hapi Server object
- * @param {Object} options - Plugin specific options
- * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function course (server, options, next) {
+function course (server) {
     server.route(apiRoute);
     server.route(viewRoute);
-
-    next();
 }
 
-exports.register = course;
-
-exports.register.attributes = {
+exports.plugin = {
     dependencies: [
         'user',
         'team'
     ],
     name: 'course',
+    register: course,
     version: '0.1.0'
 };

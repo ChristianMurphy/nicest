@@ -9,24 +9,19 @@ const viewRoute = require('./route');
 /**
  * Registers the Code Project plugin
  * @param {Object} server - Hapi Server object
- * @param {Object} options - Plugin specific options
- * @param {Function} next - Callback to confirm plugin registration
  * @returns {Null} nothing
  */
-function codeProject (server, options, next) {
+function codeProject (server) {
     server.route(viewRoute);
-
-    next();
 }
 
-module.exports.register = codeProject;
-
-module.exports.register.attributes = {
+exports.plugin = {
     dependencies: [
         'user',
         'team',
         'github'
     ],
     name: 'code-project',
+    register: codeProject,
     version: '0.1.0'
 };

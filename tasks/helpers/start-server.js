@@ -4,15 +4,18 @@ const database = require('../../lib/database');
 const nicest = require('../../lib/server');
 const configuration = require('../../nicest.json');
 
+module.exports = async () => {
+    try {
+        await database(configuration);
+    } catch (err) {
+        console.error(err);
+    }
 
-nicest.setup(configuration);
+    const server = await nicest(configuration);
 
-database(configuration);
+    await server.start();
+};
 
-nicest
-    .server
-    .start(() => {
-        console.log('Server running at:', nicest.server.info.uri + nicest.server.realm.modifiers.route.prefix);
-    });
-
-module.exports = nicest.server;
+if (require.main === module) {
+    module.exports();
+}
