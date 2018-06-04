@@ -69,8 +69,8 @@
         "yar": "^9.0.0"
     },
     "devDependencies": {
-        "@commitlint/cli": "^6.0.0",
-        "@commitlint/config-conventional": "^6.0.0",
+        "@commitlint/cli": "^7.0.0",
+        "@commitlint/config-conventional": "^7.0.0",
         "eslint": "^4.19.0",
         "husky": "^0.14.3",
         "pug-lint": "~2.5.0",
