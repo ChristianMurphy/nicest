@@ -7,4 +7,4 @@ services:
         depends_on:
             - mongo
     mongo:
-        image: mongo:latest@sha256:0823cc2000223420f88b20d5e19e6bc252fa328c30d8261070e4645b02183c6a
+        image: mongo:latest@sha256:d69e9e4d983c080cdbbafc64cbbd26373e0e417cb9cd18189eeb554c534fc26e
