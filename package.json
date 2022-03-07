@@ -71,7 +71,7 @@
     "devDependencies": {
         "@commitlint/cli": "^7.0.0",
         "@commitlint/config-conventional": "^7.0.0",
-        "eslint": "^4.19.0",
+        "eslint": "^5.0.0",
         "husky": "^0.14.3",
         "pug-lint": "~2.5.0",
         "remark-cli": "^5.0.0",
