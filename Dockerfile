@@ -1,4 +1,4 @@
-FROM node:6@sha256:72e3854d241d22e0bd35fd64e1ec1a8fddf79ca947dc44ce63e7ce1a29115e55
+FROM node:26@sha256:edf8c5ace79040421c2f00a4af06deeb7a1e2c5ffe33b6af7ca31964a092ca8b
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
